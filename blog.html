@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - niyonkuru reponse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
+    <link rel="icon" href="https://placehold.co/32x32/7c3aed/ffffff?text=NR&font=Montserrat" type="image/png">
+    <style>
+        /* Custom styles for animations and transitions - copied from index.html */
+        .nav-link::after, .mobile-nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #6366f1; /* Indigo 500 */
+            transition: width 0.3s ease-in-out;
+            margin-top: 2px;
+        }
+        .dark .nav-link::after, .dark .mobile-nav-link::after {
+            background: #a78bfa; /* Purple 400 */
+        }
+        .nav-link:hover::after, .mobile-nav-link:hover::after {
+            width: 100%;
+        }
+        .active-nav-link::after, .active-mobile-nav-link::after {
+            width: 100%;
+        }
+
+        /* Search input styling - copied from index.html */
+        .nav-search-input {
+            padding-left: 2.5rem; /* Space for icon */
+            padding-right: 1rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-radius: 9999px; /* Full rounded */
+            border: 1px solid #e2e8f0; /* Slate 200 */
+            background-color: #f8fafc; /* Slate 50 */
+            transition: all 0.3s ease-in-out;
+            width: 180px; /* Default width */
+        }
+        .dark .nav-search-input {
+            border-color: #475569; /* Slate 700 */
+            background-color: #1e293b; /* Slate 800 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        .nav-search-input:focus {
+            width: 250px; /* Expand on focus */
+            border-color: #6366f1; /* Indigo 500 */
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5); /* Ring effect */
+            outline: none;
+        }
+
+        .search-results-dropdown {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .search-results-dropdown {
+            background-color: #1e293b;
+            border-color: #475569;
+        }
+        .search-results-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .search-results-item:hover {
+            background-color: #f0f4f8;
+        }
+        .dark .search-results-item:hover {
+            background-color: #334155;
+        }
+
+        /* Social icons with tooltips - copied from index.html */
+        .social-icon {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 48px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .social-icon:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px) scale(1.05);
+        }
+        .social-tooltip {
+            position: absolute;
+            bottom: 120%; /* Position above the icon */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #334155; /* Slate 700 */
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 20;
+        }
+        .dark .social-tooltip {
+            background-color: #0f172a; /* Slate 900 */
+        }
+        .social-icon:hover .social-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        .social-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #334155 transparent transparent transparent; /* Slate 700 */
+        }
+        .dark .social-tooltip::after {
+            border-color: #0f172a transparent transparent transparent; /* Slate 900 */
+        }
+
+        /* General button styles - copied from index.html */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .btn-primary {
+            background-color: #a78bfa; /* Purple 400 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: #4f46e5; /* Indigo 600 */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+        .dark .btn-primary:hover {
+            background-color: #8b5cf6; /* Purple 500 */
+            box-shadow: 0 8px 20px rgba(167, 139, 250, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            background-color: transparent;
+            border: 2px solid #6366f1; /* Indigo 500 */
+            color: #6366f1; /* Indigo 500 */
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .dark .btn-secondary {
+            border-color: #a78bfa; /* Purple 400 */
+            color: #a78bfa; /* Purple 400 */
+        }
+        .btn-secondary:hover {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .btn-secondary:hover {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b; /* Slate 800 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: #ffffff;
+            color: #6366f1; /* Indigo 500 */
+            padding: 1rem 2.5rem;
+            border-radius: 9999px; /* Full rounded */
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .dark .cta-btn {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .cta-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            background-color: #f0f4f8; /* Lighten on hover */
+        }
+
+        /* Section titles and subtitles - copied from index.html */
+        .section-title {
+            font-size: 2.5rem; /* 4xl */
+            font-weight: 700; /* Bold */
+            margin-bottom: 1rem;
+            color: #1e293b; /* Slate 900 */
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .dark .section-title {
+            color: #f8fafc; /* Slate 50 */
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #6366f1; /* Indigo 500 */
+            border-radius: 2px;
+        }
+        .section-title.text-left::after {
+            left: 0;
+            transform: translateX(0);
+        }
+        .dark .section-title::after {
+            background-color: #a78bfa; /* Purple 400 */
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem; /* Lg */
+            color: #475569; /* Slate 700 */
+        }
+        .dark .section-subtitle {
+            color: #94a3b8; /* Slate 400 */
+        }
+
+        /* Footer links - copied from index.html */
+        .footer-link {
+            color: #475569; /* Slate 700 */
+            transition: color 0.3s ease, transform 0.2s ease;
+            position: relative;
+            padding-bottom: 2px;
+        }
+        .dark .footer-link {
+            color: #94a3b8; /* Slate 400 */
+        }
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: #6366f1; /* Indigo 500 */
+            transition: width 0.3s ease;
+        }
+        .dark .footer-link::after {
+            background-color: #a78bfa; /* Purple 400 */
+        }
+        .footer-link:hover {
+            color: #6366f1; /* Indigo 500 */
+            transform: translateY(-2px);
+        }
+        .dark .footer-link:hover {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        .footer-social-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 44px;
+            height: 44px;
+            background-color: #cbd5e1; /* Slate 300 */
+            border-radius: 50%;
+            color: #1e293b; /* Slate 900 */
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        .dark .footer-social-icon {
+            background-color: #475569; /* Slate 700 */
+            color: #f8fafc; /* Slate 50 */
+        }
+        .footer-social-icon:hover {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .footer-social-icon:hover {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b; /* Slate 900 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+
+        /* Back to top button - copied from index.html */
+        #backToTopBtn {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Keyframe for wiggle animation - copied from index.html */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            50% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        .animate-wiggle:hover {
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+
+        /* Navbar fade in down animation - copied from index.html */
+        @keyframes fadeInDownNav {
+            from {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fadeInDownNav {
+            animation: fadeInDownNav 0.8s ease-out forwards;
+            animation-delay: 0.5s; /* Delay to appear after content loads */
+        }
+
+        /* New styles for Blog Cards */
+        .blog-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .dark .blog-card {
+            background-color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .blog-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .dark .blog-card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+        .blog-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+        .blog-card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+        .blog-card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+        .dark .blog-card-title {
+            color: #f8fafc;
+        }
+        .blog-card-meta {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+        .dark .blog-card-meta {
+            color: #94a3b8;
+        }
+        .blog-card-description {
+            font-size: 1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+        .dark .blog-card-description {
+            color: #cbd5e1;
+        }
+        .blog-read-more {
+            display: inline-flex;
+            align-items: center;
+            color: #6366f1;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            cursor: pointer; /* Make it clear it's clickable */
+        }
+        .dark .blog-read-more {
+            color: #a78bfa;
+        }
+        .blog-read-more:hover {
+            color: #4f46e5;
+        }
+        .dark .blog-read-more:hover {
+            color: #8b5cf6;
+        }
+
+        /* Category/Tag badges */
+        .category-badge {
+            display: inline-block;
+            background-color: #e0e7ff; /* Indigo 100 */
+            color: #4338ca; /* Indigo 700 */
+            padding: 0.4rem 1rem;
+            border-radius: 9999px; /* Full rounded */
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .dark .category-badge {
+            background-color: #3730a3; /* Indigo 800 */
+            color: #c7d2fe; /* Indigo 200 */
+        }
+        .category-badge:hover {
+            background-color: #c7d2fe; /* Indigo 200 */
+            transform: translateY(-2px);
+        }
+        .dark .category-badge:hover {
+            background-color: #4f46e5; /* Indigo 600 */
+            color: white;
+        }
+        .category-badge.active {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+        }
+        .dark .category-badge.active {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b;
+            box-shadow: 0 2px 8px rgba(167, 139, 250, 0.4);
+        }
+
+
+        /* AI Text Area and Button */
+        .ai-input-area {
+            background-color: #f8fafc;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .dark .ai-input-area {
+            background-color: #1e293b;
+        }
+        .ai-input-area textarea {
+            min-height: 120px;
+            resize: vertical;
+            border: 1px solid #cbd5e1; /* Slate 300 */
+            background-color: #ffffff; /* White */
+            color: #1e293b; /* Slate 900 */
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .dark .ai-input-area textarea {
+            border-color: #475569; /* Slate 700 */
+            background-color: #334155; /* Slate 700 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        .ai-input-area textarea:focus {
+            border-color: #6366f1; /* Indigo 500 */
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            outline: none;
+        }
+        .dark .ai-input-area textarea:focus {
+            border-color: #a78bfa; /* Purple 400 */
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+        }
+
+        .ai-output-area {
+            background-color: #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            min-height: 150px;
+            font-style: italic;
+            color: #475569;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #cbd5e1;
+            text-align: left; /* Ensure text aligns left */
+        }
+        .dark .ai-output-area {
+            background-color: #334155;
+            color: #cbd5e1;
+            border: 1px solid #475569;
+        }
+        .ai-loading-indicator {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(99, 102, 241, 0.3); /* Indigo 500 with opacity */
+            border-radius: 50%;
+            border-top-color: #6366f1; /* Indigo 500 */
+            animation: spin 1s ease-in-out infinite;
+            -webkit-animation: spin 1s ease-in-out infinite;
+        }
+        .dark .ai-loading-indicator {
+            border-color: rgba(167, 139, 250, 0.3); /* Purple 400 with opacity */
+            border-top-color: #a78bfa; /* Purple 400 */
+        }
+        @keyframes spin {
+            to { -webkit-transform: rotate(360deg); }
+        }
+        @-webkit-keyframes spin {
+            to { -webkit-transform: rotate(360deg); }
+        }
+
+        /* AI Tool Card */
+        .ai-tool-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .dark .ai-tool-card {
+            background-color: #1e293b;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        .ai-tool-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .dark .ai-tool-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        }
+        .ai-tool-card .ph-fill {
+            color: #6366f1; /* Indigo 500 */
+            transition: color 0.3s ease;
+        }
+        .dark .ai-tool-card .ph-fill {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .ai-tool-card:hover .ph-fill {
+            color: #4f46e5; /* Indigo 600 */
+        }
+        .dark .ai-tool-card:hover .ph-fill {
+            color: #8b5cf6; /* Purple 500 */
+        }
+
+        /* Single Post Modal Styles */
+        .single-post-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .single-post-modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .single-post-modal-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh; /* Limit height to viewport height */
+            overflow-y: auto; /* Enable scrolling for long content */
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .dark .single-post-modal-content {
+            background-color: #1e293b;
+        }
+        .single-post-modal-overlay.open .single-post-modal-content {
+            transform: translateY(0);
+        }
+        .single-post-modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #475569;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .dark .single-post-modal-close-btn {
+            color: #94a3b8;
+        }
+        .single-post-modal-close-btn:hover {
+            color: #1e293b;
+        }
+        .dark .single-post-modal-close-btn:hover {
+            color: #f8fafc;
+        }
+        .single-post-modal-content h2 {
+            font-size: 2.25rem; /* 3xl */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        .dark .single-post-modal-content h2 {
+            color: #f8fafc;
+        }
+        .single-post-modal-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #475569;
+        }
+        .dark .single-post-modal-content p {
+            color: #cbd5e1;
+        }
+        .single-post-modal-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans leading-relaxed transition-colors duration-300 overflow-x-hidden">
+
+    <nav id="navbar" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
+        <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity">niyonkuru reponse</a>
+
+            <div class="hidden md:flex items-center relative group">
+                <input type="text" id="desktopSearchInput" placeholder="Search projects, skills..." class="nav-search-input peer">
+                <i class="fas fa-search text-slate-500 dark:text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-indigo-500 transition-colors"></i>
+                <div id="desktopSearchResults" class="search-results-dropdown hidden group-focus-within:block hover:block">
+                    <p class="p-2 text-sm text-slate-500">Type to search...</p>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-3 lg:space-x-4">
+                <a href="index.html#hero" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="skills.html" class="nav-link">Skills</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="experience.html" class="nav-link">Experience</a>
+                <a href="blog.html" class="nav-link active-nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+
+            <div class="flex items-center">
+                <button id="darkModeToggle" aria-label="Toggle Dark Mode" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800 focus:ring-indigo-500 transition-all">
+                    <i class="fas fa-moon text-slate-700 dark:text-yellow-400 text-lg dark:block hidden"></i>
+                    <i class="fas fa-sun text-slate-700 dark:text-yellow-400 text-lg dark:hidden block"></i>
+                </button>
+                <button id="mobileMenuButton" aria-label="Open Menu" class="md:hidden ml-2 p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800 focus:ring-indigo-500">
+                    <i class="fas fa-bars text-slate-700 dark:text-slate-300 text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-slate-800 shadow-xl absolute w-full top-full left-0 animate__animated animate__fadeInDown animate__faster">
+            <div class="p-4 border-b border-slate-200 dark:border-slate-700">
+                 <div class="relative">
+                    <input type="text" id="mobileSearchInput" placeholder="Search..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors">
+                    <i class="fas fa-search text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                </div>
+                <div id="mobileSearchResults" class="search-results-mobile mt-2 hidden max-h-48 overflow-y-auto">
+                    </div>
+            </div>
+            <a href="index.html#hero" class="mobile-nav-link">Home</a>
+            <a href="about.html" class="mobile-nav-link">About</a>
+            <a href="skills.html" class="mobile-nav-link">Skills</a>
+            <a href="projects.html" class="mobile-nav-link">Projects</a>
+            <a href="experience.html" class="mobile-nav-link">Experience</a>
+            <a href="blog.html" class="mobile-nav-link active-mobile-nav-link">Blog</a>
+            <a href="contact.html" class="mobile-nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <section id="blog-hero" class="py-28 lg:py-32 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800 text-white relative overflow-hidden flex items-center justify-center">
+        <div class="container mx-auto px-6 text-center z-10 wow animate__animated animate__fadeInDown">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-4">My Blog</h1>
+            <p class="text-xl md:text-2xl font-light max-w-2xl mx-auto">
+                Insights, tutorials, and thoughts on software development, AI, and technology.
+            </p>
+        </div>
+    </section>
+
+    <section id="blog-posts" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">All Posts</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Dive into my latest articles and technical deep-dives.</p>
+
+            <div class="max-w-4xl mx-auto mb-12">
+                <div class="relative mb-6">
+                    <input type="text" id="blogSearchInput" placeholder="Search blog posts..." class="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors text-lg">
+                    <i class="fas fa-search text-slate-400 dark:text-slate-500 absolute left-4 top-1/2 -translate-y-1/2 text-xl"></i>
+                </div>
+                <div id="blogCategories" class="flex flex-wrap justify-center gap-3 mb-8">
+                    <span class="category-badge active" data-category="all">All</span>
+                    <span class="category-badge" data-category="ai">AI & ML</span>
+                    <span class="category-badge" data-category="webdev">Web Development</span>
+                    <span class="category-badge" data-category="cloud">Cloud Computing</span>
+                    <span class="category-badge" data-category="mobile">Mobile Dev</span>
+                    <span class="category-badge" data-category="data">Data Science</span>
+                    <span class="category-badge" data-category="software">Software Engineering</span>
+                </div>
+            </div>
+
+            <div id="blogPostContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-categories="ai webdev" data-post-id="post-1">
+                    <img src="https://placehold.co/600x200/818cf8/ffffff?text=AI+in+WebDev&font=Montserrat" alt="AI in Web Development Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+1'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">The Future of AI in Web Development</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | May 20, 2025 | <i class="ph-tag-fill"></i> AI, WebDev</p>
+                        <p class="blog-card-description">
+                            Exploring how artificial intelligence is revolutionizing web development, from automated code generation to personalized user experiences. Discover the tools and techniques shaping the next generation of web applications.
+                        </p>
+                        <a href="#" class="blog-read-more group" data-post-id="post-1">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-categories="webdev software" data-post-id="post-2">
+                    <img src="https://placehold.co/600x200/f472b6/ffffff?text=React+State&font=Montserrat" alt="React State Management Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+2'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">Mastering State Management in React</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | April 15, 2025 | <i class="ph-tag-fill"></i> React, Frontend</p>
+                        <p class="blog-card-description">
+                            A deep dive into various state management patterns and libraries in React, helping you build robust and scalable applications. From useState to Redux and Context API, understand when to use each.
+                        </p>
+                        <a href="#" class="blog-read-more group" data-post-id="post-2">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-categories="cloud software" data-post-id="post-3">
+                    <img src="https://placehold.co/600x200/34d399/ffffff?text=Cloud+Native&font=Montserrat" alt="Cloud Native Architectures Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+3'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">Cloud Native Architectures Explained</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | March 10, 2025 | <i class="ph-tag-fill"></i> Cloud, Architecture</p>
+                        <p class="blog-card-description">
+                            Understanding the principles and benefits of designing applications for cloud environments. Learn about microservices, containers, and serverless computing.
+                        </p>
+                        <a href="#" class="blog-read-more group" data-post-id="post-3">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-categories="ai data" data-post-id="post-4">
+                    <img src="https://placehold.co/600x200/a78bfa/ffffff?text=Generative+AI&font=Montserrat" alt="Generative AI Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+4'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">Introduction to Generative AI Models</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | Feb 28, 2025 | <i class="ph-tag-fill"></i> AI, ML</p>
+                        <p class="blog-card-description">
+                            A beginner-friendly guide to generative AI, covering models like GANs and Transformers, and their applications in various fields.
+                        </p>
+                        <a href="#" class="blog-read-more group" data-post-id="post-4">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s" data-categories="mobile webdev app" data-post-id="post-5">
+                    <img src="https://placehold.co/600x200/38bdf8/ffffff?text=PWA+Power&font=Montserrat" alt="PWA Development Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+5'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">Building Progressive Web Apps (PWAs)</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | Jan 20, 2025 | <i class="ph-tag-fill"></i> WebDev, Mobile</p>
+                        <p class="blog-card-description">
+                            Learn how to create powerful Progressive Web Applications that offer native app experiences directly from the web browser.
+                        </p>
+                        <a href="#" class="blog-read-more group" data-post-id="post-5">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s" data-categories="data software" data-post-id="post-6">
+                    <img src="https://placehold.co/600x200/ef4444/ffffff?text=Data+Viz&font=Montserrat" alt="Data Visualization Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+6'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">Effective Data Visualization Techniques</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | Dec 05, 2024 | <i class="ph-tag-fill"></i> Data, Analytics</p>
+                        <p class="blog-card-description">
+                            Transforming raw data into compelling visual stories. This post covers best practices and tools for effective data visualization.
+                        </p>
+                        <a href="#" class="blog-read-more group" data-post-id="post-6">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s" data-categories="ai software" data-post-id="post-7">
+                    <img src="https://placehold.co/600x200/60a5fa/ffffff?text=LLMs+Explained&font=Montserrat" alt="LLMs Explained Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+7'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">Demystifying Large Language Models (LLMs)</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | Nov 18, 2024 | <i class="ph-tag-fill"></i> AI, Software</p>
+                        <p class="blog-card-description">
+                            An in-depth look at how Large Language Models work, their architecture, training, and the exciting applications they enable in modern software.
+                        </p>
+                        <a href="#" class="blog-read-more group" data-post-id="post-7">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s" data-categories="software webdev" data-post-id="post-8">
+                    <img src="https://placehold.co/600x200/c084fc/ffffff?text=NodeJS+APIs&font=Montserrat" alt="Node.js APIs Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+8'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">Building Scalable Backend APIs with Node.js</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | Oct 25, 2024 | <i class="ph-tag-fill"></i> Software, WebDev</p>
+                        <p class="blog-card-description">
+                            A comprehensive guide to designing and implementing robust, scalable, and secure RESTful APIs using Node.js and Express.js.
+                        </p>
+                        <a href="#" class="blog-read-more group" data-post-id="post-8">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s" data-categories="mobile app software" data-post-id="post-9">
+                    <img src="https://placehold.co/600x200/facc15/ffffff?text=React+Native&font=Montserrat" alt="React Native Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+9'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">Cross-Platform Mobile Dev with React Native</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | Sep 12, 2024 | <i class="ph-tag-fill"></i> Mobile, App, Software</p>
+                        <p class="blog-card-description">
+                            Explore the benefits and challenges of building mobile applications for both iOS and Android from a single codebase using React Native.
+                        </p>
+                        <a href="#" class="blog-read-more group" data-post-id="post-9">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s" data-categories="ai software cloud" data-post-id="post-10">
+                    <img src="https://placehold.co/600x200/4ade80/ffffff?text=MLOps&font=Montserrat" alt="MLOps Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+10'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">The Role of MLOps in Production AI Systems</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | Aug 01, 2024 | <i class="ph-tag-fill"></i> AI, Software, Cloud</p>
+                        <p class="blog-card-description">
+                            Understand how MLOps practices streamline the machine learning lifecycle, from experimentation to deployment and monitoring in production.
+                        </p>
+                        <a href="#" class="blog-read-more group" data-post-id="post-10">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="1.1s" data-categories="app ui/ux" data-post-id="post-11">
+                    <img src="https://placehold.co/600x200/f87171/ffffff?text=Mobile+UI&font=Montserrat" alt="Mobile UI Design Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+11'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">Designing User-Friendly Mobile Interfaces</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | July 10, 2024 | <i class="ph-tag-fill"></i> App, UI/UX</p>
+                        <p class="blog-card-description">
+                            Key principles and best practices for creating intuitive, engaging, and accessible user interfaces for mobile applications.
+                        </p>
+                        <a href="#" class="blog-read-more group" data-post-id="post-11">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="1.2s" data-categories="software cloud" data-post-id="post-12">
+                    <img src="https://placehold.co/600x200/3b82f6/ffffff?text=Docker+K8s&font=Montserrat" alt="Docker Kubernetes Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+12'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">Containerization with Docker and Kubernetes</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | June 25, 2024 | <i class="ph-tag-fill"></i> Software, Cloud</p>
+                        <p class="blog-card-description">
+                            A practical guide to containerizing your applications with Docker and orchestrating them efficiently with Kubernetes for scalable deployments.
+                        </p>
+                        <a href="#" class="blog-read-more group" data-post-id="post-12">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-software-tools" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="section-title">Recommended Tools & Resources</h2>
+            <p class="section-subtitle mb-12 lg:mb-16 max-w-2xl mx-auto">
+                Discover the essential AI, software, and app development tools I use and recommend.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <a href="https://www.tensorflow.org/" target="_blank" rel="noopener noreferrer" class="ai-tool-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <i class="ph-brain-fill text-6xl mb-4 text-red-500"></i>
+                    <h3 class="text-xl font-semibold mb-2">TensorFlow</h3>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm">
+                        An open-source machine learning platform for building and deploying AI models.
+                    </p>
+                </a>
+                <a href="https://pytorch.org/" target="_blank" rel="noopener noreferrer" class="ai-tool-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <i class="ph-atom-fill text-6xl mb-4 text-orange-500"></i>
+                    <h3 class="text-xl font-semibold mb-2">PyTorch</h3>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm">
+                        A Python-based scientific computing package and deep learning framework.
+                    </p>
+                </a>
+                <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" class="ai-tool-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <i class="ph-code-fill text-6xl mb-4 text-blue-500"></i>
+                    <h3 class="text-xl font-semibold mb-2">VS Code</h3>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm">
+                        A powerful, free, and open-source code editor for modern web and cloud development.
+                    </p>
+                </a>
+                <a href="https://www.docker.com/" target="_blank" rel="noopener noreferrer" class="ai-tool-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <i class="ph-whale-fill text-6xl mb-4 text-sky-500"></i>
+                    <h3 class="text-xl font-semibold mb-2">Docker</h3>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm">
+                        Containerization platform for developing, shipping, and running applications.
+                    </p>
+                </a>
+                <a href="https://flutter.dev/" target="_blank" rel="noopener noreferrer" class="ai-tool-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+                    <i class="ph-device-mobile-fill text-6xl mb-4 text-teal-500"></i>
+                    <h3 class="text-xl font-semibold mb-2">Flutter</h3>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm">
+                        UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
+                    </p>
+                </a>
+                <a href="https://aws.amazon.com/" target="_blank" rel="noopener noreferrer" class="ai-tool-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+                    <i class="ph-cloud-fill text-6xl mb-4 text-yellow-500"></i>
+                    <h3 class="text-xl font-semibold mb-2">AWS</h3>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm">
+                        Comprehensive and broadly adopted cloud platform, offering over 200 fully featured services.
+                    </p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-summarizer" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="section-title">AI Article Summarizer</h2>
+            <p class="section-subtitle mb-12 lg:mb-16 max-w-2xl mx-auto">
+                Paste an article or text, and my AI assistant will generate a concise summary for you.
+            </p>
+            <div class="max-w-3xl mx-auto ai-input-area wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                <textarea id="articleText" class="form-input mb-4" placeholder="Paste your article text here..." rows="8"></textarea>
+                <button id="summarizeBtn" class="btn-primary group">
+                    Summarize with AI <i class="ph-sparkle-fill ml-2 group-hover:animate-bounce-slow"></i>
+                </button>
+                <div id="loadingIndicator" class="mt-4 text-indigo-600 dark:text-indigo-400 font-semibold hidden">
+                    <span class="ai-loading-indicator mr-2"></span> Generating summary...
+                </div>
+                <div id="summaryOutput" class="ai-output-area mt-8 text-left hidden">
+                    <p class="text-slate-700 dark:text-slate-300">Your summary will appear here.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="py-20 lg:py-32 bg-gradient-to-r from-purple-600 to-indigo-700 dark:from-purple-800 dark:to-indigo-900 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="wow animate__animated animate__fadeInUp">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-6">Ready to Build Something Extraordinary?</h2>
+                <p class="text-lg lg:text-xl mb-8 max-w-2xl mx-auto">
+                    I'm always excited to discuss new projects, innovative ideas, or potential collaborations. Let's connect and create an impact.
+                </p>
+                <a href="contact.html" class="cta-btn group">
+                    Let's Talk <i class="fas fa-comments ml-2 group-hover:animate-wiggle"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 py-16 text-center">
+        <div class="container mx-auto px-6">
+            <div class="mb-8 flex justify-center space-x-6">
+                <a href="https://github.com/reponsekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/reponsekdz06 target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com/reponse_kdz/s" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
+                <a href="mailto:reponsekdz06@gmail.com" class="footer-social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <div class="mb-6 space-x-4 sm:space-x-6">
+                <a href="index.html#hero" class="footer-link">Home</a>
+                <a href="about.html" class="footer-link">About</a>
+                <a href="projects.html" class="footer-link">Projects</a>
+                <a href="blog.html" class="footer-link">Blog</a>
+                <a href="contact.html" class="footer-link">Contact</a>
+                <a href="#privacy-policy" class="footer-link">Privacy Policy</a>
+            </div>
+            <p class="text-sm">© <span id="currentYear"></span> niyonkuru reponse. All rights reserved.</p>
+            <p class="text-xs mt-2">Designed with <i class="fas fa-heart text-red-500"></i>Reponse Niyonkuru</p>
+            <p class="text-xs mt-1">Located in Kigali-Kicukiro.</p>
+        </div>
+    </footer>
+
+    <button id="backToTopBtn" aria-label="Back to Top" class="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white p-3 rounded-full shadow-lg opacity-0 translate-y-10 transition-all duration-300 z-40">
+        <i class="fas fa-arrow-up text-lg"></i>
+    </button>
+
+    <div id="singlePostModal" class="single-post-modal-overlay">
+        <div class="single-post-modal-content">
+            <button class="single-post-modal-close-btn" aria-label="Close Post">×</button>
+            <h2 id="modalPostTitle" class="text-3xl font-bold mb-4"></h2>
+            <p id="modalPostMeta" class="text-sm text-slate-600 dark:text-slate-400 mb-6"></p>
+            <img id="modalPostImage" src="" alt="Post Image" class="w-full h-auto rounded-lg mb-6">
+            <div id="modalPostContent" class="prose dark:prose-invert max-w-none">
+                </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize WOW.js for scroll animations
+            new WOW().init();
+
+            // Dark Mode Toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const sunIcon = darkModeToggle.querySelector('.fa-sun');
+            const moonIcon = darkModeToggle.querySelector('.fa-moon');
+
+            function setDarkMode(isDark) {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('darkMode', 'true');
+                    moonIcon.style.display = 'block';
+                    sunIcon.style.display = 'none';
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('darkMode', 'false');
+                    moonIcon.style.display = 'none';
+                    sunIcon.style.display = 'block';
+                }
+            }
+
+            if (localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                setDarkMode(true);
+            } else {
+                setDarkMode(false);
+            }
+
+            darkModeToggle.addEventListener('click', () => {
+                setDarkMode(!document.documentElement.classList.contains('dark'));
+            });
+
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.querySelector('i').classList.toggle('fa-bars');
+                mobileMenuButton.querySelector('i').classList.toggle('fa-times');
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.querySelector('i').classList.remove('fa-times');
+                    mobileMenuButton.querySelector('i').classList.add('fa-bars');
+                });
+            });
+
+            // Back to Top Button
+            const backToTopBtn = document.getElementById('backToTopBtn');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.remove('opacity-0', 'translate-y-10');
+                    backToTopBtn.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+                    backToTopBtn.classList.add('opacity-0', 'translate-y-10');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Search functionality for Blog Posts
+            const blogSearchInput = document.getElementById('blogSearchInput');
+            const blogPostContainer = document.getElementById('blogPostContainer');
+            const blogCards = document.querySelectorAll('.blog-card');
+            const categoryBadges = document.querySelectorAll('.category-badge');
+
+            function filterBlogPosts() {
+                const searchQuery = blogSearchInput.value.toLowerCase();
+                const activeCategory = document.querySelector('.category-badge.active').dataset.category;
+
+                blogCards.forEach(card => {
+                    const title = card.querySelector('.blog-card-title').textContent.toLowerCase();
+                    const description = card.querySelector('.blog-card-description').textContent.toLowerCase();
+                    const categories = card.dataset.categories.split(' ');
+
+                    const matchesSearch = title.includes(searchQuery) || description.includes(searchQuery);
+                    const matchesCategory = activeCategory === 'all' || categories.includes(activeCategory);
+
+                    if (matchesSearch && matchesCategory) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            blogSearchInput.addEventListener('input', filterBlogPosts);
+
+            categoryBadges.forEach(badge => {
+                badge.addEventListener('click', () => {
+                    categoryBadges.forEach(b => b.classList.remove('active'));
+                    badge.classList.add('active');
+                    filterBlogPosts();
+                });
+            });
+
+            // AI Article Summarizer Logic (Simulated API Call)
+            const articleTextarea = document.getElementById('articleText');
+            const summarizeButton = document.getElementById('summarizeBtn');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const summaryOutput = document.getElementById('summaryOutput');
+
+            summarizeButton.addEventListener('click', async () => {
+                const textToSummarize = articleTextarea.value.trim();
+                if (textToSummarize.length < 50) { // Require minimum text length
+                    summaryOutput.classList.remove('hidden');
+                    summaryOutput.innerHTML = '<p class="text-red-500">Please enter a longer text to summarize (minimum 50 characters).</p>';
+                    return;
+                }
+
+                loadingIndicator.classList.remove('hidden');
+                summaryOutput.classList.add('hidden');
+                summaryOutput.innerHTML = ''; // Clear previous summary
+
+                // Simulate API call to Gemini-2.0-flash
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Summarize the following article concisely:\n\n${textToSummarize}` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Leave as-is for Canvas environment
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const summary = result.candidates[0].content.parts[0].text;
+                        summaryOutput.innerHTML = `<p>${summary}</p>`;
+                    } else {
+                        summaryOutput.innerHTML = '<p class="text-red-500">Failed to generate summary. Please try again.</p>';
+                    }
+                } catch (error) {
+                    console.error('Error calling Gemini API:', error);
+                    summaryOutput.innerHTML = '<p class="text-red-500">An error occurred while summarizing. Please check your network connection.</p>';
+                } finally {
+                    loadingIndicator.classList.add('hidden');
+                    summaryOutput.classList.remove('hidden');
+                }
+            });
+
+            // Single Post Modal Logic
+            const singlePostModal = document.getElementById('singlePostModal');
+            const modalPostTitle = document.getElementById('modalPostTitle');
+            const modalPostMeta = document.getElementById('modalPostMeta');
+            const modalPostImage = document.getElementById('modalPostImage');
+            const modalPostContent = document.getElementById('modalPostContent');
+            const modalCloseBtn = singlePostModal.querySelector('.single-post-modal-close-btn');
+            const readMoreButtons = document.querySelectorAll('.blog-read-more');
+
+            // Sample blog post data (replace with actual content or fetch from API)
+            const blogPostsData = {
+                "post-1": {
+                    title: "The Future of AI in Web Development",
+                    meta: "By niyonkuru reponse | May 20, 2025 | AI, WebDev",
+                    image: "https://placehold.co/800x450/818cf8/ffffff?text=AI+in+WebDev+Full&font=Montserrat",
+                    content: `
+                        <p>Artificial Intelligence is rapidly transforming the landscape of web development, offering unprecedented opportunities for automation, personalization, and enhanced user experiences. From intelligent chatbots and content recommendation systems to AI-powered design tools and automated testing, the integration of AI is making web development more efficient and dynamic.</p>
+                        <p>One of the most exciting areas is AI-driven code generation. Tools are emerging that can write boilerplate code, suggest functions, and even refactor existing code, significantly speeding up development cycles. This allows developers to focus on more complex logic and innovative features rather than repetitive tasks.</p>
+                        <h3>Personalized User Experiences</h3>
+                        <p>AI models can analyze user behavior, preferences, and demographics to deliver highly personalized content, layouts, and recommendations. This leads to increased engagement and satisfaction, as users feel that the website or application truly understands their needs.</p>
+                        <p>Furthermore, AI is enhancing accessibility by providing automated alt-text generation for images, real-time language translation, and intelligent voice interfaces, making web content available to a wider audience.</p>
+                        <h3>Challenges and the Road Ahead</h3>
+                        <p>While the benefits are immense, challenges remain, including data privacy concerns, ethical considerations in AI design, and the need for developers to acquire new skills. However, the continuous evolution of AI technologies promises a future where web applications are smarter, more intuitive, and seamlessly integrated into our daily lives.</p>
+                        <p>The synergy between AI and web development is just beginning to unfold, and it promises to reshape how we build and interact with the digital world.</p>
+                    `
+                },
+                "post-2": {
+                    title: "Mastering State Management in React",
+                    meta: "By niyonkuru reponse | April 15, 2025 | React, Frontend",
+                    image: "https://placehold.co/800x450/f472b6/ffffff?text=React+State+Full&font=Montserrat",
+                    content: `
+                        <p>State management is a critical aspect of building robust and scalable React applications. As applications grow in complexity, managing data flow and component interactions can become challenging without a well-defined strategy. This post explores popular state management patterns and libraries in the React ecosystem.</p>
+                        <p>Initially, React's built-in <code>useState</code> and <code>useReducer</code> hooks are sufficient for local component state. However, for global state that needs to be shared across many components, solutions like the Context API, Redux, and Zustand come into play.</p>
+                        <h3>Context API for Simpler Global State</h3>
+                        <p>React's Context API provides a way to pass data through the component tree without having to pass props down manually at every level. It's ideal for less frequently updated global data like theme preferences or user authentication status. It simplifies prop drilling but can lead to re-renders if not optimized.</p>
+                        <h3>Redux for Complex Applications</h3>
+                        <p>Redux is a predictable state container for JavaScript apps, widely adopted for large and complex applications. It enforces a strict unidirectional data flow and uses a single global store, making state changes transparent and debuggable. While it has a steeper learning curve, its ecosystem of middleware and developer tools is very powerful.</p>
+                        <h3>Zustand for Lightweight State</h3>
+                        <p>Zustand is a small, fast, and scalable bear-necessities state-management solution using simplified flux principles. It's an excellent choice for projects that need global state without the boilerplate of Redux, offering a more modern and hooks-friendly API.</p>
+                        <p>Choosing the right state management solution depends on your project's scale, complexity, and team preferences. Understanding the trade-offs of each approach is key to building maintainable React applications.</p>
+                    `
+                },
+                "post-3": {
+                    title: "Cloud Native Architectures Explained",
+                    meta: "By niyonkuru reponse | March 10, 2025 | Cloud, Architecture",
+                    image: "https://placehold.co/800x450/34d399/ffffff?text=Cloud+Native+Full&font=Montserrat",
+                    content: `
+                        <p>Cloud-native architectures are designed to leverage the scalability, flexibility, and resilience of cloud computing environments. Unlike traditional monolithic applications, cloud-native applications are built as collections of small, independent, and loosely coupled services.</p>
+                        <p>The core principles of cloud-native development include microservices, containerization, continuous delivery, and DevOps practices. These elements work together to enable rapid development, deployment, and scaling of applications.</p>
+                        <h3>Microservices and Containers</h3>
+                        <p>Microservices break down large applications into smaller, manageable services, each running in its own process and communicating via lightweight mechanisms (like APIs). This modularity allows different teams to work on services independently and deploy them frequently.</p>
+                        <p>Containers (like Docker) provide a consistent and isolated environment for these microservices, packaging the application code and all its dependencies. Container orchestration platforms like Kubernetes automate the deployment, scaling, and management of containerized applications across clusters of machines.</p>
+                        <h3>Continuous Delivery and DevOps</h3>
+                        <p>Continuous Delivery ensures that code changes are automatically built, tested, and prepared for release to production. Coupled with DevOps culture, which emphasizes collaboration and automation between development and operations teams, it enables faster release cycles and higher reliability.</p>
+                        <p>Embracing cloud-native architectures allows organizations to innovate faster, improve operational efficiency, and build applications that are inherently more resilient and adaptable to changing business needs.</p>
+                    `
+                },
+                "post-4": {
+                    title: "Introduction to Generative AI Models",
+                    meta: "By niyonkuru reponse | Feb 28, 2025 | AI, ML",
+                    image: "https://placehold.co/800x450/a78bfa/ffffff?text=Generative+AI+Full&font=Montserrat",
+                    content: `
+                        <p>Generative Artificial Intelligence refers to AI models capable of producing new, original content, rather than just classifying or predicting based on existing data. This revolutionary field has given rise to technologies that can create realistic images, compose music, write compelling text, and even generate code.</p>
+                        <p>Two prominent types of generative models are Generative Adversarial Networks (GANs) and Transformer-based models (like GPT series).</p>
+                        <h3>Generative Adversarial Networks (GANs)</h3>
+                        <p>GANs consist of two neural networks: a Generator and a Discriminator. The Generator creates new data (e.g., images), while the Discriminator tries to distinguish between real data and the Generator's fake data. Through this adversarial process, both networks improve, leading to increasingly realistic generated content.</p>
+                        <h3>Transformer Models</h3>
+                        <p>Transformer models, particularly Large Language Models (LLMs) like OpenAI's GPT series or Google's Gemini, excel at generating human-like text. They leverage attention mechanisms to process input sequences in parallel, allowing them to understand context and relationships across long texts, leading to coherent and creative outputs.</p>
+                        <p>Applications of generative AI are vast, from creating synthetic datasets for training other AI models, generating marketing copy, designing new products, to assisting artists and writers in their creative processes. As these models continue to evolve, their impact across industries will only grow.</p>
+                    `
+                },
+                "post-5": {
+                    title: "Building Progressive Web Apps (PWAs)",
+                    meta: "By niyonkuru reponse | Jan 20, 2025 | WebDev, Mobile",
+                    image: "https://placehold.co/800x450/38bdf8/ffffff?text=PWA+Power+Full&font=Montserrat",
+                    content: `
+                        <p>Progressive Web Applications (PWAs) are web applications that offer a user experience similar to native mobile apps. They combine the best features of web and mobile apps, providing reliability, speed, and engagement without requiring an app store download.</p>
+                        <p>Key characteristics of PWAs include:</p>
+                        <ul>
+                            <li><strong>Reliable:</strong> Load instantly and work offline thanks to Service Workers caching resources.</li>
+                            <li><strong>Fast:</strong> Respond quickly to user interactions with smooth animations.</li>
+                            <li><strong>Engaging:</strong> Offer an immersive user experience, can be added to the home screen, and support push notifications.</li>
+                        </ul>
+                        <h3>Core Technologies Behind PWAs</h3>
+                        <p>The foundation of PWAs lies in modern web technologies:</p>
+                        <ol>
+                            <li><strong>Service Workers:</strong> A JavaScript file that runs in the background, separate from the web page, enabling features like offline access, push notifications, and background data synchronization.</li>
+                            <li><strong>Web App Manifest:</strong> A JSON file that provides information about the application (like name, icons, start URL) to the browser, allowing it to be installed on the user's home screen.</li>
+                            <li><strong>HTTPS:</strong> Essential for security and to enable Service Workers, ensuring that the connection between the user and the PWA is secure.</li>
+                        </ol>
+                        <p>PWAs offer a compelling alternative to native apps, especially for businesses looking to reach a wider audience with a single codebase and provide a consistent, high-quality experience across devices.</p>
+                    `
+                },
+                "post-6": {
+                    title: "Effective Data Visualization Techniques",
+                    meta: "By niyonkuru reponse | Dec 05, 2024 | Data, Analytics",
+                    image: "https://placehold.co/800x450/ef4444/ffffff?text=Data+Viz+Full&font=Montserrat",
+                    content: `
+                        <p>Data visualization is the graphical representation of information and data. By using visual elements like charts, graphs, and maps, data visualization tools provide an accessible way to see and understand trends, outliers, and patterns in data.</p>
+                        <p>Effective data visualization is crucial for communicating insights clearly and efficiently. Here are some key techniques:</p>
+                        <ul>
+                            <li><strong>Choose the Right Chart Type:</strong> Select charts that best represent your data and the message you want to convey (e.g., bar charts for comparisons, line charts for trends, pie charts for proportions).</li>
+                            <li><strong>Simplify and Declutter:</strong> Remove unnecessary elements that distract from the data. Focus on clarity and ease of understanding.</li>
+                            <li><strong>Use Color Strategically:</strong> Colors can highlight important data points, show categories, or indicate intensity. Use them purposefully and consider color blindness.</li>
+                            <li><strong>Tell a Story:</strong> Guide your audience through the data, explaining what they are seeing and why it matters. A narrative makes data more memorable and impactful.</li>
+                            <li><strong>Interactivity:</strong> Allow users to explore the data themselves through filtering, zooming, and tooltips. This empowers them to find their own insights.</li>
+                        </ul>
+                        <p>Tools like D3.js, Tableau, and Power BI enable developers and analysts to create compelling and interactive data visualizations that transform raw numbers into actionable intelligence.</p>
+                    `
+                },
+                "post-7": {
+                    title: "Demystifying Large Language Models (LLMs)",
+                    meta: "By niyonkuru reponse | Nov 18, 2024 | AI, Software",
+                    image: "https://placehold.co/800x450/60a5fa/ffffff?text=LLMs+Explained+Full&font=Montserrat",
+                    content: `
+                        <p>Large Language Models (LLMs) have taken the world by storm, demonstrating incredible capabilities in understanding, generating, and manipulating human language. These models are a type of artificial intelligence that uses deep learning techniques and vast amounts of text data to perform a wide range of natural language processing (NLP) tasks.</p>
+                        <p>At their core, LLMs are neural networks, typically based on the Transformer architecture, which allows them to process long sequences of text and understand complex relationships between words and phrases. They are trained on internet-scale datasets, learning grammar, facts, reasoning abilities, and even creative writing styles.</p>
+                        <h3>How LLMs Work</h3>
+                        <p>LLMs predict the next word in a sequence based on the words that came before it. This seemingly simple task, when scaled up with billions of parameters and massive datasets, leads to emergent abilities such as:</p>
+                        <ul>
+                            <li><strong>Text Generation:</strong> Writing articles, stories, poems, and code.</li>
+                            <li><strong>Summarization:</strong> Condensing long texts into shorter versions.</li>
+                            <li><strong>Translation:</strong> Translating text between different languages.</li>
+                            <li><strong>Question Answering:</strong> Providing answers to questions based on given context.</li>
+                            <li><strong>Code Generation:</strong> Assisting developers by writing code snippets or entire functions.</li>
+                        </ul>
+                        <h3>Applications in Software Development</h3>
+                        <p>LLMs are being integrated into various software applications, from enhancing search engines and customer service chatbots to powering intelligent content creation tools and developer assistants. They promise to revolutionize how we interact with technology and automate complex cognitive tasks.</p>
+                        <p>Understanding LLMs is becoming increasingly important for software developers, as these models are poised to become a fundamental component of future intelligent applications.</p>
+                    `
+                },
+                "post-8": {
+                    title: "Building Scalable Backend APIs with Node.js",
+                    meta: "By niyonkuru reponse | Oct 25, 2024 | Software, WebDev",
+                    image: "https://placehold.co/800x450/c084fc/ffffff?text=NodeJS+APIs+Full&font=Montserrat",
+                    content: `
+                        <p>Node.js has become a popular choice for building scalable and high-performance backend APIs due to its non-blocking, event-driven architecture. Its single-threaded nature, combined with the event loop, makes it efficient for handling concurrent requests without the overhead of multi-threading.</p>
+                        <p>When building APIs with Node.js, frameworks like Express.js simplify the process significantly, providing a robust set of features for web and mobile applications.</p>
+                        <h3>Key Principles for Scalability</h3>
+                        <ul>
+                            <li><strong>Asynchronous Operations:</strong> Leverage Node.js's non-blocking I/O model for database queries, file operations, and external API calls to keep the event loop free.</li>
+                            <li><strong>Stateless APIs:</strong> Design your API endpoints to be stateless, meaning each request from a client contains all the information needed to process it. This simplifies scaling horizontally.</li>
+                            <li><strong>Load Balancing:</strong> Distribute incoming network traffic across multiple backend servers to prevent any single server from becoming a bottleneck.</li>
+                            <li><strong>Database Optimization:</strong> Use efficient database queries, indexing, and connection pooling to minimize database load. Consider NoSQL databases for high-volume, flexible data.</li>
+                            <li><strong>Caching:</strong> Implement caching strategies (e.g., Redis) for frequently accessed data to reduce database hits and improve response times.</li>
+                        </ul>
+                        <p>By following these principles and utilizing Node.js's strengths, developers can build backend APIs that are not only performant but also capable of scaling to meet the demands of growing user bases and data volumes.</p>
+                    `
+                },
+                "post-9": {
+                    title: "Cross-Platform Mobile Dev with React Native",
+                    meta: "By niyonkuru reponse | Sep 12, 2024 | Mobile, App, Software",
+                    image: "https://placehold.co/800x450/facc15/ffffff?text=React+Native+Full&font=Montserrat",
+                    content: `
+                        <p>React Native allows developers to build native mobile applications using JavaScript and React. This means you can write a single codebase and deploy it to both iOS and Android platforms, significantly reducing development time and cost compared to building separate native apps.</p>
+                        <p>Unlike hybrid frameworks that render web views, React Native compiles your JavaScript code into native UI components, resulting in a truly native look and feel and excellent performance.</p>
+                        <h3>Advantages of React Native</h3>
+                        <ul>
+                            <li><strong>Code Reusability:</strong> Write once, run everywhere. A large portion of your codebase can be shared between iOS and Android.</li>
+                            <li><strong>Hot Reloading & Fast Refresh:</strong> See changes instantly without recompiling the entire app, accelerating the development process.</li>
+                            <li><strong>Native Performance:</strong> Renders actual native UI components, providing a smooth and responsive user experience.</li>
+                            <li><strong>Large Community & Ecosystem:</strong> Benefit from a vast community, rich libraries, and ready-to-use components.</li>
+                            <li><strong>Cost-Effective:</strong> Reduces development time and resources, making it an attractive option for startups and enterprises alike.</li>
+                        </ul>
+                        <p>While there can be challenges with platform-specific features or complex animations, React Native remains a powerful and popular choice for building high-quality, cross-platform mobile applications efficiently.</p>
+                    `
+                },
+                "post-10": {
+                    title: "The Role of MLOps in Production AI Systems",
+                    meta: "By niyonkuru reponse | Aug 01, 2024 | AI, Software, Cloud",
+                    image: "https://placehold.co/800x450/4ade80/ffffff?text=MLOps+Full&font=Montserrat",
+                    content: `
+                        <p>MLOps (Machine Learning Operations) is a set of practices that aims to deploy and maintain machine learning models in production reliably and efficiently. It extends the DevOps principles to the machine learning lifecycle, addressing the unique challenges of managing ML models, data, and code.</p>
+                        <p>The ML lifecycle is iterative and complex, involving data collection, preparation, model training, evaluation, deployment, and continuous monitoring. MLOps streamlines this process, ensuring that models perform as expected in real-world scenarios.</p>
+                        <h3>Key Components of MLOps</h3>
+                        <ul>
+                            <li><strong>Data Versioning and Management:</strong> Tracking changes to data and ensuring data consistency across different stages of the ML pipeline.</li>
+                            <li><strong>Automated ML Pipelines:</strong> Automating the steps from data ingestion to model deployment, ensuring reproducibility and efficiency.</li>
+                            <li><strong>Model Versioning and Registry:</strong> Managing different versions of trained models and storing them in a central repository for easy access and deployment.</li>
+                            <li><strong>Continuous Integration/Continuous Delivery (CI/CD) for ML:</strong> Automating testing and deployment of ML models and their associated code.</li>
+                            <li><strong>Model Monitoring:</strong> Continuously tracking model performance in production, detecting data drift, concept drift, and performance degradation.</li>
+                            <li><strong>Retraining and Redeployment:</strong> Automating the process of retraining models with new data and redeploying improved versions.</li>
+                        </ul>
+                        <p>By implementing MLOps, organizations can accelerate the deployment of AI solutions, reduce operational risks, and ensure that their machine learning models deliver sustained business value.</p>
+                    `
+                },
+                "post-11": {
+                    title: "Designing User-Friendly Mobile Interfaces",
+                    meta: "By niyonkuru reponse | July 10, 2024 | App, UI/UX",
+                    image: "https://placehold.co/800x450/f87171/ffffff?text=Mobile+UI+Full&font=Montserrat",
+                    content: `
+                        <p>Designing effective user interfaces for mobile applications is crucial for user engagement and satisfaction. A well-designed mobile UI is intuitive, efficient, and aesthetically pleasing, guiding users seamlessly through their tasks.</p>
+                        <p>Here are fundamental principles for creating user-friendly mobile interfaces:</p>
+                        <ul>
+                            <li><strong>Simplicity and Clarity:</strong> Keep the interface clean and uncluttered. Every element should serve a purpose. Use clear and concise labels.</li>
+                            <li><strong>Consistency:</strong> Maintain consistent design patterns, navigation, and terminology throughout the app. This reduces cognitive load for users.</li>
+                            <li><strong>Fingertip-Friendly Design:</strong> Design interactive elements (buttons, links) to be large enough and spaced appropriately for easy tapping on touchscreens. Consider the "thumb zone" for frequently used actions.</li>
+                            <li><strong>Visual Hierarchy:</strong> Use size, color, contrast, and spacing to draw attention to important elements and guide the user's eye.</li>
+                            <li><strong>Feedback and Responsiveness:</strong> Provide immediate visual feedback for user actions (e.g., button presses, loading indicators) to assure them that the app is responding.</li>
+                            <li><strong>Accessibility:</strong> Design for all users, including those with disabilities. Ensure sufficient color contrast, provide alternative text for images, and support screen readers.</li>
+                            <li><strong>Minimize Input:</strong> Reduce typing wherever possible by using auto-fill, dropdowns, or smart defaults.</li>
+                        </ul>
+                        <p>By adhering to these principles, mobile app designers can create interfaces that are not only beautiful but also highly functional and enjoyable to use.</p>
+                    `
+                },
+                "post-12": {
+                    title: "Containerization with Docker and Kubernetes",
+                    meta: "By niyonkuru reponse | June 25, 2024 | Software, Cloud",
+                    image: "https://placehold.co/800x450/3b82f6/ffffff?text=Docker+K8s+Full&font=Montserrat",
+                    content: `
+                        <p>Containerization has revolutionized software development and deployment by providing a lightweight, portable, and consistent environment for applications. Docker is the leading platform for containerization, while Kubernetes is the de facto standard for orchestrating these containers at scale.</p>
+                        <h3>Docker: Packaging Your Application</h3>
+                        <p>Docker allows you to package an application and all its dependencies (libraries, system tools, code, runtime) into a single, isolated unit called a container. This ensures that your application runs consistently across different environments, from your local development machine to production servers.</p>
+                        <p>Key benefits of Docker include:</p>
+                        <ul>
+                            <li><strong>Portability:</strong> Run your application anywhere Docker is installed.</li>
+                            <li><strong>Isolation:</strong> Containers isolate applications from each other and from the host system.</li>
+                            <li><strong>Efficiency:</strong> Containers share the host OS kernel, making them much lighter than virtual machines.</li>
+                            <li><strong>Reproducibility:</strong> Ensure consistent environments for development, testing, and production.</li>
+                        </ul>
+                        <h3>Kubernetes: Orchestrating Containers at Scale</h3>
+                        <p>While Docker is great for individual containers, managing hundreds or thousands of containers across multiple servers becomes complex. This is where Kubernetes (K8s) comes in. Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications.</p>
+                        <p>Kubernetes provides features like:</p>
+                        <ul>
+                            <li><strong>Automated Rollouts & Rollbacks:</strong> Deploy new versions of your application with ease and revert if issues arise.</li>
+                            <li><strong>Self-healing:</strong> Automatically restart failed containers, replace unresponsive ones, and kill containers that don't respond to health checks.</li>
+                            <li><strong>Service Discovery & Load Balancing:</strong> Automatically expose containers to the network and distribute traffic.</li>
+                            <li><strong>Resource Management:</strong> Efficiently allocate CPU and memory resources to containers.</li>
+                        </ul>
+                        <p>Together, Docker and Kubernetes form a powerful combination for building, deploying, and managing modern, scalable, and resilient applications in the cloud.</p>
+                    `
+                }
+            };
+
+
+            // Single Post Modal Event Listeners
+            readMoreButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent default anchor link behavior
+                    const postId = button.dataset.postId;
+                    const postData = blogPostsData[postId];
+
+                    if (postData) {
+                        modalPostTitle.textContent = postData.title;
+                        modalPostMeta.textContent = postData.meta;
+                        modalPostImage.src = postData.image;
+                        modalPostImage.alt = postData.title + " Image";
+                        modalPostContent.innerHTML = postData.content;
+                        singlePostModal.classList.add('open');
+                        document.body.style.overflow = 'hidden'; // Prevent body scrolling
+                    } else {
+                        console.error('Post data not found for ID:', postId);
+                    }
+                });
+            });
+
+            modalCloseBtn.addEventListener('click', () => {
+                singlePostModal.classList.remove('open');
+                document.body.style.overflow = ''; // Restore body scrolling
+            });
+
+            singlePostModal.addEventListener('click', (e) => {
+                if (e.target === singlePostModal) { // Close if clicked on overlay
+                    singlePostModal.classList.remove('open');
+                    document.body.style.overflow = ''; // Restore body scrolling
+                }
+            });
+
+            // Update current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Desktop and Mobile Search Functionality (from index.html, adapted for blog)
+            const searchData = [
+                { title: "The Future of AI in Web Development", url: "#single-post-1", tags: ["AI", "WebDev", "Future", "Automation", "Personalization"] },
+                { title: "Mastering State Management in React", url: "#single-post-2", tags: ["React", "Frontend", "State", "Redux", "Context API", "Zustand"] },
+                { title: "Cloud Native Architectures Explained", url: "#single-post-3", tags: ["Cloud", "Architecture", "Microservices", "Containers", "Kubernetes", "DevOps"] },
+                { title: "Introduction to Generative AI Models", url: "#single-post-4", tags: ["AI", "ML", "Generative AI", "GANs", "Transformers", "GPT"] },
+                { title: "Building Progressive Web Apps (PWAs)", url: "#single-post-5", tags: ["WebDev", "Mobile", "PWA", "Service Workers", "Offline"] },
+                { title: "Effective Data Visualization Techniques", url: "#single-post-6", tags: ["Data", "Analytics", "Visualization", "Charts", "Graphs"] },
+                { title: "Demystifying Large Language Models (LLMs)", url: "#single-post-7", tags: ["AI", "Software", "LLM", "NLP", "Generative AI"] },
+                { title: "Building Scalable Backend APIs with Node.js", url: "#single-post-8", tags: ["Software", "WebDev", "Backend", "Node.js", "APIs", "Express.js"] },
+                { title: "Cross-Platform Mobile Dev with React Native", url: "#single-post-9", tags: ["Mobile", "App", "Software", "React Native", "iOS", "Android"] },
+                { title: "The Role of MLOps in Production AI Systems", url: "#single-post-10", tags: ["AI", "Software", "Cloud", "MLOps", "Deployment", "Monitoring"] },
+                { title: "Designing User-Friendly Mobile Interfaces", url: "#single-post-11", tags: ["App", "UI/UX", "Mobile Design", "User Experience"] },
+                { title: "Containerization with Docker and Kubernetes", url: "#single-post-12", tags: ["Software", "Cloud", "Docker", "Kubernetes", "Containerization"] },
+                { title: "My Skills Overview", url: "skills.html", tags: ["Frontend", "Backend", "Cloud", "AI", "Machine Learning", "Deep Learning", "Generative AI", "Data Visualization", "Cloud AI Services"] },
+                { title: "About Me", url: "about.html", tags: ["Biography", "Journey", "Passion", "Values", "Mission"] },
+                { title: "Contact Me", url: "contact.html", tags: ["Email", "LinkedIn", "Inquiry", "Collaboration", "Map", "AI Assistant"] },
+                { title: "Projects Showcase", url: "projects.html", tags: ["Portfolio", "Work", "E-commerce", "Analytics", "Mobile App"] },
+                { title: "Experience Timeline", url: "experience.html", tags: ["Work", "Career", "History"] },
+                { title: "My Approach", url: "index.html#my-approach", tags: ["User-Centric Design", "Agile Development", "Robust Code", "Scalability", "Collaboration", "Innovation"] },
+                { title: "Frequently Asked Questions", url: "index.html#faq", tags: ["FAQ", "Questions", "Answers"] },
+            ];
+
+            function handleGlobalSearch(query, resultsContainer) {
+                resultsContainer.innerHTML = '';
+                if (query.length < 2) {
+                    resultsContainer.classList.add('hidden');
+                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500">Type to search...</p>';
+                    return;
+                }
+
+                const lowerCaseQuery = query.toLowerCase();
+                const filteredResults = searchData.filter(item =>
+                    item.title.toLowerCase().includes(lowerCaseQuery) ||
+                    item.tags.some(tag => tag.toLowerCase().includes(lowerCaseQuery))
+                );
+
+                if (filteredResults.length > 0) {
+                    resultsContainer.classList.remove('hidden');
+                    filteredResults.forEach(item => {
+                        const div = document.createElement('div');
+                        div.classList.add('search-results-item', 'text-slate-700', 'dark:text-slate-200');
+                        div.innerHTML = `<a href="${item.url}" class="block">${item.title} <span class="text-xs text-slate-500 dark:text-slate-400">(${item.tags.join(', ')})</span></a>`;
+                        div.addEventListener('click', () => {
+                            // If it's a blog post URL, open the modal instead of navigating
+                            if (item.url.startsWith('#single-post-')) {
+                                const postId = item.url.replace('#', '');
+                                const postData = blogPostsData[postId];
+                                if (postData) {
+                                    modalPostTitle.textContent = postData.title;
+                                    modalPostMeta.textContent = postData.meta;
+                                    modalPostImage.src = postData.image;
+                                    modalPostImage.alt = postData.title + " Image";
+                                    modalPostContent.innerHTML = postData.content;
+                                    singlePostModal.classList.add('open');
+                                    document.body.style.overflow = 'hidden';
+                                }
+                            } else {
+                                window.location.href = item.url;
+                            }
+                        });
+                        resultsContainer.appendChild(div);
+                    });
+                } else {
+                    resultsContainer.classList.remove('hidden');
+                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500">No results found.</p>';
+                }
+            }
+
+            const desktopSearchInput = document.getElementById('desktopSearchInput');
+            const desktopSearchResults = document.getElementById('desktopSearchResults');
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
+            const mobileSearchResults = document.getElementById('mobileSearchResults');
+
+            desktopSearchInput.addEventListener('input', (e) => {
+                handleGlobalSearch(e.target.value, desktopSearchResults);
+            });
+            desktopSearchInput.addEventListener('focus', () => {
+                handleGlobalSearch(desktopSearchInput.value, desktopSearchResults);
+            });
+            desktopSearchInput.addEventListener('blur', () => {
+                setTimeout(() => {
+                    if (!desktopSearchResults.matches(':hover')) {
+                        desktopSearchResults.classList.add('hidden');
+                    }
+                }, 100);
+            });
+
+            mobileSearchInput.addEventListener('input', (e) => {
+                handleGlobalSearch(e.target.value, mobileSearchResults);
+            });
+            mobileSearchInput.addEventListener('focus', () => {
+                handleGlobalSearch(mobileSearchInput.value, mobileSearchResults);
+            });
+            mobileSearchInput.addEventListener('blur', () => {
+                setTimeout(() => {
+                    if (!mobileSearchResults.matches(':hover')) {
+                        mobileSearchResults.classList.add('hidden');
+                    }
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

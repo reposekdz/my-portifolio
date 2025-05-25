@@ -1,0 +1,168 @@
+/* Custom Styles for Your Portfolio */
+/* You can place this in a file named css/style.css */
+
+/* Import a Google Font (Optional - Tailwind uses a system font stack by default) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif; /* Apply the imported font if you choose to use one */
+}
+
+/* Smooth scrolling behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Navigation Bar Styling */
+#navbar {
+    transition: top 0.3s, background-color 0.3s; /* Smooth transition for hiding/showing and dark mode */
+}
+
+.nav-link {
+    /* Base styling for navigation links, Tailwind handles most of it */
+    position: relative;
+    padding-bottom: 4px; /* Space for the underline */
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: currentColor; /* Uses the link's current text color */
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after,
+.nav-link.font-semibold::after { /* For active link */
+    width: 100%;
+}
+
+
+/* Hero Section Animated Background */
+.animated-gradient-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #4f46e5, #7c3aed, #db2777, #ec4899); /* Indigo, Purple, Pink */
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    z-index: 0; /* Behind content */
+}
+
+.dark .animated-gradient-background {
+    background: linear-gradient(45deg, #3730a3, #5b21b6, #be185d, #c026d3); /* Darker shades */
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+}
+
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Typing Effect Cursor */
+#typing-effect::after {
+    content: '|';
+    animation: blink 0.7s infinite;
+    color: #facc15; /* yellow-400 */
+}
+.dark #typing-effect::after {
+    color: #fde047; /* yellow-300 */
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Project Card Styles */
+.tech-badge {
+    @apply inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 text-xs font-semibold mr-2 mb-2 px-2.5 py-0.5 rounded-full;
+    transition: all 0.2s ease-in-out;
+}
+.tech-badge:hover {
+     @apply bg-indigo-200 dark:bg-indigo-700 scale-105;
+}
+
+.tech-badge-sm { /* For experience section */
+    @apply inline-block bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-medium mr-1 mb-1 px-2 py-0.5 rounded;
+}
+
+
+.project-card {
+    /* Tailwind handles most styling. Add custom transitions or effects here if needed */
+}
+
+/* Button Styles (Primary and Secondary) */
+.btn-primary {
+    @apply bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300;
+}
+.dark .btn-primary {
+    @apply bg-indigo-500 hover:bg-indigo-600;
+}
+
+.btn-secondary {
+    @apply bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300;
+}
+.dark .btn-secondary {
+    @apply bg-slate-700 hover:bg-slate-600 text-slate-200;
+}
+
+/* Skill Filter Buttons */
+.skill-filter-btn, .project-filter-btn {
+    @apply px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200;
+    @apply bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200;
+    @apply hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-400 dark:hover:text-slate-900;
+}
+
+.skill-filter-btn.active-filter, .project-filter-btn.active-filter {
+    @apply bg-indigo-600 dark:bg-indigo-500 text-white dark:text-slate-100;
+}
+
+/* Form Input Styling */
+.form-input {
+    @apply w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors;
+}
+.form-input::placeholder {
+    @apply text-slate-400 dark:text-slate-500;
+}
+
+/* Dark Mode Toggle Icon */
+#darkModeToggle .fa-moon { display: block; } /* Default: show moon (light mode) */
+#darkModeToggle .fa-sun { display: none; }
+
+.dark #darkModeToggle .fa-moon { display: none; }
+.dark #darkModeToggle .fa-sun { display: block; color: #facc15; } /* yellow-400 */
+
+
+/* Experience Timeline - ensure vertical line is centered and visible */
+/* Tailwind handles most of this, but you can add fine-tuning if needed */
+/* Example: make timeline dots more prominent on hover */
+.group:hover .w-5.h-5 {
+    transform: scale(1.25);
+}
+
+/* General card hover effect */
+.hover-card {
+    @apply transition-all duration-300 ease-in-out;
+}
+.hover-card:hover {
+    @apply transform -translate-y-1 shadow-xl;
+}
+
+/* Responsive adjustments if needed beyond Tailwind's capabilities */
+@media (max-width: 768px) {
+    .nav-link {
+        /* Adjust padding for smaller screens if necessary */
+    }
+    .animated-gradient-background {
+        /* Potentially simplify animation on mobile if performance is an issue */
+    }
+}

@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>niyonkuru reponse - Visionary Software Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
+    <link rel="icon" href="https://placehold.co/32x32/7c3aed/ffffff?text=NR&font=Montserrat" type="image/png">
+    <style>
+        /* Custom styles for animations and transitions */
+        .nav-link::after, .mobile-nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #6366f1; /* Indigo 500 */
+            transition: width 0.3s ease-in-out;
+            margin-top: 2px;
+        }
+        .dark .nav-link::after, .dark .mobile-nav-link::after {
+            background: #a78bfa; /* Purple 400 */
+        }
+        .nav-link:hover::after, .mobile-nav-link:hover::after {
+            width: 100%;
+        }
+        .active-nav-link::after, .active-mobile-nav-link::after {
+            width: 100%;
+        }
+
+        /* Search input styling */
+        .nav-search-input {
+            padding-left: 2.5rem; /* Space for icon */
+            padding-right: 1rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-radius: 9999px; /* Full rounded */
+            border: 1px solid #e2e8f0; /* Slate 200 */
+            background-color: #f8fafc; /* Slate 50 */
+            transition: all 0.3s ease-in-out;
+            width: 180px; /* Default width */
+        }
+        .dark .nav-search-input {
+            border-color: #475569; /* Slate 700 */
+            background-color: #1e293b; /* Slate 800 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        .nav-search-input:focus {
+            width: 250px; /* Expand on focus */
+            border-color: #6366f1; /* Indigo 500 */
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5); /* Ring effect */
+            outline: none;
+        }
+
+        .search-results-dropdown {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .search-results-dropdown {
+            background-color: #1e293b;
+            border-color: #475569;
+        }
+        .search-results-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .search-results-item:hover {
+            background-color: #f0f4f8;
+        }
+        .dark .search-results-item:hover {
+            background-color: #334155;
+        }
+
+        /* Hero section particle canvas */
+        #particle-canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        /* Social icons with tooltips */
+        .social-icon {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 48px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .social-icon:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px) scale(1.05);
+        }
+        .social-tooltip {
+            position: absolute;
+            bottom: 120%; /* Position above the icon */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #334155; /* Slate 700 */
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 20;
+        }
+        .dark .social-tooltip {
+            background-color: #0f172a; /* Slate 900 */
+        }
+        .social-icon:hover .social-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        .social-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #334155 transparent transparent transparent; /* Slate 700 */
+        }
+        .dark .social-tooltip::after {
+            border-color: #0f172a transparent transparent transparent; /* Slate 900 */
+        }
+
+        /* Project card interactive */
+        .project-card-interactive {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .dark .project-card-interactive {
+            background-color: #1e293b;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .project-card-interactive:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        .dark .project-card-interactive:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-image-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 66.66%; /* 3:2 Aspect Ratio (400/600) */
+            overflow: hidden;
+        }
+        .project-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .project-card-interactive:hover .project-image {
+            transform: scale(1.05);
+        }
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .project-card-interactive:hover .project-overlay {
+            opacity: 1;
+        }
+        .overlay-btn {
+            display: inline-block;
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .dark .overlay-btn {
+            background-color: #a78bfa; /* Purple 400 */
+        }
+        .overlay-btn:hover {
+            background-color: #4f46e5; /* Indigo 600 */
+            transform: translateY(-2px);
+        }
+        .dark .overlay-btn:hover {
+            background-color: #8b5cf6; /* Purple 500 */
+        }
+
+        /* Tech badge styling */
+        .tech-badge-sm {
+            display: inline-block;
+            background-color: #e0e7ff; /* Indigo 100 */
+            color: #4338ca; /* Indigo 700 */
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .dark .tech-badge-sm {
+            background-color: #3730a3; /* Indigo 800 */
+            color: #c7d2fe; /* Indigo 200 */
+        }
+
+        /* Skill card styling */
+        .skill-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .dark .skill-card {
+            background-color: #1e293b;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        .skill-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #6366f1; /* Indigo 500 */
+        }
+        .dark .skill-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            border-color: #a78bfa; /* Purple 400 */
+        }
+        .skill-card i, .skill-card .ph-fill { /* Apply transition to Phosphor icons as well */
+            transition: color 0.3s ease;
+        }
+        .skill-card:hover i, .skill-card:hover .ph-fill {
+            color: #6366f1; /* Indigo 500 */
+        }
+        .dark .skill-card:hover i, .dark .skill-card:hover .ph-fill {
+            color: #a78bfa; /* Purple 400 */
+        }
+
+        /* General button styles */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .btn-primary {
+            background-color: #a78bfa; /* Purple 400 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: #4f46e5; /* Indigo 600 */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+        .dark .btn-primary:hover {
+            background-color: #8b5cf6; /* Purple 500 */
+            box-shadow: 0 8px 20px rgba(167, 139, 250, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            background-color: transparent;
+            border: 2px solid #6366f1; /* Indigo 500 */
+            color: #6366f1; /* Indigo 500 */
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .dark .btn-secondary {
+            border-color: #a78bfa; /* Purple 400 */
+            color: #a78bfa; /* Purple 400 */
+        }
+        .btn-secondary:hover {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .btn-secondary:hover {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b; /* Slate 800 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: #ffffff;
+            color: #6366f1; /* Indigo 500 */
+            padding: 1rem 2.5rem;
+            border-radius: 9999px; /* Full rounded */
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .dark .cta-btn {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .cta-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            background-color: #f0f4f8; /* Lighten on hover */
+        }
+
+        /* Hero buttons */
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .primary-hero-btn {
+            background-color: #fcd34d; /* Yellow 300 */
+            color: #4338ca; /* Indigo 700 */
+            box-shadow: 0 8px 20px rgba(252, 211, 77, 0.4);
+        }
+        .primary-hero-btn:hover {
+            background-color: #fbbf24; /* Yellow 400 */
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(252, 211, 77, 0.5);
+        }
+        .secondary-hero-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: white;
+        }
+        .secondary-hero-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        /* Section titles and subtitles */
+        .section-title {
+            font-size: 2.5rem; /* 4xl */
+            font-weight: 700; /* Bold */
+            margin-bottom: 1rem;
+            color: #1e293b; /* Slate 900 */
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .dark .section-title {
+            color: #f8fafc; /* Slate 50 */
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #6366f1; /* Indigo 500 */
+            border-radius: 2px;
+        }
+        .section-title.text-left::after {
+            left: 0;
+            transform: translateX(0);
+        }
+        .dark .section-title::after {
+            background-color: #a78bfa; /* Purple 400 */
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem; /* Lg */
+            color: #475569; /* Slate 700 */
+        }
+        .dark .section-subtitle {
+            color: #94a3b8; /* Slate 400 */
+        }
+
+        /* Footer links */
+        .footer-link {
+            color: #475569; /* Slate 700 */
+            transition: color 0.3s ease, transform 0.2s ease;
+            position: relative;
+            padding-bottom: 2px;
+        }
+        .dark .footer-link {
+            color: #94a3b8; /* Slate 400 */
+        }
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: #6366f1; /* Indigo 500 */
+            transition: width 0.3s ease;
+        }
+        .dark .footer-link::after {
+            background-color: #a78bfa; /* Purple 400 */
+        }
+        .footer-link:hover {
+            color: #6366f1; /* Indigo 500 */
+            transform: translateY(-2px);
+        }
+        .dark .footer-link:hover {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        .footer-social-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 44px;
+            height: 44px;
+            background-color: #cbd5e1; /* Slate 300 */
+            border-radius: 50%;
+            color: #1e293b; /* Slate 900 */
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        .dark .footer-social-icon {
+            background-color: #475569; /* Slate 700 */
+            color: #f8fafc; /* Slate 50 */
+        }
+        .footer-social-icon:hover {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .footer-social-icon:hover {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b; /* Slate 900 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+
+        /* Back to top button */
+        #backToTopBtn {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Keyframe for bounce-slow animation */
+        @keyframes bounce-slow {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        .animate-bounce-slow {
+            animation: bounce-slow 2s infinite ease-in-out;
+        }
+
+        /* Keyframe for wiggle animation */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            50% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        .animate-wiggle:hover {
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+
+        /* Navbar fade in down animation */
+        @keyframes fadeInDownNav {
+            from {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fadeInDownNav {
+            animation: fadeInDownNav 0.8s ease-out forwards;
+            animation-delay: 0.5s; /* Delay to appear after content loads */
+        }
+
+        /* Preloader styles (to be removed, but kept for reference if needed) */
+        #preloader {
+            display: none; /* Hide preloader by default */
+        }
+        .loader-circle {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #6366f1;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+        .dark .loader-circle {
+            border: 8px solid #334155;
+            border-top: 8px solid #a78bfa;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* New styles for Blog Cards */
+        .blog-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .dark .blog-card {
+            background-color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .blog-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .dark .blog-card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+        .blog-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+        .blog-card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+        .blog-card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+        .dark .blog-card-title {
+            color: #f8fafc;
+        }
+        .blog-card-meta {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+        .dark .blog-card-meta {
+            color: #94a3b8;
+        }
+        .blog-card-description {
+            font-size: 1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+        .dark .blog-card-description {
+            color: #cbd5e1;
+        }
+        .blog-read-more {
+            display: inline-flex;
+            align-items: center;
+            color: #6366f1;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .dark .blog-read-more {
+            color: #a78bfa;
+        }
+        .blog-read-more:hover {
+            color: #4f46e5;
+        }
+        .dark .blog-read-more:hover {
+            color: #8b5cf6;
+        }
+
+        /* My Approach / Why Choose Me cards */
+        .approach-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid transparent;
+        }
+        .dark .approach-card {
+            background-color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .approach-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            border-left-color: #6366f1; /* Indigo 500 */
+        }
+        .dark .approach-card:hover {
+            border-left-color: #a78bfa; /* Purple 400 */
+        }
+        .approach-card i, .approach-card .ph-fill {
+            color: #6366f1; /* Indigo 500 */
+            transition: color 0.3s ease;
+        }
+        .dark .approach-card i, .dark .approach-card .ph-fill {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .approach-card:hover i, .approach-card:hover .ph-fill {
+            color: #4f46e5; /* Indigo 600 */
+        }
+        .dark .approach-card:hover i, .dark .approach-card:hover .ph-fill {
+            color: #8b5cf6; /* Purple 500 */
+        }
+
+        /* FAQ Accordion styles */
+        .faq-item {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        .dark .faq-item {
+            background-color: #1e293b;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            background-color: #f8fafc; /* Slate 50 */
+            color: #1e293b; /* Slate 900 */
+            transition: background-color 0.3s ease;
+        }
+        .dark .faq-question {
+            background-color: #334155; /* Slate 700 */
+            color: #f8fafc; /* Slate 50 */
+        }
+        .faq-question:hover {
+            background-color: #e2e8f0; /* Slate 200 */
+        }
+        .dark .faq-question:hover {
+            background-color: #475569; /* Slate 700 */
+        }
+        .faq-question.active {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+        }
+        .dark .faq-question.active {
+            background-color: #a78bfa; /* Purple 400 */
+        }
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-answer {
+            padding: 0 1.5rem;
+            font-size: 1rem;
+            color: #475569;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+        }
+        .dark .faq-answer {
+            color: #cbd5e1;
+        }
+        .faq-answer.open {
+            max-height: 200px; /* Adjust as needed based on content */
+            padding-bottom: 1.5rem;
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans leading-relaxed transition-colors duration-300 overflow-x-hidden">
+
+    <nav id="navbar" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
+        <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity">niyonkuru reponse</a>
+
+            <div class="hidden md:flex items-center relative group">
+                <input type="text" id="desktopSearchInput" placeholder="Search projects, skills..." class="nav-search-input peer">
+                <i class="fas fa-search text-slate-500 dark:text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-indigo-500 transition-colors"></i>
+                <div id="desktopSearchResults" class="search-results-dropdown hidden group-focus-within:block hover:block">
+                    <p class="p-2 text-sm text-slate-500">Type to search...</p>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-3 lg:space-x-4">
+                <a href="index.html#hero" class="nav-link active-nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="skills.html" class="nav-link">Skills</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="experience.html" class="nav-link">Experience</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+
+            <div class="flex items-center">
+                <button id="darkModeToggle" aria-label="Toggle Dark Mode" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800 focus:ring-indigo-500 transition-all">
+                    <i class="fas fa-moon text-slate-700 dark:text-yellow-400 text-lg dark:block hidden"></i>
+                    <i class="fas fa-sun text-slate-700 dark:text-yellow-400 text-lg dark:hidden block"></i>
+                </button>
+                <button id="mobileMenuButton" aria-label="Open Menu" class="md:hidden ml-2 p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800 focus:ring-indigo-500">
+                    <i class="fas fa-bars text-slate-700 dark:text-slate-300 text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-slate-800 shadow-xl absolute w-full top-full left-0 animate__animated animate__fadeInDown animate__faster">
+            <div class="p-4 border-b border-slate-200 dark:border-slate-700">
+                 <div class="relative">
+                    <input type="text" id="mobileSearchInput" placeholder="Search..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors">
+                    <i class="fas fa-search text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                </div>
+                <div id="mobileSearchResults" class="search-results-mobile mt-2 hidden max-h-48 overflow-y-auto">
+                    </div>
+            </div>
+            <a href="index.html#hero" class="mobile-nav-link active-mobile-nav-link">Home</a>
+            <a href="about.html" class="mobile-nav-link">About</a>
+            <a href="skills.html" class="mobile-nav-link">Skills</a>
+            <a href="projects.html" class="mobile-nav-link">Projects</a>
+            <a href="experience.html" class="mobile-nav-link">Experience</a>
+            <a href="blog.html" class="mobile-nav-link">Blog</a>
+            <a href="contact.html" class="mobile-nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <section id="hero" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800 text-white relative overflow-hidden pt-20 isolate">
+        <canvas id="particle-canvas" class="absolute inset-0 z-0"></canvas>
+
+        <div class="container mx-auto px-6 text-center z-10 relative">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold mb-4 animate__animated animate__fadeInDown animate__delay-1s">
+                Hi, I'm <span class="text-yellow-300">niyonkuru reponse</span>
+            </h1>
+            <p class="text-2xl md:text-3xl mb-2 font-light animate__animated animate__fadeInUp animate__delay-1s">
+                A Passionate <span id="typing-effect" class="font-semibold text-yellow-300">Software Developer</span>
+            </p>
+            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto font-light animate__animated animate__fadeInUp animate__delay-1-5s">
+                Crafting innovative digital experiences with cutting-edge technology. Let's transform ideas into reality.
+            </p>
+            <div class="space-y-4 sm:space-y-0 sm:space-x-4 animate__animated animate__fadeInUp animate__delay-2s">
+                <a href="projects.html" class="hero-btn primary-hero-btn">
+                    <i class="fas fa-rocket mr-2"></i>View My Work
+                </a>
+                <a href="contact.html" class="hero-btn secondary-hero-btn">
+                    <i class="fas fa-paper-plane mr-2"></i>Get In Touch
+                </a>
+            </div>
+            <div class="mt-16 flex justify-center space-x-6 animate__animated animate__fadeInUp animate__delay-2-5s">
+                <a href="https://github.com/reposekdz" target="_blank" rel="noopener noreferrer" class="social-icon group" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                    <span class="social-tooltip group-hover:opacity-100 group-hover:visible">GitHub</span>
+                </a>
+                <a href="https://linkedin.com/in/reponsekdz06" target="_blank" rel="noopener noreferrer" class="social-icon group" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                     <span class="social-tooltip group-hover:opacity-100 group-hover:visible">LinkedIn</span>
+                </a>
+                <a href="https://twitter.com/reponsekdz06" target="_blank" rel="noopener noreferrer" class="social-icon group" aria-label="Twitter / X">
+                    <i class="fab fa-x-twitter"></i>
+                    <span class="social-tooltip group-hover:opacity-100 group-hover:visible">Twitter / X</span>
+                </a>
+                <a href="https://www.instagram.com/reponse_kdz/s"_blank" rel="noopener noreferrer" class="social-icon group" aria-label="Dev.to Community">
+                    <i class="fab fa-dev"></i>
+                    <span class="social-tooltip group-hover:opacity-100 group-hover:visible">DEV Community</span>
+                </a>
+                <a href="mailto:reponsekdz06@gmail.com" class="social-icon group" aria-label="Email Me">
+                    <i class="fas fa-envelope"></i>
+                    <span class="social-tooltip group-hover:opacity-100 group-hover:visible">Email Me</span>
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 animate__animated animate__fadeInUp animate__delay-3s">
+            <a href="#about-preview" aria-label="Scroll to next section" class="text-4xl text-white/70 hover:text-white transition-colors animate-bounce-slow">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <section id="about-preview" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50 scroll-mt-16">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div class="wow animate__animated animate__fadeInLeft" data-wow-duration="1s">
+                    <img src="./assets/Capture.PNG"
+                         alt="niyonkuru reponse - Professional"
+                         class="rounded-xl shadow-2xl w-full max-w-md mx-auto lg:max-w-none object-cover aspect-square"
+                         onerror="this.src='https://placehold.co/500x500/e2e8f0/4a5568?text=Your+Image'">
+                </div>
+                <div class="wow animate__animated animate__fadeInRight" data-wow-duration="1s" data-wow-delay="0.2s">
+                    <h2 class="section-title text-left">A Bit About Me</h2>
+                    <p class="section-subtitle text-left mb-6">Driven by curiosity and a passion for impactful technology.</p>
+                    <p class="mb-4 text-lg">
+                        Hello! I'm niyonkuru reponse, a software developer dedicated to crafting elegant, efficient, and user-centric digital solutions. With a strong foundation in <span class="font-semibold text-indigo-600 dark:text-indigo-400">full-stack development and cloud architectures</span>, I thrive on transforming complex challenges into intuitive applications.
+                    </p>
+                    <p class="mb-6 text-lg">
+                        My journey in tech is fueled by a relentless pursuit of knowledge and a desire to make a tangible difference. I believe in the power of collaboration and continuous improvement.
+                    </p>
+                    <a href="about.html" class="btn-primary group">
+                        Learn More About Me <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="featured-skills" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">Core Technologies</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Tools and technologies I excel in and love to work with.</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 lg:gap-8">
+                <div class="skill-card wow animate__animated animate__zoomIn" data-wow-delay="0.1s">
+                    <i class="fab fa-react text-5xl text-sky-500 mb-3"></i>
+                    <h3 class="text-lg font-semibold">React</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Frontend Library</p>
+                </div>
+                <div class="skill-card wow animate__animated animate__zoomIn" data-wow-delay="0.2s">
+                    <i class="fab fa-node-js text-5xl text-green-500 mb-3"></i>
+                    <h3 class="text-lg font-semibold">Node.js</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Backend Runtime</p>
+                </div>
+                <div class="skill-card wow animate__animated animate__zoomIn" data-wow-delay="0.3s">
+                    <i class="fab fa-python text-5xl text-yellow-500 mb-3"></i>
+                    <h3 class="text-lg font-semibold">Python</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Versatile Language</p>
+                </div>
+                <div class="skill-card wow animate__animated animate__zoomIn" data-wow-delay="0.4s">
+                    <i class="fas fa-database text-5xl text-blue-500 mb-3"></i>
+                    <h3 class="text-lg font-semibold">SQL & NoSQL</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Databases</p>
+                </div>
+                <div class="skill-card wow animate__animated animate__zoomIn" data-wow-delay="0.5s">
+                    <i class="fab fa-aws text-5xl text-orange-500 mb-3"></i>
+                    <h3 class="text-lg font-semibold">Cloud (AWS/Azure)</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Deployment & Infra</p>
+                </div>
+                <div class="skill-card wow animate__animated animate__zoomIn" data-wow-delay="0.6s">
+                    <i class="ph-sparkle-fill text-5xl text-purple-500 mb-3"></i>
+                    <h3 class="text-lg font-semibold">Machine Learning</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">AI & Data Science</p>
+                </div>
+                <div class="skill-card wow animate__animated animate__zoomIn" data-wow-delay="0.7s">
+                    <i class="ph-brain-fill text-5xl text-red-500 mb-3"></i>
+                    <h3 class="text-lg font-semibold">Deep Learning</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Neural Networks</p>
+                </div>
+                <div class="skill-card wow animate__animated animate__zoomIn" data-wow-delay="0.8s">
+                    <i class="ph-robot-fill text-5xl text-teal-500 mb-3"></i>
+                    <h3 class="text-lg font-semibold">Generative AI</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Model Integration</p>
+                </div>
+                <div class="skill-card wow animate__animated animate__zoomIn" data-wow-delay="0.9s">
+                    <i class="ph-chart-bar-fill text-5xl text-amber-500 mb-3"></i>
+                    <h3 class="text-lg font-semibold">Data Visualization</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Insightful Dashboards</p>
+                </div>
+                <div class="skill-card wow animate__animated animate__zoomIn" data-wow-delay="1.0s">
+                    <i class="ph-cloud-arrow-up-fill text-5xl text-blue-500 mb-3"></i>
+                    <h3 class="text-lg font-semibold">Cloud AI Services</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">AWS/GCP/Azure AI</p>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="skills.html" class="btn-secondary group">
+                    Explore All My Skills <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="featured-projects" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">Highlighted Projects</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">A glimpse into some of the work I'm most proud of.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card-interactive wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <div class="project-image-container">
+                        <img src="https://placehold.co/600x400/818cf8/ffffff?text=Project+Showcase+1&font=Montserrat" alt="Project Alpha" class="project-image" onerror="this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Project+1'">
+                        <div class="project-overlay">
+                            <h3 class="text-xl font-bold mb-1">Project Alpha</h3>
+                            <p class="text-sm mb-3">E-commerce Platform</p>
+                            <a href="projects.html#project-alpha-detail" class="overlay-btn">View Details</a>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="text-lg font-semibold mb-1">Project Alpha</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">A cutting-edge e-commerce solution with a focus on user experience and performance.</p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="tech-badge-sm">React</span>
+                            <span class="tech-badge-sm">Node.js</span>
+                            <span class="tech-badge-sm">Stripe</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-interactive wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                     <div class="project-image-container">
+                        <img src="https://placehold.co/600x400/f472b6/ffffff?text=Project+Showcase+2&font=Montserrat" alt="Project Beta" class="project-image" onerror="this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Project+2'">
+                        <div class="project-overlay">
+                            <h3 class="text-xl font-bold mb-1">Project Beta</h3>
+                            <p class="text-sm mb-3">Data Analytics Dashboard</p>
+                            <a href="projects.html#project-beta-detail" class="overlay-btn">View Details</a>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="text-lg font-semibold mb-1">Project Beta</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">Interactive dashboard for visualizing complex datasets and deriving insights.</p>
+                         <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="tech-badge-sm">Python (Flask)</span>
+                            <span class="tech-badge-sm">D3.js</span>
+                            <span class="tech-badge-sm">Pandas</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-interactive wow animate__animated animate__fadeInUp md:col-span-2 lg:col-span-1" data-wow-delay="0.3s">
+                     <div class="project-image-container">
+                        <img src="https://placehold.co/600x400/34d399/ffffff?text=Project+Showcase+3&font=Montserrat" alt="Project Gamma" class="project-image" onerror="this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Project+3'">
+                        <div class="project-overlay">
+                            <h3 class="text-xl font-bold mb-1">Project Gamma</h3>
+                            <p class="text-sm mb-3">Mobile Productivity App</p>
+                            <a href="projects.html#project-gamma-detail" class="overlay-btn">View Details</a>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="text-lg font-semibold mb-1">Project Gamma</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">A cross-platform mobile app designed to boost daily productivity and organization.</p>
+                         <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="tech-badge-sm">Flutter</span>
+                            <span class="tech-badge-sm">Firebase</span>
+                            <span class="tech-badge-sm">Dart</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="projects.html" class="btn-primary group">
+                    Discover All Projects <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="my-approach" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">My Approach</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">How I bring ideas to life and ensure success.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="approach-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <i class="ph-lightbulb-fill text-5xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">User-Centric Design</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        I prioritize the end-user experience, ensuring solutions are intuitive, accessible, and delightful to interact with.
+                    </p>
+                </div>
+                <div class="approach-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <i class="ph-gear-six-fill text-5xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Agile Development</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Embracing agile methodologies for flexible, iterative development, allowing for continuous feedback and adaptation.
+                    </p>
+                </div>
+                <div class="approach-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <i class="ph-shield-check-fill text-5xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Robust & Secure Code</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Writing clean, maintainable, and secure code is paramount, ensuring long-term stability and reliability.
+                    </p>
+                </div>
+                <div class="approach-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <i class="ph-chart-line-up-fill text-5xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Scalability & Performance</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Designing systems with scalability in mind, optimizing for performance to handle growth and high traffic.
+                    </p>
+                </div>
+                <div class="approach-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+                    <i class="ph-handshake-fill text-5xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Collaborative Partnership</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Working closely with clients and teams, fostering open communication and a shared vision for success.
+                    </p>
+                </div>
+                <div class="approach-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+                    <i class="ph-rocket-launch-fill text-5xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Continuous Innovation</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Staying abreast of emerging technologies and trends to bring innovative solutions to every project.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">What People Say</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Kind words from clients and collaborators.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="testimonial-card bg-slate-50 dark:bg-slate-800/50 p-8 rounded-xl shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <div class="flex items-center mb-4">
+                        <img src="https://placehold.co/80x80/6366f1/ffffff?text=JD" alt="Client Name" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <div>
+                            <p class="font-semibold text-lg">Jane Doe</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">CEO, Tech Solutions</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-700 dark:text-slate-300 italic">
+                        "niyonkuru reponse delivered an outstanding solution that exceeded our expectations. Their attention to detail and commitment to quality are truly remarkable."
+                    </p>
+                </div>
+                <div class="testimonial-card bg-slate-50 dark:bg-slate-800/50 p-8 rounded-xl shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <div class="flex items-center mb-4">
+                        <img src="https://placehold.co/80x80/f472b6/ffffff?text=AS" alt="Client Name" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <div>
+                            <p class="font-semibold text-lg">Alex Smith</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Project Manager, Innovate Corp</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-700 dark:text-slate-300 italic">
+                        "Working with niyonkuru reponse was a fantastic experience. They are highly skilled, communicative, and always go the extra mile to ensure success."
+                    </p>
+                </div>
+                <div class="testimonial-card bg-slate-50 dark:bg-slate-800/50 p-8 rounded-xl shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <div class="flex items-center mb-4">
+                        <img src="https://placehold.co/80x80/34d399/ffffff?text=EM" alt="Client Name" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <div>
+                            <p class="font-semibold text-lg">Emily White</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Founder, Creative Studio</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-700 dark:text-slate-300 italic">
+                        "I highly recommend niyonkuru reponse for any software development needs. Their expertise and dedication transformed our vision into a stunning reality."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">My Services</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Comprehensive solutions for your digital needs.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="service-card bg-white dark:bg-slate-900 p-8 rounded-xl shadow-lg text-center wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <i class="ph-code-block-fill text-6xl text-indigo-500 dark:text-purple-400 mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Web Development</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Building responsive, high-performance web applications from concept to deployment using modern frameworks.
+                    </p>
+                </div>
+                <div class="service-card bg-white dark:bg-slate-900 p-8 rounded-xl shadow-lg text-center wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <i class="ph-app-window-fill text-6xl text-green-500 dark:text-teal-400 mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Mobile App Development</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Crafting intuitive and engaging mobile experiences for iOS and Android platforms with native or cross-platform technologies.
+                    </p>
+                </div>
+                <div class="service-card bg-white dark:bg-slate-900 p-8 rounded-xl shadow-lg text-center wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <i class="ph-cloud-fill text-6xl text-sky-500 dark:text-blue-400 mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Cloud Solutions</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Designing and implementing scalable, secure, and cost-effective cloud infrastructures on AWS, Azure, or GCP.
+                    </p>
+                </div>
+                <div class="service-card bg-white dark:bg-slate-900 p-8 rounded-xl shadow-lg text-center wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <i class="ph-robot-fill text-6xl text-red-500 dark:text-pink-400 mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">AI/ML Integration</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Integrating intelligent features and machine learning models to enhance application functionality and user experience.
+                    </p>
+                </div>
+                <div class="service-card bg-white dark:bg-slate-900 p-8 rounded-xl shadow-lg text-center wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+                    <i class="ph-database-fill text-6xl text-yellow-500 dark:text-orange-400 mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Database Management</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Expertise in designing, optimizing, and managing both SQL and NoSQL databases for robust data handling.
+                    </p>
+                </div>
+                <div class="service-card bg-white dark:bg-slate-900 p-8 rounded-xl shadow-lg text-center wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+                    <i class="ph-lightbulb-fill text-6xl text-purple-500 dark:text-indigo-400 mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Consulting & Strategy</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Providing technical consulting and strategic guidance to help businesses leverage technology effectively.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="latest-blog" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">Latest Blog Posts</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Insights, tutorials, and thoughts on technology.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <img src="https://placehold.co/600x200/818cf8/ffffff?text=Blog+Post+1&font=Montserrat" alt="Blog Post 1 Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+1'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">The Future of AI in Web Development</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | May 20, 2025 | <i class="ph-tag-fill"></i> AI, WebDev</p>
+                        <p class="blog-card-description">
+                            Exploring how artificial intelligence is revolutionizing web development, from automated code generation to personalized user experiences.
+                        </p>
+                        <a href="blog.html#post-ai-webdev" class="blog-read-more group">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <img src="https://placehold.co/600x200/f472b6/ffffff?text=Blog+Post+2&font=Montserrat" alt="Blog Post 2 Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+2'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">Mastering State Management in React</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | April 15, 2025 | <i class="ph-tag-fill"></i> React, Frontend</p>
+                        <p class="blog-card-description">
+                            A deep dive into various state management patterns and libraries in React, helping you build robust applications.
+                        </p>
+                        <a href="blog.html#post-react-state" class="blog-read-more group">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="blog-card wow animate__animated animate__fadeInUp md:col-span-2 lg:col-span-1" data-wow-delay="0.3s">
+                    <img src="https://placehold.co/600x200/34d399/ffffff?text=Blog+Post+3&font=Montserrat" alt="Blog Post 3 Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+3'">
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">Cloud Native Architectures Explained</h3>
+                        <p class="blog-card-meta">By niyonkuru reponse | March 10, 2025 | <i class="ph-tag-fill"></i> Cloud, Architecture</p>
+                        <p class="blog-card-description">
+                            Understanding the principles and benefits of designing applications for cloud environments.
+                        </p>
+                        <a href="blog.html#post-cloud-native" class="blog-read-more group">
+                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="blog.html" class="btn-secondary group">
+                    View All Blog Posts <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">Frequently Asked Questions</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Find answers to common inquiries.</p>
+            <div class="max-w-3xl mx-auto">
+                <div class="faq-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <div class="faq-question">
+                        What kind of projects do you typically work on?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="py-4">I specialize in full-stack web development, mobile application development, and cloud-native solutions. My projects range from e-commerce platforms and data analytics dashboards to productivity tools and AI-powered applications.</p>
+                    </div>
+                </div>
+                <div class="faq-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <div class="faq-question">
+                        What is your preferred technology stack?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="py-4">While I'm adaptable, my preferred stack often includes React for frontend, Node.js or Python (Flask/Django) for backend, and databases like PostgreSQL or MongoDB. For mobile, I often use Flutter. I also have strong experience with cloud platforms like AWS and Azure.</p>
+                    </div>
+                </div>
+                <div class="faq-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <div class="faq-question">
+                        How do you approach a new project?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="py-4">My approach involves understanding the client's vision, user research, agile development with iterative feedback, and a strong focus on clean code, scalability, and security. I believe in transparent communication throughout the project lifecycle.</p>
+                    </div>
+                </div>
+                <div class="faq-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <div class="faq-question">
+                        Can you help with existing projects or provide consulting?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="py-4">Yes, I offer consulting services for architectural design, code reviews, performance optimization, and technology strategy. I can also contribute to existing codebases to enhance features or resolve issues.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="py-20 lg:py-32 bg-gradient-to-r from-purple-600 to-indigo-700 dark:from-purple-800 dark:to-indigo-900 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="wow animate__animated animate__fadeInUp">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-6">Ready to Build Something Extraordinary?</h2>
+                <p class="text-lg lg:text-xl mb-8 max-w-2xl mx-auto">
+                    I'm always excited to discuss new projects, innovative ideas, or potential collaborations. Let's connect and create an impact.
+                </p>
+                <a href="contact.html" class="cta-btn group">
+                    Let's Talk <i class="fas fa-comments ml-2 group-hover:animate-wiggle"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 py-16 text-center">
+        <div class="container mx-auto px-6">
+            <div class="mb-8 flex justify-center space-x-6">
+                <a href="https://github.com/reposekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/niyonkurureponse" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/niyonkurureponse" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com/reponse_kdz/" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
+                <a href="mailto:reponsekdz06@gmail.com" class="footer-social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <div class="mb-6 space-x-4 sm:space-x-6">
+                <a href="index.html#hero" class="footer-link">Home</a>
+                <a href="about.html" class="footer-link">About</a>
+                <a href="projects.html" class="footer-link">Projects</a>
+                <a href="blog.html" class="footer-link">Blog</a>
+                <a href="contact.html" class="footer-link">Contact</a>
+                <a href="#privacy-policy" class="footer-link">Privacy Policy</a>
+            </div>
+            <p class="text-sm">&copy; <span id="currentYear"></span> niyonkuru reponse. All rights reserved.</p>
+            <p class="text-xs mt-2">Designed by <i class="fas fa-heart text-red-500"></i> Niyonkuru Reponse.</p>
+            <p class="text-xs mt-1">Located in Kigali-Kicukiro.</p>
+        </div>
+    </footer>
+
+    <button id="backToTopBtn" aria-label="Back to Top" class="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white p-3 rounded-full shadow-lg opacity-0 translate-y-10 transition-all duration-300 z-40">
+        <i class="fas fa-arrow-up text-lg"></i>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        // script.js content (modified for dark mode and new features)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize WOW.js for scroll animations
+            new WOW().init();
+
+            // Dark Mode Toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const sunIcon = darkModeToggle.querySelector('.fa-sun');
+            const moonIcon = darkModeToggle.querySelector('.fa-moon');
+
+            // Function to set dark mode
+            function setDarkMode(isDark) {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('darkMode', 'true');
+                    moonIcon.style.display = 'block';
+                    sunIcon.style.display = 'none';
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('darkMode', 'false');
+                    moonIcon.style.display = 'none';
+                    sunIcon.style.display = 'block';
+                }
+            }
+
+            // Initial dark mode check and icon display
+            if (localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                setDarkMode(true);
+            } else {
+                setDarkMode(false);
+            }
+
+            darkModeToggle.addEventListener('click', () => {
+                setDarkMode(!document.documentElement.classList.contains('dark'));
+            });
+
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.querySelector('i').classList.toggle('fa-bars');
+                mobileMenuButton.querySelector('i').classList.toggle('fa-times');
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden'); // Hide menu on link click
+                    mobileMenuButton.querySelector('i').classList.remove('fa-times');
+                    mobileMenuButton.querySelector('i').classList.add('fa-bars');
+                });
+            });
+
+            // Back to Top Button
+            const backToTopBtn = document.getElementById('backToTopBtn');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.remove('opacity-0', 'translate-y-10');
+                    backToTopBtn.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+                    backToTopBtn.classList.add('opacity-0', 'translate-y-10');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Typing Effect for Hero Section
+            const typingEffectElement = document.getElementById('typing-effect');
+            const roles = ["Software Developer", "Full-Stack Engineer", "AI Enthusiast", "Problem Solver"];
+            let roleIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typingSpeed = 150;
+            let deletingSpeed = 75;
+            let delayBetweenRoles = 1500;
+
+            function type() {
+                const currentRole = roles[roleIndex];
+                if (isDeleting) {
+                    typingEffectElement.textContent = currentRole.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typingEffectElement.textContent = currentRole.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                if (!isDeleting && charIndex === currentRole.length) {
+                    // Pause at end of word
+                    typingSpeed = delayBetweenRoles;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    typingSpeed = 150; // Reset typing speed
+                }
+
+                const currentSpeed = isDeleting ? deletingSpeed : typingSpeed;
+                setTimeout(type, currentSpeed);
+            }
+
+            // Start typing effect after a delay
+            setTimeout(type, 2000);
+
+            // Particle.js initialization for Hero Section background
+            particlesJS("particle-canvas", {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ffffff"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        },
+                        "image": {
+                            "src": "img/github.svg",
+                            "width": 100,
+                            "height": 100
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ffffff",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 6,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+
+            // Update current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Search functionality (basic example)
+            const searchData = [
+                { title: "Project Alpha", url: "projects.html#project-alpha-detail", tags: ["React", "Node.js", "E-commerce"] },
+                { title: "Project Beta", url: "projects.html#project-beta-detail", tags: ["Python", "D3.js", "Analytics"] },
+                { title: "Project Gamma", url: "projects.html#project-gamma-detail", tags: ["Flutter", "Firebase", "Mobile App"] },
+                { title: "My Skills Overview", url: "skills.html", tags: ["Frontend", "Backend", "Cloud", "AI", "Machine Learning", "Deep Learning", "Generative AI", "Data Visualization", "Cloud AI Services"] },
+                { title: "About Me", url: "about.html", tags: ["Biography", "Journey", "Passion", "Values", "Mission"] },
+                { title: "Contact Me", url: "contact.html", tags: ["Email", "LinkedIn", "Inquiry", "Collaboration"] },
+                { title: "Blog Posts", url: "blog.html", tags: ["Articles", "Thoughts", "Tech", "AI", "WebDev", "React", "Cloud"] },
+                { title: "Experience Timeline", url: "experience.html", tags: ["Work", "Career", "History"] },
+                { title: "My Approach", url: "index.html#my-approach", tags: ["User-Centric Design", "Agile Development", "Robust Code", "Scalability", "Collaboration", "Innovation"] },
+                { title: "Frequently Asked Questions", url: "index.html#faq", tags: ["FAQ", "Questions", "Answers"] },
+                // Add more data as needed
+            ];
+
+            function filterSearchResults(query, resultsContainer) {
+                resultsContainer.innerHTML = ''; // Clear previous results
+                if (query.length < 2) { // Require at least 2 characters for search
+                    resultsContainer.classList.add('hidden');
+                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500">Type to search...</p>';
+                    return;
+                }
+
+                const lowerCaseQuery = query.toLowerCase();
+                const filteredResults = searchData.filter(item =>
+                    item.title.toLowerCase().includes(lowerCaseQuery) ||
+                    item.tags.some(tag => tag.toLowerCase().includes(lowerCaseQuery))
+                );
+
+                if (filteredResults.length > 0) {
+                    resultsContainer.classList.remove('hidden');
+                    filteredResults.forEach(item => {
+                        const div = document.createElement('div');
+                        div.classList.add('search-results-item', 'text-slate-700', 'dark:text-slate-200');
+                        div.innerHTML = `<a href="${item.url}" class="block">${item.title} <span class="text-xs text-slate-500 dark:text-slate-400">(${item.tags.join(', ')})</span></a>`;
+                        div.addEventListener('click', () => {
+                            window.location.href = item.url;
+                        });
+                        resultsContainer.appendChild(div);
+                    });
+                } else {
+                    resultsContainer.classList.remove('hidden');
+                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500">No results found.</p>';
+                }
+            }
+
+            const desktopSearchInput = document.getElementById('desktopSearchInput');
+            const desktopSearchResults = document.getElementById('desktopSearchResults');
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
+            const mobileSearchResults = document.getElementById('mobileSearchResults');
+
+            desktopSearchInput.addEventListener('input', (e) => {
+                filterSearchResults(e.target.value, desktopSearchResults);
+            });
+            desktopSearchInput.addEventListener('focus', () => {
+                filterSearchResults(desktopSearchInput.value, desktopSearchResults); // Show initial message or results on focus
+            });
+            desktopSearchInput.addEventListener('blur', () => {
+                // Delay hiding to allow click on results
+                setTimeout(() => {
+                    if (!desktopSearchResults.matches(':hover')) { // Keep open if mouse is over results
+                        desktopSearchResults.classList.add('hidden');
+                    }
+                }, 100);
+            });
+
+            mobileSearchInput.addEventListener('input', (e) => {
+                filterSearchResults(e.target.value, mobileSearchResults);
+            });
+            mobileSearchInput.addEventListener('focus', () => {
+                filterSearchResults(mobileSearchInput.value, mobileSearchResults);
+            });
+            mobileSearchInput.addEventListener('blur', () => {
+                setTimeout(() => {
+                    if (!mobileSearchResults.matches(':hover')) {
+                        mobileSearchResults.classList.add('hidden');
+                    }
+                }, 100);
+            });
+
+            // FAQ Accordion Functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const icon = question.querySelector('.faq-icon');
+
+                    // Close all other open answers
+                    faqQuestions.forEach(otherQuestion => {
+                        if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
+                            otherQuestion.classList.remove('active');
+                            otherQuestion.nextElementSibling.classList.remove('open');
+                            otherQuestion.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    // Toggle the clicked answer
+                    question.classList.toggle('active');
+                    answer.classList.toggle('open');
+                    if (answer.classList.contains('open')) {
+                        icon.style.transform = 'rotate(180deg)';
+                    } else {
+                        icon.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

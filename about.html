@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - niyonkuru reponse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
+    <link rel="icon" href="https://placehold.co/32x32/7c3aed/ffffff?text=NR&font=Montserrat" type="image/png">
+    <style>
+        /* Custom styles for animations and transitions - copied from blog.html */
+        .nav-link::after, .mobile-nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #6366f1; /* Indigo 500 */
+            transition: width 0.3s ease-in-out;
+            margin-top: 2px;
+        }
+        .dark .nav-link::after, .dark .mobile-nav-link::after {
+            background: #a78bfa; /* Purple 400 */
+        }
+        .nav-link:hover::after, .mobile-nav-link:hover::after {
+            width: 100%;
+        }
+        .active-nav-link::after, .active-mobile-nav-link::after {
+            width: 100%;
+        }
+
+        /* Search input styling - copied from blog.html */
+        .nav-search-input {
+            padding-left: 2.5rem; /* Space for icon */
+            padding-right: 1rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-radius: 9999px; /* Full rounded */
+            border: 1px solid #e2e8f0; /* Slate 200 */
+            background-color: #f8fafc; /* Slate 50 */
+            transition: all 0.3s ease-in-out;
+            width: 180px; /* Default width */
+        }
+        .dark .nav-search-input {
+            border-color: #475569; /* Slate 700 */
+            background-color: #1e293b; /* Slate 800 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        .nav-search-input:focus {
+            width: 250px; /* Expand on focus */
+            border-color: #6366f1; /* Indigo 500 */
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5); /* Ring effect */
+            outline: none;
+        }
+
+        .search-results-dropdown {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .search-results-dropdown {
+            background-color: #1e293b;
+            border-color: #475569;
+        }
+        .search-results-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .search-results-item:hover {
+            background-color: #f0f4f8;
+        }
+        .dark .search-results-item:hover {
+            background-color: #334155;
+        }
+
+        /* Social icons with tooltips - copied from blog.html */
+        .social-icon {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 48px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .social-icon:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px) scale(1.05);
+        }
+        .social-tooltip {
+            position: absolute;
+            bottom: 120%; /* Position above the icon */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #334155; /* Slate 700 */
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 20;
+        }
+        .dark .social-tooltip {
+            background-color: #0f172a; /* Slate 900 */
+        }
+        .social-icon:hover .social-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        .social-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #334155 transparent transparent transparent; /* Slate 700 */
+        }
+        .dark .social-tooltip::after {
+            border-color: #0f172a transparent transparent transparent; /* Slate 900 */
+        }
+
+        /* General button styles - copied from blog.html */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .btn-primary {
+            background-color: #a78bfa; /* Purple 400 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: #4f46e5; /* Indigo 600 */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+        .dark .btn-primary:hover {
+            background-color: #8b5cf6; /* Purple 500 */
+            box-shadow: 0 8px 20px rgba(167, 139, 250, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            background-color: transparent;
+            border: 2px solid #6366f1; /* Indigo 500 */
+            color: #6366f1; /* Indigo 500 */
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .dark .btn-secondary {
+            border-color: #a78bfa; /* Purple 400 */
+            color: #a78bfa; /* Purple 400 */
+        }
+        .btn-secondary:hover {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .btn-secondary:hover {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b; /* Slate 800 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: #ffffff;
+            color: #6366f1; /* Indigo 500 */
+            padding: 1rem 2.5rem;
+            border-radius: 9999px; /* Full rounded */
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .dark .cta-btn {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .cta-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            background-color: #f0f4f8; /* Lighten on hover */
+        }
+
+        /* Section titles and subtitles - copied from blog.html */
+        .section-title {
+            font-size: 2.5rem; /* 4xl */
+            font-weight: 700; /* Bold */
+            margin-bottom: 1rem;
+            color: #1e293b; /* Slate 900 */
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .dark .section-title {
+            color: #f8fafc; /* Slate 50 */
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #6366f1; /* Indigo 500 */
+            border-radius: 2px;
+        }
+        .section-title.text-left::after {
+            left: 0;
+            transform: translateX(0);
+        }
+        .dark .section-title::after {
+            background-color: #a78bfa; /* Purple 400 */
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem; /* Lg */
+            color: #475569; /* Slate 700 */
+        }
+        .dark .section-subtitle {
+            color: #94a3b8; /* Slate 400 */
+        }
+
+        /* Footer links - copied from blog.html */
+        .footer-link {
+            color: #475569; /* Slate 700 */
+            transition: color 0.3s ease, transform 0.2s ease;
+            position: relative;
+            padding-bottom: 2px;
+        }
+        .dark .footer-link {
+            color: #94a3b8; /* Slate 400 */
+        }
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: #6366f1; /* Indigo 500 */
+            transition: width 0.3s ease;
+        }
+        .dark .footer-link::after {
+            background-color: #a78bfa; /* Purple 400 */
+        }
+        .footer-link:hover {
+            color: #6366f1; /* Indigo 500 */
+            transform: translateY(-2px);
+        }
+        .dark .footer-link:hover {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        .footer-social-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 44px;
+            height: 44px;
+            background-color: #cbd5e1; /* Slate 300 */
+            border-radius: 50%;
+            color: #1e293b; /* Slate 900 */
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        .dark .footer-social-icon {
+            background-color: #475569; /* Slate 700 */
+            color: #f8fafc; /* Slate 50 */
+        }
+        .footer-social-icon:hover {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .footer-social-icon:hover {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b; /* Slate 900 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+
+        /* Back to top button - copied from blog.html */
+        #backToTopBtn {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Keyframe for wiggle animation - copied from blog.html */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            50% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        .animate-wiggle:hover {
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+
+        /* Navbar fade in down animation - copied from blog.html */
+        @keyframes fadeInDownNav {
+            from {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fadeInDownNav {
+            animation: fadeInDownNav 0.8s ease-out forwards;
+            animation-delay: 0.5s; /* Delay to appear after content loads */
+        }
+
+        /* Interactive Value Cards */
+        .value-card {
+            perspective: 1000px;
+            cursor: pointer;
+            height: 250px; /* Fixed height for consistent flipping */
+        }
+        .value-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .value-card.flipped .value-card-inner {
+            transform: rotateY(180deg);
+        }
+        .value-card-front, .value-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+        }
+        .value-card-front {
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+        .dark .value-card-front {
+            background-color: #1e293b;
+            color: #f8fafc;
+            border: 1px solid #475569;
+        }
+        .value-card-back {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .dark .value-card-back {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b;
+        }
+        .value-card-front i, .value-card-back i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .value-card-front h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #6366f1;
+        }
+        .dark .value-card-front h4 {
+            color: #a78bfa;
+        }
+
+        /* Animated Stats */
+        .stat-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .dark .stat-card {
+            background-color: #1e293b;
+            border: 1px solid #475569;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .stat-card .stat-icon {
+            font-size: 3rem;
+            color: #6366f1;
+            margin-bottom: 1rem;
+        }
+        .dark .stat-card .stat-icon {
+            color: #a78bfa;
+        }
+        .stat-card .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1;
+        }
+        .dark .stat-card .stat-number {
+            color: #f8fafc;
+        }
+        .stat-card .stat-label {
+            font-size: 1.25rem;
+            color: #475569;
+            margin-top: 0.5rem;
+        }
+        .dark .stat-card .stat-label {
+            color: #cbd5e1;
+        }
+
+        /* Accordion for My Philosophy */
+        .accordion-item {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .accordion-item {
+            background-color: #1e293b;
+            border: 1px solid #475569;
+        }
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .dark .accordion-header {
+            color: #f8fafc;
+        }
+        .accordion-header:hover {
+            background-color: #f0f4f8;
+        }
+        .dark .accordion-header:hover {
+            background-color: #334155;
+        }
+        .accordion-header .icon {
+            transition: transform 0.3s ease;
+        }
+        .accordion-header.active .icon {
+            transform: rotate(90deg);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            padding: 0 1.5rem;
+            color: #475569;
+        }
+        .dark .accordion-content {
+            color: #cbd5e1;
+        }
+        .accordion-content.open {
+            max-height: 500px; /* Adjust based on max content height */
+            padding-bottom: 1.5rem;
+        }
+
+        /* Timeline specific styles */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: #e0e7ff; /* Indigo 100 */
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .dark .timeline::before {
+            background: #3730a3; /* Indigo 800 */
+        }
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            position: relative;
+            width: 100%;
+        }
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+        .timeline-item:nth-child(even) {
+            flex-direction: row;
+        }
+        .timeline-item-content {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            width: 45%; /* Adjust width for content */
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .dark .timeline-item-content {
+            background-color: #1e293b;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            border: 1px solid #475569;
+        }
+        .timeline-item-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .timeline-item-content::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            top: 20px;
+        }
+        .timeline-item:nth-child(odd) .timeline-item-content::before {
+            left: 100%;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent #e2e8f0;
+        }
+        .dark .timeline-item:nth-child(odd) .timeline-item-content::before {
+            border-color: transparent transparent transparent #475569;
+        }
+        .timeline-item:nth-child(even) .timeline-item-content::before {
+            right: 100%;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent #e2e8f0 transparent transparent;
+        }
+        .dark .timeline-item:nth-child(even) .timeline-item-content::before {
+            border-color: transparent #475569 transparent transparent;
+        }
+        .timeline-icon-wrapper {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: #6366f1;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 0 0 5px #f8fafc; /* White ring */
+            z-index: 1;
+        }
+        .dark .timeline-icon-wrapper {
+            background-color: #a78bfa;
+            box-shadow: 0 0 0 5px #1e293b; /* Dark ring */
+        }
+
+        /* Responsive adjustments for timeline */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px; /* Move line to left */
+                transform: translateX(0);
+            }
+            .timeline-item {
+                flex-direction: column !important; /* Stack content vertically */
+                align-items: flex-start;
+            }
+            .timeline-item-content {
+                width: calc(100% - 60px); /* Adjust width, leave space for line/icon */
+                margin-left: 60px; /* Push content right */
+                text-align: left;
+            }
+            .timeline-item-content::before {
+                left: 40px !important;
+                border-width: 10px 10px 10px 0 !important;
+                border-color: transparent #e2e8f0 transparent transparent !important;
+            }
+            .dark .timeline-item-content::before {
+                border-color: transparent #475569 transparent transparent !important;
+            }
+            .timeline-icon-wrapper {
+                left: 20px; /* Align icon with line */
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Testimonial Card */
+        .testimonial-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .dark .testimonial-card {
+            background-color: #1e293b;
+            border: 1px solid #475569;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid #6366f1;
+            transition: transform 0.3s ease;
+        }
+        .dark .testimonial-card img {
+            border-color: #a78bfa;
+        }
+        .testimonial-card:hover img {
+            transform: scale(1.05);
+        }
+        .testimonial-card p {
+            font-style: italic;
+            color: #475569;
+            margin-bottom: 1rem;
+        }
+        .dark .testimonial-card p {
+            color: #cbd5e1;
+        }
+        .testimonial-card .author-name {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .dark .testimonial-card .author-name {
+            color: #f8fafc;
+        }
+        .testimonial-card .author-title {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        .dark .testimonial-card .author-title {
+            color: #94a3b8;
+        }
+
+        /* Expertise Area Card */
+        .expertise-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .dark .expertise-card {
+            background-color: #1e293b;
+            border: 1px solid #475569;
+        }
+        .expertise-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #6366f1;
+        }
+        .dark .expertise-card:hover {
+            border-color: #a78bfa;
+        }
+        .expertise-card .icon-large {
+            font-size: 4rem;
+            color: #6366f1;
+            margin-bottom: 1rem;
+        }
+        .dark .expertise-card .icon-large {
+            color: #a78bfa;
+        }
+        .expertise-card h4 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+        }
+        .dark .expertise-card h4 {
+            color: #f8fafc;
+        }
+        .expertise-card p {
+            color: #475569;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .dark .expertise-card p {
+            color: #cbd5e1;
+        }
+        .expertise-card .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .expertise-card .tech-badge {
+            background-color: #e0e7ff;
+            color: #4338ca;
+            padding: 0.3rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+        }
+        .dark .expertise-card .tech-badge {
+            background-color: #3730a3;
+            color: #c7d2fe;
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans leading-relaxed transition-colors duration-300 overflow-x-hidden">
+
+    <nav id="navbar" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
+        <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity">niyonkuru reponse</a>
+
+            <div class="hidden md:flex items-center relative group">
+                <input type="text" id="desktopSearchInput" placeholder="Search projects, skills..." class="nav-search-input peer">
+                <i class="fas fa-search text-slate-500 dark:text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-indigo-500 transition-colors"></i>
+                <div id="desktopSearchResults" class="search-results-dropdown hidden group-focus-within:block hover:block">
+                    <p class="p-2 text-sm text-slate-500">Type to search...</p>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-3 lg:space-x-4">
+                <a href="index.html#hero" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link active-nav-link">About</a>
+                <a href="skills.html" class="nav-link">Skills</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="experience.html" class="nav-link">Experience</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+
+            <div class="flex items-center">
+                <button id="darkModeToggle" aria-label="Toggle Dark Mode" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800 focus:ring-indigo-500 transition-all">
+                    <i class="fas fa-moon text-slate-700 dark:text-yellow-400 text-lg dark:block hidden"></i>
+                    <i class="fas fa-sun text-slate-700 dark:text-yellow-400 text-lg dark:hidden block"></i>
+                </button>
+                <button id="mobileMenuButton" aria-label="Open Menu" class="md:hidden ml-2 p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800 focus:ring-indigo-500">
+                    <i class="fas fa-bars text-slate-700 dark:text-slate-300 text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-slate-800 shadow-xl absolute w-full top-full left-0 animate__animated animate__fadeInDown animate__faster">
+            <div class="p-4 border-b border-slate-200 dark:border-slate-700">
+                 <div class="relative">
+                    <input type="text" id="mobileSearchInput" placeholder="Search..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors">
+                    <i class="fas fa-search text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                </div>
+                <div id="mobileSearchResults" class="search-results-mobile mt-2 hidden max-h-48 overflow-y-auto">
+                    </div>
+            </div>
+            <a href="index.html#hero" class="mobile-nav-link">Home</a>
+            <a href="about.html" class="mobile-nav-link active-mobile-nav-link">About</a>
+            <a href="skills.html" class="mobile-nav-link">Skills</a>
+            <a href="projects.html" class="mobile-nav-link">Projects</a>
+            <a href="experience.html" class="mobile-nav-link">Experience</a>
+            <a href="blog.html" class="mobile-nav-link">Blog</a>
+            <a href="contact.html" class="mobile-nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <section id="about-hero" class="py-28 lg:py-32 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800 text-white relative overflow-hidden flex items-center justify-center">
+        <div class="container mx-auto px-6 text-center z-10 wow animate__animated animate__fadeInDown">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-4">About Me</h1>
+            <p class="text-xl md:text-2xl font-light max-w-2xl mx-auto">
+                Discover my journey, values, and what drives my passion for software development.
+            </p>
+        </div>
+    </section>
+
+    <section id="introduction" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-12 items-center">
+                <div class="md:col-span-1 flex justify-center wow animate__animated animate__zoomIn" data-wow-delay="0.2s">
+                    <img src="./assets/Capture.PNG" alt="niyonkuru reponse - Headshot" class="rounded-full shadow-xl w-64 h-64 md:w-80 md:h-80 object-cover border-4 border-indigo-200 dark:border-indigo-700 transition-transform duration-500 hover:scale-105">
+                </div>
+
+                <div class="md:col-span-2 wow animate__animated animate__fadeInRight" data-wow-delay="0.4s">
+                    <h3 class="text-3xl font-semibold mb-4 text-slate-900 dark:text-slate-50">Hello there! I'm niyonkuru reponse.</h3>
+                    <p class="mb-4 text-lg text-slate-700 dark:text-slate-300">
+                        I am a passionate and results-driven Software Developer with a knack for creating elegant solutions in the least amount of time.
+                        My expertise spans across the entire software development lifecycle, from conceptualization and design to deployment and maintenance.
+                        I specialize in <span class="text-indigo-600 dark:text-indigo-400 font-semibold">full-stack development</span>,
+                        with a strong focus on building intuitive and performant <span class="text-indigo-600 dark:text-indigo-400 font-semibold">frontend technologies</span>
+                        and robust, scalable <span class="text-indigo-600 dark:text-indigo-400 font-semibold">backend systems</span>.
+                        I'm always eager to learn and adapt to new technologies, embracing challenges as opportunities for growth.
+                    </p>
+                    <p class="mb-4 text-lg text-slate-700 dark:text-slate-300">
+                        My journey into the world of code started <span class="text-indigo-600 dark:text-indigo-400 font-semibold">during my secondary years</span>,
+                        where I discovered the immense potential of software to solve real-world problems and enhance human experiences.
+                        Since then, I've dedicated myself to mastering various programming languages, frameworks, and tools.
+                        I thrive in collaborative environments, believing that the best solutions emerge from diverse perspectives and open communication.
+                        I enjoy tackling complex challenges that push my boundaries and lead to innovative outcomes.
+                    </p>
+                    <p class="text-lg text-slate-700 dark:text-slate-300">
+                        When I'm not immersed in lines of code, you can find me <span class="text-indigo-600 dark:text-indigo-400 font-semibold">exploring new hiking trails</span>
+                        in the beautiful Rwandan landscapes, <span class="text-indigo-600 dark:text-indigo-400 font-semibold">devouring the latest tech blogs and research papers</span>,
+                        or <span class="text-indigo-600 dark:text-indigo-400 font-semibold">experimenting with new recipes</span> in the kitchen – much like coding, it's all about combining ingredients to create something delightful!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="values-mission" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">My Core Values & Mission</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">The principles that guide my work and personal growth.</p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="value-card wow animate__animated animate__flipInY" data-wow-delay="0.1s">
+                    <div class="value-card-inner">
+                        <div class="value-card-front">
+                            <i class="ph-lightbulb text-indigo-500 dark:text-indigo-400"></i>
+                            <h4>Innovation</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Tap to learn more</p>
+                        </div>
+                        <div class="value-card-back">
+                            <i class="ph-sparkle"></i>
+                            <h4>Innovation</h4>
+                            <p class="text-sm">I believe in constantly seeking innovative solutions and pushing the boundaries of what's possible with technology, always striving for creative and efficient approaches.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="value-card wow animate__animated animate__flipInY" data-wow-delay="0.2s">
+                    <div class="value-card-inner">
+                        <div class="value-card-front">
+                            <i class="ph-users text-indigo-500 dark:text-indigo-400"></i>
+                            <h4>Collaboration</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Tap to learn more</p>
+                        </div>
+                        <div class="value-card-back">
+                            <i class="ph-handshake"></i>
+                            <h4>Collaboration</h4>
+                            <p class="text-sm">Teamwork makes the dream work. I value open communication, diverse perspectives, and collaborative problem-solving to achieve shared, impactful goals.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="value-card wow animate__animated animate__flipInY" data-wow-delay="0.3s">
+                    <div class="value-card-inner">
+                        <div class="value-card-front">
+                            <i class="ph-book-open text-indigo-500 dark:text-indigo-400"></i>
+                            <h4>Continuous Learning</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Tap to learn more</p>
+                        </div>
+                        <div class="value-card-back">
+                            <i class="ph-graduation-cap"></i>
+                            <h4>Continuous Learning</h4>
+                            <p class="text-sm">The tech world is ever-evolving, and I am committed to lifelong learning, constantly updating my skills and knowledge to stay at the forefront of new developments.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="value-card wow animate__animated animate__flipInY" data-wow-delay="0.4s">
+                    <div class="value-card-inner">
+                        <div class="value-card-front">
+                            <i class="ph-check-circle text-indigo-500 dark:text-indigo-400"></i>
+                            <h4>Quality & Impact</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Tap to learn more</p>
+                        </div>
+                        <div class="value-card-back">
+                            <i class="ph-medal"></i>
+                            <h4>Quality & Impact</h4>
+                            <p class="text-sm">My mission is to deliver high-quality software that not only meets technical requirements but also makes a tangible, positive impact on users and businesses.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="expertise-areas" class="py-20 lg:py-32 bg-slate-100 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">My Key Expertise Areas</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Where my skills translate into practical solutions.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="expertise-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <i class="ph-monitor-play icon-large"></i>
+                    <h4>Web Application Development</h4>
+                    <p>
+                        Crafting dynamic, responsive, and user-friendly web applications is my forte. I leverage modern frontend frameworks like React.js and robust backend technologies to build seamless digital experiences.
+                    </p>
+                    <div class="tech-badges">
+                        <span class="tech-badge">React.js</span>
+                        <span class="tech-badge">Node.js</span>
+                        <span class="tech-badge">Tailwind CSS</span>
+                        <span class="tech-badge">REST APIs</span>
+                    </div>
+                </div>
+
+                <div class="expertise-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <i class="ph-database icon-large"></i>
+                    <h4>Data Management & Integration</h4>
+                    <p>
+                        Designing, optimizing, and integrating databases (SQL & NoSQL) to ensure efficient data storage and retrieval. I focus on data integrity, security, and building powerful data-driven applications.
+                    </p>
+                    <div class="tech-badges">
+                        <span class="tech-badge">PostgreSQL</span>
+                        <span class="tech-badge">MongoDB</span>
+                        <span class="tech-badge">Firebase</span>
+                        <span class="tech-badge">SQL</span>
+                    </div>
+                </div>
+
+                <div class="expertise-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <i class="ph-robot icon-large"></i>
+                    <h4>AI/ML Solution Implementation</h4>
+                    <p>
+                        Applying machine learning models and AI techniques to solve complex problems. From data preprocessing to model deployment, I build intelligent features that enhance application capabilities.
+                    </p>
+                    <div class="tech-badges">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">TensorFlow</span>
+                        <span class="tech-badge">PyTorch</span>
+                        <span class="tech-badge">NLP</span>
+                    </div>
+                </div>
+
+                <div class="expertise-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <i class="ph-cloud-arrow-up icon-large"></i>
+                    <h4>Cloud-Native Architecture</h4>
+                    <p>
+                        Developing and deploying scalable, resilient applications on cloud platforms like AWS. My expertise includes serverless computing, containerization with Docker and Kubernetes, and CI/CD pipelines.
+                    </p>
+                    <div class="tech-badges">
+                        <span class="tech-badge">AWS</span>
+                        <span class="tech-badge">Docker</span>
+                        <span class="tech-badge">Kubernetes</span>
+                        <span class="tech-badge">Serverless</span>
+                    </div>
+                </div>
+
+                <div class="expertise-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+                    <i class="ph-shield-check icon-large"></i>
+                    <h4>Security Best Practices</h4>
+                    <p>
+                        Integrating security throughout the development lifecycle. I implement secure coding practices, data encryption, authentication, and authorization mechanisms to protect applications and user data.
+                    </p>
+                    <div class="tech-badges">
+                        <span class="tech-badge">OWASP</span>
+                        <span class="tech-badge">OAuth</span>
+                        <span class="tech-badge">JWT</span>
+                        <span class="tech-badge">Encryption</span>
+                    </div>
+                </div>
+
+                <div class="expertise-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+                    <i class="ph-chart-line-up icon-large"></i>
+                    <h4>Performance Optimization</h4>
+                    <p>
+                        Identifying bottlenecks and optimizing application performance across frontend and backend. This includes code refactoring, database tuning, and efficient resource utilization for faster load times and smoother user experiences.
+                    </p>
+                    <div class="tech-badges">
+                        <span class="tech-badge">Profiling</span>
+                        <span class="tech-badge">Caching</span>
+                        <span class="tech-badge">Load Balancing</span>
+                        <span class="tech-badge">Code Splitting</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="my-journey" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">My Professional Journey</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Key milestones and growth throughout my career.</p>
+
+            <div class="timeline">
+                <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <div class="timeline-icon-wrapper"><i class="ph-graduation-cap"></i></div>
+                    <div class="timeline-item-content">
+                        <h4 class="font-semibold text-lg mb-1 text-indigo-600 dark:text-indigo-400">2018 - 2022</h4>
+                        <h3 class="timeline-title">Bachelor of Science in Software Engineering</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">University of Technology, Kigali</p>
+                        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+                            Immersed myself in the fundamentals of computer science, algorithms, and data structures.
+                            Developed a strong foundation in programming paradigms and software design principles.
+                            My capstone project involved building a secure, decentralized e-voting system using blockchain concepts.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <div class="timeline-icon-wrapper"><i class="ph-briefcase"></i></div>
+                    <div class="timeline-item-content">
+                        <h4 class="font-semibold text-lg mb-1 text-indigo-600 dark:text-indigo-400">2022 - 2023</h4>
+                        <h3 class="timeline-title">Junior Web Developer</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">WebSolutions Inc.</p>
+                        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+                            Gained hands-on experience in a fast-paced agency environment.
+                            Contributed to the development of responsive web interfaces for various clients using HTML, CSS, and vanilla JavaScript.
+                            Assisted in integrating frontend components with RESTful APIs and participated in daily stand-ups and code reviews.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+                    <div class="timeline-icon-wrapper"><i class="ph-briefcase"></i></div>
+                    <div class="timeline-item-content">
+                        <h4 class="font-semibold text-lg mb-1 text-indigo-600 dark:text-indigo-400">2023 - Present</h4>
+                        <h3 class="timeline-title">Software Developer</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Innovatech Ltd.</p>
+                        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+                            Currently leading the development of key modules for a large-scale SaaS platform.
+                            Responsible for designing and implementing scalable backend services with Node.js and Python, and building dynamic frontends with React.js.
+                            Actively involved in architectural discussions, mentoring junior developers, and optimizing application performance.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.7s">
+                    <div class="timeline-icon-wrapper"><i class="ph-certificate"></i></div>
+                    <div class="timeline-item-content">
+                        <h4 class="font-semibold text-lg mb-1 text-indigo-600 dark:text-indigo-400">2024</h4>
+                        <h3 class="timeline-title">AWS Certified Developer - Associate</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Amazon Web Services</p>
+                        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+                            Successfully obtained the AWS Certified Developer - Associate certification, validating my expertise in developing, deploying, and debugging cloud-based applications using AWS services.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.9s">
+                    <div class="timeline-icon-wrapper"><i class="ph-code-block"></i></div>
+                    <div class="timeline-item-content">
+                        <h4 class="font-semibold text-lg mb-1 text-indigo-600 dark:text-indigo-400">Ongoing</h4>
+                        <h3 class="timeline-title">Exploring Generative AI & LLMs</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Self-Study & Personal Projects</p>
+                        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+                            Continuously expanding my knowledge in the rapidly evolving field of Generative AI and Large Language Models.
+                            Working on personal projects involving prompt engineering, fine-tuning open-source models, and understanding their practical applications in software development.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="fun-facts" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">Fun Facts & Interests</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Beyond the code, a glimpse into my personality.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <i class="ph-coffee-cup stat-icon"></i>
+                    <div class="stat-number" data-target="500">0</div>
+                    <p class="stat-label">Cups of Coffee (annually)</p>
+                </div>
+                <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <i class="ph-code stat-icon"></i>
+                    <div class="stat-number" data-target="150000">0</div>
+                    <p class="stat-label">Lines of Code (approx.)</p>
+                </div>
+                <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <i class="ph-mountains stat-icon"></i>
+                    <div class="stat-number" data-target="25">0</div>
+                    <p class="stat-label">Hiking Trails Explored</p>
+                </div>
+                <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <i class="ph-game-controller stat-icon"></i>
+                    <div class="stat-number" data-target="750">0</div>
+                    <p class="stat-label">Hours Gaming (lifetime)</p>
+                </div>
+                <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+                    <i class="ph-book-open stat-icon"></i>
+                    <div class="stat-number" data-target="10">0</div>
+                    <p class="stat-label">Books Read (annually)</p>
+                </div>
+                <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+                    <i class="ph-pizza stat-icon"></i>
+                    <div class="stat-number" data-target="100">0</div>
+                    <p class="stat-label">Pizzas Consumed (lifetime)</p>
+                </div>
+                <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s">
+                    <i class="ph-globe stat-icon"></i>
+                    <div class="stat-number" data-target="3">0</div>
+                    <p class="stat-label">Countries Visited</p>
+                </div>
+                <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
+                    <i class="ph-music-notes stat-icon"></i>
+                    <div class="stat-number" data-target="2000">0</div>
+                    <p class="stat-label">Songs on My Playlist</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="my-philosophy" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">My Development Philosophy</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Principles that guide my approach to software development.</p>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="accordion-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <div class="accordion-header">
+                        <span>User-Centric Design</span>
+                        <i class="fas fa-chevron-right icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>I believe that great software starts with understanding the user. My development process always prioritizes user needs, feedback, and intuitive design to create delightful and accessible experiences. Every feature, every line of code, is written with the end-user in mind.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <div class="accordion-header">
+                        <span>Agile & Iterative Development</span>
+                        <i class="fas fa-chevron-right icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Embracing agile methodologies, I advocate for iterative development, continuous feedback loops, and adaptability to changing requirements. This ensures efficient delivery, allows for rapid adjustments, and ultimately leads to higher-quality outcomes that truly meet evolving business needs.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <div class="accordion-header">
+                        <span>Clean Code & Maintainability</span>
+                        <i class="fas fa-chevron-right icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Writing clean, well-documented, and maintainable code is paramount. It not only reduces technical debt and simplifies debugging but also fosters better collaboration among team members and ensures long-term project success and sustainability.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <div class="accordion-header">
+                        <span>Scalability & Performance</span>
+                        <i class="fas fa-chevron-right icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>From architectural design to implementation, I always consider scalability and performance. Building robust systems that can handle growth, process large volumes of data efficiently, and deliver fast, seamless user experiences is a core focus of my development approach.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+                    <div class="accordion-header">
+                        <span>Security First Mindset</span>
+                        <i class="fas fa-chevron-right icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Security is not an afterthought; it's integrated from the ground up. I adhere to best practices for secure coding, protect against common vulnerabilities, and ensure data privacy and integrity in all solutions I build.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+                    <div class="accordion-header">
+                        <span>Impact-Driven Development</span>
+                        <i class="fas fa-chevron-right icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>My ultimate goal is to create software that makes a meaningful impact. I strive to understand the broader objectives and deliver solutions that not only function flawlessly but also contribute significantly to business goals and user satisfaction.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">What People Say About Me</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Kind words from colleagues and clients.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="testimonial-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <img src="https://placehold.co/80x80/6366f1/ffffff?text=JD" alt="John Doe">
+                    <p>"niyonkuru is an exceptional developer. Their ability to tackle complex problems and deliver high-quality solutions is truly impressive. A fantastic team player!"</p>
+                    <div class="author-name">John Doe</div>
+                    <div class="author-title">CTO, TechCorp</div>
+                </div>
+                <div class="testimonial-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <img src="https://placehold.co/80x80/a78bfa/ffffff?text=JS" alt="Jane Smith">
+                    <p>"Working with niyonkuru was a pleasure. Their dedication to clean code and user experience made our project a huge success. Highly recommend!"</p>
+                    <div class="author-name">Jane Smith</div>
+                    <div class="author-title">Product Manager, InnovateX</div>
+                </div>
+                <div class="testimonial-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <img src="https://placehold.co/80x80/f97316/ffffff?text=MB" alt="Michael Brown">
+                    <p>"niyonkuru consistently brings innovative ideas to the table and executes them flawlessly. Their expertise in cloud technologies was invaluable."</p>
+                    <div class="author-name">Michael Brown</div>
+                    <div class="author-title">Senior Engineer, Cloud Solutions</div>
+                </div>
+                <div class="testimonial-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <img src="https://placehold.co/80x80/22c55e/ffffff?text=AL" alt="Alice Lee">
+                    <p>"A true professional! niyonkuru's problem-solving skills are top-notch, and they always go the extra mile to ensure project success. A joy to collaborate with."</p>
+                    <div class="author-name">Alice Lee</div>
+                    <div class="author-title">UX Designer, Creative Agency</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="py-20 lg:py-32 bg-gradient-to-r from-purple-600 to-indigo-700 dark:from-purple-800 dark:to-indigo-900 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="wow animate__animated animate__fadeInUp">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-6">Let's Connect and Create Something Amazing!</h2>
+                <p class="text-lg lg:text-xl mb-8 max-w-2xl mx-auto">
+                    Whether you have a groundbreaking project idea, a challenging technical problem to solve, or just want to chat about the latest in tech, I'm always eager to connect. Let's collaborate and turn visions into reality.
+                </p>
+                <a href="contact.html" class="cta-btn group">
+                    Get in Touch <i class="fas fa-paper-plane ml-2 group-hover:animate-wiggle"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 py-16 text-center">
+        <div class="container mx-auto px-6">
+            <div class="mb-8 flex justify-center space-x-6">
+                <a href="https://github.com/reponsekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com/reponse_kdz/s" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
+                <a href="mailto:reponsekdz06@gmail.com" class="footer-social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <div class="mb-6 space-x-4 sm:space-x-6">
+                <a href="index.html#hero" class="footer-link">Home</a>
+                <a href="about.html" class="footer-link">About</a>
+                <a href="projects.html" class="footer-link">Projects</a>
+                <a href="blog.html" class="footer-link">Blog</a>
+                <a href="contact.html" class="footer-link">Contact</a>
+                <a href="#privacy-policy" class="footer-link">Privacy Policy</a>
+            </div>
+            <p class="text-sm">© <span id="currentYear"></span> niyonkuru reponse. All rights reserved.</p>
+            <p class="text-xs mt-2">Designed with <i class="fas fa-heart text-red-500"></i> Reponse Niyonkuru</p>
+            <p class="text-xs mt-1">Located in Kigali-Kicukiro.</p>
+        </div>
+    </footer>
+
+    <button id="backToTopBtn" aria-label="Back to Top" class="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white p-3 rounded-full shadow-lg opacity-0 translate-y-10 transition-all duration-300 z-40">
+        <i class="fas fa-arrow-up text-lg"></i>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize WOW.js for scroll animations
+            new WOW().init();
+
+            // Dark Mode Toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const sunIcon = darkModeToggle.querySelector('.fa-sun');
+            const moonIcon = darkModeToggle.querySelector('.fa-moon');
+
+            function setDarkMode(isDark) {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('darkMode', 'true');
+                    moonIcon.style.display = 'block';
+                    sunIcon.style.display = 'none';
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('darkMode', 'false');
+                    moonIcon.style.display = 'none';
+                    sunIcon.style.display = 'block';
+                }
+            }
+
+            if (localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                setDarkMode(true);
+            } else {
+                setDarkMode(false);
+            }
+
+            darkModeToggle.addEventListener('click', () => {
+                setDarkMode(!document.documentElement.classList.contains('dark'));
+            });
+
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.querySelector('i').classList.toggle('fa-bars');
+                mobileMenuButton.querySelector('i').classList.toggle('fa-times');
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.querySelector('i').classList.remove('fa-times');
+                    mobileMenuButton.querySelector('i').classList.add('fa-bars');
+                });
+            });
+
+            // Back to Top Button
+            const backToTopBtn = document.getElementById('backToTopBtn');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.remove('opacity-0', 'translate-y-10');
+                    backToTopBtn.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+                    backToTopBtn.classList.add('opacity-0', 'translate-y-10');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Update current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Interactive Value Cards (Flip on click)
+            document.querySelectorAll('.value-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                });
+            });
+
+            // Animated Stats Counter
+            const animateNumbers = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.dataset.target);
+                        let current = 0;
+                        const duration = 2000; // 2 seconds
+                        const increment = target / (duration / 10); // Update every 10ms
+
+                        const updateCounter = () => {
+                            if (current < target) {
+                                current += increment;
+                                entry.target.textContent = Math.ceil(current).toLocaleString();
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                entry.target.textContent = target.toLocaleString();
+                            }
+                        };
+                        updateCounter();
+                        observer.unobserve(entry.target); // Stop observing once animated
+                    }
+                });
+            };
+
+            const statNumbers = document.querySelectorAll('.stat-number');
+            const observerOptions = {
+                root: null, // viewport
+                rootMargin: '0px',
+                threshold: 0.5 // Trigger when 50% of element is visible
+            };
+            const numberObserver = new IntersectionObserver(animateNumbers, observerOptions);
+            statNumbers.forEach(number => {
+                numberObserver.observe(number);
+            });
+
+            // Accordion Functionality
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const accordionItem = header.closest('.accordion-item');
+                    const accordionContent = accordionItem.querySelector('.accordion-content');
+
+                    // Close all other open accordions
+                    document.querySelectorAll('.accordion-header.active').forEach(activeHeader => {
+                        if (activeHeader !== header) {
+                            activeHeader.classList.remove('active');
+                            activeHeader.nextElementSibling.classList.remove('open');
+                        }
+                    });
+
+                    // Toggle current accordion
+                    header.classList.toggle('active');
+                    accordionContent.classList.toggle('open');
+                });
+            });
+
+            // Desktop and Mobile Search Functionality
+            const searchData = [
+                // Blog posts (from blog.html)
+                { title: "The Future of AI in Web Development", url: "blog.html#single-post-1", tags: ["AI", "WebDev", "Future", "Automation", "Personalization"] },
+                { title: "Mastering State Management in React", url: "blog.html#single-post-2", tags: ["React", "Frontend", "State", "Redux", "Context API", "Zustand"] },
+                { title: "Cloud Native Architectures Explained", url: "blog.html#single-post-3", tags: ["Cloud", "Architecture", "Microservices", "Containers", "Kubernetes", "DevOps"] },
+                { title: "Introduction to Generative AI Models", url: "blog.html#single-post-4", tags: ["AI", "ML", "Generative AI", "GANs", "Transformers", "GPT"] },
+                { title: "Building Progressive Web Apps (PWAs)", url: "blog.html#single-post-5", tags: ["WebDev", "Mobile", "PWA", "Service Workers", "Offline"] },
+                { title: "Effective Data Visualization Techniques", url: "blog.html#single-post-6", tags: ["Data", "Analytics", "Visualization", "Charts", "Graphs"] },
+                { title: "Demystifying Large Language Models (LLMs)", url: "blog.html#single-post-7", tags: ["AI", "Software", "LLM", "NLP", "Generative AI"] },
+                { title: "Building Scalable Backend APIs with Node.js", url: "blog.html#single-post-8", tags: ["Software", "WebDev", "Backend", "Node.js", "APIs", "Express.js"] },
+                { title: "Cross-Platform Mobile Dev with React Native", url: "blog.html#single-post-9", tags: ["Mobile", "App", "Software", "React Native", "iOS", "Android"] },
+                { title: "The Role of MLOps in Production AI Systems", url: "blog.html#single-post-10", tags: ["AI", "Software", "Cloud", "MLOps", "Deployment", "Monitoring"] },
+                { title: "Designing User-Friendly Mobile Interfaces", url: "blog.html#single-post-11", tags: ["App", "UI/UX", "Mobile Design", "User Experience"] },
+                { title: "Containerization with Docker and Kubernetes", url: "blog.html#single-post-12", tags: ["Software", "Cloud", "Docker", "Kubernetes", "Containerization"] },
+
+                // Experience entries (from experience.html)
+                { title: "Senior Software Engineer at Tech Solutions Inc.", url: "experience.html#exp-1", tags: ["Software", "WebDev", "AWS", "Docker", "Kubernetes", "React", "Node.js", "Leadership"] },
+                { title: "Software Developer at Innovatech Ltd.", url: "experience.html#exp-2", tags: ["Software", "WebDev", "Python", "Django", "PostgreSQL", "API"] },
+                { title: "Junior Web Developer at WebDev Solutions", url: "experience.html#exp-3", tags: ["WebDev", "Frontend", "HTML", "CSS", "JavaScript"] },
+                { title: "AI Research Intern at AI Innovations Lab", url: "experience.html#exp-4", tags: ["AI", "Research", "NLP", "Machine Learning", "TensorFlow"] },
+
+                // Education and Certifications (from experience.html)
+                { title: "Master of Science in Computer Science", url: "experience.html#edu-1", tags: ["Education", "AI", "Machine Learning", "Thesis"] },
+                { title: "Bachelor of Science in Software Engineering", url: "experience.html#edu-2", tags: ["Education", "Software Engineering", "Fullstack"] },
+                { title: "Certified Kubernetes Administrator (CKA)", url: "experience.html#cka", tags: ["Certification", "Kubernetes", "Cloud"] },
+                { title: "AWS Certified Solutions Architect - Associate", url: "experience.html#aws-sa", tags: ["Certification", "AWS", "Cloud Architecture"] },
+
+                // Projects entries (from projects.html)
+                { title: "E-commerce Platform Redesign", url: "projects.html#proj-1", tags: ["web", "react", "node.js", "mongodb", "tailwind"] },
+                { title: "Cross-Platform Task Manager", url: "projects.html#proj-2", tags: ["mobile", "flutter", "firebase", "dart"] },
+                { title: "Market Trend Analysis Dashboard", url: "projects.html#proj-3", tags: ["data", "python", "flask", "d3.js", "pandas"] },
+                { title: "AI-Powered Content Generator", url: "projects.html#proj-4", tags: ["ai", "ml", "python", "tensorflow", "nlp"] },
+                { title: "Retro Arcade Game Collection", url: "projects.html#proj-5", tags: ["game", "javascript", "html5", "css3"] },
+                { title: "Cloud Cost Optimization Dashboard", url: "projects.html#proj-6", tags: ["cloud", "aws", "data", "python", "tableau"] },
+                { title: "Real-time Chat Application", url: "projects.html#proj-7", tags: ["web", "react", "firebase", "websocket"] },
+                { title: "Personal Portfolio Website (This One!)", url: "projects.html#proj-8", tags: ["web", "html", "css", "javascript", "tailwind"] },
+                { title: "Machine Learning Model Deployment API", url: "projects.html#proj-9", tags: ["ai", "ml", "python", "flask", "docker", "api"] },
+                { title: "IoT Smart Farm Monitoring", url: "projects.html#proj-10", tags: ["cloud", "iot", "aws", "python", "data"] },
+                { title: "Decentralized Voting System", url: "projects.html#proj-11", tags: ["web", "blockchain", "solidity", "react", "ethereum"] },
+                { title: "Personalized Fitness Trainer AI", url: "projects.html#proj-12", tags: ["ai", "ml", "python", "pytorch", "computer-vision"] },
+                { title: "Serverless Image Processing API", url: "projects.html#proj-13", tags: ["cloud", "aws", "lambda", "api", "serverless"] },
+                { title: "Interactive Data Storytelling Tool", url: "projects.html#proj-14", tags: ["data", "web", "javascript", "d3.js", "svelte"] },
+                { title: "Mobile Food Delivery App", url: "projects.html#proj-15", tags: ["mobile", "react-native", "node.js", "mongodb"] },
+
+                // Skills entries (from skills.html)
+                { title: "Frontend Development Skills", url: "skills.html#skills-overview", tags: ["Frontend", "HTML", "CSS", "JavaScript", "React", "Tailwind CSS", "Webpack"] },
+                { title: "Backend Development Skills", url: "skills.html#skills-overview", tags: ["Backend", "Node.js", "Python", "Ruby on Rails", "Java", "APIs"] },
+                { title: "Database Management Skills", url: "skills.html#skills-overview", tags: ["Databases", "SQL", "PostgreSQL", "MongoDB", "Firebase"] },
+                { title: "Cloud & DevOps Skills", url: "skills.html#skills-overview", tags: ["Cloud", "DevOps", "AWS", "Docker", "Kubernetes", "CI/CD"] },
+                { title: "AI/ML Skills", url: "skills.html#skills-overview", tags: ["AI", "ML", "TensorFlow", "PyTorch", "NLP", "Computer Vision"] },
+                { title: "Tools & Other Skills", url: "skills.html#skills-overview", tags: ["Tools", "Git", "GitHub", "VS Code", "Agile", "Jira"] },
+                { title: "Currently Mastering Skills", url: "skills.html#skills-overview", tags: ["Next.js", "GraphQL", "Generative AI", "Web3"] },
+                { title: "Proficiency Dashboard", url: "skills.html#proficiency-dashboard", tags: ["Skills", "Proficiency", "Metrics", "Impact"] },
+                { title: "Skill Showcase Details", url: "skills.html#skill-showcase-details", tags: ["Skills", "Showcase", "React", "Cloud", "AI", "Database"] },
+                { title: "Learning Path & Future Goals", url: "skills.html#learning-path", tags: ["Learning", "Future", "Goals", "Timeline", "Blockchain", "Data Engineering"] },
+
+
+                // Other pages/sections
+                { title: "About Me", url: "about.html", tags: ["Biography", "Journey", "Passion", "Values", "Mission"] },
+                { title: "Contact Me", url: "contact.html", tags: ["Email", "LinkedIn", "Inquiry", "Collaboration", "Map", "AI Assistant"] },
+                { title: "My Approach", url: "index.html#my-approach", tags: ["User-Centric Design", "Agile Development", "Robust Code", "Scalability", "Collaboration", "Innovation"] },
+                { title: "Frequently Asked Questions", url: "index.html#faq", tags: ["FAQ", "Questions", "Answers"] },
+            ];
+
+            function handleGlobalSearch(query, resultsContainer) {
+                resultsContainer.innerHTML = '';
+                if (query.length < 2) {
+                    resultsContainer.classList.add('hidden');
+                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500">Type to search...</p>';
+                    return;
+                }
+
+                const lowerCaseQuery = query.toLowerCase();
+                const filteredResults = searchData.filter(item =>
+                    item.title.toLowerCase().includes(lowerCaseQuery) ||
+                    item.tags.some(tag => tag.toLowerCase().includes(lowerCaseQuery))
+                );
+
+                if (filteredResults.length > 0) {
+                    resultsContainer.classList.remove('hidden');
+                    filteredResults.forEach(item => {
+                        const div = document.createElement('div');
+                        div.classList.add('search-results-item', 'text-slate-700', 'dark:text-slate-200');
+                        div.innerHTML = `<a href="${item.url}" class="block">${item.title} <span class="text-xs text-slate-500 dark:text-slate-400">(${item.tags.join(', ')})</span></a>`;
+                        div.addEventListener('click', (e) => {
+                            e.preventDefault(); // Prevent default navigation for internal links
+                            // Handle opening modals or navigating based on URL structure
+                            if (item.url.startsWith('projects.html#proj-')) {
+                                // For projects, find the project and open its modal
+                                const projectId = item.url.split('#')[1];
+                                // This would require a projectData array and modal logic similar to projects.html
+                                // For now, we'll just navigate
+                                window.location.href = item.url;
+                            } else if (item.url.startsWith('experience.html#exp-') || item.url.startsWith('experience.html#edu-')) {
+                                // For experience/education, navigate to experience.html and let its script handle the modal
+                                window.location.href = item.url;
+                            } else if (item.url.startsWith('blog.html#single-post-')) {
+                                // For blog posts, navigate to blog.html and let its script handle the modal
+                                window.location.href = item.url;
+                            } else {
+                                window.location.href = item.url; // For other pages, navigate directly
+                            }
+                        });
+                        resultsContainer.appendChild(div);
+                    });
+                } else {
+                    resultsContainer.classList.remove('hidden');
+                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500">No results found.</p>';
+                }
+            }
+
+            const desktopSearchInput = document.getElementById('desktopSearchInput');
+            const desktopSearchResults = document.getElementById('desktopSearchResults');
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
+            const mobileSearchResults = document.getElementById('mobileSearchResults');
+
+            desktopSearchInput.addEventListener('input', (e) => {
+                handleGlobalSearch(e.target.value, desktopSearchResults);
+            });
+            desktopSearchInput.addEventListener('focus', () => {
+                handleGlobalSearch(desktopSearchInput.value, desktopSearchResults);
+            });
+            desktopSearchInput.addEventListener('blur', () => {
+                setTimeout(() => {
+                    if (!desktopSearchResults.matches(':hover')) {
+                        desktopSearchResults.classList.add('hidden');
+                    }
+                }, 100);
+            });
+
+            mobileSearchInput.addEventListener('input', (e) => {
+                handleGlobalSearch(e.target.value, mobileSearchResults);
+            });
+            mobileSearchInput.addEventListener('focus', () => {
+                handleGlobalSearch(mobileSearchInput.value, mobileSearchResults);
+            });
+            mobileSearchInput.addEventListener('blur', () => {
+                setTimeout(() => {
+                    if (!mobileSearchResults.matches(':hover')) {
+                        mobileSearchResults.classList.add('hidden');
+                    }
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

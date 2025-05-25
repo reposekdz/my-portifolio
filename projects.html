@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects - niyonkuru reponse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
+    <link rel="icon" href="https://placehold.co/32x32/7c3aed/ffffff?text=NR&font=Montserrat" type="image/png">
+    <style>
+        /* Custom styles for animations and transitions - copied from blog.html */
+        .nav-link::after, .mobile-nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #6366f1; /* Indigo 500 */
+            transition: width 0.3s ease-in-out;
+            margin-top: 2px;
+        }
+        .dark .nav-link::after, .dark .mobile-nav-link::after {
+            background: #a78bfa; /* Purple 400 */
+        }
+        .nav-link:hover::after, .mobile-nav-link:hover::after {
+            width: 100%;
+        }
+        .active-nav-link::after, .active-mobile-nav-link::after {
+            width: 100%;
+        }
+
+        /* Search input styling - copied from blog.html */
+        .nav-search-input {
+            padding-left: 2.5rem; /* Space for icon */
+            padding-right: 1rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-radius: 9999px; /* Full rounded */
+            border: 1px solid #e2e8f0; /* Slate 200 */
+            background-color: #f8fafc; /* Slate 50 */
+            transition: all 0.3s ease-in-out;
+            width: 180px; /* Default width */
+        }
+        .dark .nav-search-input {
+            border-color: #475569; /* Slate 700 */
+            background-color: #1e293b; /* Slate 800 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        .nav-search-input:focus {
+            width: 250px; /* Expand on focus */
+            border-color: #6366f1; /* Indigo 500 */
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5); /* Ring effect */
+            outline: none;
+        }
+
+        .search-results-dropdown {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .search-results-dropdown {
+            background-color: #1e293b;
+            border-color: #475569;
+        }
+        .search-results-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .search-results-item:hover {
+            background-color: #f0f4f8;
+        }
+        .dark .search-results-item:hover {
+            background-color: #334155;
+        }
+
+        /* Social icons with tooltips - copied from blog.html */
+        .social-icon {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 48px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .social-icon:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px) scale(1.05);
+        }
+        .social-tooltip {
+            position: absolute;
+            bottom: 120%; /* Position above the icon */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #334155; /* Slate 700 */
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 20;
+        }
+        .dark .social-tooltip {
+            background-color: #0f172a; /* Slate 900 */
+        }
+        .social-icon:hover .social-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        .social-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #334155 transparent transparent transparent; /* Slate 700 */
+        }
+        .dark .social-tooltip::after {
+            border-color: #0f172a transparent transparent transparent; /* Slate 900 */
+        }
+
+        /* General button styles - copied from blog.html */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .btn-primary {
+            background-color: #a78bfa; /* Purple 400 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: #4f46e5; /* Indigo 600 */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+        .dark .btn-primary:hover {
+            background-color: #8b5cf6; /* Purple 500 */
+            box-shadow: 0 8px 20px rgba(167, 139, 250, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            background-color: transparent;
+            border: 2px solid #6366f1; /* Indigo 500 */
+            color: #6366f1; /* Indigo 500 */
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .dark .btn-secondary {
+            border-color: #a78bfa; /* Purple 400 */
+            color: #a78bfa; /* Purple 400 */
+        }
+        .btn-secondary:hover {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .btn-secondary:hover {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b; /* Slate 800 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: #ffffff;
+            color: #6366f1; /* Indigo 500 */
+            padding: 1rem 2.5rem;
+            border-radius: 9999px; /* Full rounded */
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .dark .cta-btn {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .cta-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            background-color: #f0f4f8; /* Lighten on hover */
+        }
+
+        /* Section titles and subtitles - copied from blog.html */
+        .section-title {
+            font-size: 2.5rem; /* 4xl */
+            font-weight: 700; /* Bold */
+            margin-bottom: 1rem;
+            color: #1e293b; /* Slate 900 */
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .dark .section-title {
+            color: #f8fafc; /* Slate 50 */
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #6366f1; /* Indigo 500 */
+            border-radius: 2px;
+        }
+        .section-title.text-left::after {
+            left: 0;
+            transform: translateX(0);
+        }
+        .dark .section-title::after {
+            background-color: #a78bfa; /* Purple 400 */
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem; /* Lg */
+            color: #475569; /* Slate 700 */
+        }
+        .dark .section-subtitle {
+            color: #94a3b8; /* Slate 400 */
+        }
+
+        /* Footer links - copied from blog.html */
+        .footer-link {
+            color: #475569; /* Slate 700 */
+            transition: color 0.3s ease, transform 0.2s ease;
+            position: relative;
+            padding-bottom: 2px;
+        }
+        .dark .footer-link {
+            color: #94a3b8; /* Slate 400 */
+        }
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: #6366f1; /* Indigo 500 */
+            transition: width 0.3s ease;
+        }
+        .dark .footer-link::after {
+            background-color: #a78bfa; /* Purple 400 */
+        }
+        .footer-link:hover {
+            color: #6366f1; /* Indigo 500 */
+            transform: translateY(-2px);
+        }
+        .dark .footer-link:hover {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        .footer-social-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 44px;
+            height: 44px;
+            background-color: #cbd5e1; /* Slate 300 */
+            border-radius: 50%;
+            color: #1e293b; /* Slate 900 */
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        .dark .footer-social-icon {
+            background-color: #475569; /* Slate 700 */
+            color: #f8fafc; /* Slate 50 */
+        }
+        .footer-social-icon:hover {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .footer-social-icon:hover {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b; /* Slate 900 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+
+        /* Back to top button - copied from blog.html */
+        #backToTopBtn {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Keyframe for wiggle animation - copied from blog.html */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            50% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        .animate-wiggle:hover {
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+
+        /* Navbar fade in down animation - copied from blog.html */
+        @keyframes fadeInDownNav {
+            from {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fadeInDownNav {
+            animation: fadeInDownNav 0.8s ease-out forwards;
+            animation-delay: 0.5s; /* Delay to appear after content loads */
+        }
+
+        /* Project Card Styles */
+        .project-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .dark .project-card {
+            background-color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .project-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .dark .project-card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+        .project-card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+        .project-card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+        .dark .project-card-title {
+            color: #f8fafc;
+        }
+        .project-card-description {
+            font-size: 1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+        .dark .project-card-description {
+            color: #cbd5e1;
+        }
+
+        /* Project Filter Buttons */
+        .project-filter-btn {
+            display: inline-block;
+            background-color: #e0e7ff; /* Indigo 100 */
+            color: #4338ca; /* Indigo 700 */
+            padding: 0.6rem 1.5rem;
+            border-radius: 9999px; /* Full rounded */
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .dark .project-filter-btn {
+            background-color: #3730a3; /* Indigo 800 */
+            color: #c7d2fe; /* Indigo 200 */
+        }
+        .project-filter-btn:hover {
+            background-color: #c7d2fe; /* Indigo 200 */
+            transform: translateY(-2px);
+        }
+        .dark .project-filter-btn:hover {
+            background-color: #4f46e5; /* Indigo 600 */
+            color: white;
+        }
+        .project-filter-btn.active-filter {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+            border-color: #6366f1;
+        }
+        .dark .project-filter-btn.active-filter {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b;
+            box-shadow: 0 2px 8px rgba(167, 139, 250, 0.4);
+            border-color: #a78bfa;
+        }
+
+        /* Tech Badge */
+        .tech-badge {
+            display: inline-block;
+            background-color: #e0e7ff; /* Indigo 100 */
+            color: #4338ca; /* Indigo 700 */
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px; /* Full rounded */
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .dark .tech-badge {
+            background-color: #3730a3; /* Indigo 800 */
+            color: #c7d2fe; /* Indigo 200 */
+        }
+
+        /* Project Detail Modal Styles (similar to blog/experience modals) */
+        .project-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .project-modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .project-modal-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 900px; /* Slightly wider for project details */
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .dark .project-modal-content {
+            background-color: #1e293b;
+        }
+        .project-modal-overlay.open .project-modal-content {
+            transform: translateY(0);
+        }
+        .project-modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #475569;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .dark .project-modal-close-btn {
+            color: #94a3b8;
+        }
+        .project-modal-close-btn:hover {
+            color: #1e293b;
+        }
+        .dark .project-modal-close-btn:hover {
+            color: #f8fafc;
+        }
+        .project-modal-content h3 {
+            font-size: 2.5rem; /* 3xl */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        .dark .project-modal-content h3 {
+            color: #f8fafc;
+        }
+        .project-modal-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #475569;
+        }
+        .dark .project-modal-content p {
+            color: #cbd5e1;
+        }
+        .project-modal-content ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #475569;
+        }
+        .dark .project-modal-content ul {
+            color: #cbd5e1;
+        }
+        .project-modal-content li {
+            margin-bottom: 0.5rem;
+        }
+        .project-modal-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .project-modal-content .tech-badge {
+            margin-top: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans leading-relaxed transition-colors duration-300 overflow-x-hidden">
+
+    <nav id="navbar" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
+        <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity">niyonkuru reponse</a>
+
+            <div class="hidden md:flex items-center relative group">
+                <input type="text" id="desktopSearchInput" placeholder="Search projects, skills..." class="nav-search-input peer">
+                <i class="fas fa-search text-slate-500 dark:text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-indigo-500 transition-colors"></i>
+                <div id="desktopSearchResults" class="search-results-dropdown hidden group-focus-within:block hover:block">
+                    <p class="p-2 text-sm text-slate-500">Type to search...</p>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-3 lg:space-x-4">
+                <a href="index.html#hero" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="skills.html" class="nav-link">Skills</a>
+                <a href="projects.html" class="nav-link active-nav-link">Projects</a>
+                <a href="experience.html" class="nav-link">Experience</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+
+            <div class="flex items-center">
+                <button id="darkModeToggle" aria-label="Toggle Dark Mode" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800 focus:ring-indigo-500 transition-all">
+                    <i class="fas fa-moon text-slate-700 dark:text-yellow-400 text-lg dark:block hidden"></i>
+                    <i class="fas fa-sun text-slate-700 dark:text-yellow-400 text-lg dark:hidden block"></i>
+                </button>
+                <button id="mobileMenuButton" aria-label="Open Menu" class="md:hidden ml-2 p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800 focus:ring-indigo-500">
+                    <i class="fas fa-bars text-slate-700 dark:text-slate-300 text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-slate-800 shadow-xl absolute w-full top-full left-0 animate__animated animate__fadeInDown animate__faster">
+            <div class="p-4 border-b border-slate-200 dark:border-slate-700">
+                 <div class="relative">
+                    <input type="text" id="mobileSearchInput" placeholder="Search..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors">
+                    <i class="fas fa-search text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                </div>
+                <div id="mobileSearchResults" class="search-results-mobile mt-2 hidden max-h-48 overflow-y-auto">
+                    </div>
+            </div>
+            <a href="index.html#hero" class="mobile-nav-link">Home</a>
+            <a href="about.html" class="mobile-nav-link">About</a>
+            <a href="skills.html" class="mobile-nav-link">Skills</a>
+            <a href="projects.html" class="mobile-nav-link active-mobile-nav-link">Projects</a>
+            <a href="experience.html" class="mobile-nav-link">Experience</a>
+            <a href="blog.html" class="mobile-nav-link">Blog</a>
+            <a href="contact.html" class="mobile-nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <section id="projects-hero" class="py-28 lg:py-32 bg-gradient-to-br from-teal-600 via-green-600 to-lime-600 dark:from-teal-800 dark:via-green-800 dark:to-lime-800 text-white relative overflow-hidden flex items-center justify-center">
+        <div class="container mx-auto px-6 text-center z-10 wow animate__animated animate__fadeInDown">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-4">My Creative Works</h1>
+            <p class="text-xl md:text-2xl font-light max-w-2xl mx-auto">
+                A showcase of my diverse projects, highlighting my skills and passion for development.
+            </p>
+        </div>
+    </section>
+
+    <section id="project-showcase" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">Featured Projects</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Explore a selection of my recent and impactful work.</p>
+
+            <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-12">
+                <button class="project-filter-btn active-filter" data-filter="all">All</button>
+                <button class="project-filter-btn" data-filter="web">Web Apps</button>
+                <button class="project-filter-btn" data-filter="mobile">Mobile Apps</button>
+                <button class="project-filter-btn" data-filter="ai">AI/ML</button>
+                <button class="project-filter-btn" data-filter="data">Data Science</button>
+                <button class="project-filter-btn" data-filter="game">Game Dev</button>
+                <button class="project-filter-btn" data-filter="cloud">Cloud Infra</button>
+            </div>
+
+            <div id="projectContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+
+            <div class="text-center mt-12">
+                <button id="loadMoreBtn" class="btn-primary group">
+                    Load More Projects <i class="fas fa-sync-alt ml-2 group-hover:rotate-180 transition-transform"></i>
+                </button>
+            </div>
+
+            <div class="mt-20 bg-slate-100 dark:bg-slate-800 p-8 md:p-12 rounded-xl shadow-xl wow animate__animated animate__fadeInUp">
+                <h3 class="text-3xl font-bold text-center mb-10 text-indigo-600 dark:text-indigo-400">Featured Project: Super App X</h3>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <img src="https://placehold.co/800x600/d8b4fe/1e293b?text=Featured+Project+Image&font=Montserrat" alt="Featured Project Screenshot" class="rounded-lg shadow-md w-full" onerror="this.src='https://placehold.co/800x600/e2e8f0/4a5568?text=Featured+Project+Image'">
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-semibold mb-3 text-slate-900 dark:text-slate-50">Super App X - Revolutionizing Smart Living</h4>
+                        <p class="mb-4 text-slate-700 dark:text-slate-300">
+                            Super App X is an innovative platform designed to integrate various smart home devices and services into a single, intuitive interface. It allows users to control lighting, temperature, security, and entertainment systems seamlessly, providing a truly connected living experience. My role involved leading the backend architecture design and implementing the core communication protocols for device integration.
+                        </p>
+                        <p class="mb-4 text-slate-700 dark:text-slate-300"><strong>Key Achievements:</strong> Reduced device response latency by 30% through optimized API design; Successfully integrated over 50 different smart device models; Achieved a 99.9% uptime for the core service infrastructure under heavy load.</p>
+                        <div class="mb-6">
+                            <strong class="block mb-2 text-slate-800 dark:text-slate-200">Technologies Used:</strong>
+                            <span class="tech-badge">Kubernetes</span>
+                            <span class="tech-badge">Kafka</span>
+                            <span class="tech-badge">Vue.js</span>
+                            <span class="tech-badge">PostgreSQL</span>
+                            <span class="tech-badge">gRPC</span>
+                            <span class="tech-badge">AWS IoT</span>
+                            <span class="tech-badge">Python</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                            <a href="#" target="_blank" class="btn-primary text-lg"><i class="fas fa-external-link-alt mr-2"></i> Explore Super App X</a>
+                            <a href="#" target="_blank" class="btn-secondary text-lg"><i class="fas fa-file-alt mr-2"></i> Case Study</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="project-stats" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="section-title">My Impact in Numbers</h2>
+            <p class="section-subtitle mb-12 lg:mb-16">Quantifying the success and reach of my development efforts.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <i class="ph-code-block text-5xl text-indigo-500 dark:text-indigo-400 mb-4"></i>
+                    <p class="text-4xl font-bold text-slate-900 dark:text-slate-50">15+</p>
+                    <p class="text-lg text-slate-700 dark:text-slate-300">Projects Completed</p>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <i class="ph-users-three text-5xl text-green-500 dark:text-green-400 mb-4"></i>
+                    <p class="text-4xl font-bold text-slate-900 dark:text-slate-50">10K+</p>
+                    <p class="text-lg text-slate-700 dark:text-slate-300">Active Users Reached</p>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <i class="ph-cloud-arrow-up text-5xl text-blue-500 dark:text-blue-400 mb-4"></i>
+                    <p class="text-4xl font-bold text-slate-900 dark:text-slate-50">99.9%</p>
+                    <p class="text-lg text-slate-700 dark:text-slate-300">Uptime Achieved</p>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <i class="ph-lightbulb text-5xl text-yellow-500 dark:text-yellow-400 mb-4"></i>
+                    <p class="text-4xl font-bold text-slate-900 dark:text-slate-50">5+</p>
+                    <p class="text-lg text-slate-700 dark:text-slate-300">Years Experience</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="py-20 lg:py-32 bg-gradient-to-r from-purple-600 to-indigo-700 dark:from-purple-800 dark:to-indigo-900 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="wow animate__animated animate__fadeInUp">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-6">Ready to Build Something Extraordinary?</h2>
+                <p class="text-lg lg:text-xl mb-8 max-w-2xl mx-auto">
+                    I'm always excited to discuss new projects, innovative ideas, or potential collaborations. Let's connect and create an impact.
+                </p>
+                <a href="contact.html" class="cta-btn group">
+                    Let's Talk <i class="fas fa-comments ml-2 group-hover:animate-wiggle"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 py-16 text-center">
+        <div class="container mx-auto px-6">
+            <div class="mb-8 flex justify-center space-x-6">
+                <a href="https://github.com/reponsekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/reponsekdz06 target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com/reponse_kdz/s" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
+                <a href="mailto:reponsekdz06@gmail.com" class="footer-social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <div class="mb-6 space-x-4 sm:space-x-6">
+                <a href="index.html#hero" class="footer-link">Home</a>
+                <a href="about.html" class="footer-link">About</a>
+                <a href="projects.html" class="footer-link">Projects</a>
+                <a href="blog.html" class="footer-link">Blog</a>
+                <a href="contact.html" class="footer-link">Contact</a>
+                <a href="#privacy-policy" class="footer-link">Privacy Policy</a>
+            </div>
+            <p class="text-sm">© <span id="currentYear"></span> niyonkuru reponse. All rights reserved.</p>
+            <p class="text-xs mt-2">Designed with <i class="fas fa-heart text-red-500"></i>Niyonkuru Reponse.</p>
+            <p class="text-xs mt-1">Located in Kigali-Kicukiro.</p>
+        </div>
+    </footer>
+
+    <button id="backToTopBtn" aria-label="Back to Top" class="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white p-3 rounded-full shadow-lg opacity-0 translate-y-10 transition-all duration-300 z-40">
+        <i class="fas fa-arrow-up text-lg"></i>
+    </button>
+
+    <div id="projectDetailModal" class="project-modal-overlay">
+        <div class="project-modal-content">
+            <button class="project-modal-close-btn" aria-label="Close Project Details">×</button>
+            <h3 id="modalProjectTitle"></h3>
+            <p id="modalProjectCategory" class="text-sm text-slate-600 dark:text-slate-400 mb-4"></p>
+            <img id="modalProjectImage" src="" alt="Project Image" class="w-full h-auto rounded-lg mb-6">
+            <div id="modalProjectDescription" class="prose dark:prose-invert max-w-none mb-6">
+                </div>
+            <div id="modalProjectTech" class="mt-4 flex flex-wrap gap-2 mb-6"></div>
+            <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                <a id="modalProjectLiveLink" href="#" target="_blank" class="btn-primary text-base hidden"><i class="fas fa-external-link-alt mr-2"></i> Live Demo</a>
+                <a id="modalProjectGithubLink" href="#" target="_blank" class="btn-secondary text-base hidden"><i class="fab fa-github mr-2"></i> GitHub Repo</a>
+                <a id="modalProjectCaseStudyLink" href="#" target="_blank" class="btn-secondary text-base hidden"><i class="fas fa-file-alt mr-2"></i> Case Study</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize WOW.js for scroll animations
+            new WOW().init();
+
+            // Dark Mode Toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const sunIcon = darkModeToggle.querySelector('.fa-sun');
+            const moonIcon = darkModeToggle.querySelector('.fa-moon');
+
+            function setDarkMode(isDark) {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('darkMode', 'true');
+                    moonIcon.style.display = 'block';
+                    sunIcon.style.display = 'none';
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('darkMode', 'false');
+                    moonIcon.style.display = 'none';
+                    sunIcon.style.display = 'block';
+                }
+            }
+
+            if (localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                setDarkMode(true);
+            } else {
+                setDarkMode(false);
+            }
+
+            darkModeToggle.addEventListener('click', () => {
+                setDarkMode(!document.documentElement.classList.contains('dark'));
+            });
+
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.querySelector('i').classList.toggle('fa-bars');
+                mobileMenuButton.querySelector('i').classList.toggle('fa-times');
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.querySelector('i').classList.remove('fa-times');
+                    mobileMenuButton.querySelector('i').classList.add('fa-bars');
+                });
+            });
+
+            // Back to Top Button
+            const backToTopBtn = document.getElementById('backToTopBtn');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.remove('opacity-0', 'translate-y-10');
+                    backToTopBtn.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+                    backToTopBtn.classList.add('opacity-0', 'translate-y-10');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // --- Project Filtering and Loading ---
+            const projectData = [
+                {
+                    id: "proj-1",
+                    title: "E-commerce Platform Redesign",
+                    category: "Web App",
+                    tags: ["web", "react", "node.js", "mongodb", "tailwind"],
+                    image: "https://placehold.co/600x400/a3bffa/1e293b?text=E-commerce+Redesign",
+                    description: `
+                        <p>Led the complete redesign and re-platforming of a high-traffic e-commerce website, focusing on improving user experience, performance, and scalability. Implemented a modern tech stack to support future growth and features.</p>
+                        <p><strong>Key Features:</strong> Intuitive product catalog, secure checkout process, personalized recommendations, robust search functionality, administrative dashboard for order management.</p>
+                        <ul>
+                            <li>Improved page load times by 40% through code optimization and image lazy loading.</li>
+                            <li>Increased conversion rates by 15% due to enhanced UI/UX and streamlined checkout.</li>
+                            <li>Integrated with third-party payment gateways and shipping APIs.</li>
+                        </ul>
+                    `,
+                    liveLink: "#",
+                    githubLink: "#",
+                    caseStudyLink: "#"
+                },
+                {
+                    id: "proj-2",
+                    title: "Cross-Platform Task Manager",
+                    category: "Mobile App",
+                    tags: ["mobile", "flutter", "firebase", "dart"],
+                    image: "https://placehold.co/600x400/f9a8d4/1e293b?text=Task+Manager+App",
+                    description: `
+                        <p>Developed a cross-platform mobile application for efficient task management, allowing users to organize their daily activities, set reminders, and track progress. Built with Flutter for a native feel on both iOS and Android.</p>
+                        <p><strong>Key Features:</strong> Task creation and categorization, due date reminders, progress tracking, cloud synchronization, user authentication.</p>
+                        <ul>
+                            <li>Implemented real-time data synchronization using Firebase Firestore.</li>
+                            <li>Designed a clean and intuitive user interface for optimal mobile experience.</li>
+                            <li>Achieved high performance and smooth animations across different devices.</li>
+                        </ul>
+                    `,
+                    liveLink: null, // No live link for mobile app
+                    githubLink: "#",
+                    caseStudyLink: "#"
+                },
+                {
+                    id: "proj-3",
+                    title: "Market Trend Analysis Dashboard",
+                    category: "Data Science",
+                    tags: ["data", "python", "flask", "d3.js", "pandas"],
+                    image: "https://placehold.co/600x400/86efac/1e293b?text=Market+Dashboard",
+                    description: `
+                        <p>Created an interactive web-based dashboard for real-time market trend analysis. The application processes large datasets, performs statistical analysis, and visualizes key insights using D3.js.</p>
+                        <p><strong>Key Features:</strong> Dynamic charts and graphs, customizable data filters, historical data comparison, predictive analytics module.</p>
+                        <ul>
+                            <li>Processed and cleaned raw financial data using Pandas.</li>
+                            <li>Developed a Flask backend to serve data to the frontend.</li>
+                            <li>Designed complex interactive visualizations with D3.js to highlight trends and anomalies.</li>
+                        </ul>
+                    `,
+                    liveLink: "#",
+                    githubLink: "#",
+                    caseStudyLink: null
+                },
+                {
+                    id: "proj-4",
+                    title: "AI-Powered Content Generator",
+                    category: "AI/ML",
+                    tags: ["ai", "ml", "python", "tensorflow", "nlp"],
+                    image: "https://placehold.co/600x400/a78bfa/1e293b?text=AI+Content+Gen",
+                    description: `
+                        <p>Developed a prototype for an AI-powered content generation tool capable of drafting articles and marketing copy based on user prompts. Leveraged advanced NLP techniques and pre-trained language models.</p>
+                        <p><strong>Key Features:</strong> Text summarization, article generation from keywords, sentiment analysis, customizable output styles.</p>
+                        <ul>
+                            <li>Fine-tuned a Transformer-based model for specific content generation tasks.</li>
+                            <li>Implemented a user-friendly web interface for input and output.</li>
+                            <li>Explored various sampling strategies to control creativity and coherence of generated text.</li>
+                        </ul>
+                    `,
+                    liveLink: "#",
+                    githubLink: "#",
+                    caseStudyLink: "#"
+                },
+                {
+                    id: "proj-5",
+                    title: "Retro Arcade Game Collection",
+                    category: "Game Dev",
+                    tags: ["game", "javascript", "html5", "css3"],
+                    image: "https://placehold.co/600x400/facc15/1e293b?text=Retro+Games",
+                    description: `
+                        <p>A collection of classic arcade-style games developed entirely using HTML5 Canvas, JavaScript, and CSS. Focused on recreating nostalgic gameplay mechanics and pixel-art aesthetics.</p>
+                        <p><strong>Games Included:</strong> Space Invaders clone, Snake, Pong, and a simple platformer.</p>
+                        <ul>
+                            <li>Implemented game physics and collision detection from scratch.</li>
+                            <li>Optimized rendering for smooth gameplay across different browsers.</li>
+                            <li>Designed and integrated simple sound effects and background music.</li>
+                        </ul>
+                    `,
+                    liveLink: "#",
+                    githubLink: "#",
+                    caseStudyLink: null
+                },
+                {
+                    id: "proj-6",
+                    title: "Cloud Cost Optimization Dashboard",
+                    category: "Cloud Infra",
+                    tags: ["cloud", "aws", "data", "python", "tableau"],
+                    image: "https://placehold.co/600x400/38bdf8/1e293b?text=Cloud+Cost+Opt",
+                    description: `
+                        <p>Built a comprehensive dashboard to monitor and optimize cloud spending across multiple AWS accounts. The solution aggregates billing data, identifies cost anomalies, and provides actionable recommendations.</p>
+                        <p><strong>Key Features:</strong> Daily cost breakdown, resource utilization reports, budget alerts, potential savings recommendations, historical cost trends.</p>
+                        <ul>
+                            <li>Developed Python scripts to extract and process billing data from AWS Cost Explorer API.</li>
+                            <li>Created interactive visualizations in Tableau to present complex financial data clearly.</li>
+                            <li>Enabled organizations to reduce their monthly cloud expenditure by an average of 10-15%.</li>
+                        </ul>
+                    `,
+                    liveLink: null,
+                    githubLink: "#",
+                    caseStudyLink: "#"
+                },
+                {
+                    id: "proj-7",
+                    title: "Real-time Chat Application",
+                    category: "Web App",
+                    tags: ["web", "react", "firebase", "websocket"],
+                    image: "https://placehold.co/600x400/94a3b8/1e293b?text=Chat+App",
+                    description: `
+                        <p>Developed a real-time chat application with user authentication, private messaging, and group chat features. Utilized WebSockets for instant message delivery and Firebase for backend services.</p>
+                        <p><strong>Key Features:</strong> User registration/login, one-on-one chat, group chat, message timestamps, online/offline status indicators.</p>
+                        <ul>
+                            <li>Implemented secure user authentication and authorization.</li>
+                            <li>Designed a responsive and intuitive chat interface.</li>
+                            <li>Ensured low-latency message delivery and robust error handling.</li>
+                        </ul>
+                    `,
+                    liveLink: "#",
+                    githubLink: "#",
+                    caseStudyLink: null
+                },
+                {
+                    id: "proj-8",
+                    title: "Personal Portfolio Website (This One!)",
+                    category: "Web App",
+                    tags: ["web", "html", "css", "javascript", "tailwind"],
+                    image: "https://placehold.co/600x400/6366f1/ffffff?text=Portfolio+Website",
+                    description: `
+                        <p>This very website! Designed and developed from scratch to showcase my professional experience, projects, skills, and blog posts. Focused on creating a clean, modern, responsive, and performant user experience.</p>
+                        <p><strong>Key Features:</strong> Responsive design, dark mode toggle, interactive navigation, project filtering, modal pop-ups for details, scroll animations.</p>
+                        <ul>
+                            <li>Hand-coded with HTML5, CSS3 (Tailwind CSS), and Vanilla JavaScript.</li>
+                            <li>Optimized for fast loading and smooth transitions.</li>
+                            <li>Integrated Font Awesome and Phosphor Icons for a rich visual experience.</li>
+                        </ul>
+                    `,
+                    liveLink: "index.html", // Link to the actual index page
+                    githubLink: "https://github.com/niyonkurureponse/portfolio-website", // Placeholder, replace with actual repo
+                    caseStudyLink: null
+                },
+                {
+                    id: "proj-9",
+                    title: "Machine Learning Model Deployment API",
+                    category: "AI/ML",
+                    tags: ["ai", "ml", "python", "flask", "docker", "api"],
+                    image: "https://placehold.co/600x400/ef4444/ffffff?text=ML+API+Deployment",
+                    description: `
+                        <p>Developed a RESTful API to serve a pre-trained machine learning model for inference. The API is containerized using Docker for easy deployment and scalability.</p>
+                        <p><strong>Key Features:</strong> Endpoint for model prediction, input validation, error handling, Dockerized deployment.</p>
+                        <ul>
+                            <li>Built a Flask application to expose the ML model via a REST API.</li>
+                            <li>Containerized the application using Docker for consistent environment.</li>
+                            <li>Implemented robust input validation and error handling mechanisms.</li>
+                        </ul>
+                    `,
+                    liveLink: null,
+                    githubLink: "#",
+                    caseStudyLink: null
+                },
+                {
+                    id: "proj-10",
+                    title: "IoT Smart Farm Monitoring",
+                    category: "Cloud Infra",
+                    tags: ["cloud", "iot", "aws", "python", "data"],
+                    image: "https://placehold.co/600x400/22c55e/ffffff?text=IoT+Smart+Farm",
+                    description: `
+                        <p>Designed and implemented an IoT solution for monitoring environmental conditions in a smart farm. Sensor data is collected, sent to the cloud, processed, and visualized on a dashboard.</p>
+                        <p><strong>Key Features:</strong> Real-time sensor data collection (temperature, humidity, soil moisture), cloud data ingestion, data processing and analysis, visualization dashboard.</p>
+                        <ul>
+                            <li>Utilized AWS IoT Core for device connectivity and data ingestion.</li>
+                            <li>Processed data with AWS Lambda and stored in DynamoDB.</li>
+                            <li>Created a dashboard using AWS QuickSight for data visualization.</li>
+                        </ul>
+                    `,
+                    liveLink: null,
+                    githubLink: "#",
+                    caseStudyLink: "#"
+                },
+                {
+                    id: "proj-11",
+                    title: "Decentralized Voting System",
+                    category: "Web App",
+                    tags: ["web", "blockchain", "solidity", "react", "ethereum"],
+                    image: "https://placehold.co/600x400/60a5fa/ffffff?text=Blockchain+Voting",
+                    description: `
+                        <p>Developed a secure and transparent decentralized voting system using blockchain technology. Smart contracts on Ethereum ensure immutability and verifiable results.</p>
+                        <p><strong>Key Features:</strong> Voter registration, candidate management, secure ballot casting, real-time vote counting, tamper-proof results.</p>
+                        <ul>
+                            <li>Implemented smart contracts in Solidity for core voting logic.</li>
+                            <li>Built a React frontend for user interaction with the blockchain.</li>
+                            <li>Ensured high security and transparency for all voting processes.</li>
+                        </ul>
+                    `,
+                    liveLink: "#",
+                    githubLink: "#",
+                    caseStudyLink: null
+                },
+                {
+                    id: "proj-12",
+                    title: "Personalized Fitness Trainer AI",
+                    category: "AI/ML",
+                    tags: ["ai", "ml", "python", "pytorch", "computer-vision"],
+                    image: "https://placehold.co/600x400/f472b6/ffffff?text=Fitness+AI",
+                    description: `
+                        <p>Created an AI-powered personal fitness trainer application that uses computer vision to analyze exercise form and provide real-time feedback. Helps users maintain correct posture and prevent injuries.</p>
+                        <p><strong>Key Features:</strong> Pose estimation, real-time feedback, exercise tracking, personalized workout plans, progress visualization.</p>
+                        <ul>
+                            <li>Utilized pre-trained pose estimation models and fine-tuned for specific exercises.</li>
+                            <li>Developed a Python backend to process video streams and provide feedback.</li>
+                            <li>Designed a user-friendly interface to display live analysis and historical data.</li>
+                        </ul>
+                    `,
+                    liveLink: null,
+                    githubLink: "#",
+                    caseStudyLink: "#"
+                },
+                {
+                    id: "proj-13",
+                    title: "Serverless Image Processing API",
+                    category: "Cloud Infra",
+                    tags: ["cloud", "aws", "lambda", "api", "serverless"],
+                    image: "https://placehold.co/600x400/fcd34d/1e293b?text=Serverless+Image",
+                    description: `
+                        <p>Built a highly scalable and cost-effective serverless API for on-demand image processing (resizing, watermarking, format conversion). Deployed on AWS Lambda and API Gateway.</p>
+                        <p><strong>Key Features:</strong> Image resizing, watermarking, format conversion, S3 integration for storage, asynchronous processing.</p>
+                        <ul>
+                            <li>Implemented image processing logic using Python with Pillow library.</li>
+                            <li>Configured AWS Lambda functions triggered by S3 events and API Gateway.</li>
+                            <li>Designed a robust error handling and logging mechanism for serverless operations.</li>
+                        </ul>
+                    `,
+                    liveLink: null,
+                    githubLink: "#",
+                    caseStudyLink: "#"
+                },
+                {
+                    id: "proj-14",
+                    title: "Interactive Data Storytelling Tool",
+                    category: "Data Science",
+                    tags: ["data", "web", "javascript", "d3.js", "svelte"],
+                    image: "https://placehold.co/600x400/a78bfa/1e293b?text=Data+Storytelling",
+                    description: `
+                        <p>Developed an interactive web application that allows users to create and share data-driven stories. Combines narrative text with dynamic visualizations to explain complex datasets.</p>
+                        <p><strong>Key Features:</strong> Data upload and parsing, interactive charts (line, bar, scatter), annotated narratives, export options (PDF, image).</p>
+                        <ul>
+                            <li>Built a responsive frontend using Svelte for efficient UI updates.</li>
+                            <li>Utilized D3.js for creating custom and engaging data visualizations.</li>
+                            <li>Implemented a rich text editor for narrative creation alongside data points.</li>
+                        </ul>
+                    `,
+                    liveLink: "#",
+                    githubLink: "#",
+                    caseStudyLink: null
+                },
+                {
+                    id: "proj-15",
+                    title: "Mobile Food Delivery App",
+                    category: "Mobile App",
+                    tags: ["mobile", "react-native", "node.js", "mongodb"],
+                    image: "https://placehold.co/600x400/fb7185/ffffff?text=Food+Delivery+App",
+                    description: `
+                        <p>Designed and developed a complete mobile food delivery application with separate interfaces for customers, restaurants, and delivery drivers. Focus on real-time order tracking and seamless user experience.</p>
+                        <p><strong>Key Features:</strong> Restaurant listings, menu browsing, secure ordering and payment, real-time order tracking, push notifications, driver management.</p>
+                        <ul>
+                            <li>Built the mobile app with React Native for cross-platform compatibility.</li>
+                            <li>Developed a robust Node.js backend with MongoDB for data storage.</li>
+                            <li>Integrated with mapping APIs for delivery tracking and route optimization.</li>
+                        </ul>
+                    `,
+                    liveLink: null,
+                    githubLink: "#",
+                    caseStudyLink: "#"
+                }
+            ];
+
+            let displayedProjects = 6; // Number of projects initially displayed
+            const projectsPerPage = 3; // Number of projects to load each time
+
+            const projectContainer = document.getElementById('projectContainer');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const filterButtons = document.querySelectorAll('.project-filter-btn');
+
+            let currentFilter = 'all';
+
+            function createProjectCard(project) {
+                const card = document.createElement('div');
+                card.classList.add('project-card', 'wow', 'animate__animated', 'animate__fadeInUp');
+                card.setAttribute('data-tags', project.tags.join(','));
+                card.setAttribute('data-project-id', project.id);
+
+                card.innerHTML = `
+                    <img src="${project.image}" alt="${project.title} Screenshot" class="w-full h-48 object-cover" onerror="this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Project+Image'">
+                    <div class="project-card-content">
+                        <h3 class="project-card-title">${project.title}</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">${project.category}</p>
+                        <p class="project-card-description">
+                            ${project.description.split('</p>')[0].replace('<p>', '')}...
+                        </p>
+                        <div class="mb-4 flex flex-wrap gap-2">
+                            ${project.tags.map(tag => `<span class="tech-badge">${tag.charAt(0).toUpperCase() + tag.slice(1)}</span>`).join('')}
+                        </div>
+                        <div class="flex space-x-3">
+                            <button class="btn-primary text-sm view-details-btn" data-project-id="${project.id}">
+                                View Details <i class="fas fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                return card;
+            }
+
+            function renderProjects() {
+                projectContainer.innerHTML = ''; // Clear existing projects
+                const filteredProjects = projectData.filter(project =>
+                    currentFilter === 'all' || project.tags.includes(currentFilter)
+                );
+
+                const projectsToDisplay = filteredProjects.slice(0, displayedProjects);
+
+                if (projectsToDisplay.length === 0) {
+                    projectContainer.innerHTML = '<p class="text-center text-lg text-slate-600 dark:text-slate-400 col-span-full">No projects found for this category.</p>';
+                } else {
+                    projectsToDisplay.forEach(project => {
+                        projectContainer.appendChild(createProjectCard(project));
+                    });
+                }
+
+                // Show/hide load more button
+                if (displayedProjects >= filteredProjects.length) {
+                    loadMoreBtn.classList.add('hidden');
+                } else {
+                    loadMoreBtn.classList.remove('hidden');
+                }
+
+                // Attach event listeners to new "View Details" buttons
+                document.querySelectorAll('.view-details-btn').forEach(button => {
+                    button.addEventListener('click', openProjectModal);
+                });
+            }
+
+            function loadMoreProjects() {
+                displayedProjects += projectsPerPage;
+                renderProjects();
+            }
+
+            // Initial render
+            renderProjects();
+
+            // Event listener for Load More button
+            loadMoreBtn.addEventListener('click', loadMoreProjects);
+
+            // Event listeners for filter buttons
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active-filter'));
+                    button.classList.add('active-filter');
+                    currentFilter = button.dataset.filter;
+                    displayedProjects = 6; // Reset displayed count on filter change
+                    renderProjects();
+                });
+            });
+
+            // --- Project Detail Modal Logic ---
+            const projectDetailModal = document.getElementById('projectDetailModal');
+            const modalProjectTitle = document.getElementById('modalProjectTitle');
+            const modalProjectCategory = document.getElementById('modalProjectCategory');
+            const modalProjectImage = document.getElementById('modalProjectImage');
+            const modalProjectDescription = document.getElementById('modalProjectDescription');
+            const modalProjectTech = document.getElementById('modalProjectTech');
+            const modalProjectLiveLink = document.getElementById('modalProjectLiveLink');
+            const modalProjectGithubLink = document.getElementById('modalProjectGithubLink');
+            const modalProjectCaseStudyLink = document.getElementById('modalProjectCaseStudyLink');
+            const closeProjectModalBtn = projectDetailModal.querySelector('.project-modal-close-btn');
+
+            function openProjectModal(event) {
+                const projectId = event.target.dataset.projectId;
+                const project = projectData.find(p => p.id === projectId);
+
+                if (project) {
+                    modalProjectTitle.textContent = project.title;
+                    modalProjectCategory.textContent = project.category;
+                    modalProjectImage.src = project.image;
+                    modalProjectImage.alt = project.title + " Screenshot";
+                    modalProjectDescription.innerHTML = project.description;
+
+                    modalProjectTech.innerHTML = '';
+                    project.tags.forEach(tag => {
+                        const span = document.createElement('span');
+                        span.classList.add('tech-badge');
+                        span.textContent = tag.charAt(0).toUpperCase() + tag.slice(1);
+                        modalProjectTech.appendChild(span);
+                    });
+
+                    // Set links and toggle visibility
+                    if (project.liveLink) {
+                        modalProjectLiveLink.href = project.liveLink;
+                        modalProjectLiveLink.classList.remove('hidden');
+                    } else {
+                        modalProjectLiveLink.classList.add('hidden');
+                    }
+                    if (project.githubLink) {
+                        modalProjectGithubLink.href = project.githubLink;
+                        modalProjectGithubLink.classList.remove('hidden');
+                    } else {
+                        modalProjectGithubLink.classList.add('hidden');
+                    }
+                    if (project.caseStudyLink) {
+                        modalProjectCaseStudyLink.href = project.caseStudyLink;
+                        modalProjectCaseStudyLink.classList.remove('hidden');
+                    } else {
+                        modalProjectCaseStudyLink.classList.add('hidden');
+                    }
+
+                    projectDetailModal.classList.add('open');
+                    document.body.style.overflow = 'hidden'; // Prevent body scrolling
+                }
+            }
+
+            closeProjectModalBtn.addEventListener('click', () => {
+                projectDetailModal.classList.remove('open');
+                document.body.style.overflow = ''; // Restore body scrolling
+            });
+
+            projectDetailModal.addEventListener('click', (e) => {
+                if (e.target === projectDetailModal) { // Close if clicked on overlay
+                    projectDetailModal.classList.remove('open');
+                    document.body.style.overflow = ''; // Restore body scrolling
+                }
+            });
+
+            // Update current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Desktop and Mobile Search Functionality (adapted for projects page)
+            const searchData = [
+                // Blog posts (from blog.html)
+                { title: "The Future of AI in Web Development", url: "blog.html#single-post-1", tags: ["AI", "WebDev", "Future", "Automation", "Personalization"] },
+                { title: "Mastering State Management in React", url: "blog.html#single-post-2", tags: ["React", "Frontend", "State", "Redux", "Context API", "Zustand"] },
+                { title: "Cloud Native Architectures Explained", url: "blog.html#single-post-3", tags: ["Cloud", "Architecture", "Microservices", "Containers", "Kubernetes", "DevOps"] },
+                { title: "Introduction to Generative AI Models", url: "blog.html#single-post-4", tags: ["AI", "ML", "Generative AI", "GANs", "Transformers", "GPT"] },
+                { title: "Building Progressive Web Apps (PWAs)", url: "blog.html#single-post-5", tags: ["WebDev", "Mobile", "PWA", "Service Workers", "Offline"] },
+                { title: "Effective Data Visualization Techniques", url: "blog.html#single-post-6", tags: ["Data", "Analytics", "Visualization", "Charts", "Graphs"] },
+                { title: "Demystifying Large Language Models (LLMs)", url: "blog.html#single-post-7", tags: ["AI", "Software", "LLM", "NLP", "Generative AI"] },
+                { title: "Building Scalable Backend APIs with Node.js", url: "blog.html#single-post-8", tags: ["Software", "WebDev", "Backend", "Node.js", "APIs", "Express.js"] },
+                { title: "Cross-Platform Mobile Dev with React Native", url: "blog.html#single-post-9", tags: ["Mobile", "App", "Software", "React Native", "iOS", "Android"] },
+                { title: "The Role of MLOps in Production AI Systems", url: "blog.html#single-post-10", tags: ["AI", "Software", "Cloud", "MLOps", "Deployment", "Monitoring"] },
+                { title: "Designing User-Friendly Mobile Interfaces", url: "blog.html#single-post-11", tags: ["App", "UI/UX", "Mobile Design", "User Experience"] },
+                { title: "Containerization with Docker and Kubernetes", url: "blog.html#single-post-12", tags: ["Software", "Cloud", "Docker", "Kubernetes", "Containerization"] },
+
+                // Experience entries (from experience.html)
+                { title: "Senior Software Engineer at Tech Solutions Inc.", url: "experience.html#exp-1", tags: ["Software", "WebDev", "AWS", "Docker", "Kubernetes", "React", "Node.js", "Leadership"] },
+                { title: "Software Developer at Innovatech Ltd.", url: "experience.html#exp-2", tags: ["Software", "WebDev", "Python", "Django", "PostgreSQL", "API"] },
+                { title: "Junior Web Developer at WebDev Solutions", url: "experience.html#exp-3", tags: ["WebDev", "Frontend", "HTML", "CSS", "JavaScript"] },
+                { title: "AI Research Intern at AI Innovations Lab", url: "experience.html#exp-4", tags: ["AI", "Research", "NLP", "Machine Learning", "TensorFlow"] },
+
+                // Education and Certifications (from experience.html)
+                { title: "Master of Science in Computer Science", url: "experience.html#edu-1", tags: ["Education", "AI", "Machine Learning", "Thesis"] },
+                { title: "Bachelor of Science in Software Engineering", url: "experience.html#edu-2", tags: ["Education", "Software Engineering", "Fullstack"] },
+                { title: "Certified Kubernetes Administrator (CKA)", url: "experience.html#cka", tags: ["Certification", "Kubernetes", "Cloud"] },
+                { title: "AWS Certified Solutions Architect - Associate", url: "experience.html#aws-sa", tags: ["Certification", "AWS", "Cloud Architecture"] },
+
+                // Projects entries (from projectData above)
+                ...projectData.map(p => ({
+                    title: p.title,
+                    url: `projects.html#${p.id}`, // Link to the project section/modal trigger
+                    tags: p.tags
+                })),
+
+                // Other pages/sections
+                { title: "My Skills Overview", url: "skills.html", tags: ["Frontend", "Backend", "Cloud", "AI", "Machine Learning", "Deep Learning", "Generative AI", "Data Visualization", "Cloud AI Services"] },
+                { title: "About Me", url: "about.html", tags: ["Biography", "Journey", "Passion", "Values", "Mission"] },
+                { title: "Contact Me", url: "contact.html", tags: ["Email", "LinkedIn", "Inquiry", "Collaboration", "Map", "AI Assistant"] },
+                { title: "My Approach", url: "index.html#my-approach", tags: ["User-Centric Design", "Agile Development", "Robust Code", "Scalability", "Collaboration", "Innovation"] },
+                { title: "Frequently Asked Questions", url: "index.html#faq", tags: ["FAQ", "Questions", "Answers"] },
+            ];
+
+            function handleGlobalSearch(query, resultsContainer) {
+                resultsContainer.innerHTML = '';
+                if (query.length < 2) {
+                    resultsContainer.classList.add('hidden');
+                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500">Type to search...</p>';
+                    return;
+                }
+
+                const lowerCaseQuery = query.toLowerCase();
+                const filteredResults = searchData.filter(item =>
+                    item.title.toLowerCase().includes(lowerCaseQuery) ||
+                    item.tags.some(tag => tag.toLowerCase().includes(lowerCaseQuery))
+                );
+
+                if (filteredResults.length > 0) {
+                    resultsContainer.classList.remove('hidden');
+                    filteredResults.forEach(item => {
+                        const div = document.createElement('div');
+                        div.classList.add('search-results-item', 'text-slate-700', 'dark:text-slate-200');
+                        div.innerHTML = `<a href="${item.url}" class="block">${item.title} <span class="text-xs text-slate-500 dark:text-slate-400">(${item.tags.join(', ')})</span></a>`;
+                        div.addEventListener('click', (e) => {
+                            e.preventDefault(); // Prevent default navigation for internal links
+                            // Handle opening modals or navigating based on URL structure
+                            if (item.url.startsWith('projects.html#proj-')) {
+                                const projectId = item.url.split('#')[1];
+                                const project = projectData.find(p => p.id === projectId);
+                                if (project) {
+                                    modalProjectTitle.textContent = project.title;
+                                    modalProjectCategory.textContent = project.category;
+                                    modalProjectImage.src = project.image;
+                                    modalProjectImage.alt = project.title + " Screenshot";
+                                    modalProjectDescription.innerHTML = project.description;
+
+                                    modalProjectTech.innerHTML = '';
+                                    project.tags.forEach(tag => {
+                                        const span = document.createElement('span');
+                                        span.classList.add('tech-badge');
+                                        span.textContent = tag.charAt(0).toUpperCase() + tag.slice(1);
+                                        modalProjectTech.appendChild(span);
+                                    });
+
+                                    if (project.liveLink) {
+                                        modalProjectLiveLink.href = project.liveLink;
+                                        modalProjectLiveLink.classList.remove('hidden');
+                                    } else {
+                                        modalProjectLiveLink.classList.add('hidden');
+                                    }
+                                    if (project.githubLink) {
+                                        modalProjectGithubLink.href = project.githubLink;
+                                        modalProjectGithubLink.classList.remove('hidden');
+                                    } else {
+                                        modalProjectGithubLink.classList.add('hidden');
+                                    }
+                                    if (project.caseStudyLink) {
+                                        modalProjectCaseStudyLink.href = project.caseStudyLink;
+                                        modalProjectCaseStudyLink.classList.remove('hidden');
+                                    } else {
+                                        modalProjectCaseStudyLink.classList.add('hidden');
+                                    }
+
+                                    projectDetailModal.classList.add('open');
+                                    document.body.style.overflow = 'hidden';
+                                }
+                            } else if (item.url.startsWith('experience.html#exp-') || item.url.startsWith('experience.html#edu-')) {
+                                // For experience/education, navigate to experience.html and let its script handle the modal
+                                window.location.href = item.url;
+                            } else if (item.url.startsWith('blog.html#single-post-')) {
+                                // For blog posts, navigate to blog.html and let its script handle the modal
+                                window.location.href = item.url;
+                            }
+                             else {
+                                window.location.href = item.url; // For other pages, navigate directly
+                            }
+                        });
+                        resultsContainer.appendChild(div);
+                    });
+                } else {
+                    resultsContainer.classList.remove('hidden');
+                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500">No results found.</p>';
+                }
+            }
+
+            const desktopSearchInput = document.getElementById('desktopSearchInput');
+            const desktopSearchResults = document.getElementById('desktopSearchResults');
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
+            const mobileSearchResults = document.getElementById('mobileSearchResults');
+
+            desktopSearchInput.addEventListener('input', (e) => {
+                handleGlobalSearch(e.target.value, desktopSearchResults);
+            });
+            desktopSearchInput.addEventListener('focus', () => {
+                handleGlobalSearch(desktopSearchInput.value, desktopSearchResults);
+            });
+            desktopSearchInput.addEventListener('blur', () => {
+                setTimeout(() => {
+                    if (!desktopSearchResults.matches(':hover')) {
+                        desktopSearchResults.classList.add('hidden');
+                    }
+                }, 100);
+            });
+
+            mobileSearchInput.addEventListener('input', (e) => {
+                handleGlobalSearch(e.target.value, mobileSearchResults);
+            });
+            mobileSearchInput.addEventListener('focus', () => {
+                handleGlobalSearch(mobileSearchInput.value, mobileSearchResults);
+            });
+            mobileSearchInput.addEventListener('blur', () => {
+                setTimeout(() => {
+                    if (!mobileSearchResults.matches(':hover')) {
+                        mobileSearchResults.classList.add('hidden');
+                    }
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills & Technologies - niyonkuru reponse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
+    <link rel="icon" href="https://placehold.co/32x32/7c3aed/ffffff?text=NR&font=Montserrat" type="image/png">
+    <style>
+        /* Custom styles for animations and transitions - copied from blog.html */
+        .nav-link::after, .mobile-nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #6366f1; /* Indigo 500 */
+            transition: width 0.3s ease-in-out;
+            margin-top: 2px;
+        }
+        .dark .nav-link::after, .dark .mobile-nav-link::after {
+            background: #a78bfa; /* Purple 400 */
+        }
+        .nav-link:hover::after, .mobile-nav-link:hover::after {
+            width: 100%;
+        }
+        .active-nav-link::after, .active-mobile-nav-link::after {
+            width: 100%;
+        }
+
+        /* Search input styling - copied from blog.html */
+        .nav-search-input {
+            padding-left: 2.5rem; /* Space for icon */
+            padding-right: 1rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-radius: 9999px; /* Full rounded */
+            border: 1px solid #e2e8f0; /* Slate 200 */
+            background-color: #f8fafc; /* Slate 50 */
+            transition: all 0.3s ease-in-out;
+            width: 180px; /* Default width */
+        }
+        .dark .nav-search-input {
+            border-color: #475569; /* Slate 700 */
+            background-color: #1e293b; /* Slate 800 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        .nav-search-input:focus {
+            width: 250px; /* Expand on focus */
+            border-color: #6366f1; /* Indigo 500 */
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5); /* Ring effect */
+            outline: none;
+        }
+
+        .search-results-dropdown {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .search-results-dropdown {
+            background-color: #1e293b;
+            border-color: #475569;
+        }
+        .search-results-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .search-results-item:hover {
+            background-color: #f0f4f8;
+        }
+        .dark .search-results-item:hover {
+            background-color: #334155;
+        }
+
+        /* Social icons with tooltips - copied from blog.html */
+        .social-icon {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 48px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .social-icon:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px) scale(1.05);
+        }
+        .social-tooltip {
+            position: absolute;
+            bottom: 120%; /* Position above the icon */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #334155; /* Slate 700 */
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 20;
+        }
+        .dark .social-tooltip {
+            background-color: #0f172a; /* Slate 900 */
+        }
+        .social-icon:hover .social-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        .social-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #334155 transparent transparent transparent; /* Slate 700 */
+        }
+        .dark .social-tooltip::after {
+            border-color: #0f172a transparent transparent transparent; /* Slate 900 */
+        }
+
+        /* General button styles - copied from blog.html */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .btn-primary {
+            background-color: #a78bfa; /* Purple 400 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: #4f46e5; /* Indigo 600 */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+        .dark .btn-primary:hover {
+            background-color: #8b5cf6; /* Purple 500 */
+            box-shadow: 0 8px 20px rgba(167, 139, 250, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            background-color: transparent;
+            border: 2px solid #6366f1; /* Indigo 500 */
+            color: #6366f1; /* Indigo 500 */
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .dark .btn-secondary {
+            border-color: #a78bfa; /* Purple 400 */
+            color: #a78bfa; /* Purple 400 */
+        }
+        .btn-secondary:hover {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .btn-secondary:hover {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b; /* Slate 800 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: #ffffff;
+            color: #6366f1; /* Indigo 500 */
+            padding: 1rem 2.5rem;
+            border-radius: 9999px; /* Full rounded */
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .dark .cta-btn {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .cta-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            background-color: #f0f4f8; /* Lighten on hover */
+        }
+
+        /* Section titles and subtitles - copied from blog.html */
+        .section-title {
+            font-size: 2.5rem; /* 4xl */
+            font-weight: 700; /* Bold */
+            margin-bottom: 1rem;
+            color: #1e293b; /* Slate 900 */
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .dark .section-title {
+            color: #f8fafc; /* Slate 50 */
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #6366f1; /* Indigo 500 */
+            border-radius: 2px;
+        }
+        .section-title.text-left::after {
+            left: 0;
+            transform: translateX(0);
+        }
+        .dark .section-title::after {
+            background-color: #a78bfa; /* Purple 400 */
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem; /* Lg */
+            color: #475569; /* Slate 700 */
+        }
+        .dark .section-subtitle {
+            color: #94a3b8; /* Slate 400 */
+        }
+
+        /* Footer links - copied from blog.html */
+        .footer-link {
+            color: #475569; /* Slate 700 */
+            transition: color 0.3s ease, transform 0.2s ease;
+            position: relative;
+            padding-bottom: 2px;
+        }
+        .dark .footer-link {
+            color: #94a3b8; /* Slate 400 */
+        }
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: #6366f1; /* Indigo 500 */
+            transition: width 0.3s ease;
+        }
+        .dark .footer-link::after {
+            background-color: #a78bfa; /* Purple 400 */
+        }
+        .footer-link:hover {
+            color: #6366f1; /* Indigo 500 */
+            transform: translateY(-2px);
+        }
+        .dark .footer-link:hover {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        .footer-social-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 44px;
+            height: 44px;
+            background-color: #cbd5e1; /* Slate 300 */
+            border-radius: 50%;
+            color: #1e293b; /* Slate 900 */
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        .dark .footer-social-icon {
+            background-color: #475569; /* Slate 700 */
+            color: #f8fafc; /* Slate 50 */
+        }
+        .footer-social-icon:hover {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        .dark .footer-social-icon:hover {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b; /* Slate 900 */
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+
+        /* Back to top button - copied from blog.html */
+        #backToTopBtn {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Keyframe for wiggle animation - copied from blog.html */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            50% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        .animate-wiggle:hover {
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+
+        /* Navbar fade in down animation - copied from blog.html */
+        @keyframes fadeInDownNav {
+            from {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fadeInDownNav {
+            animation: fadeInDownNav 0.8s ease-out forwards;
+            animation-delay: 0.5s; /* Delay to appear after content loads */
+        }
+
+        /* Skill Category Filter Buttons */
+        .skill-filter-btn {
+            display: inline-block;
+            background-color: #e0e7ff; /* Indigo 100 */
+            color: #4338ca; /* Indigo 700 */
+            padding: 0.6rem 1.5rem;
+            border-radius: 9999px; /* Full rounded */
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .dark .skill-filter-btn {
+            background-color: #3730a3; /* Indigo 800 */
+            color: #c7d2fe; /* Indigo 200 */
+        }
+        .skill-filter-btn:hover {
+            background-color: #c7d2fe; /* Indigo 200 */
+            transform: translateY(-2px);
+        }
+        .dark .skill-filter-btn:hover {
+            background-color: #4f46e5; /* Indigo 600 */
+            color: white;
+        }
+        .skill-filter-btn.active-filter {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+            border-color: #6366f1;
+        }
+        .dark .skill-filter-btn.active-filter {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b;
+            box-shadow: 0 2px 8px rgba(167, 139, 250, 0.4);
+            border-color: #a78bfa;
+        }
+
+        /* Skill Item Card */
+        .skill-item {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            position: relative; /* For tooltip */
+            overflow: hidden;
+        }
+        .dark .skill-item {
+            background-color: #1e293b;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            border: 1px solid #475569;
+        }
+        .skill-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #6366f1;
+        }
+        .dark .skill-item:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            border-color: #a78bfa;
+        }
+        .skill-item .skill-icon { /* New style for SVG icons */
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 0.75rem;
+            transition: transform 0.3s ease;
+            color: #6366f1; /* Default icon color */
+        }
+        .dark .skill-item .skill-icon {
+            color: #a78bfa;
+        }
+        .skill-item:hover .skill-icon {
+            transform: rotateY(180deg); /* Flip effect */
+        }
+        .skill-item p {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        .dark .skill-item p {
+            color: #f8fafc;
+        }
+        .skill-progress-bar {
+            width: 100%;
+            background-color: #e0e7ff; /* Indigo 100 */
+            dark:bg-slate-700 rounded-full h-2.5 mt-2;
+            overflow: hidden;
+        }
+        .dark .skill-progress-bar {
+            background-color: #3730a3; /* Indigo 800 */
+        }
+        .skill-progress-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.5s ease-in-out;
+        }
+        .skill-level-text {
+            font-size: 0.875rem;
+            color: #64748b; /* Slate 500 */
+            margin-top: 0.5rem;
+        }
+        .dark .skill-level-text {
+            color: #94a3b8; /* Slate 400 */
+        }
+
+        /* Skill Item Tooltip */
+        .skill-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background-color: #334155; /* Slate 700 */
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 10;
+        }
+        .dark .skill-tooltip {
+            background-color: #0f172a; /* Slate 900 */
+        }
+        .skill-item:hover .skill-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-20px);
+        }
+        .skill-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: #334155 transparent transparent transparent;
+        }
+        .dark .skill-tooltip::after {
+            border-color: #0f172a transparent transparent transparent;
+        }
+
+        /* Progress Circle */
+        .progress-circle-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+        }
+        .progress-circle-svg {
+            transform: rotate(-90deg);
+        }
+        .progress-circle-bg {
+            stroke-width: 10;
+            stroke: #e0e7ff; /* Indigo 100 */
+            fill: none;
+        }
+        .dark .progress-circle-bg {
+            stroke: #3730a3; /* Indigo 800 */
+        }
+        .progress-circle-fill {
+            stroke-width: 10;
+            stroke-dasharray: 314.159; /* 2 * PI * R (R=50) */
+            stroke-dashoffset: 314.159;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease-out;
+            fill: none;
+        }
+        .progress-circle-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e293b;
+        }
+        .dark .progress-circle-text {
+            color: #f8fafc;
+        }
+
+        /* Skill Category Icons */
+        .category-icon {
+            font-size: 2.5rem;
+            margin-right: 1rem;
+            color: #6366f1; /* Indigo 500 */
+        }
+        .dark .category-icon {
+            color: #a78bfa; /* Purple 400 */
+        }
+
+        /* Monitoring Dashboard Section */
+        .dashboard-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .dashboard-card {
+            background-color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #475569;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .dashboard-card h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        .dark .dashboard-card h4 {
+            color: #f8fafc;
+        }
+        .dashboard-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #6366f1; /* Indigo 500 */
+            margin-bottom: 1rem;
+        }
+        .dark .dashboard-value {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .dashboard-description {
+            color: #475569;
+            font-size: 0.95rem;
+        }
+        .dark .dashboard-description {
+            color: #cbd5e1;
+        }
+        .dashboard-sparkline {
+            height: 50px;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        /* Skill Detail Card */
+        .skill-detail-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .dark .skill-detail-card {
+            background-color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #475569;
+        }
+        .skill-detail-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .skill-detail-card .icon-large {
+            font-size: 4rem;
+            color: #6366f1;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .dark .skill-detail-card .icon-large {
+            color: #a78bfa;
+        }
+        .skill-detail-card:hover .icon-large {
+            transform: rotate(10deg) scale(1.1);
+        }
+        .skill-detail-card h4 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+        }
+        .dark .skill-detail-card h4 {
+            color: #f8fafc;
+        }
+        .skill-detail-card p {
+            color: #475569;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .dark .skill-detail-card p {
+            color: #cbd5e1;
+        }
+        .skill-detail-card .tech-stack-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .skill-detail-card .tech-badge {
+            background-color: #e0e7ff;
+            color: #4338ca;
+            padding: 0.3rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+        }
+        .dark .skill-detail-card .tech-badge {
+            background-color: #3730a3;
+            color: #c7d2fe;
+        }
+
+        /* Learning Path Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: #e2e8f0; /* Slate 200 */
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .dark .timeline::before {
+            background: #475569; /* Slate 700 */
+        }
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            position: relative;
+            width: 100%;
+        }
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+        .timeline-item:nth-child(even) {
+            flex-direction: row;
+        }
+        .timeline-content {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            width: 45%; /* Adjust width for content */
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .dark .timeline-content {
+            background-color: #1e293b;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            border: 1px solid #475569;
+        }
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .timeline-date {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #6366f1;
+            margin-bottom: 0.5rem;
+        }
+        .dark .timeline-date {
+            color: #a78bfa;
+        }
+        .timeline-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.75rem;
+        }
+        .dark .timeline-title {
+            color: #f8fafc;
+        }
+        .timeline-description {
+            color: #475569;
+            line-height: 1.6;
+        }
+        .dark .timeline-description {
+            color: #cbd5e1;
+        }
+        .timeline-icon {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: #6366f1;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 0 0 5px #f8fafc; /* White ring */
+            z-index: 1;
+        }
+        .dark .timeline-icon {
+            background-color: #a78bfa;
+            box-shadow: 0 0 0 5px #1e293b; /* Dark ring */
+        }
+
+        /* Responsive adjustments for timeline */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px; /* Move line to left */
+                transform: translateX(0);
+            }
+            .timeline-item {
+                flex-direction: column !important; /* Stack content vertically */
+                align-items: flex-start;
+            }
+            .timeline-content {
+                width: calc(100% - 60px); /* Adjust width, leave space for line/icon */
+                margin-left: 60px; /* Push content right */
+                text-align: left;
+            }
+            .timeline-icon {
+                left: 20px; /* Align icon with line */
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans leading-relaxed transition-colors duration-300 overflow-x-hidden">
+
+    <nav id="navbar" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
+        <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity">niyonkuru reponse</a>
+
+            <div class="hidden md:flex items-center relative group">
+                <input type="text" id="desktopSearchInput" placeholder="Search projects, skills..." class="nav-search-input peer">
+                <i class="fas fa-search text-slate-500 dark:text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-indigo-500 transition-colors"></i>
+                <div id="desktopSearchResults" class="search-results-dropdown hidden group-focus-within:block hover:block">
+                    <p class="p-2 text-sm text-slate-500">Type to search...</p>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-3 lg:space-x-4">
+                <a href="index.html#hero" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="skills.html" class="nav-link active-nav-link">Skills</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="experience.html" class="nav-link">Experience</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+
+            <div class="flex items-center">
+                <button id="darkModeToggle" aria-label="Toggle Dark Mode" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800 focus:ring-indigo-500 transition-all">
+                    <i class="fas fa-moon text-slate-700 dark:text-yellow-400 text-lg dark:block hidden"></i>
+                    <i class="fas fa-sun text-slate-700 dark:text-yellow-400 text-lg dark:hidden block"></i>
+                </button>
+                <button id="mobileMenuButton" aria-label="Open Menu" class="md:hidden ml-2 p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800 focus:ring-indigo-500">
+                    <i class="fas fa-bars text-slate-700 dark:text-slate-300 text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-slate-800 shadow-xl absolute w-full top-full left-0 animate__animated animate__fadeInDown animate__faster">
+            <div class="p-4 border-b border-slate-200 dark:border-slate-700">
+                 <div class="relative">
+                    <input type="text" id="mobileSearchInput" placeholder="Search..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors">
+                    <i class="fas fa-search text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                </div>
+                <div id="mobileSearchResults" class="search-results-mobile mt-2 hidden max-h-48 overflow-y-auto">
+                    </div>
+            </div>
+            <a href="index.html#hero" class="mobile-nav-link">Home</a>
+            <a href="about.html" class="mobile-nav-link">About</a>
+            <a href="skills.html" class="mobile-nav-link active-mobile-nav-link">Skills</a>
+            <a href="projects.html" class="mobile-nav-link">Projects</a>
+            <a href="experience.html" class="mobile-nav-link">Experience</a>
+            <a href="blog.html" class="mobile-nav-link">Blog</a>
+            <a href="contact.html" class="mobile-nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <section id="skills-hero" class="py-28 lg:py-32 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800 text-white relative overflow-hidden flex items-center justify-center">
+        <div class="container mx-auto px-6 text-center z-10 wow animate__animated animate__fadeInDown">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-4">My Skills & Expertise</h1>
+            <p class="text-xl md:text-2xl font-light max-w-2xl mx-auto">
+                A comprehensive overview of the technologies and tools I master.
+            </p>
+        </div>
+    </section>
+
+    <section id="skills-overview" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">My Technical Arsenal</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Proficiencies that drive my development process.</p>
+
+            <div class="flex flex-wrap justify-center space-x-2 sm:space-x-4 mb-12">
+                <button class="skill-filter-btn active-filter" data-filter="all">All</button>
+                <button class="skill-filter-btn" data-filter="frontend">Frontend</button>
+                <button class="skill-filter-btn" data-filter="backend">Backend</button>
+                <button class="skill-filter-btn" data-filter="database">Databases</button>
+                <button class="skill-filter-btn" data-filter="cloud">Cloud & DevOps</button>
+                <button class="skill-filter-btn" data-filter="ai">AI/ML</button>
+                <button class="skill-filter-btn" data-filter="tools">Tools & Others</button>
+            </div>
+
+            <div class="space-y-12">
+                <div class="skill-category" data-category="frontend">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center justify-center md:justify-start">
+                        <i class="ph-code-simple category-icon"></i>Frontend Development
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-skill-level="95" data-tooltip="Highly proficient in structuring web content.">
+                            <i class="fab fa-html5 skill-icon text-orange-500"></i>
+                            <p class="font-medium">HTML5</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-indigo-500" style="width: 95%;"></div>
+                            </div>
+                            <span class="skill-level-text">Advanced</span>
+                            <span class="skill-tooltip">Highly proficient in structuring web content.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-skill-level="90" data-tooltip="Expert in modern CSS, including Tailwind CSS for rapid styling.">
+                            <i class="fab fa-css3-alt skill-icon text-blue-500"></i>
+                            <p class="font-medium">CSS3 & Tailwind</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-indigo-500" style="width: 90%;"></div>
+                            </div>
+                            <span class="skill-level-text">Expert</span>
+                            <span class="skill-tooltip">Expert in modern CSS, including Tailwind CSS for rapid styling.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-skill-level="85" data-tooltip="Strong command over core JavaScript concepts and DOM manipulation.">
+                            <i class="fab fa-js-square skill-icon text-yellow-500"></i>
+                            <p class="font-medium">JavaScript (ES6+)</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-indigo-500" style="width: 85%;"></div>
+                            </div>
+                            <span class="skill-level-text">Proficient</span>
+                            <span class="skill-tooltip">Strong command over core JavaScript concepts and DOM manipulation.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-skill-level="88" data-tooltip="Experienced in building dynamic and performant user interfaces.">
+                            <i class="fab fa-react skill-icon text-blue-400"></i>
+                            <p class="font-medium">React.js</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-indigo-500" style="width: 88%;"></div>
+                            </div>
+                            <span class="skill-level-text">Proficient</span>
+                            <span class="skill-tooltip">Experienced in building dynamic and performant user interfaces.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.5s" data-skill-level="75" data-tooltip="Familiar with modern frontend build tools and module bundlers.">
+                            <i class="ph-package skill-icon text-gray-500"></i>
+                            <p class="font-medium">Webpack/Vite</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-indigo-500" style="width: 75%;"></div>
+                            </div>
+                            <span class="skill-level-text">Competent</span>
+                            <span class="skill-tooltip">Familiar with modern frontend build tools and module bundlers.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category" data-category="backend">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center justify-center md:justify-start">
+                        <i class="ph-server category-icon"></i>Backend Development
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-skill-level="80" data-tooltip="Skilled in building scalable RESTful APIs and microservices.">
+                            <i class="fab fa-node-js skill-icon text-green-600"></i>
+                            <p class="font-medium">Node.js</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-green-500" style="width: 80%;"></div>
+                            </div>
+                            <span class="skill-level-text">Proficient</span>
+                            <span class="skill-tooltip">Skilled in building scalable RESTful APIs and microservices.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-skill-level="78" data-tooltip="Experienced in Python for web development (Django, Flask) and scripting.">
+                            <i class="fab fa-python skill-icon text-blue-600"></i>
+                            <p class="font-medium">Python</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-green-500" style="width: 78%;"></div>
+                            </div>
+                            <span class="skill-level-text">Proficient</span>
+                            <span class="skill-tooltip">Experienced in Python for web development (Django, Flask) and scripting.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-skill-level="70" data-tooltip="Familiar with building APIs using Ruby on Rails.">
+                            <i class="ph-file-html skill-icon text-red-500"></i> <p class="font-medium">Ruby on Rails</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-green-500" style="width: 70%;"></div>
+                            </div>
+                            <span class="skill-level-text">Competent</span>
+                            <span class="skill-tooltip">Familiar with building APIs using Ruby on Rails.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-skill-level="65" data-tooltip="Basic understanding of Java for enterprise applications.">
+                            <i class="fab fa-java skill-icon text-red-700"></i>
+                            <p class="font-medium">Java (Spring Boot)</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-green-500" style="width: 65%;"></div>
+                            </div>
+                            <span class="skill-level-text">Intermediate</span>
+                            <span class="skill-tooltip">Basic understanding of Java for enterprise applications.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category" data-category="database">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center justify-center md:justify-start">
+                        <i class="ph-database category-icon"></i>Databases
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-skill-level="80" data-tooltip="Proficient in SQL for relational database management and querying.">
+                            <i class="fas fa-database skill-icon text-blue-700"></i>
+                            <p class="font-medium">SQL (PostgreSQL)</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-blue-500" style="width: 80%;"></div>
+                            </div>
+                            <span class="skill-level-text">Proficient</span>
+                            <span class="skill-tooltip">Proficient in SQL for relational database management and querying.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-skill-level="75" data-tooltip="Experienced with NoSQL databases for flexible data modeling.">
+                            <i class="ph-leaf skill-icon text-green-700"></i> <p class="font-medium">MongoDB</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-blue-500" style="width: 75%;"></div>
+                            </div>
+                            <span class="skill-level-text">Proficient</span>
+                            <span class="skill-tooltip">Experienced with NoSQL databases for flexible data modeling.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-skill-level="60" data-tooltip="Familiar with real-time data storage solutions.">
+                            <i class="fab fa-google skill-icon text-yellow-600"></i> <p class="font-medium">Firebase</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-blue-500" style="width: 60%;"></div>
+                            </div>
+                            <span class="skill-level-text">Intermediate</span>
+                            <span class="skill-tooltip">Familiar with real-time data storage solutions.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category" data-category="cloud">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center justify-center md:justify-start">
+                        <i class="ph-cloud category-icon"></i>Cloud & DevOps
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-skill-level="70" data-tooltip="Hands-on experience with core AWS services.">
+                            <i class="fab fa-aws skill-icon text-orange-400"></i>
+                            <p class="font-medium">AWS</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-orange-500" style="width: 70%;"></div>
+                            </div>
+                            <span class="skill-level-text">Competent</span>
+                            <span class="skill-tooltip">Hands-on experience with core AWS services.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-skill-level="65" data-tooltip="Familiar with containerization and orchestration.">
+                            <i class="fab fa-docker skill-icon text-blue-500"></i>
+                            <p class="font-medium">Docker</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-orange-500" style="width: 65%;"></div>
+                            </div>
+                            <span class="skill-level-text">Intermediate</span>
+                            <span class="skill-tooltip">Familiar with containerization and orchestration.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-skill-level="60" data-tooltip="Basic understanding of Kubernetes for container orchestration.">
+                            <i class="ph-kubernetes-logo skill-icon text-blue-700"></i>
+                            <p class="font-medium">Kubernetes</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-orange-500" style="width: 60%;"></div>
+                            </div>
+                            <span class="skill-level-text">Familiar</span>
+                            <span class="skill-tooltip">Basic understanding of Kubernetes for container orchestration.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-skill-level="55" data-tooltip="Exposure to CI/CD pipelines and automated deployments.">
+                            <i class="ph-arrows-clockwise skill-icon text-gray-600"></i> <p class="font-medium">CI/CD</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-orange-500" style="width: 55%;"></div>
+                            </div>
+                            <span class="skill-level-text">Basic</span>
+                            <span class="skill-tooltip">Exposure to CI/CD pipelines and automated deployments.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category" data-category="ai">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center justify-center md:justify-start">
+                        <i class="ph-brain category-icon"></i>Artificial Intelligence & ML
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-skill-level="70" data-tooltip="Experience with TensorFlow for building and training neural networks.">
+                            <i class="ph-infinity skill-icon text-orange-600"></i> <p class="font-medium">TensorFlow</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-red-500" style="width: 70%;"></div>
+                            </div>
+                            <span class="skill-level-text">Competent</span>
+                            <span class="skill-tooltip">Experience with TensorFlow for building and training neural networks.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-skill-level="65" data-tooltip="Familiar with PyTorch for deep learning research and development.">
+                            <i class="ph-fire skill-icon text-orange-500"></i> <p class="font-medium">PyTorch</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-red-500" style="width: 65%;"></div>
+                            </div>
+                            <span class="skill-level-text">Intermediate</span>
+                            <span class="skill-tooltip">Familiar with PyTorch for deep learning research and development.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-skill-level="75" data-tooltip="Strong understanding of Natural Language Processing techniques.">
+                            <i class="ph-chat-text skill-icon text-purple-500"></i>
+                            <p class="font-medium">NLP</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-red-500" style="width: 75%;"></div>
+                            </div>
+                            <span class="skill-level-text">Proficient</span>
+                            <span class="skill-tooltip">Strong understanding of Natural Language Processing techniques.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-skill-level="60" data-tooltip="Basic knowledge of computer vision algorithms and applications.">
+                            <i class="ph-eye skill-icon text-indigo-500"></i>
+                            <p class="font-medium">Computer Vision</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-red-500" style="width: 60%;"></div>
+                            </div>
+                            <span class="skill-level-text">Intermediate</span>
+                            <span class="skill-tooltip">Basic knowledge of computer vision algorithms and applications.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category" data-category="tools">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center justify-center md:justify-start">
+                        <i class="ph-wrench category-icon"></i>Tools & Others
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-skill-level="95" data-tooltip="Expert in version control with Git and collaborating on GitHub.">
+                            <i class="fab fa-git-alt skill-icon text-red-600"></i>
+                            <p class="font-medium">Git & GitHub</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-purple-500" style="width: 95%;"></div>
+                            </div>
+                            <span class="skill-level-text">Expert</span>
+                            <span class="skill-tooltip">Expert in version control with Git and collaborating on GitHub.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-skill-level="80" data-tooltip="Proficient with various IDEs and code editors.">
+                            <i class="ph-code-block skill-icon text-blue-500"></i>
+                            <p class="font-medium">VS Code</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-purple-500" style="width: 80%;"></div>
+                            </div>
+                            <span class="skill-level-text">Proficient</span>
+                            <span class="skill-tooltip">Proficient with various IDEs and code editors.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-skill-level="70" data-tooltip="Familiar with Agile methodologies for project management.">
+                            <i class="ph-arrows-counter-clockwise skill-icon text-green-500"></i>
+                            <p class="font-medium">Agile Methodologies</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-purple-500" style="width: 70%;"></div>
+                            </div>
+                            <span class="skill-level-text">Competent</span>
+                            <span class="skill-tooltip">Familiar with Agile methodologies for project management.</span>
+                        </div>
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-skill-level="65" data-tooltip="Experience with JIRA for issue tracking and project workflows.">
+                            <i class="fab fa-jira skill-icon text-blue-700"></i>
+                            <p class="font-medium">Jira</p>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill bg-purple-500" style="width: 65%;"></div>
+                            </div>
+                            <span class="skill-level-text">Intermediate</span>
+                            <span class="skill-tooltip">Experience with JIRA for issue tracking and project workflows.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <h3 class="text-2xl font-semibold mb-8 text-slate-900 dark:text-slate-50">Currently Mastering & Exploring</h3>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="bg-yellow-200 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-100 text-sm font-medium px-4 py-2 rounded-full shadow wow animate__animated animate__pulse animate__infinite">Next.js</span>
+                    <span class="bg-yellow-200 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-100 text-sm font-medium px-4 py-2 rounded-full shadow wow animate__animated animate__pulse animate__infinite animate__delay-1s">GraphQL</span>
+                    <span class="bg-yellow-200 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-100 text-sm font-medium px-4 py-2 rounded-full shadow wow animate__animated animate__pulse animate__infinite animate__delay-2s">Generative AI</span>
+                    <span class="bg-yellow-200 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-100 text-sm font-medium px-4 py-2 rounded-full shadow wow animate__animated animate__pulse animate__infinite animate__delay-3s">Web3 Basics</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skill-showcase-details" class="py-20 lg:py-32 bg-slate-100 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">In-Depth Skill Showcase</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Highlighting key areas of expertise and practical application.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                <div class="skill-detail-card wow animate__animated animate__fadeInLeft" data-wow-delay="0.1s">
+                    <i class="ph-react-logo icon-large"></i>
+                    <h4>React.js & Modern Frontend</h4>
+                    <p>
+                        With extensive experience in React, I build highly interactive and performant single-page applications. My expertise covers component-based architecture, state management (Context API, Redux/Zustand), hooks, and integrating with RESTful APIs. I prioritize clean code, reusability, and optimal user experience.
+                    </p>
+                    <div class="tech-stack-badges">
+                        <span class="tech-badge">React</span>
+                        <span class="tech-badge">Redux</span>
+                        <span class="tech-badge">Zustand</span>
+                        <span class="tech-badge">Tailwind CSS</span>
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">HTML5</span>
+                    </div>
+                </div>
+
+                <div class="skill-detail-card wow animate__animated animate__fadeInRight" data-wow-delay="0.2s">
+                    <i class="ph-cloud-arrow-up icon-large"></i>
+                    <h4>Cloud Infrastructure & DevOps</h4>
+                    <p>
+                        I design and implement robust, scalable cloud solutions primarily on AWS. My skills include deploying applications using Docker and Kubernetes, managing serverless functions (Lambda), and setting up CI/CD pipelines for automated deployments. I focus on cost-efficiency, security, and high availability.
+                    </p>
+                    <div class="tech-stack-badges">
+                        <span class="tech-badge">AWS</span>
+                        <span class="tech-badge">Docker</span>
+                        <span class="tech-badge">Kubernetes</span>
+                        <span class="tech-badge">Lambda</span>
+                        <span class="tech-badge">CI/CD</span>
+                        <span class="tech-badge">Terraform</span>
+                    </div>
+                </div>
+
+                <div class="skill-detail-card wow animate__animated animate__fadeInLeft" data-wow-delay="0.3s">
+                    <i class="ph-brain icon-large"></i>
+                    <h4>Artificial Intelligence & Machine Learning</h4>
+                    <p>
+                        My passion for AI drives me to develop intelligent systems. I have practical experience with machine learning algorithms, deep learning frameworks (TensorFlow, PyTorch), and natural language processing (NLP). I can build, train, and deploy models for various applications, from predictive analytics to content generation.
+                    </p>
+                    <div class="tech-stack-badges">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">TensorFlow</span>
+                        <span class="tech-badge">PyTorch</span>
+                        <span class="tech-badge">NLP</span>
+                        <span class="tech-badge">Scikit-learn</span>
+                        <span class="tech-badge">Jupyter</span>
+                    </div>
+                </div>
+
+                <div class="skill-detail-card wow animate__animated animate__fadeInRight" data-wow-delay="0.4s">
+                    <i class="ph-database icon-large"></i>
+                    <h4>Database Management & Optimization</h4>
+                    <p>
+                        I excel in designing and managing both SQL (PostgreSQL, MySQL) and NoSQL (MongoDB, Firebase) databases. My expertise includes schema design, query optimization, data migration, and ensuring data integrity and security. I understand the nuances of choosing the right database for specific application needs.
+                    </p>
+                    <div class="tech-stack-badges">
+                        <span class="tech-badge">PostgreSQL</span>
+                        <span class="tech-badge">MongoDB</span>
+                        <span class="tech-badge">Firebase</span>
+                        <span class="tech-badge">SQL</span>
+                        <span class="tech-badge">Mongoose</span>
+                        <span class="tech-badge">ORM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proficiency-dashboard" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">Proficiency at a Glance</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Visual representation of my core competencies.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="dashboard-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <i class="ph-code-simple text-5xl text-indigo-500 dark:text-indigo-400 mb-4"></i>
+                    <h4>Frontend Mastery</h4>
+                    <div class="progress-circle-container">
+                        <svg class="progress-circle-svg" width="120" height="120" viewBox="0 0 120 120">
+                            <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
+                            <circle class="progress-circle-fill text-indigo-500" cx="60" cy="60" r="50" data-progress="90"></circle>
+                        </svg>
+                        <span class="progress-circle-text">90%</span>
+                    </div>
+                    <p class="dashboard-description">Strong command over modern web UI/UX development, responsive design, and component-based architectures.</p>
+                </div>
+
+                <div class="dashboard-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <i class="ph-server text-5xl text-green-500 dark:text-green-400 mb-4"></i>
+                    <h4>Backend Engineering</h4>
+                    <div class="progress-circle-container">
+                        <svg class="progress-circle-svg" width="120" height="120" viewBox="0 0 120 120">
+                            <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
+                            <circle class="progress-circle-fill text-green-500" cx="60" cy="60" r="50" data-progress="75"></circle>
+                        </svg>
+                        <span class="progress-circle-text">75%</span>
+                    </div>
+                    <p class="dashboard-description">Proficient in building scalable APIs, managing databases, and developing robust server-side logic.</p>
+                </div>
+
+                <div class="dashboard-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <i class="ph-cloud text-5xl text-orange-500 dark:text-orange-400 mb-4"></i>
+                    <h4>Cloud & DevOps</h4>
+                    <div class="progress-circle-container">
+                        <svg class="progress-circle-svg" width="120" height="120" viewBox="0 0 120 120">
+                            <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
+                            <circle class="progress-circle-fill text-orange-500" cx="60" cy="60" r="50" data-progress="68"></circle>
+                        </svg>
+                        <span class="progress-circle-text">68%</span>
+                    </div>
+                    <p class="dashboard-description">Familiar with cloud infrastructure management, containerization, and continuous integration/delivery.</p>
+                </div>
+
+                <div class="dashboard-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <i class="ph-brain text-5xl text-red-500 dark:text-red-400 mb-4"></i>
+                    <h4>AI/ML Foundations</h4>
+                    <div class="progress-circle-container">
+                        <svg class="progress-circle-svg" width="120" height="120" viewBox="0 0 120 120">
+                            <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
+                            <circle class="progress-circle-fill text-red-500" cx="60" cy="60" r="50" data-progress="70"></circle>
+                        </svg>
+                        <span class="progress-circle-text">70%</span>
+                    </div>
+                    <p class="dashboard-description">Solid understanding of machine learning concepts, deep learning frameworks, and data analysis.</p>
+                </div>
+
+                 <div class="dashboard-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+                    <i class="ph-lightbulb text-5xl text-yellow-500 dark:text-yellow-400 mb-4"></i>
+                    <h4>Problem Solving</h4>
+                    <div class="progress-circle-container">
+                        <svg class="progress-circle-svg" width="120" height="120" viewBox="0 0 120 120">
+                            <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
+                            <circle class="progress-circle-fill text-yellow-500" cx="60" cy="60" r="50" data-progress="92"></circle>
+                        </svg>
+                        <span class="progress-circle-text">92%</span>
+                    </div>
+                    <p class="dashboard-description">A strong analytical mind, adept at breaking down complex problems and devising effective solutions.</p>
+                </div>
+
+                <div class="dashboard-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+                    <i class="ph-arrows-clockwise text-5xl text-purple-500 dark:text-purple-400 mb-4"></i>
+                    <h4>Adaptability</h4>
+                    <div class="progress-circle-container">
+                        <svg class="progress-circle-svg" width="120" height="120" viewBox="0 0 120 120">
+                            <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
+                            <circle class="progress-circle-fill text-purple-500" cx="60" cy="60" r="50" data-progress="85"></circle>
+                        </svg>
+                        <span class="progress-circle-text">85%</span>
+                    </div>
+                    <p class="dashboard-description">Quick learner, able to rapidly acquire new technologies and adjust to evolving project requirements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="learning-path" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">My Learning Journey & Future Goals</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">A look into my continuous growth and upcoming areas of focus.</p>
+
+            <div class="timeline">
+                <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023 - Present</div>
+                        <h3 class="timeline-title">Deep Dive into Generative AI & LLMs</h3>
+                        <p class="timeline-description">
+                            Actively studying advanced concepts in Generative AI, including Transformer architectures, Diffusion Models, and their applications in text and image generation. Exploring fine-tuning techniques and ethical considerations.
+                        </p>
+                        <div class="tech-stack-badges mt-4">
+                            <span class="tech-badge">Generative AI</span>
+                            <span class="tech-badge">LLMs</span>
+                            <span class="tech-badge">Hugging Face</span>
+                            <span class="tech-badge">Prompt Engineering</span>
+                        </div>
+                    </div>
+                    <div class="timeline-icon"><i class="ph-robot"></i></div>
+                </div>
+
+                <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2022 - 2023</div>
+                        <h3 class="timeline-title">Mastering Serverless Architectures on AWS</h3>
+                        <p class="timeline-description">
+                            Focused on building and deploying highly scalable and cost-effective applications using AWS Lambda, API Gateway, DynamoDB, and S3. Gained expertise in designing event-driven serverless backends.
+                        </p>
+                        <div class="tech-stack-badges mt-4">
+                            <span class="tech-badge">AWS Lambda</span>
+                            <span class="tech-badge">API Gateway</span>
+                            <span class="tech-badge">DynamoDB</span>
+                            <span class="tech-badge">Serverless Framework</span>
+                        </div>
+                    </div>
+                    <div class="timeline-icon"><i class="ph-lightning"></i></div>
+                </div>
+
+                <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Future Goal</div>
+                        <h3 class="timeline-title">Blockchain & Web3 Development</h3>
+                        <p class="timeline-description">
+                            Aspiring to delve deeper into decentralized application (dApp) development, smart contracts, and blockchain fundamentals. Aiming to build secure and innovative solutions on platforms like Ethereum.
+                        </p>
+                        <div class="tech-stack-badges mt-4">
+                            <span class="tech-badge">Solidity</span>
+                            <span class="tech-badge">Ethereum</span>
+                            <span class="tech-badge">Web3.js</span>
+                            <span class="tech-badge">Smart Contracts</span>
+                        </div>
+                    </div>
+                    <div class="timeline-icon"><i class="ph-link-simple"></i></div>
+                </div>
+
+                <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Future Goal</div>
+                        <h3 class="timeline-title">Advanced Data Engineering & MLOps</h3>
+                        <p class="timeline-description">
+                            Planning to enhance skills in data pipeline optimization, large-scale data processing, and MLOps practices to streamline the deployment and management of machine learning models in production environments.
+                        </p>
+                        <div class="tech-stack-badges mt-4">
+                            <span class="tech-badge">Spark</span>
+                            <span class="tech-badge">Airflow</span>
+                            <span class="tech-badge">Kubeflow</span>
+                            <span class="tech-badge">Data Lakes</span>
+                        </div>
+                    </div>
+                    <div class="timeline-icon"><i class="ph-chart-line"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="py-20 lg:py-32 bg-gradient-to-r from-purple-600 to-indigo-700 dark:from-purple-800 dark:to-indigo-900 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="wow animate__animated animate__fadeInUp">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-6">Ready to Build Something Extraordinary?</h2>
+                <p class="text-lg lg:text-xl mb-8 max-w-2xl mx-auto">
+                    I'm always excited to discuss new projects, innovative ideas, or potential collaborations. Let's connect and create an impact.
+                </p>
+                <a href="contact.html" class="cta-btn group">
+                    Let's Talk <i class="fas fa-comments ml-2 group-hover:animate-wiggle"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 py-16 text-center">
+        <div class="container mx-auto px-6">
+            <div class="mb-8 flex justify-center space-x-6">
+                <a href="https://github.com/reponsekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/reponsekdz06 target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/reponsekdz06 target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com/reponse_kdz/s" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
+                <a href="mailto:reponsekdz06@gmail.com" class="footer-social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <div class="mb-6 space-x-4 sm:space-x-6">
+                <a href="index.html#hero" class="footer-link">Home</a>
+                <a href="about.html" class="footer-link">About</a>
+                <a href="projects.html" class="footer-link">Projects</a>
+                <a href="blog.html" class="footer-link">Blog</a>
+                <a href="contact.html" class="footer-link">Contact</a>
+                <a href="#privacy-policy" class="footer-link">Privacy Policy</a>
+            </div>
+            <p class="text-sm">© <span id="currentYear"></span> niyonkuru reponse. All rights reserved.</p>
+            <p class="text-xs mt-2">Designed with <i class="fas fa-heart text-red-500"></i>Niyonkuru Reponse</p>
+            <p class="text-xs mt-1">Located in Kigali-Kicukiro.</p>
+        </div>
+    </footer>
+
+    <button id="backToTopBtn" aria-label="Back to Top" class="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white p-3 rounded-full shadow-lg opacity-0 translate-y-10 transition-all duration-300 z-40">
+        <i class="fas fa-arrow-up text-lg"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize WOW.js for scroll animations
+            new WOW().init();
+
+            // Dark Mode Toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const sunIcon = darkModeToggle.querySelector('.fa-sun');
+            const moonIcon = darkModeToggle.querySelector('.fa-moon');
+
+            function setDarkMode(isDark) {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('darkMode', 'true');
+                    moonIcon.style.display = 'block';
+                    sunIcon.style.display = 'none';
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('darkMode', 'false');
+                    moonIcon.style.display = 'none';
+                    sunIcon.style.display = 'block';
+                }
+            }
+
+            if (localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                setDarkMode(true);
+            } else {
+                setDarkMode(false);
+            }
+
+            darkModeToggle.addEventListener('click', () => {
+                setDarkMode(!document.documentElement.classList.contains('dark'));
+            });
+
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.querySelector('i').classList.toggle('fa-bars');
+                mobileMenuButton.querySelector('i').classList.toggle('fa-times');
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.querySelector('i').classList.remove('fa-times');
+                    mobileMenuButton.querySelector('i').classList.add('fa-bars');
+                });
+            });
+
+            // Back to Top Button
+            const backToTopBtn = document.getElementById('backToTopBtn');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.remove('opacity-0', 'translate-y-10');
+                    backToTopBtn.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+                    backToTopBtn.classList.add('opacity-0', 'translate-y-10');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Skill Filtering Logic
+            const skillCategories = document.querySelectorAll('.skill-category');
+            const filterButtons = document.querySelectorAll('.skill-filter-btn');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.dataset.filter;
+
+                    filterButtons.forEach(btn => btn.classList.remove('active-filter'));
+                    button.classList.add('active-filter');
+
+                    skillCategories.forEach(category => {
+                        if (filter === 'all' || category.dataset.category === filter) {
+                            category.classList.remove('hidden');
+                            category.classList.add('animate__animated', 'animate__fadeInUp');
+                        } else {
+                            category.classList.add('hidden');
+                            category.classList.remove('animate__animated', 'animate__fadeInUp');
+                        }
+                    });
+                    // Re-animate progress bars after filtering
+                    animateProgressBars();
+                });
+            });
+
+            // Animate progress bars on scroll (or once on load for simplicity)
+            function animateProgressBars() {
+                document.querySelectorAll('.skill-progress-fill').forEach(bar => {
+                    const width = bar.style.width; // Get the target width from inline style
+                    bar.style.width = '0%'; // Reset to 0
+                    setTimeout(() => {
+                        bar.style.width = width; // Animate to target width
+                    }, 100); // Small delay to ensure reset takes effect
+                });
+
+                document.querySelectorAll('.progress-circle-fill').forEach(circle => {
+                    const percentage = parseInt(circle.dataset.progress);
+                    const circumference = 2 * Math.PI * 50; // 2 * PI * R (R=50)
+                    const offset = circumference - (percentage / 100) * circumference;
+                    circle.style.strokeDashoffset = circumference; // Reset
+                    setTimeout(() => {
+                        circle.style.strokeDashoffset = offset; // Animate
+                    }, 100);
+                });
+            }
+
+            // Call animation function initially and on filter change
+            animateProgressBars();
+            
+            // Update current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Desktop and Mobile Search Functionality
+            const searchData = [
+                // Blog posts (from blog.html)
+                { title: "The Future of AI in Web Development", url: "blog.html#single-post-1", tags: ["AI", "WebDev", "Future", "Automation", "Personalization"] },
+                { title: "Mastering State Management in React", url: "blog.html#single-post-2", tags: ["React", "Frontend", "State", "Redux", "Context API", "Zustand"] },
+                { title: "Cloud Native Architectures Explained", url: "blog.html#single-post-3", tags: ["Cloud", "Architecture", "Microservices", "Containers", "Kubernetes", "DevOps"] },
+                { title: "Introduction to Generative AI Models", url: "blog.html#single-post-4", tags: ["AI", "ML", "Generative AI", "GANs", "Transformers", "GPT"] },
+                { title: "Building Progressive Web Apps (PWAs)", url: "blog.html#single-post-5", tags: ["WebDev", "Mobile", "PWA", "Service Workers", "Offline"] },
+                { title: "Effective Data Visualization Techniques", url: "blog.html#single-post-6", tags: ["Data", "Analytics", "Visualization", "Charts", "Graphs"] },
+                { title: "Demystifying Large Language Models (LLMs)", url: "blog.html#single-post-7", tags: ["AI", "Software", "LLM", "NLP", "Generative AI"] },
+                { title: "Building Scalable Backend APIs with Node.js", url: "blog.html#single-post-8", tags: ["Software", "WebDev", "Backend", "Node.js", "APIs", "Express.js"] },
+                { title: "Cross-Platform Mobile Dev with React Native", url: "blog.html#single-post-9", tags: ["Mobile", "App", "Software", "React Native", "iOS", "Android"] },
+                { title: "The Role of MLOps in Production AI Systems", url: "blog.html#single-post-10", tags: ["AI", "Software", "Cloud", "MLOps", "Deployment", "Monitoring"] },
+                { title: "Designing User-Friendly Mobile Interfaces", url: "blog.html#single-post-11", tags: ["App", "UI/UX", "Mobile Design", "User Experience"] },
+                { title: "Containerization with Docker and Kubernetes", url: "blog.html#single-post-12", tags: ["Software", "Cloud", "Docker", "Kubernetes", "Containerization"] },
+
+                // Experience entries (from experience.html)
+                { title: "Senior Software Engineer at Tech Solutions Inc.", url: "experience.html#exp-1", tags: ["Software", "WebDev", "AWS", "Docker", "Kubernetes", "React", "Node.js", "Leadership"] },
+                { title: "Software Developer at Innovatech Ltd.", url: "experience.html#exp-2", tags: ["Software", "WebDev", "Python", "Django", "PostgreSQL", "API"] },
+                { title: "Junior Web Developer at WebDev Solutions", url: "experience.html#exp-3", tags: ["WebDev", "Frontend", "HTML", "CSS", "JavaScript"] },
+                { title: "AI Research Intern at AI Innovations Lab", url: "experience.html#exp-4", tags: ["AI", "Research", "NLP", "Machine Learning", "TensorFlow"] },
+
+                // Education and Certifications (from experience.html)
+                { title: "Master of Science in Computer Science", url: "experience.html#edu-1", tags: ["Education", "AI", "Machine Learning", "Thesis"] },
+                { title: "Bachelor of Science in Software Engineering", url: "experience.html#edu-2", tags: ["Education", "Software Engineering", "Fullstack"] },
+                { title: "Certified Kubernetes Administrator (CKA)", url: "experience.html#cka", tags: ["Certification", "Kubernetes", "Cloud"] },
+                { title: "AWS Certified Solutions Architect - Associate", url: "experience.html#aws-sa", tags: ["Certification", "AWS", "Cloud Architecture"] },
+
+                // Projects entries (from projects.html)
+                { title: "E-commerce Platform Redesign", url: "projects.html#proj-1", tags: ["web", "react", "node.js", "mongodb", "tailwind"] },
+                { title: "Cross-Platform Task Manager", url: "projects.html#proj-2", tags: ["mobile", "flutter", "firebase", "dart"] },
+                { title: "Market Trend Analysis Dashboard", url: "projects.html#proj-3", tags: ["data", "python", "flask", "d3.js", "pandas"] },
+                { title: "AI-Powered Content Generator", url: "projects.html#proj-4", tags: ["ai", "ml", "python", "tensorflow", "nlp"] },
+                { title: "Retro Arcade Game Collection", url: "projects.html#proj-5", tags: ["game", "javascript", "html5", "css3"] },
+                { title: "Cloud Cost Optimization Dashboard", url: "projects.html#proj-6", tags: ["cloud", "aws", "data", "python", "tableau"] },
+                { title: "Real-time Chat Application", url: "projects.html#proj-7", tags: ["web", "react", "firebase", "websocket"] },
+                { title: "Personal Portfolio Website (This One!)", url: "projects.html#proj-8", tags: ["web", "html", "css", "javascript", "tailwind"] },
+                { title: "Machine Learning Model Deployment API", url: "projects.html#proj-9", tags: ["ai", "ml", "python", "flask", "docker", "api"] },
+                { title: "IoT Smart Farm Monitoring", url: "projects.html#proj-10", tags: ["cloud", "iot", "aws", "python", "data"] },
+                { title: "Decentralized Voting System", url: "projects.html#proj-11", tags: ["web", "blockchain", "solidity", "react", "ethereum"] },
+                { title: "Personalized Fitness Trainer AI", url: "projects.html#proj-12", tags: ["ai", "ml", "python", "pytorch", "computer-vision"] },
+                { title: "Serverless Image Processing API", url: "projects.html#proj-13", tags: ["cloud", "aws", "lambda", "api", "serverless"] },
+                { title: "Interactive Data Storytelling Tool", url: "projects.html#proj-14", tags: ["data", "web", "javascript", "d3.js", "svelte"] },
+                { title: "Mobile Food Delivery App", url: "projects.html#proj-15", tags: ["mobile", "react-native", "node.js", "mongodb"] },
+
+                // Skills entries (from skills.html)
+                { title: "Frontend Development Skills", url: "skills.html#skills-overview", tags: ["Frontend", "HTML", "CSS", "JavaScript", "React", "Tailwind CSS", "Webpack"] },
+                { title: "Backend Development Skills", url: "skills.html#skills-overview", tags: ["Backend", "Node.js", "Python", "Ruby on Rails", "Java", "APIs"] },
+                { title: "Database Management Skills", url: "skills.html#skills-overview", tags: ["Databases", "SQL", "PostgreSQL", "MongoDB", "Firebase"] },
+                { title: "Cloud & DevOps Skills", url: "skills.html#skills-overview", tags: ["Cloud", "DevOps", "AWS", "Docker", "Kubernetes", "CI/CD"] },
+                { title: "AI/ML Skills", url: "skills.html#skills-overview", tags: ["AI", "ML", "TensorFlow", "PyTorch", "NLP", "Computer Vision"] },
+                { title: "Tools & Other Skills", url: "skills.html#skills-overview", tags: ["Tools", "Git", "GitHub", "VS Code", "Agile", "Jira"] },
+                { title: "Currently Mastering Skills", url: "skills.html#skills-overview", tags: ["Next.js", "GraphQL", "Generative AI", "Web3"] },
+                { title: "Proficiency Dashboard", url: "skills.html#proficiency-dashboard", tags: ["Skills", "Proficiency", "Metrics", "Impact"] },
+                { title: "Skill Showcase Details", url: "skills.html#skill-showcase-details", tags: ["Skills", "Showcase", "React", "Cloud", "AI", "Database"] },
+                { title: "Learning Path & Future Goals", url: "skills.html#learning-path", tags: ["Learning", "Future", "Goals", "Timeline", "Blockchain", "Data Engineering"] },
+
+
+                // Other pages/sections
+                { title: "About Me", url: "about.html", tags: ["Biography", "Journey", "Passion", "Values", "Mission"] },
+                { title: "Contact Me", url: "contact.html", tags: ["Email", "LinkedIn", "Inquiry", "Collaboration", "Map", "AI Assistant"] },
+                { title: "My Approach", url: "index.html#my-approach", tags: ["User-Centric Design", "Agile Development", "Robust Code", "Scalability", "Collaboration", "Innovation"] },
+                { title: "Frequently Asked Questions", url: "index.html#faq", tags: ["FAQ", "Questions", "Answers"] },
+            ];
+
+            function handleGlobalSearch(query, resultsContainer) {
+                resultsContainer.innerHTML = '';
+                if (query.length < 2) {
+                    resultsContainer.classList.add('hidden');
+                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500">Type to search...</p>';
+                    return;
+                }
+
+                const lowerCaseQuery = query.toLowerCase();
+                const filteredResults = searchData.filter(item =>
+                    item.title.toLowerCase().includes(lowerCaseQuery) ||
+                    item.tags.some(tag => tag.toLowerCase().includes(lowerCaseQuery))
+                );
+
+                if (filteredResults.length > 0) {
+                    resultsContainer.classList.remove('hidden');
+                    filteredResults.forEach(item => {
+                        const div = document.createElement('div');
+                        div.classList.add('search-results-item', 'text-slate-700', 'dark:text-slate-200');
+                        div.innerHTML = `<a href="${item.url}" class="block">${item.title} <span class="text-xs text-slate-500 dark:text-slate-400">(${item.tags.join(', ')})</span></a>`;
+                        div.addEventListener('click', (e) => {
+                            e.preventDefault(); // Prevent default navigation for internal links
+                            // Handle opening modals or navigating based on URL structure
+                            if (item.url.startsWith('projects.html#proj-')) {
+                                // For projects, find the project and open its modal
+                                const projectId = item.url.split('#')[1];
+                                // This would require a projectData array and modal logic similar to projects.html
+                                // For now, we'll just navigate
+                                window.location.href = item.url;
+                            } else if (item.url.startsWith('experience.html#exp-') || item.url.startsWith('experience.html#edu-')) {
+                                // For experience/education, navigate to experience.html and let its script handle the modal
+                                window.location.href = item.url;
+                            } else if (item.url.startsWith('blog.html#single-post-')) {
+                                // For blog posts, navigate to blog.html and let its script handle the modal
+                                window.location.href = item.url;
+                            } else {
+                                window.location.href = item.url; // For other pages, navigate directly
+                            }
+                        });
+                        resultsContainer.appendChild(div);
+                    });
+                } else {
+                    resultsContainer.classList.remove('hidden');
+                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500">No results found.</p>';
+                }
+            }
+
+            const desktopSearchInput = document.getElementById('desktopSearchInput');
+            const desktopSearchResults = document.getElementById('desktopSearchResults');
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
+            const mobileSearchResults = document.getElementById('mobileSearchResults');
+
+            desktopSearchInput.addEventListener('input', (e) => {
+                handleGlobalSearch(e.target.value, desktopSearchResults);
+            });
+            desktopSearchInput.addEventListener('focus', () => {
+                handleGlobalSearch(desktopSearchInput.value, desktopSearchResults);
+            });
+            desktopSearchInput.addEventListener('blur', () => {
+                setTimeout(() => {
+                    if (!desktopSearchResults.matches(':hover')) {
+                        desktopSearchResults.classList.add('hidden');
+                    }
+                }, 100);
+            });
+
+            mobileSearchInput.addEventListener('input', (e) => {
+                handleGlobalSearch(e.target.value, mobileSearchResults);
+            });
+            mobileSearchInput.addEventListener('focus', () => {
+                handleGlobalSearch(mobileSearchInput.value, mobileSearchResults);
+            });
+            mobileSearchInput.addEventListener('blur', () => {
+                setTimeout(() => {
+                    if (!mobileSearchResults.matches(':hover')) {
+                        mobileSearchResults.classList.add('hidden');
+                    }
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
