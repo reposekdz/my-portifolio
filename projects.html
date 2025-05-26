@@ -551,6 +551,208 @@
             margin-right: 0.5rem;
         }
 
+        /* Custom Modal for Buy System Message */
+        .buy-system-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001; /* Higher than project modal */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .buy-system-modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .buy-system-modal-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        .dark .buy-system-modal-content {
+            background-color: #1e293b;
+        }
+        .buy-system-modal-overlay.open .buy-system-modal-content {
+            transform: translateY(0);
+        }
+        .buy-system-modal-content h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        .dark .buy-system-modal-content h4 {
+            color: #f8fafc;
+        }
+        .buy-system-modal-content p {
+            margin-bottom: 1.5rem;
+            color: #475569;
+        }
+        .dark .buy-system-modal-content p {
+            color: #cbd5e1;
+        }
+        .buy-system-modal-content .btn-primary {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        /* Payment Modal Specific Styles */
+        .payment-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1002; /* Highest z-index */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .payment-modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .payment-modal-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .dark .payment-modal-content {
+            background-color: #1e293b;
+        }
+        .payment-modal-overlay.open .payment-modal-content {
+            transform: translateY(0);
+        }
+        .payment-modal-content h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+            text-align: center;
+        }
+        .dark .payment-modal-content h3 {
+            color: #f8fafc;
+        }
+        .payment-option {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .dark .payment-option {
+            background-color: #2d3748;
+            border-color: #4a5568;
+        }
+        .payment-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-color: #6366f1;
+        }
+        .dark .payment-option:hover {
+            border-color: #a78bfa;
+        }
+        .payment-option.active-payment {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        }
+        .dark .payment-option.active-payment {
+            border-color: #a78bfa;
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
+        }
+        .payment-option-header {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.125rem;
+            color: #1e293b;
+        }
+        .dark .payment-option-header {
+            color: #f8fafc;
+        }
+        .payment-option-header i {
+            margin-right: 0.75rem;
+            font-size: 1.5rem;
+            color: #6366f1;
+        }
+        .dark .payment-option-header i {
+            color: #a78bfa;
+        }
+        .payment-details {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+            display: none; /* Hidden by default */
+        }
+        .dark .payment-details {
+            border-top-color: #4a5568;
+        }
+        .payment-option.active-payment .payment-details {
+            display: block;
+        }
+        .payment-details input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            background-color: #ffffff;
+            color: #1e293b;
+            margin-bottom: 0.75rem;
+        }
+        .dark .payment-details input {
+            background-color: #2d3748;
+            border-color: #4a5568;
+            color: #f8fafc;
+        }
+        .payment-details button {
+            width: 100%;
+        }
+        .payment-details p {
+            font-size: 0.95rem;
+            color: #475569;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+        .dark .payment-details p {
+            color: #cbd5e1;
+        }
+        .payment-details a {
+            color: #6366f1;
+            text-decoration: underline;
+        }
+        .dark .payment-details a {
+            color: #a78bfa;
+        }
     </style>
     <script>
         // Initialize dark mode preference immediately to prevent FOUC
@@ -766,6 +968,74 @@
                 <a id="modalProjectGithubLink" href="#" target="_blank" class="btn-secondary text-base hidden"><i class="fab fa-github mr-2"></i> GitHub Repo</a>
                 <a id="modalProjectCaseStudyLink" href="#" target="_blank" class="btn-secondary text-base hidden"><i class="fas fa-file-alt mr-2"></i> Case Study</a>
             </div>
+        </div>
+    </div>
+
+    <div id="buySystemModal" class="buy-system-modal-overlay">
+        <div class="buy-system-modal-content">
+            <h4 class="text-indigo-600 dark:text-indigo-400">Special Offer!</h4>
+            <p>You can buy a system from my projects. Click below to explore more!</p>
+            <button id="buySystemModalBtn" class="btn-primary">Okay, Show Me Projects!</button>
+        </div>
+    </div>
+
+    <div id="paymentChoiceModal" class="payment-modal-overlay">
+        <div class="payment-modal-content">
+            <button class="project-modal-close-btn" aria-label="Close Payment Options">×</button>
+            <h3 id="paymentModalTitle"></h3>
+            <p class="text-center text-slate-700 dark:text-slate-300 mb-6">Choose your preferred payment method for <span id="projectToBuyTitle" class="font-semibold text-indigo-600 dark:text-indigo-400"></span>:</p>
+
+            <div class="payment-option" data-payment-method="card">
+                <div class="payment-option-header">
+                    <i class="fas fa-credit-card"></i> Pay with Card
+                </div>
+                <div class="payment-details">
+                    <form onsubmit="event.preventDefault(); alert('Card payment simulated for ' + document.getElementById('projectToBuyTitle').textContent + '. This is a placeholder form.'); hidePaymentChoiceModal();">
+                        <input type="text" placeholder="Card Number" class="focus:ring-indigo-500 focus:border-indigo-500" required>
+                        <input type="text" placeholder="Card Holder Name" class="focus:ring-indigo-500 focus:border-indigo-500" required>
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" placeholder="MM/YY" class="focus:ring-indigo-500 focus:border-indigo-500" required>
+                            <input type="text" placeholder="CVC" class="focus:ring-indigo-500 focus:border-indigo-500" required>
+                        </div>
+                        <button type="submit" class="btn-primary mt-4">Pay Now</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="payment-option" data-payment-method="paypal">
+                <div class="payment-option-header">
+                    <i class="fab fa-paypal"></i> Pay with PayPal
+                </div>
+                <div class="payment-details">
+                    <p>Click the button below to complete your payment securely via PayPal.</p>
+                    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=your_paypal_email@example.com&item_name=Project_Purchase&amount=100.00&currency_code=USD" target="_blank" class="btn-primary w-full text-center">
+                        Proceed to PayPal <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="payment-option" data-payment-method="mtn-money">
+                <div class="payment-option-header">
+                    <i class="fas fa-mobile-alt"></i> Pay with MTN Mobile Money
+                </div>
+                <div class="payment-details">
+                    <p>Send payment to the following MTN Mobile Money number:</p>
+                    <p class="font-bold text-lg text-indigo-600 dark:text-indigo-400">0784484638</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Please include the project title in the payment description.</p>
+                </div>
+            </div>
+
+            <div class="payment-option" data-payment-method="airtel-money">
+                <div class="payment-option-header">
+                    <i class="fas fa-mobile-alt"></i> Pay with Airtel Money
+                </div>
+                <div class="payment-details">
+                    <p>Send payment to the following Airtel Money number:</p>
+                    <p class="font-bold text-lg text-indigo-600 dark:text-indigo-400">0722725735</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Please include the project title in the payment description.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -1158,9 +1428,12 @@
                         <div class="mb-4 flex flex-wrap gap-2">
                             ${project.tags.map(tag => `<span class="tech-badge">${tag.charAt(0).toUpperCase() + tag.slice(1)}</span>`).join('')}
                         </div>
-                        <div class="flex space-x-3">
+                        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 mt-4">
                             <button class="btn-primary text-sm view-details-btn" data-project-id="${project.id}">
                                 View Details <i class="fas fa-arrow-right ml-1"></i>
+                            </button>
+                            <button class="btn-secondary text-sm buy-project-btn" data-project-title="${project.title}">
+                                Buy This Project <i class="fas fa-shopping-cart ml-1"></i>
                             </button>
                         </div>
                     </div>
@@ -1191,9 +1464,15 @@
                     loadMoreBtn.classList.remove('hidden');
                 }
 
-                // Attach event listeners to new "View Details" buttons
+                // Attach event listeners to new "View Details" and "Buy This Project" buttons
                 document.querySelectorAll('.view-details-btn').forEach(button => {
                     button.addEventListener('click', openProjectModal);
+                });
+                document.querySelectorAll('.buy-project-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const projectTitle = e.target.dataset.projectTitle;
+                        openPaymentChoiceModal(projectTitle);
+                    });
                 });
             }
 
@@ -1446,6 +1725,76 @@
                         mobileSearchResults.classList.add('hidden');
                     }
                 }, 100);
+            });
+
+            // --- Buy System Message Interval ---
+            const buySystemModal = document.getElementById('buySystemModal');
+            const buySystemModalBtn = document.getElementById('buySystemModalBtn');
+
+            function showBuySystemModal() {
+                buySystemModal.classList.add('open');
+                document.body.style.overflow = 'hidden'; // Prevent body scrolling
+            }
+
+            function hideBuySystemModal() {
+                buySystemModal.classList.remove('open');
+                document.body.style.overflow = ''; // Restore body scrolling
+            }
+
+            // Show modal every 1 minute (60,000 milliseconds)
+            setInterval(showBuySystemModal, 60000);
+
+            buySystemModalBtn.addEventListener('click', () => {
+                hideBuySystemModal();
+                // Redirect to the projects page (or scroll to projects section)
+                window.location.href = 'projects.html';
+            });
+
+            buySystemModal.addEventListener('click', (e) => {
+                if (e.target === buySystemModal) { // Close if clicked on overlay
+                    hideBuySystemModal();
+                }
+            });
+
+            // --- Payment Choice Modal Logic ---
+            const paymentChoiceModal = document.getElementById('paymentChoiceModal');
+            const paymentModalTitle = document.getElementById('paymentModalTitle');
+            const projectToBuyTitleSpan = document.getElementById('projectToBuyTitle');
+            const closePaymentModalBtn = paymentChoiceModal.querySelector('.project-modal-close-btn');
+            const paymentOptions = document.querySelectorAll('.payment-option');
+
+            function openPaymentChoiceModal(projectTitle) {
+                paymentModalTitle.textContent = `Purchase ${projectTitle}`;
+                projectToBuyTitleSpan.textContent = projectTitle;
+                paymentChoiceModal.classList.add('open');
+                document.body.style.overflow = 'hidden'; // Prevent body scrolling
+
+                // Deactivate all payment options initially
+                paymentOptions.forEach(option => {
+                    option.classList.remove('active-payment');
+                });
+            }
+
+            function hidePaymentChoiceModal() {
+                paymentChoiceModal.classList.remove('open');
+                document.body.style.overflow = ''; // Restore body scrolling
+            }
+
+            closePaymentModalBtn.addEventListener('click', hidePaymentChoiceModal);
+
+            paymentChoiceModal.addEventListener('click', (e) => {
+                if (e.target === paymentChoiceModal) { // Close if clicked on overlay
+                    hidePaymentChoiceModal();
+                }
+            });
+
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Deactivate all payment options first
+                    paymentOptions.forEach(opt => opt.classList.remove('active-payment'));
+                    // Activate the clicked option
+                    option.classList.add('active-payment');
+                });
             });
         });
     </script>

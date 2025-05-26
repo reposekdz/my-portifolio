@@ -465,6 +465,8 @@
             transform: translateY(-20px);
             transition: transform 0.3s ease;
             position: relative;
+            display: flex; /* Use flexbox for internal layout */
+            flex-direction: column;
         }
         .dark .modal-content {
             background-color: #1e293b;
@@ -496,15 +498,27 @@
         /* Chatbox specific styles */
         #chat-box {
             height: 300px; /* Increased height for better chat experience */
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background-color: #f8fafc; /* Slate 50 */
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0; /* Slate 200 */
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            flex-grow: 1; /* Allow chatbox to grow and take available space */
+        }
+        .dark #chat-box {
+            background-color: #334155; /* Slate 700 */
+            border-color: #475569; /* Slate 700 */
         }
         .chat-message {
             padding: 0.75rem 1rem;
             border-radius: 0.75rem;
             max-width: 80%;
             word-wrap: break-word;
+            font-size: 0.95rem;
         }
         .chat-message.user {
             background-color: #6366f1; /* Indigo 500 */
@@ -523,7 +537,7 @@
             border-bottom-left-radius: 0.25rem; /* Pointy corner */
         }
         .dark .chat-message.ai {
-            background-color: #334155; /* Slate 700 */
+            background-color: #1e293b; /* Slate 800 */
             color: #e2e8f0;
         }
         .chat-message.ai.thinking {
@@ -533,6 +547,10 @@
             0% { opacity: 1; }
             50% { opacity: 0.7; }
             100% { opacity: 1; }
+        }
+        .chat-input-container {
+            display: flex;
+            margin-top: 0.5rem;
         }
     </style>
     <script>
@@ -641,7 +659,9 @@
                                 Send Message <i class="fas fa-paper-plane ml-2 group-hover:translate-x-1 transition-transform"></i>
                             </button>
                         </div>
-                        <p id="formStatus" class="mt-4 text-sm text-center text-slate-600 dark:text-slate-400"></p>
+                        <div id="formStatusContainer" class="mt-4 text-sm text-center">
+                            <p id="formStatus" class="text-slate-600 dark:text-slate-400"></p>
+                        </div>
                     </form>
                 </div>
 
@@ -728,10 +748,10 @@
         <div class="modal-content">
             <button class="modal-close-btn" aria-label="Close AI Assistant">×</button>
             <h3 class="text-2xl font-semibold mb-4 text-slate-800 dark:text-slate-200">AI Assistant</h3>
-            <div id="chat-box" class="bg-slate-100 dark:bg-slate-700 p-4 rounded-lg h-64 overflow-y-auto mb-4 border border-slate-200 dark:border-slate-600">
+            <div id="chat-box" class="p-4 rounded-lg overflow-y-auto mb-4 border border-slate-200 dark:border-slate-600">
                 <div class="chat-message ai">Hello! I'm your AI assistant. How can I help you today?</div>
             </div>
-            <div class="flex">
+            <div class="chat-input-container">
                 <input type="text" id="chat-input" class="form-input flex-grow mr-2" placeholder="Ask me anything...">
                 <button id="send-chat-btn" class="btn-primary px-4 py-2">
                     <i class="ph-paper-plane-tilt-fill"></i>
@@ -744,10 +764,10 @@
     <footer class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 py-16 text-center">
         <div class="container mx-auto px-6">
             <div class="mb-8 flex justify-center space-x-6">
-                <a href="https://github.com/reponsekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://github.com/reposekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://twitter.com/reponsekdz06 target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
-                <a href="https://www.instagram.com/reponse_kdz/s" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
+                <a href="https://twitter.com/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com/reponse_kdz/" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
                 <a href="mailto:reponsekdz06@gmail.com" class="footer-social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
             <div class="mb-6 space-x-4 sm:space-x-6">
@@ -759,7 +779,7 @@
                 <a href="#privacy-policy" class="footer-link">Privacy Policy</a>
             </div>
             <p class="text-sm">© <span id="currentYear"></span> niyonkuru reponse. All rights reserved.</p>
-            <p class="text-xs mt-2">Designed with <i class="fas fa-heart text-red-500"></i> Reponse Niyonkuru.>
+            <p class="text-xs mt-2">Designed with <i class="fas fa-heart text-red-500"></i> Reponse Niyonkuru.</p>
             <p class="text-xs mt-1">Located in Kigali-Kicukiro.</p>
         </div>
     </footer>
@@ -850,6 +870,7 @@
             // Contact Form Submission
             const contactForm = document.getElementById('contactForm');
             const formStatus = document.getElementById('formStatus');
+            const formStatusContainer = document.getElementById('formStatusContainer');
 
             contactForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
@@ -870,17 +891,27 @@
                     });
 
                     if (response.ok) {
-                        formStatus.textContent = 'Message sent successfully! Please wait for my feedback.';
+                        formStatus.innerHTML = 'Message sent successfully! Redirecting to home page...';
                         formStatus.classList.remove('text-slate-600', 'dark:text-slate-400');
                         formStatus.classList.add('text-green-500');
                         contactForm.reset();
+
+                        // Create and append redirect button
+                        const redirectBtn = document.createElement('button');
+                        redirectBtn.textContent = 'Click to Redirect Now';
+                        redirectBtn.classList.add('mt-2', 'btn-primary', 'px-4', 'py-2', 'text-sm');
+                        redirectBtn.onclick = () => window.location.href = 'index.html';
+                        formStatusContainer.appendChild(redirectBtn);
+
+                        // Automatic redirect after 3 seconds
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 3000);
+
                     } else {
-                        const data = await response.json();
-                        if (data.errors) {
-                            formStatus.textContent = data.errors.map(error => error.message).join(', ');
-                        } else {
-                            formStatus.textContent = 'Oops! There was a problem sending your message.';
-                        }
+                        // Removed detailed error handling as per user request,
+                        // but keeping a generic message for non-OK responses to indicate a problem.
+                        formStatus.textContent = 'Oops! There was a problem sending your message.';
                         formStatus.classList.remove('text-slate-600', 'dark:text-slate-400');
                         formStatus.classList.add('text-red-500');
                     }
@@ -900,8 +931,24 @@
             const sendChatBtn = document.getElementById('send-chat-btn');
             const chatBox = document.getElementById('chat-box');
 
+            // Store chat history for context
+            let chatHistory = [{ role: "ai", parts: [{ text: "Hello! I'm your AI assistant. How can I help you today?" }] }];
+
+            // Function to display messages in chatbox
+            function displayMessage(sender, message) {
+                const msgDiv = document.createElement('div');
+                msgDiv.classList.add('chat-message', sender);
+                msgDiv.textContent = message;
+                chatBox.appendChild(msgDiv);
+                chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+            }
+
+            // Initial AI greeting
+            displayMessage('ai', chatHistory[0].parts[0].text);
+
             openAiAssistantModalBtn.addEventListener('click', () => {
                 aiAssistantModal.classList.add('open');
+                chatInput.focus(); // Focus on input when modal opens
             });
 
             modalCloseBtn.addEventListener('click', () => {
@@ -926,12 +973,9 @@
                 if (userMessage === '') return;
 
                 // Display user message
-                const userMsgDiv = document.createElement('div');
-                userMsgDiv.classList.add('chat-message', 'user');
-                userMsgDiv.textContent = userMessage;
-                chatBox.appendChild(userMsgDiv);
+                displayMessage('user', userMessage);
+                chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
                 chatInput.value = '';
-                chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
 
                 // Display AI thinking message
                 const aiThinkingDiv = document.createElement('div');
@@ -941,15 +985,8 @@
                 chatBox.scrollTop = chatBox.scrollHeight;
 
                 try {
-                    let chatHistory = [];
-                    // For a more advanced bot, you would collect the entire conversation history
-                    // from the chatBox to provide more context to the LLM.
-                    // For this example, we'll just send the current user message.
-                    chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
-
                     const payload = { contents: chatHistory };
-                    // The API key is automatically provided by the Canvas environment if left empty.
-                    const apiKey = "";
+                    const apiKey = ""; // Canvas will automatically provide this at runtime
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                     const response = await fetch(apiUrl, {
@@ -959,35 +996,18 @@
                     });
 
                     const result = await response.json();
-                    let responseText = "I'm sorry, I couldn't process that request. Please try again or contact niyonkuru reponse directly.";
+                    let responseText = "I'm sorry, I couldn't process that request. Please try again or contact niyonkuru reponse directly on 0722725735 or 0784484638 and you can send an email on reponsekdz06@gmail.com";
 
                     if (result.candidates && result.candidates.length > 0 &&
                         result.candidates[0].content && result.candidates[0].content.parts &&
                         result.candidates[0].content.parts.length > 0) {
                         responseText = result.candidates[0].content.parts[0].text;
-                    } else {
-                        // Fallback to simpler hardcoded logic if API response is unexpected or empty
-                        const lowerCaseMsg = userMessage.toLowerCase();
-                        if (lowerCaseMsg.includes("hello") || lowerCaseMsg.includes("hi")) {
-                            responseText = "Hello! How can I assist you today?";
-                        } else if (lowerCaseMsg.includes("services")) {
-                            responseText = "niyonkuru reponse offers web development, mobile app development, cloud solutions, AI/ML integration, database management, and technical consulting.";
-                        } else if (lowerCaseMsg.includes("contact") || lowerCaseMsg.includes("email")) {
-                            responseText = "You can contact niyonkuru reponse directly via email at reponsekdz06@gmail.com or use the contact form on this page.";
-                        } else if (lowerCaseMsg.includes("location")) {
-                            responseText = "niyonkuru reponse is located in Kigali-Kicukiro, Rwanda.";
-                        } else if (lowerCaseMsg.includes("hire") || lowerCaseMsg.includes("project")) {
-                            responseText = "niyonkuru reponse is currently available for new opportunities. You can schedule a meeting via Calendly or send a message through the contact form.";
-                        } else if (lowerCaseMsg.includes("resume")) {
-                            responseText = "You can find a link to download niyonkuru reponse's resume on this contact page.";
-                        } else {
-                            responseText = "I'm still learning! For complex questions, please use the contact form or schedule a meeting.";
-                        }
                     }
 
                     // Update AI response
                     aiThinkingDiv.classList.remove('thinking');
                     aiThinkingDiv.textContent = responseText;
+                    chatHistory.push({ role: "ai", parts: [{ text: responseText }] }); // Add AI response to history
                     chatBox.scrollTop = chatBox.scrollHeight;
 
                 } catch (error) {
