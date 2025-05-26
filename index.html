@@ -723,6 +723,125 @@
             max-height: 200px; /* Adjust as needed based on content */
             padding-bottom: 1.5rem;
         }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            position: relative;
+        }
+        .dark .modal-content {
+            background-color: #1e293b;
+        }
+        .modal-overlay.open .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #475569;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .dark .modal-close-btn {
+            color: #94a3b8;
+        }
+        .modal-close-btn:hover {
+            color: #1e293b;
+        }
+        .dark .modal-close-btn:hover {
+            color: #f8fafc;
+        }
+
+        /* Message box styles */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001; /* Higher than modals */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .message-box-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .dark .message-box-content {
+            background-color: #1e293b;
+        }
+        .message-box-overlay.open .message-box-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .message-box-button {
+            background-color: #6366f1;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .dark .message-box-button {
+            background-color: #a78bfa;
+        }
+        .message-box-button:hover {
+            background-color: #4f46e5;
+        }
+        .dark .message-box-button:hover {
+            background-color: #8b5cf6;
+        }
     </style>
     <script>
         // Initialize dark mode preference immediately to prevent FOUC
@@ -756,6 +875,7 @@
                 <a href="experience.html" class="nav-link">Experience</a>
                 <a href="blog.html" class="nav-link">Blog</a>
                 <a href="contact.html" class="nav-link">Contact</a>
+                <a href="test.html" class="nav-link">Learning</a>
             </div>
 
             <div class="flex items-center">
@@ -785,6 +905,7 @@
             <a href="experience.html" class="mobile-nav-link">Experience</a>
             <a href="blog.html" class="mobile-nav-link">Blog</a>
             <a href="contact.html" class="mobile-nav-link">Contact</a>
+            <a href="test.html" class="mobile-nav-link"> Learning</a>
         </div>
     </nav>
 
@@ -1264,7 +1385,9 @@
             <div class="mb-8 flex justify-center space-x-6">
                 <a href="https://github.com/reposekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://twitter.com/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://twitter.com/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
                 <a href="https://www.instagram.com/reponse_kdz/" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
                 <a href="mailto:reponsekdz06@gmail.com" class="footer-social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
@@ -1285,6 +1408,110 @@
     <button id="backToTopBtn" aria-label="Back to Top" class="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white p-3 rounded-full shadow-lg opacity-0 translate-y-10 transition-all duration-300 z-40">
         <i class="fas fa-arrow-up text-lg"></i>
     </button>
+
+    <div id="contributionModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeModal('contributionModal')">&times;</button>
+            <h3 class="text-2xl font-bold mb-4 text-center text-slate-800 dark:text-slate-200">Support Our Vision!</h3>
+            <p class="text-center mb-6 text-slate-700 dark:text-slate-300">
+                You can contribute to us by giving some money that will be used to make a big family of software developers.
+            </p>
+            <form class="space-y-4" onsubmit="handleFormSubmission(event, 'contribution')">
+                <div>
+                    <label for="contributionAmount" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Amount (RWF)</label>
+                    <input type="number" id="contributionAmount" name="amount" placeholder="e.g., 5000" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" required>
+                </div>
+                <div>
+                    <label for="contributionMethod" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Payment Method</label>
+                    <select id="contributionMethod" name="method" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" required>
+                        <option value="">Select a method</option>
+                        <option value="mtn">MTN Mobile Money</option>
+                        <option value="airtel">Airtel Money</option>
+                        <option value="bank">Bank Card</option>
+                        <option value="paypal">PayPal</option>
+                    </select>
+                </div>
+                <div id="paymentDetails" class="space-y-4 hidden">
+                    </div>
+                <button type="submit" class="w-full btn-primary">
+                    Contribute Now <i class="fas fa-heart ml-2"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="certificationModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeModal('certificationModal')">&times;</button>
+            <h3 class="text-2xl font-bold mb-4 text-center text-slate-800 dark:text-slate-200">Get Certified!</h3>
+            <p class="text-center mb-6 text-slate-700 dark:text-slate-300">
+                Be certified by learning how to make interactive software, AI, websites, etc.
+            </p>
+            <form class="space-y-4" onsubmit="handleFormSubmission(event, 'certification')">
+                <div>
+                    <label for="certificationCourse" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Select Course</label>
+                    <select id="certificationCourse" name="course" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" required>
+                        <option value="">Select a course</option>
+                        <option value="web-dev">Interactive Web Development</option>
+                        <option value="ai-ml">AI & Machine Learning</option>
+                        <option value="software-eng">Software Engineering Principles</option>
+                        <option value="data-science">Data Science & Visualization</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="certificationMethod" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Payment Method</label>
+                    <select id="certificationMethod" name="method" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" required>
+                        <option value="">Select a method</option>
+                        <option value="mtn">MTN Mobile Money</option>
+                        <option value="airtel">Airtel Money</option>
+                        <option value="bank">Bank Card</option>
+                    </select>
+                </div>
+                <div id="certificationPaymentDetails" class="space-y-4 hidden">
+                    </div>
+                <button type="submit" class="w-full btn-primary">
+                    Enroll Now <i class="fas fa-graduation-cap ml-2"></i>
+                </button>
+            </form>
+            <div class="mt-6 text-center">
+                <p class="text-slate-700 dark:text-slate-300">Prefer PayPal?</p>
+                <a href="https://www.paypal.me/reponsekdz06" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Click here to pay with PayPal</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="contributionReminderModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeModal('contributionReminderModal')">&times;</button>
+            <h3 class="text-2xl font-bold mb-4 text-center text-slate-800 dark:text-slate-200">Help Us Grow!</h3>
+            <p class="text-center mb-6 text-slate-700 dark:text-slate-300">
+                If you want to make a big family of developers, please give your contribution on these numbers:
+            </p>
+            <div class="space-y-4">
+                <div class="flex items-center space-x-2 justify-center">
+                    <span class="font-semibold text-slate-800 dark:text-slate-200">MTN Mobile Money:</span>
+                    <input type="text" value="0784484638" class="flex-grow rounded-md border-slate-300 shadow-sm dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" readonly>
+                    <button type="button" onclick="copyToClipboard('0784484638')" class="btn-primary p-2 text-sm">Copy</button>
+                </div>
+                <div class="flex items-center space-x-2 justify-center">
+                    <span class="font-semibold text-slate-800 dark:text-slate-200">Airtel Money:</span>
+                    <input type="text" value="0722725735" class="flex-grow rounded-md border-slate-300 shadow-sm dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" readonly>
+                    <button type="button" onclick="copyToClipboard('0722725735')" class="btn-primary p-2 text-sm">Copy</button>
+                </div>
+            </div>
+            <button class="w-full btn-primary mt-6" onclick="closeModal('contributionReminderModal')">
+                Got It! <i class="fas fa-check-circle ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="messageBox" class="message-box-overlay">
+        <div class="message-box-content">
+            <h4 id="messageBoxTitle" class="text-xl font-bold mb-2 text-slate-800 dark:text-slate-200"></h4>
+            <p id="messageBoxText" class="text-slate-700 dark:text-slate-300"></p>
+            <button class="message-box-button" onclick="closeMessageBox()">OK</button>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -1622,6 +1849,219 @@
                         icon.style.transform = 'rotate(0deg)';
                     }
                 });
+            });
+
+            // Modal functionality
+            function openModal(modalId) {
+                document.getElementById(modalId).classList.add('open');
+            }
+
+            function closeModal(modalId) {
+                document.getElementById(modalId).classList.remove('open');
+            }
+
+            window.closeModal = closeModal; // Make it globally accessible for onclick in HTML
+
+            // Message Box functions
+            const messageBox = document.getElementById('messageBox');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxText = document.getElementById('messageBoxText');
+
+            function showMessageBox(title, message) {
+                messageBoxTitle.textContent = title;
+                messageBoxText.textContent = message;
+                messageBox.classList.add('open');
+            }
+
+            function closeMessageBox() {
+                messageBox.classList.remove('open');
+            }
+
+            window.closeMessageBox = closeMessageBox; // Make it globally accessible
+
+            // Timed messages and modals
+            let messageToggle = 0; // 0: Contribution Modal, 1: Certification Modal, 2: New Contribution Reminder
+            const TWO_MINUTES = 2 * 60 * 1000; // 2 minutes in milliseconds
+
+            function showTimedMessage() {
+                // Do not show new messages if one is already open
+                if (document.getElementById('contributionModal').classList.contains('open') ||
+                    document.getElementById('certificationModal').classList.contains('open') ||
+                    document.getElementById('contributionReminderModal').classList.contains('open')) {
+                    return;
+                }
+
+                if (messageToggle === 0) {
+                    openModal('contributionModal');
+                } else if (messageToggle === 1) {
+                    openModal('certificationModal');
+                } else {
+                    openModal('contributionReminderModal');
+                }
+                messageToggle = (messageToggle + 1) % 3; // Cycle through 0, 1, 2
+            }
+
+            // Start the interval for timed messages
+            setInterval(showTimedMessage, TWO_MINUTES);
+
+            // Copy to clipboard function
+            function copyToClipboard(text) {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showMessageBox('Copied!', 'The number/email has been copied to your clipboard.');
+            }
+            window.copyToClipboard = copyToClipboard; // Make it globally accessible
+
+            // Handle form submission (basic validation and success message)
+            function handleFormSubmission(event, formType) {
+                event.preventDefault(); // Prevent default form submission
+
+                let successMessage = '';
+                if (formType === 'contribution') {
+                    const amount = document.getElementById('contributionAmount').value;
+                    const method = document.getElementById('contributionMethod').value;
+                    if (!amount || !method) {
+                        showMessageBox('Error', 'Please fill in all required fields.');
+                        return;
+                    }
+                    successMessage = `Thank you for your contribution of RWF ${amount} via ${method}! We appreciate your support.`;
+                    closeModal('contributionModal');
+                } else if (formType === 'certification') {
+                    const course = document.getElementById('certificationCourse').value;
+                    const method = document.getElementById('certificationMethod').value;
+                    if (!course || !method) {
+                        showMessageBox('Error', 'Please select a course and payment method.');
+                        return;
+                    }
+                    successMessage = `You have successfully initiated enrollment for the ${course} course via ${method}. We will contact you shortly!`;
+                    closeModal('certificationModal');
+                }
+                showMessageBox('Success!', successMessage);
+            }
+            window.handleFormSubmission = handleFormSubmission; // Make it globally accessible
+
+            // Dynamic payment fields for Contribution Modal
+            const contributionMethodSelect = document.getElementById('contributionMethod');
+            const paymentDetailsDiv = document.getElementById('paymentDetails');
+
+            contributionMethodSelect.addEventListener('change', function() {
+                const method = this.value;
+                paymentDetailsDiv.innerHTML = ''; // Clear previous fields
+                paymentDetailsDiv.classList.add('hidden');
+
+                if (method === 'mtn') {
+                    paymentDetailsDiv.classList.remove('hidden');
+                    paymentDetailsDiv.innerHTML = `
+                        <div>
+                            <label for="mtnNumber" class="block text-sm font-medium text-slate-700 dark:text-slate-300">MTN Mobile Money Number</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="text" id="mtnNumber" name="mtnNumber" value="0784484638" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" readonly>
+                                <button type="button" onclick="copyToClipboard('0784484638')" class="btn-primary p-2 text-sm">Copy</button>
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Please send the amount to this number.</p>
+                        </div>
+                    `;
+                } else if (method === 'airtel') {
+                    paymentDetailsDiv.classList.remove('hidden');
+                    paymentDetailsDiv.innerHTML = `
+                        <div>
+                            <label for="airtelNumber" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Airtel Money Number</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="text" id="airtelNumber" name="airtelNumber" value="0722725735" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" readonly>
+                                <button type="button" onclick="copyToClipboard('0722725735')" class="btn-primary p-2 text-sm">Copy</button>
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Please send the amount to this number.</p>
+                        </div>
+                    `;
+                } else if (method === 'bank') {
+                    paymentDetailsDiv.classList.remove('hidden');
+                    paymentDetailsDiv.innerHTML = `
+                        <div>
+                            <label for="bankCardNumber" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Card Number</label>
+                            <input type="text" id="bankCardNumber" name="bankCardNumber" placeholder="XXXX XXXX XXXX XXXX" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" required>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="expiryDate" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Expiry Date (MM/YY)</label>
+                                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" required>
+                            </div>
+                            <div>
+                                <label for="cvv" class="block text-sm font-medium text-slate-700 dark:text-slate-300">CVV</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="XXX" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" required>
+                            </div>
+                        </div>
+                    `;
+                } else if (method === 'paypal') {
+                    paymentDetailsDiv.classList.remove('hidden');
+                    paymentDetailsDiv.innerHTML = `
+                        <p class="text-center text-slate-700 dark:text-slate-300">
+                            You will be redirected to PayPal to complete your contribution.
+                        </p>
+                        <div class="flex items-center space-x-2 justify-center">
+                            <input type="text" value="reponsekdz06@gmail.com" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" readonly>
+                            <button type="button" onclick="copyToClipboard('reponsekdz06@gmail.com')" class="btn-primary p-2 text-sm">Copy</button>
+                        </div>
+                        <a href="https://www.paypal.me/reponsekdz06" target="_blank" rel="noopener noreferrer" class="w-full btn-primary text-center block mt-4">Go to PayPal</a>
+                    `;
+                }
+            });
+
+            // Dynamic payment fields for Certification Modal
+            const certificationMethodSelect = document.getElementById('certificationMethod');
+            const certificationPaymentDetailsDiv = document.getElementById('certificationPaymentDetails');
+
+            certificationMethodSelect.addEventListener('change', function() {
+                const method = this.value;
+                certificationPaymentDetailsDiv.innerHTML = ''; // Clear previous fields
+                certificationPaymentDetailsDiv.classList.add('hidden');
+
+                if (method === 'mtn') {
+                    certificationPaymentDetailsDiv.classList.remove('hidden');
+                    certificationPaymentDetailsDiv.innerHTML = `
+                        <div>
+                            <label for="certMtnNumber" class="block text-sm font-medium text-slate-700 dark:text-slate-300">MTN Mobile Money Number</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="text" id="certMtnNumber" name="certMtnNumber" value="0784484638" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" readonly>
+                                <button type="button" onclick="copyToClipboard('0784484638')" class="btn-primary p-2 text-sm">Copy</button>
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Please send the course fee to this number.</p>
+                        </div>
+                    `;
+                } else if (method === 'airtel') {
+                    certificationPaymentDetailsDiv.classList.remove('hidden');
+                    certificationPaymentDetailsDiv.innerHTML = `
+                        <div>
+                            <label for="certAirtelNumber" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Airtel Money Number</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="text" id="certAirtelNumber" name="certAirtelNumber" value="0722725735" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" readonly>
+                                <button type="button" onclick="copyToClipboard('0722725735')" class="btn-primary p-2 text-sm">Copy</button>
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Please send the course fee to this number.</p>
+                        </div>
+                    `;
+                } else if (method === 'bank') {
+                    certificationPaymentDetailsDiv.classList.remove('hidden');
+                    certificationPaymentDetailsDiv.innerHTML = `
+                        <div>
+                            <label for="certBankCardNumber" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Card Number</label>
+                            <input type="text" id="certBankCardNumber" name="certBankCardNumber" placeholder="XXXX XXXX XXXX XXXX" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" required>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="certExpiryDate" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Expiry Date (MM/YY)</label>
+                                <input type="text" id="certExpiryDate" name="certExpiryDate" placeholder="MM/YY" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" required>
+                            </div>
+                            <div>
+                                <label for="certCvv" class="block text-sm font-medium text-slate-700 dark:text-slate-300">CVV</label>
+                                <input type="text" id="certCvv" name="certCvv" placeholder="XXX" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 p-2" required>
+                            </div>
+                        </div>
+                    `;
+                }
             });
         });
     </script>

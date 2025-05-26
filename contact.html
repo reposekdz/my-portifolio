@@ -552,6 +552,187 @@
             display: flex;
             margin-top: 0.5rem;
         }
+
+        /* New styles for Developer Learning Modal */
+        #developerLearningModal .modal-content {
+            max-width: 800px; /* Wider for learning content */
+            height: 90vh; /* Taller */
+            display: flex;
+            flex-direction: column;
+        }
+        #developerLearningModal .modal-body {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 1rem; /* Space for scrollbar */
+        }
+        #developerLearningModal .modal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+        #developerLearningModal .modal-body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .dark #developerLearningModal .modal-body::-webkit-scrollbar-track {
+            background: #334155;
+        }
+        #developerLearningModal .modal-body::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        .dark #developerLearningModal .modal-body::-webkit-scrollbar-thumb {
+            background: #6366f1;
+        }
+        #developerLearningModal .modal-body::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .dark #developerLearningModal .modal-body::-webkit-scrollbar-thumb:hover {
+            background: #4f46e5;
+        }
+
+        .learning-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .dark .learning-section {
+            border-bottom: 1px solid #475569;
+        }
+        .learning-section:last-child {
+            border-bottom: none;
+        }
+        .learning-section h4 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+        .dark .learning-section h4 {
+            color: #f8fafc;
+        }
+        .learning-section p {
+            font-size: 1rem;
+            color: #475569;
+            margin-bottom: 1rem;
+        }
+        .dark .learning-section p {
+            color: #cbd5e1;
+        }
+        .learning-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .learning-section ul {
+            list-style: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #475569;
+        }
+        .dark .learning-section ul {
+            color: #cbd5e1;
+        }
+        .learning-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        .learning-section .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .learning-section .icon-grid div {
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background-color: #f0f4f8;
+            color: #1e293b;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .dark .learning-section .icon-grid div {
+            background-color: #334155;
+            color: #e2e8f0;
+        }
+        .learning-section .icon-grid i, .learning-section .icon-grid .ph-fill {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #6366f1;
+        }
+        .dark .learning-section .icon-grid i, .dark .learning-section .icon-grid .ph-fill {
+            color: #a78bfa;
+        }
+        .learning-exercise {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .dark .learning-exercise {
+            background-color: #1e293b;
+            border-color: #475569;
+        }
+        .learning-exercise h5 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        .dark .learning-exercise h5 {
+            color: #f8fafc;
+        }
+        .learning-exercise pre {
+            background-color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .dark .learning-exercise pre {
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        .learning-exercise textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            background-color: #ffffff;
+            color: #1e293b;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        .dark .learning-exercise textarea {
+            background-color: #334155;
+            border-color: #475569;
+            color: #e2e8f0;
+        }
+        .learning-exercise .btn-check {
+            margin-top: 1rem;
+        }
+        .exercise-feedback {
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+        .exercise-feedback.correct {
+            color: #10b981; /* Emerald 500 */
+        }
+        .exercise-feedback.incorrect {
+            color: #ef4444; /* Red 500 */
+        }
     </style>
     <script>
         // Initialize dark mode preference immediately to prevent FOUC
@@ -585,6 +766,7 @@
                 <a href="experience.html" class="nav-link">Experience</a>
                 <a href="blog.html" class="nav-link">Blog</a>
                 <a href="contact.html" class="nav-link active-nav-link">Contact</a>
+                <a href="test.html" class="nav-link">Learninga>
             </div>
 
             <div class="flex items-center">
@@ -614,6 +796,7 @@
             <a href="experience.html" class="mobile-nav-link">Experience</a>
             <a href="blog.html" class="mobile-nav-link">Blog</a>
             <a href="contact.html" class="mobile-nav-link active-mobile-nav-link">Contact</a>
+            <a href="test.html" class="mobile-nav-link">Learning/a>
         </div>
     </nav>
 
@@ -741,6 +924,17 @@
                     Launch AI Assistant <i class="ph-robot-fill ml-2 group-hover:animate-bounce-slow"></i>
                 </button>
             </div>
+
+            <div class="mt-16 text-center wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
+                <h3 class="section-title text-center">Start Your Developer Journey!</h3>
+                <p class="section-subtitle text-center mb-8 max-w-2xl mx-auto">
+                    Embark on a comprehensive learning path to become a skilled software developer.
+                </p>
+                <button id="openDeveloperLearningModal" class="btn-primary group">
+                    Become a Software Developer <i class="ph-graduation-cap-fill ml-2 group-hover:scale-110 transition-transform"></i>
+                </button>
+            </div>
+
         </div>
     </section>
 
@@ -760,6 +954,128 @@
         </div>
     </div>
 
+    <div id="developerLearningModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" aria-label="Close Learning Module">×</button>
+            <h3 class="text-2xl font-semibold mb-4 text-center text-slate-800 dark:text-slate-200">Your Software Developer Learning Path</h3>
+            <div class="modal-body">
+                <div class="learning-section">
+                    <h4>1. Getting Started: The Basics of Programming</h4>
+                    <p>Every great journey begins with a single step. We'll start with fundamental concepts and an easy-to-learn language to build your foundational understanding.</p>
+                    <img src="https://placehold.co/600x300/6366f1/ffffff?text=Programming+Basics" alt="Programming Basics">
+                    <p><strong>Subjects:</strong></p>
+                    <ul>
+                        <li>Introduction to Programming Logic (Algorithms, Flowcharts)</li>
+                        <li>Variables, Data Types, and Operators</li>
+                        <li>Control Structures (If/Else, Loops)</li>
+                        <li>Functions and Modular Programming</li>
+                    </ul>
+                    <p><strong>Recommended First Language:</strong> Python (due to its readability and versatility).</p>
+                    <div class="learning-exercise">
+                        <h5>Exercise: "Hello World" in Python</h5>
+                        <p>Write a Python program that prints "Hello, Developer!" to the console.</p>
+                        <pre># Your code here</pre>
+                        <textarea id="exercise1Code" placeholder="Type your Python code here..."></textarea>
+                        <button class="btn-primary btn-check" onclick="checkExercise(1)">Check My Code</button>
+                        <p id="exercise1Feedback" class="exercise-feedback"></p>
+                    </div>
+                </div>
+
+                <div class="learning-section">
+                    <h4>2. Web Development Fundamentals</h4>
+                    <p>Dive into the world of web development, learning how to build interactive and beautiful websites.</p>
+                    <img src="https://placehold.co/600x300/a78bfa/ffffff?text=Web+Development" alt="Web Development">
+                    <p><strong>Subjects:</strong></p>
+                    <ul>
+                        <li>HTML: Structure of Web Pages</li>
+                        <li>CSS: Styling and Layout (Flexbox, Grid, Responsive Design)</li>
+                        <li>JavaScript: Adding Interactivity (DOM Manipulation, Events)</li>
+                        <li>Introduction to Frontend Frameworks (e.g., React basics)</li>
+                    </ul>
+                    <p><strong>Duties of a Web Developer:</strong> Designing user interfaces, implementing client-side logic, integrating with APIs, ensuring cross-browser compatibility.</p>
+                    <div class="icon-grid">
+                        <div><i class="fab fa-html5"></i> HTML</div>
+                        <div><i class="fab fa-css3-alt"></i> CSS</div>
+                        <div><i class="fab fa-js"></i> JavaScript</div>
+                        <div><i class="fab fa-react"></i> React</div>
+                    </div>
+                </div>
+
+                <div class="learning-section">
+                    <h4>3. Backend Development & Databases</h4>
+                    <p>Learn how to build the server-side logic that powers web and mobile applications, and manage data effectively.</p>
+                    <img src="https://placehold.co/600x300/fcd34d/1e293b?text=Backend+Databases" alt="Backend and Databases">
+                    <p><strong>Subjects:</strong></p>
+                    <ul>
+                        <li>Server-Side Languages (Node.js, Python/Flask/Django)</li>
+                        <li>RESTful APIs Design and Implementation</li>
+                        <li>Database Concepts (SQL vs. NoSQL)</li>
+                        <li>Working with Databases (e.g., PostgreSQL, MongoDB)</li>
+                        <li>Authentication and Authorization</li>
+                    </ul>
+                    <p><strong>Duties of a Backend Developer:</strong> Building APIs, managing databases, server deployment, ensuring data security and performance.</p>
+                </div>
+
+                <div class="learning-section">
+                    <h4>4. Introduction to AI & Machine Learning</h4>
+                    <p>Explore the exciting field of Artificial Intelligence and Machine Learning, and how to integrate intelligent features into applications.</p>
+                    <img src="https://placehold.co/600x300/10b981/ffffff?text=AI+ML" alt="AI and Machine Learning">
+                    <p><strong>Subjects:</strong></p>
+                    <ul>
+                        <li>What is AI? (Concepts, History, Applications)</li>
+                        <li>Machine Learning Basics (Supervised, Unsupervised Learning)</li>
+                        <li>Popular ML Algorithms (Regression, Classification)</li>
+                        <li>Introduction to Deep Learning & Neural Networks</li>
+                        <li>Using AI Libraries (TensorFlow, PyTorch - basic usage)</li>
+                    </ul>
+                    <p><strong>Duties of an AI/ML Developer:</strong> Data preprocessing, model training, evaluation, deployment of AI models, integrating AI into software.</p>
+                    <div class="icon-grid">
+                        <div><i class="ph-sparkle-fill"></i> AI</div>
+                        <div><i class="ph-brain-fill"></i> ML</div>
+                        <div><i class="ph-robot-fill"></i> Robotics</div>
+                        <div><i class="ph-chart-bar-fill"></i> Data Science</div>
+                    </div>
+                </div>
+
+                <div class="learning-section">
+                    <h4>5. Software Development Best Practices & Tools</h4>
+                    <p>Learn essential practices and tools that every professional software developer uses.</p>
+                    <img src="https://placehold.co/600x300/3b82f6/ffffff?text=Dev+Tools+Practices" alt="Development Tools and Practices">
+                    <p><strong>Subjects:</strong></p>
+                    <ul>
+                        <li>Version Control with Git and GitHub</li>
+                        <li>Testing (Unit, Integration, End-to-End)</li>
+                        <li>Debugging Techniques</li>
+                        <li>Code Quality and Refactoring</li>
+                        <li>Agile Methodologies (Scrum, Kanban)</li>
+                        <li>Deployment Basics (Cloud platforms like AWS/Azure/GCP)</li>
+                    </ul>
+                    <p><strong>Overall Learnings for a Software Developer:</strong> Problem-solving, logical thinking, continuous learning, collaboration, attention to detail, adaptability, and building impactful solutions.</p>
+                </div>
+
+                <div class="learning-section">
+                    <h4>Quiz Time! Test Your Knowledge</h4>
+                    <p>After completing the modules, take this quiz to assess your understanding.</p>
+                    <div class="learning-exercise">
+                        <h5>Quiz Question 1: What does HTML stand for?</h5>
+                        <input type="radio" name="quiz1" value="a"> Hyper Text Markup Language<br>
+                        <input type="radio" name="quiz1" value="b"> High Tech Modern Language<br>
+                        <input type="radio" name="quiz1" value="c"> Home Tool Markup Language<br>
+                        <button class="btn-primary btn-check mt-2" onclick="checkQuiz(1)">Submit Answer</button>
+                        <p id="quiz1Feedback" class="exercise-feedback"></p>
+                    </div>
+                    <div class="learning-exercise mt-4">
+                        <h5>Quiz Question 2: Which of these is a version control system?</h5>
+                        <input type="radio" name="quiz2" value="a"> React<br>
+                        <input type="radio" name="quiz2" value="b"> Git<br>
+                        <input type="radio" name="quiz2" value="c"> MongoDB<br>
+                        <button class="btn-primary btn-check mt-2" onclick="checkQuiz(2)">Submit Answer</button>
+                        <p id="quiz2Feedback" class="exercise-feedback"></p>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 py-16 text-center">
         <div class="container mx-auto px-6">
@@ -926,7 +1242,7 @@
             // AI Assistant Modal Logic
             const openAiAssistantModalBtn = document.getElementById('openAiAssistantModal');
             const aiAssistantModal = document.getElementById('aiAssistantModal');
-            const modalCloseBtn = aiAssistantModal.querySelector('.modal-close-btn');
+            const aiModalCloseBtn = aiAssistantModal.querySelector('.modal-close-btn'); // Renamed to avoid conflict
             const chatInput = document.getElementById('chat-input');
             const sendChatBtn = document.getElementById('send-chat-btn');
             const chatBox = document.getElementById('chat-box');
@@ -951,7 +1267,7 @@
                 chatInput.focus(); // Focus on input when modal opens
             });
 
-            modalCloseBtn.addEventListener('click', () => {
+            aiModalCloseBtn.addEventListener('click', () => { // Used renamed variable
                 aiAssistantModal.classList.remove('open');
             });
 
@@ -1037,7 +1353,7 @@
                 // Experience entries (from experience.html)
                 { title: "Senior Software Engineer at Tech Solutions Inc.", url: "experience.html#exp-1", tags: ["Software", "WebDev", "AWS", "Docker", "Kubernetes", "React", "Node.js", "Leadership"] },
                 { title: "Software Developer at Innovatech Ltd.", url: "experience.html#exp-2", tags: ["Software", "WebDev", "Python", "Django", "PostgreSQL", "API"] },
-                { title: "Junior Web Developer at WebDev Solutions", url: "experience.html#exp-3", tags: ["WebDev", "Frontend", "HTML", "CSS", "JavaScript"] },
+                { title: "Junior Web Developer at WebDev Solutions", url: "experience.html#exp-3", tags: ["WebDev", "HTML", "CSS", "JavaScript"] },
                 { title: "AI Research Intern at AI Innovations Lab", url: "experience.html#exp-4", tags: ["AI", "Research", "NLP", "Machine Learning", "TensorFlow"] },
 
                 // Education and Certifications (from experience.html)
@@ -1056,7 +1372,7 @@
                 { title: "Real-time Chat Application", url: "projects.html#proj-7", tags: ["web", "react", "firebase", "websocket"] },
                 { title: "Personal Portfolio Website (This One!)", url: "projects.html#proj-8", tags: ["web", "html", "css", "javascript", "tailwind"] },
                 { title: "Machine Learning Model Deployment API", url: "projects.html#proj-9", tags: ["ai", "ml", "python", "flask", "docker", "api"] },
-                { title: "IoT Smart Farm Monitoring", url: "projects.html#proj-10", tags: ["cloud", "iot", "aws", "python", "data"] },
+                { title: "IoT Smart Farm Monitoring", url: "projects.html#proj-10", tags: ["iot", "aws", "python", "data"] },
                 { title: "Decentralized Voting System", url: "projects.html#proj-11", tags: ["web", "blockchain", "solidity", "react", "ethereum"] },
                 { title: "Personalized Fitness Trainer AI", url: "projects.html#proj-12", tags: ["ai", "ml", "python", "pytorch", "computer-vision"] },
                 { title: "Serverless Image Processing API", url: "projects.html#proj-13", tags: ["cloud", "aws", "lambda", "api", "serverless"] },
@@ -1074,13 +1390,6 @@
                 { title: "Proficiency Dashboard", url: "skills.html#proficiency-dashboard", tags: ["Skills", "Proficiency", "Metrics", "Impact"] },
                 { title: "Skill Showcase Details", url: "skills.html#skill-showcase-details", tags: ["Skills", "Showcase", "React", "Cloud", "AI", "Database"] },
                 { title: "Learning Path & Future Goals", url: "skills.html#learning-path", tags: ["Learning", "Future", "Goals", "Timeline", "Blockchain", "Data Engineering"] },
-
-
-                // Other pages/sections
-                { title: "About Me", url: "about.html", tags: ["Biography", "Journey", "Passion", "Values", "Mission"] },
-                { title: "Contact Me", url: "contact.html", tags: ["Email", "LinkedIn", "Inquiry", "Collaboration", "Map", "AI Assistant"] },
-                { title: "My Approach", url: "index.html#my-approach", tags: ["User-Centric Design", "Agile Development", "Robust Code", "Scalability", "Collaboration", "Innovation"] },
-                { title: "Frequently Asked Questions", url: "index.html#faq", tags: ["FAQ", "Questions", "Answers"] },
             ];
 
             function filterSearchResults(query, resultsContainer) {
@@ -1162,6 +1471,82 @@
                     }
                 }, 100);
             });
+
+            // Developer Learning Modal Logic
+            const openDeveloperLearningModalBtn = document.getElementById('openDeveloperLearningModal');
+            const developerLearningModal = document.getElementById('developerLearningModal');
+            const developerLearningModalCloseBtn = developerLearningModal.querySelector('.modal-close-btn');
+
+            openDeveloperLearningModalBtn.addEventListener('click', () => {
+                developerLearningModal.classList.add('open');
+            });
+
+            developerLearningModalCloseBtn.addEventListener('click', () => {
+                developerLearningModal.classList.remove('open');
+            });
+
+            developerLearningModal.addEventListener('click', (e) => {
+                if (e.target === developerLearningModal) {
+                    developerLearningModal.classList.remove('open');
+                }
+            });
+
+            // Exercise and Quiz Checking Functions (Placeholder Logic)
+            function checkExercise(exerciseNum) {
+                const codeInput = document.getElementById(`exercise${exerciseNum}Code`);
+                const feedbackElement = document.getElementById(`exercise${exerciseNum}Feedback`);
+                const userCode = codeInput.value.trim();
+
+                if (exerciseNum === 1) {
+                    if (userCode.includes('print("Hello, Developer!")')) {
+                        feedbackElement.textContent = "Correct! Great start!";
+                        feedbackElement.classList.remove('incorrect');
+                        feedbackElement.classList.add('correct');
+                    } else {
+                        feedbackElement.textContent = "Incorrect. Make sure your code prints 'Hello, Developer!' exactly.";
+                        feedbackElement.classList.remove('correct');
+                        feedbackElement.classList.add('incorrect');
+                    }
+                }
+                // Add more exercise checks here
+            }
+
+            function checkQuiz(quizNum) {
+                const quizName = `quiz${quizNum}`;
+                const selectedOption = document.querySelector(`input[name="${quizName}"]:checked`);
+                const feedbackElement = document.getElementById(`${quizName}Feedback`);
+
+                if (!selectedOption) {
+                    feedbackElement.textContent = "Please select an answer.";
+                    feedbackElement.classList.remove('correct', 'incorrect');
+                    return;
+                }
+
+                let isCorrect = false;
+                if (quizNum === 1) {
+                    if (selectedOption.value === 'a') {
+                        isCorrect = true;
+                    }
+                } else if (quizNum === 2) {
+                    if (selectedOption.value === 'b') {
+                        isCorrect = true;
+                    }
+                }
+                // Add more quiz checks here
+
+                if (isCorrect) {
+                    feedbackElement.textContent = "Correct!";
+                    feedbackElement.classList.remove('incorrect');
+                    feedbackElement.classList.add('correct');
+                } else {
+                    feedbackElement.textContent = "Incorrect. Try again!";
+                    feedbackElement.classList.remove('correct');
+                    feedbackElement.classList.add('incorrect');
+                }
+            }
+
+            window.checkExercise = checkExercise; // Make globally accessible
+            window.checkQuiz = checkQuiz; // Make globally accessible
         });
     </script>
 </body>
