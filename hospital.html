@@ -1,0 +1,2078 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18 Interactive Hospital Management Templates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="icon" href="./assets/icons8-hospital-48.png" type="image/png"> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles consistent with previous versions */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light slate background */
+            color: #1e293b; /* Dark slate text */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark body {
+            background-color: #0f172a; /* Darker slate background */
+            color: #e2e8f0; /* Light slate text */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem; /* 4xl */
+            font-weight: 800; /* Extra bold */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #3b82f6, #22d3ee); /* Blue to Cyan gradient for Hospital */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #3b82f6, #22d3ee);
+            border-radius: 2px;
+        }
+
+        .app-card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .app-card {
+            background-color: #1e293b;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #334155;
+        }
+        .app-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+        }
+        .dark .app-card:hover {
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .app-card h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #334155;
+            text-align: center;
+        }
+        .dark .app-card h2 {
+            color: #f8fafc;
+        }
+
+        .code-preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) {
+            .code-preview-container {
+                flex-direction: row;
+            }
+        }
+
+        .code-editor, .live-preview {
+            flex: 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid #cbd5e1;
+            transition: border-color 0.3s ease;
+        }
+        .dark .code-editor, .dark .live-preview {
+            border-color: #475569;
+        }
+
+        .code-editor textarea {
+            width: 100%;
+            height: 450px;
+            padding: 1rem;
+            background-color: #2d3748;
+            color: #f8fafc;
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: none;
+            outline: none;
+            resize: vertical;
+            border-radius: 1rem;
+        }
+
+        .live-preview iframe {
+            width: 100%;
+            height: 450px;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 1rem;
+        }
+        .dark .live-preview iframe {
+            background-color: #0f172a;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .button-group button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #3b82f6, #22d3ee); /* Blue to Cyan */
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .dark .button-group button {
+            background: linear-gradient(45deg, #22d3ee, #0ea5e9); /* Lighter blue/cyan for dark mode */
+            box-shadow: 0 5px 15px rgba(34, 211, 238, 0.3);
+        }
+        .button-group button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+        .dark .button-group button:hover {
+            box-shadow: 0 8px 20px rgba(34, 211, 238, 0.4);
+        }
+
+        /* Message Box styles */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .message-box-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .dark .message-box-content {
+            background-color: #1e293b;
+        }
+        .message-box-overlay.open .message-box-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .message-box-button {
+            background-color: #3b82f6; /* Blue */
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .dark .message-box-button {
+            background-color: #22d3ee; /* Cyan */
+        }
+        .message-box-button:hover {
+            background-color: #2563eb;
+        }
+        .dark .message-box-button:hover {
+            background-color: #0ea5e9;
+        }
+
+        /* Search Bar Only Header */
+        .simplified-header {
+            background-color: #ffffff; /* White background for simplicity */
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .dark .simplified-header {
+            background-color: #1e293b;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .simplified-header .search-container {
+            position: relative;
+            width: 80%; /* Wider search bar */
+            max-width: 600px; /* Max width for larger screens */
+        }
+
+        .simplified-header input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem; /* Left padding for icon */
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem; /* Rounded corners */
+            font-size: 1rem;
+            color: #1e293b;
+            background-color: #f8fafc;
+            transition: all 0.3s ease;
+        }
+        .dark .simplified-header input {
+            background-color: #334155;
+            border-color: #475569;
+            color: #e2e8f0;
+            placeholder-color: #94a3b8;
+        }
+
+        .simplified-header input:focus {
+            outline: none;
+            border-color: #3b82f6; /* Focus color */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        .dark .simplified-header input:focus {
+            border-color: #22d3ee;
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2);
+        }
+
+        .simplified-header .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+        .dark .simplified-header .search-icon {
+            color: #94a3b8;
+        }
+        .modern-interactive-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 9999px; /* Fully rounded */
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+            background: linear-gradient(45deg, #3b82f6, #22d3ee); /* Blue to Cyan */
+            color: white;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .dark .modern-interactive-btn {
+            background: linear-gradient(45deg, #22d3ee, #0ea5e9); /* Lighter blue/cyan for dark mode */
+            box-shadow: 0 5px 15px rgba(34, 211, 238, 0.4);
+        }
+
+        .modern-interactive-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s ease-out;
+            z-index: 0;
+        }
+
+        .modern-interactive-btn:hover {
+            transform: translateY(-3px) scale(1.05); /* Lift and slightly enlarge */
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.6); /* More prominent shadow */
+            background: linear-gradient(45deg, #2563eb, #0ea5e9); /* Darker gradient on hover */
+        }
+
+        .dark .modern-interactive-btn:hover {
+            background: linear-gradient(45deg, #0ea5e9, #22d3ee); /* Slightly different hover gradient for dark mode */
+            box-shadow: 0 10px 25px rgba(34, 211, 238, 0.6);
+        }
+
+        .modern-interactive-btn:hover::before {
+            left: 100%; /* Shimmer effect */
+        }
+
+        .modern-interactive-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .modern-interactive-btn:hover i {
+            transform: translateX(-3px); /* Move icon slightly left on hover */
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Function to show a custom message box
+        window.showMessageBox = function(message, type, title = 'Notification') {
+            const messageBoxOverlay = document.getElementById('messageBoxOverlay');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxText = document.getElementById('messageBoxText');
+            const messageBoxButton = document.getElementById('messageBoxButton');
+
+            messageBoxTitle.textContent = title;
+            messageBoxText.textContent = message;
+
+            // Apply type-specific styling
+            messageBoxTitle.className = 'text-xl font-bold mb-3';
+            messageBoxButton.className = 'message-box-button';
+
+            if (type === 'success') {
+                messageBoxTitle.classList.add('text-green-600', 'dark:text-green-400');
+                messageBoxButton.classList.add('bg-green-600', 'hover:bg-green-700', 'dark:bg-green-500', 'dark:hover:bg-green-600');
+            } else if (type === 'error') {
+                messageBoxTitle.classList.add('text-red-600', 'dark:text-red-400');
+                messageBoxButton.classList.add('bg-red-600', 'hover:bg-red-700', 'dark:bg-red-500', 'dark:hover:bg-red-600');
+            } else { // info or default
+                messageBoxTitle.classList.add('text-blue-600', 'dark:text-blue-400');
+                messageBoxButton.classList.add('bg-blue-600', 'hover:bg-blue-700', 'dark:bg-blue-500', 'dark:hover:bg-blue-600');
+            }
+
+            messageBoxOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        };
+
+        // Function to close the custom message box
+        window.closeMessageBox = function() {
+            document.getElementById('messageBoxOverlay').classList.remove('open');
+            document.body.style.overflow = ''; // Restore scrolling
+        };
+
+        // Function to toggle dark mode
+        window.toggleDarkMode = function() {
+            const isDarkMode = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDarkMode);
+            showMessageBox(`Dark mode ${isDarkMode ? 'enabled' : 'disabled'}!`, 'info', 'Theme Change');
+        };
+
+        // Function to load template into iframe
+        window.loadHospitalTemplate = function(appId) {
+            const codeTextarea = document.getElementById(appId + 'Code');
+            const previewIframe = document.getElementById(appId + 'Preview');
+            if (codeTextarea && previewIframe) {
+                previewIframe.srcdoc = codeTextarea.value;
+            }
+        };
+
+        // --- Template Specific Functions ---
+
+        // Patient Registration (hospitalApp1)
+        window.registerPatient = function() {
+            const patientName = document.getElementById('patientName').value;
+            const patientDOB = document.getElementById('patientDOB').value;
+            if (patientName && patientDOB) {
+                parent.showMessageBox(`Patient ${patientName} (${patientDOB}) registered successfully!`, 'success', 'Registration Success');
+            } else {
+                parent.showMessageBox('Please fill in all patient details.', 'error', 'Registration Failed');
+            }
+        };
+
+        // Appointment Booking (hospitalApp2)
+        window.bookAppointment = function() {
+            const patient = document.getElementById('appointmentPatient').value;
+            const doctor = document.getElementById('appointmentDoctor').value;
+            const date = document.getElementById('appointmentDate').value;
+            if (patient && doctor && date) {
+                parent.showMessageBox(`Appointment booked for ${patient} with Dr. ${doctor} on ${date}.`, 'success', 'Appointment Confirmed');
+            } else {
+                parent.showMessageBox('Please fill in all appointment details.', 'error', 'Booking Failed');
+            }
+        };
+
+        // Doctor Dashboard (hospitalApp3) - Simulate fetching appointments
+        window.fetchDoctorAppointments = function() {
+            const doctorName = "Dr. Emily White"; // Example doctor
+            parent.showMessageBox(`Fetching appointments for ${doctorName}... (Simulated)`, 'info', 'Loading Appointments');
+            // In a real app, this would fetch data and populate the list
+        };
+
+        // Nurse Station (hospitalApp4) - Simulate vital entry
+        window.recordVitals = function() {
+            const patientId = document.getElementById('vitalsPatientId').value;
+            const temperature = document.getElementById('temperature').value;
+            const bloodPressure = document.getElementById('bloodPressure').value;
+            if (patientId && temperature && bloodPressure) {
+                parent.showMessageBox(`Vitals recorded for Patient ID: ${patientId}. Temp: ${temperature}°C, BP: ${bloodPressure}.`, 'success', 'Vitals Recorded');
+            } else {
+                parent.showMessageBox('Please enter all vital signs.', 'error', 'Vitals Entry Failed');
+            }
+        };
+
+        // Patient Medical History (hospitalApp5) - Simulate viewing history
+        window.viewPatientHistory = function(patientId) {
+            parent.showMessageBox(`Loading medical history for Patient ID: ${patientId}... (Simulated)`, 'info', 'Medical History');
+        };
+
+        // Admin User Management (hospitalApp8)
+        window.addHospitalUser = function() {
+            const name = prompt("Enter User Name:");
+            const role = prompt("Enter Role (Doctor, Nurse, Admin):");
+            const department = prompt("Enter Department:");
+            if (name && role && department) {
+                const tableBody = document.getElementById('adminUserTableBody');
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${role}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${department}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button class="text-blue-600 hover:text-blue-900 mr-2" onclick="parent.editHospitalUser(this)">Edit</button>
+                        <button class="text-red-600 hover:text-red-900" onclick="parent.deleteHospitalUser(this)">Delete</button>
+                    </td>
+                `;
+                parent.showMessageBox('User added successfully!', 'success');
+            } else {
+                parent.showMessageBox('User addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.editHospitalUser = function(button) {
+            const row = button.closest('tr');
+            const cells = row.children;
+            const currentName = cells[0].textContent;
+            const currentRole = cells[1].textContent;
+            const currentDepartment = cells[2].textContent;
+
+            const newName = prompt("Edit User Name:", currentName);
+            const newRole = prompt("Edit Role:", currentRole);
+            const newDepartment = prompt("Edit Department:", currentDepartment);
+
+            if (newName !== null && newRole !== null && newDepartment !== null) {
+                cells[0].textContent = newName;
+                cells[1].textContent = newRole;
+                cells[2].textContent = newDepartment;
+                parent.showMessageBox('User updated successfully!', 'success');
+            } else {
+                parent.showMessageBox('User update cancelled.', 'info');
+            }
+        };
+
+        window.deleteHospitalUser = function(button) {
+            parent.showMessageBox('Are you sure you want to delete this user?', 'error', 'Confirm Deletion');
+            document.getElementById('messageBoxButton').onclick = function() {
+                button.closest('tr').remove();
+                parent.showMessageBox('User deleted!', 'success');
+                closeMessageBox();
+            };
+        };
+
+        // Patient Quick View Modal (hospitalApp14)
+        window.openPatientQuickView = function() {
+            document.getElementById('patientQuickViewModalOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            parent.showMessageBox('Patient Quick View opened!', 'info');
+        };
+
+        window.closePatientQuickView = function() {
+            document.getElementById('patientQuickViewModalOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        };
+
+        // Image Gallery (hospitalApp16)
+        window.changeMainHospitalImage = function(newSrc) {
+            const mainImage = document.getElementById('mainHospitalImage');
+            mainImage.style.opacity = 0; // Fade out
+
+            setTimeout(() => {
+                mainImage.src = newSrc;
+                mainImage.style.opacity = 1; // Fade in
+
+                // Update active thumbnail class
+                const thumbnails = document.querySelectorAll('.thumbnail-image');
+                thumbnails.forEach(thumb => {
+                    if (thumb.src.replace('150x150', '800x600').replace('-thumb', '') === newSrc) {
+                        thumb.classList.add('active');
+                    } else {
+                        thumb.classList.remove('active');
+                    }
+                });
+            }, 300); // Match with CSS transition duration
+        };
+
+        // Pharmacy Inventory Management (hospitalApp17)
+        window.addMedication = function() {
+            const medName = prompt("Enter Medication Name:");
+            const medStock = prompt("Enter Stock Quantity:");
+            if (medName && medStock) {
+                const tableBody = document.getElementById('pharmacyInventoryTableBody');
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${medName}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${medStock}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button class="text-blue-600 hover:text-blue-900 mr-2" onclick="parent.editMedication(this)">Edit</button>
+                        <button class="text-red-600 hover:text-red-900" onclick="parent.deleteMedication(this)">Delete</button>
+                    </td>
+                `;
+                parent.showMessageBox('Medication added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Medication addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.editMedication = function(button) {
+            const row = button.closest('tr');
+            const cells = row.children;
+            const currentName = cells[0].textContent;
+            const currentStock = cells[1].textContent;
+
+            const newName = prompt("Edit Medication Name:", currentName);
+            const newStock = prompt("Edit Stock Quantity:", currentStock);
+
+            if (newName !== null && newStock !== null) {
+                cells[0].textContent = newName;
+                cells[1].textContent = newStock;
+                parent.showMessageBox('Medication updated successfully!', 'success');
+            } else {
+                parent.showMessageBox('Medication update cancelled.', 'info');
+            }
+        };
+
+        window.deleteMedication = function(button) {
+            parent.showMessageBox('Are you sure you want to delete this medication?', 'error', 'Confirm Deletion');
+            document.getElementById('messageBoxButton').onclick = function() {
+                button.closest('tr').remove();
+                parent.showMessageBox('Medication deleted!', 'success');
+                closeMessageBox();
+            };
+        };
+
+        // Billing and Invoicing (hospitalApp18)
+        window.addServiceItem = function() {
+            const serviceName = document.getElementById('serviceName').value;
+            const serviceCost = parseFloat(document.getElementById('serviceCost').value);
+            if (serviceName && !isNaN(serviceCost) && serviceCost > 0) {
+                const invoiceItems = document.getElementById('invoiceItems');
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td class="py-2 px-4 border-b">${serviceName}</td>
+                    <td class="py-2 px-4 border-b text-right">$${serviceCost.toFixed(2)}</td>
+                `;
+                invoiceItems.appendChild(newRow);
+                updateTotal();
+                document.getElementById('serviceName').value = '';
+                document.getElementById('serviceCost').value = '';
+                parent.showMessageBox('Service item added!', 'success');
+            } else {
+                parent.showMessageBox('Please enter valid service name and cost.', 'error');
+            }
+        };
+
+        window.updateTotal = function() {
+            let total = 0;
+            const invoiceItems = document.getElementById('invoiceItems').children;
+            for (let i = 0; i < invoiceItems.length; i++) {
+                const costText = invoiceItems[i].children[1].textContent;
+                total += parseFloat(costText.replace('$', ''));
+            }
+            document.getElementById('invoiceTotal').textContent = `$${total.toFixed(2)}`;
+        };
+
+        window.generateInvoice = function() {
+            const patientName = document.getElementById('invoicePatientName').value;
+            const total = document.getElementById('invoiceTotal').textContent;
+            if (patientName && total !== '$0.00') {
+                parent.showMessageBox(`Invoice generated for ${patientName}. Total: ${total}. (Simulated)`, 'success', 'Invoice Generated');
+            } else {
+                parent.showMessageBox('Please add patient name and at least one service item.', 'error', 'Invoice Generation Failed');
+            }
+        };
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Automatically load all hospital template previews
+            const appCards = document.querySelectorAll('.app-card');
+            appCards.forEach((card, index) => {
+                const appId = `hospitalApp${index + 1}`;
+                loadHospitalTemplate(appId);
+            });
+
+            // Search functionality for admin user management (hospitalApp8)
+            const adminUserSearch = document.getElementById('adminUserSearch');
+            if (adminUserSearch) {
+                adminUserSearch.addEventListener('keyup', function() {
+                    const filter = this.value.toLowerCase();
+                    const rows = document.querySelectorAll('#adminUserTableBody tr');
+                    rows.forEach(row => {
+                        const userName = row.children[0].textContent.toLowerCase();
+                        const userRole = row.children[1].textContent.toLowerCase();
+                        if (userName.includes(filter) || userRole.includes(filter)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            }
+
+            // Filter functionality for Advanced Patient Search (hospitalApp11)
+            const patientSearchInput = document.getElementById('patientSearchInput');
+            if (patientSearchInput) {
+                patientSearchInput.addEventListener('keyup', function() {
+                    parent.showMessageBox('Searching for: ' + this.value, 'info', 'Patient Search');
+                });
+            }
+
+            // Search functionality for Pharmacy Inventory (hospitalApp17)
+            const pharmacySearch = document.getElementById('pharmacySearch');
+            if (pharmacySearch) {
+                pharmacySearch.addEventListener('keyup', function() {
+                    const filter = this.value.toLowerCase();
+                    const rows = document.querySelectorAll('#pharmacyInventoryTableBody tr');
+                    rows.forEach(row => {
+                        const medName = row.children[0].textContent.toLowerCase();
+                        if (medName.includes(filter)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</head>
+<body class="transition-colors duration-300">
+    <a href="index.html" style="position: fixed; top: 20px; left: 20px; z-index: 1000; text-decoration: none;">
+        <button class="modern-interactive-btn">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Home
+        </button>
+    </a>
+
+    <header class="simplified-header">
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="mainSearchInput" placeholder="Search hospital templates...">
+        </div>
+        <button class="dark-mode-toggle ml-4" onclick="toggleDarkMode()">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:inline-block"></i>
+        </button>
+    </header>
+
+    <main class="container py-16">
+        <h2 class="section-title mb-16 wow animate__animated animate__fadeIn">Hospital Management Template Showcase</h2>
+
+        <div id="appCardsContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-app-title="Patient Registration Form">
+                <h2>1. Patient Registration Form</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A comprehensive form for new patient admissions.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp1Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-xl mx-auto bg-white rounded-xl shadow-lg p-8">
+        <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">New Patient Registration</h1>
+        <form onsubmit="event.preventDefault(); parent.registerPatient();">
+            <div class="mb-4">
+                <label for="patientName" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-user-injured mr-2"></i>Full Name</label>
+                <input type="text" id="patientName" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="John Doe" required>
+            </div>
+            <div class="mb-4">
+                <label for="patientDOB" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-calendar-alt mr-2"></i>Date of Birth</label>
+                <input type="date" id="patientDOB" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="mb-4">
+                <label for="patientGender" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-venus-mars mr-2"></i>Gender</label>
+                <select id="patientGender" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="patientContact" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-phone mr-2"></i>Contact Number</label>
+                <input type="tel" id="patientContact" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="+1234567890">
+            </div>
+            <div class="mb-6">
+                <label for="patientAddress" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-map-marker-alt mr-2"></i>Address</label>
+                <textarea id="patientAddress" rows="3" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="123 Hospital Road"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-200 font-semibold shadow-md">
+                <i class="fas fa-clipboard-plus mr-2"></i>Register Patient
+            </button>
+        </form>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp1Preview" title="Patient Registration Form Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp1')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-app-title="Appointment Booking System">
+                <h2>2. Appointment Booking System</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Schedule and manage patient appointments with ease.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
+        <h1 class="text-3xl font-bold mb-6 text-center text-teal-600">Book an Appointment</h1>
+        <form onsubmit="event.preventDefault(); parent.bookAppointment();">
+            <div class="mb-4">
+                <label for="appointmentPatient" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-user-injured mr-2"></i>Patient Name</label>
+                <input type="text" id="appointmentPatient" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Patient Name" required>
+            </div>
+            <div class="mb-4">
+                <label for="appointmentDoctor" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-user-md mr-2"></i>Doctor</label>
+                <select id="appointmentDoctor" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                    <option value="">Select Doctor</option>
+                    <option value="Dr. Smith">Dr. John Smith (Cardiology)</option>
+                    <option value="Dr. White">Dr. Emily White (Pediatrics)</option>
+                    <option value="Dr. Lee">Dr. David Lee (Orthopedics)</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="appointmentDate" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-calendar-check mr-2"></i>Date</label>
+                <input type="date" id="appointmentDate" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+            </div>
+            <div class="mb-6">
+                <label for="appointmentTime" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-clock mr-2"></i>Time</label>
+                <input type="time" id="appointmentTime" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+            </div>
+            <button type="submit" class="w-full bg-teal-600 text-white py-3 rounded-lg hover:bg-teal-700 transition duration-200 font-semibold shadow-md">
+                <i class="fas fa-calendar-plus mr-2"></i>Confirm Appointment
+            </button>
+        </form>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp2Preview" title="Appointment Booking System Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp2')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-app-title="Doctor Dashboard (Appointments)">
+                <h2>3. Doctor Dashboard (Appointments)</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Doctors can view and manage their daily appointments.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp3Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .appointment-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center text-indigo-700">Dr. Emily White's Dashboard</h1>
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-semibold text-gray-800">Today's Appointments</h2>
+            <button class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition duration-200" onclick="parent.fetchDoctorAppointments()">
+                <i class="fas fa-sync-alt mr-2"></i>Refresh
+            </button>
+        </div>
+        <div class="space-y-4">
+            <div class="appointment-card p-4 flex items-center space-x-4">
+                <div class="flex-shrink-0 text-center">
+                    <div class="text-xl font-bold text-indigo-600">10:00 AM</div>
+                    <div class="text-sm text-gray-500">May 27</div>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="text-lg font-semibold">John Doe</h3>
+                    <p class="text-gray-600 text-sm">Reason: Routine Check-up</p>
+                    <p class="text-gray-600 text-sm">Room: 201</p>
+                </div>
+                <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600 transition duration-200" onclick="parent.showMessageBox('Started consultation with John Doe.', 'info');">
+                    <i class="fas fa-play mr-1"></i>Start
+                </button>
+                <button class="text-red-500 hover:text-red-700" onclick="parent.showMessageBox('Cancelled appointment for John Doe.', 'error');">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="appointment-card p-4 flex items-center space-x-4">
+                <div class="flex-shrink-0 text-center">
+                    <div class="text-xl font-bold text-indigo-600">11:30 AM</div>
+                    <div class="text-sm text-gray-500">May 27</div>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="text-lg font-semibold">Jane Smith</h3>
+                    <p class="text-gray-600 text-sm">Reason: Follow-up</p>
+                    <p class="text-gray-600 text-sm">Room: 201</p>
+                </div>
+                <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600 transition duration-200" onclick="parent.showMessageBox('Started consultation with Jane Smith.', 'info');">
+                    <i class="fas fa-play mr-1"></i>Start
+                </button>
+                <button class="text-red-500 hover:text-red-700" onclick="parent.showMessageBox('Cancelled appointment for Jane Smith.', 'error');">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp3Preview" title="Doctor Dashboard Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp3')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-app-title="Nurse Station (Patient Vitals)">
+                <h2>4. Nurse Station (Patient Vitals)</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Record and monitor patient vital signs efficiently.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurse Station</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-xl mx-auto bg-white rounded-xl shadow-lg p-8">
+        <h1 class="text-3xl font-bold mb-6 text-center text-purple-700">Nurse Station - Vitals</h1>
+        <form onsubmit="event.preventDefault(); parent.recordVitals();">
+            <div class="mb-4">
+                <label for="vitalsPatientId" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-id-card mr-2"></i>Patient ID</label>
+                <input type="text" id="vitalsPatientId" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="P-001" required>
+            </div>
+            <div class="mb-4">
+                <label for="temperature" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-thermometer-half mr-2"></i>Temperature (°C)</label>
+                <input type="number" step="0.1" id="temperature" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="37.0" required>
+            </div>
+            <div class="mb-4">
+                <label for="bloodPressure" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-heartbeat mr-2"></i>Blood Pressure (mmHg)</label>
+                <input type="text" id="bloodPressure" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="120/80" required>
+            </div>
+            <div class="mb-4">
+                <label for="heartRate" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-pulse mr-2"></i>Heart Rate (bpm)</label>
+                <input type="number" id="heartRate" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="72">
+            </div>
+            <div class="mb-6">
+                <label for="oxygenSaturation" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-lungs mr-2"></i>Oxygen Saturation (%)</label>
+                <input type="number" step="0.1" id="oxygenSaturation" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="98">
+            </div>
+            <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition duration-200 font-semibold shadow-md">
+                <i class="fas fa-save mr-2"></i>Record Vitals
+            </button>
+        </form>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp4Preview" title="Nurse Station (Patient Vitals) Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp4')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s" data-app-title="Patient Medical History View">
+                <h2>5. Patient Medical History View</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Access a patient's complete medical records and history.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp5Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Medical History</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .history-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center text-green-700">Medical History for Patient ID: P-001</h1>
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-user-injured text-4xl text-green-500 mr-4"></i>
+                <div>
+                    <h2 class="text-2xl font-semibold">Jane Doe</h2>
+                    <p class="text-gray-600">DOB: 1990-05-15 | Gender: Female</p>
+                </div>
+            </div>
+            <p class="text-gray-700 mb-4">Current Status: Stable. Last Visit: 2025-05-20</p>
+            <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200" onclick="parent.viewPatientHistory('P-001')">
+                <i class="fas fa-file-medical mr-2"></i>Generate Report
+            </button>
+        </div>
+
+        <div class="space-y-6">
+            <div class="history-card p-4">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xl font-semibold text-gray-800">Diagnosis: Seasonal Allergies</h3>
+                    <span class="text-sm text-gray-500">Date: 2025-04-10</span>
+                </div>
+                <p class="text-gray-700 text-sm mb-2">Details: Patient presented with sneezing, watery eyes, and nasal congestion. Prescribed antihistamines.</p>
+                <p class="text-gray-500 text-xs">Attending Doctor: Dr. Emily White</p>
+            </div>
+            <div class="history-card p-4">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xl font-semibold text-gray-800">Procedure: Dental Cleaning</h3>
+                    <span class="text-sm text-gray-500">Date: 2024-11-20</span>
+                </div>
+                <p class="text-gray-700 text-sm mb-2">Details: Routine dental cleaning and fluoride treatment. No cavities found.</p>
+                <p class="text-gray-500 text-xs">Attending Doctor: Dr. Robert Green (Dentistry)</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp5Preview" title="Patient Medical History View Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp5')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s" data-app-title="Department Overview">
+                <h2>6. Department Overview</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Visualize key metrics and staff for each hospital department.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp6Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Overview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .department-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center text-orange-700">Hospital Department Overview</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="department-card p-6 text-center">
+                <i class="fas fa-heartbeat text-5xl text-red-500 mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Cardiology</h3>
+                <p class="text-gray-600 text-sm mb-3">Specializing in heart health.</p>
+                <div class="flex justify-around text-gray-700 text-sm">
+                    <span><i class="fas fa-user-md mr-1"></i>Doctors: 8</span>
+                    <span><i class="fas fa-user-nurse mr-1"></i>Nurses: 15</span>
+                </div>
+                <button class="mt-4 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-200" onclick="parent.showMessageBox('Viewing Cardiology details.', 'info');">View Details</button>
+            </div>
+            <div class="department-card p-6 text-center">
+                <i class="fas fa-child text-5xl text-blue-500 mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Pediatrics</h3>
+                <p class="text-gray-600 text-sm mb-3">Dedicated to children's health.</p>
+                <div class="flex justify-around text-gray-700 text-sm">
+                    <span><i class="fas fa-user-md mr-1"></i>Doctors: 6</span>
+                    <span><i class="fas fa-user-nurse mr-1"></i>Nurses: 12</span>
+                </div>
+                <button class="mt-4 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-200" onclick="parent.showMessageBox('Viewing Pediatrics details.', 'info');">View Details</button>
+            </div>
+            <div class="department-card p-6 text-center">
+                <i class="fas fa-bone text-5xl text-yellow-500 mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Orthopedics</h3>
+                <p class="text-gray-600 text-sm mb-3">Bone and joint specialists.</p>
+                <div class="flex justify-around text-gray-700 text-sm">
+                    <span><i class="fas fa-user-md mr-1"></i>Doctors: 7</span>
+                    <span><i class="fas fa-user-nurse mr-1"></i>Nurses: 10</span>
+                </div>
+                <button class="mt-4 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-200" onclick="parent.showMessageBox('Viewing Orthopedics details.', 'info');">View Details</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp6Preview" title="Department Overview Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp6')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s" data-app-title="Hospital Homepage Hero Section">
+                <h2>7. Hospital Homepage Hero Section</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A welcoming hero section for the hospital's main page.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp7Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Hero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .hero-section {
+            background-image: url('https://source.unsplash.com/1200x600/?hospital-exterior,modern-medical');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 50, 100, 0.6); /* Darker blue overlay */
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-6xl mx-auto">
+        <div class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="relative z-10 p-4">
+                <h1 class="text-5xl font-extrabold mb-4 leading-tight">Your Health, Our Priority</h1>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">Providing compassionate and advanced medical care for our community.</p>
+                <button class="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition duration-200 shadow-lg" onclick="parent.showMessageBox('Navigating to services page!', 'info');">Our Services</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp7Preview" title="Hospital Homepage Hero Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp7')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s" data-app-title="Admin User Management">
+                <h2>8. Admin User Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">An administrative interface for managing hospital staff and users.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp8Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin User Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .admin-table-header { background-color: #e2e8f0; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center text-cyan-700">Hospital User Management</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="adminUserSearch" placeholder="Search users..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <button class="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600 transition duration-200" onclick="parent.addHospitalUser()">Add New User</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="admin-table-header">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="adminUserTableBody">
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Dr. John Smith</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Doctor</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Cardiology</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2" onclick="parent.editHospitalUser(this)">Edit</button>
+                            <button class="text-red-600 hover:text-red-900" onclick="parent.deleteHospitalUser(this)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Nurse Jane Doe</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Nurse</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Pediatrics</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2" onclick="parent.editHospitalUser(this)">Edit</button>
+                            <button class="text-red-600 hover:text-red-900" onclick="parent.deleteHospitalUser(this)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp8Preview" title="Admin User Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp8')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s" data-app-title="Patient Feedback/Testimonials">
+                <h2>9. Patient Feedback/Testimonials</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Display patient reviews and feedback on hospital services.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp9Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Feedback</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .feedback-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .star-rating .fa-star { color: #facc15; } /* Yellow stars */
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center text-lime-700">Patient Testimonials</h1>
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Overall Satisfaction: 4.8/5</h2>
+            <div class="flex items-center mb-4">
+                <div class="star-rating text-xl mr-2">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <span class="text-gray-600">(Based on 250 reviews)</span>
+            </div>
+            <button class="bg-lime-500 text-white py-2 px-4 rounded-lg hover:bg-lime-600 transition duration-200" onclick="parent.showMessageBox('Opening feedback form...', 'info', 'Leave Feedback');">
+                <i class="fas fa-comment-medical mr-2"></i>Leave Feedback
+            </button>
+        </div>
+
+        <div class="space-y-6">
+            <div class="feedback-card p-4">
+                <div class="flex items-center mb-2">
+                    <div class="star-rating text-lg mr-2">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <span class="font-semibold">Exceptional Care!</span>
+                </div>
+                <p class="text-gray-700 text-sm mb-2">"The doctors and nurses here are incredibly caring and professional. I felt truly looked after during my stay."</p>
+                <p class="text-gray-500 text-xs">By Sarah K. on May 20, 2025</p>
+            </div>
+            <div class="feedback-card p-4">
+                <div class="flex items-center mb-2">
+                    <div class="star-rating text-lg mr-2">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                    </div>
+                    <span class="font-semibold">Great Facility</span>
+                </div>
+                <p class="text-gray-700 text-sm mb-2">"Clean and modern facilities. The staff were efficient and helpful. Highly recommend this hospital."</p>
+                <p class="text-gray-500 text-xs">By Michael B. on May 15, 2025</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp9Preview" title="Patient Feedback/Testimonials Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp9')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s" data-app-title="Search Patients/Doctors">
+                <h2>10. Search Patients/Doctors</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A unified search page for finding patients or medical staff.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp10Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Hospital Directory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .search-result-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Search Hospital Directory</h1>
+        <div class="flex items-center mb-6 p-4 bg-white rounded-lg shadow-sm">
+            <i class="fas fa-search text-gray-400 mr-3 text-xl"></i>
+            <input type="text" id="directorySearchInput" placeholder="Search by name, ID, or department..." class="flex-grow p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" onkeyup="parent.showMessageBox('Searching for: ' + this.value, 'info', 'Directory Search');">
+            <button class="ml-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Search initiated!', 'info');">
+                Search
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="search-result-card p-4">
+                <div class="flex items-center mb-2">
+                    <i class="fas fa-user-injured text-3xl text-blue-500 mr-3"></i>
+                    <div>
+                        <h3 class="text-xl font-semibold">Patient: Alice Johnson</h3>
+                        <p class="text-gray-600 text-sm">Patient ID: P-005</p>
+                    </div>
+                </div>
+                <p class="text-gray-700 text-sm mb-3">DOB: 1985-11-22 | Last Visit: 2025-05-25</p>
+                <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Viewing patient details for Alice Johnson.', 'info');">View Details</button>
+            </div>
+            <div class="search-result-card p-4">
+                <div class="flex items-center mb-2">
+                    <i class="fas fa-user-md text-3xl text-green-500 mr-3"></i>
+                    <div>
+                        <h3 class="text-xl font-semibold">Doctor: Dr. Sarah Chen</h3>
+                        <p class="text-gray-600 text-sm">Specialty: Dermatology</p>
+                    </div>
+                </div>
+                <p class="text-gray-700 text-sm mb-3">Availability: Mon, Wed, Fri | Room: 305</p>
+                <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Viewing doctor profile for Dr. Sarah Chen.', 'info');">View Profile</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp10Preview" title="Search Patients/Doctors Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp10')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.1s" data-app-title="Advanced Patient Search & Filter">
+                <h2>11. Advanced Patient Search & Filter</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A powerful search page with extensive filtering options for patients.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp11Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Patient Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .filter-panel { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .patient-grid-item { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center text-indigo-700">Advanced Patient Search</h1>
+        <div class="flex flex-col md:flex-row gap-6">
+            <div class="md:w-1/4 filter-panel p-6">
+                <h2 class="text-xl font-bold mb-4">Filters</h2>
+                <div class="mb-5">
+                    <label for="patientSearchInput" class="block text-gray-700 text-sm font-bold mb-2">Search Patient</label>
+                    <input type="text" id="patientSearchInput" placeholder="e.g., Jane Doe, P-001" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" onkeyup="parent.showMessageBox('Searching for: ' + this.value, 'info', 'Patient Search');">
+                </div>
+                <div class="mb-5">
+                    <h3 class="font-semibold text-gray-700 mb-2">Department</h3>
+                    <select class="w-full p-2 border border-gray-300 rounded-md" onchange="parent.showMessageBox('Department filter applied!', 'info');">
+                        <option>All Departments</option>
+                        <option>Cardiology</option>
+                        <option>Pediatrics</option>
+                        <option>Orthopedics</option>
+                        <option>Emergency</option>
+                    </select>
+                </div>
+                <div class="mb-5">
+                    <h3 class="font-semibold text-gray-700 mb-2">Admission Date</h3>
+                    <input type="date" class="w-full p-2 border border-gray-300 rounded-md" onchange="parent.showMessageBox('Admission date filter applied!', 'info');">
+                </div>
+                <div class="mb-5">
+                    <h3 class="font-semibold text-gray-700 mb-2">Status</h3>
+                    <ul class="space-y-1 text-gray-600">
+                        <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Status filter applied!', 'info');"> Admitted</li>
+                        <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Status filter applied!', 'info');"> Discharged</li>
+                        <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Status filter applied!', 'info');"> Outpatient</li>
+                    </ul>
+                </div>
+                <button class="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition duration-200" onclick="parent.showMessageBox('Filters applied!', 'success');">Apply Filters</button>
+            </div>
+
+            <div class="md:w-3/4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="patient-grid-item p-4">
+                        <i class="fas fa-procedures text-5xl text-blue-500 mb-4 mx-auto block text-center"></i>
+                        <h3 class="text-lg font-semibold mb-1">Patient: John Doe</h3>
+                        <p class="text-gray-600 text-sm mb-2">ID: P-001 | Dept: Cardiology</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-md font-bold text-gray-900">Status: Admitted</span>
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.showMessageBox('Viewing details for John Doe!', 'info');">View</button>
+                        </div>
+                    </div>
+                    <div class="patient-grid-item p-4">
+                        <i class="fas fa-child text-5xl text-teal-500 mb-4 mx-auto block text-center"></i>
+                        <h3 class="text-lg font-semibold mb-1">Patient: Sarah Lee</h3>
+                        <p class="text-gray-600 text-sm mb-2">ID: P-002 | Dept: Pediatrics</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-md font-bold text-gray-900">Status: Outpatient</span>
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.showMessageBox('Viewing details for Sarah Lee!', 'info');">View</button>
+                        </div>
+                    </div>
+                    <div class="patient-grid-item p-4">
+                        <i class="fas fa-wheelchair text-5xl text-purple-500 mb-4 mx-auto block text-center"></i>
+                        <h3 class="text-lg font-semibold mb-1">Patient: David Kim</h3>
+                        <p class="text-gray-600 text-sm mb-2">ID: P-003 | Dept: Orthopedics</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-md font-bold text-gray-900">Status: Discharged</span>
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.showMessageBox('Viewing details for David Kim!', 'info');">View</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center items-center space-x-2 mt-8">
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Previous page!', 'info');">Previous</button>
+                    <span class="px-4 py-2 bg-blue-500 text-white rounded-lg">1</span>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Navigating to page 2!', 'info');">2</button>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Navigating to page 3!', 'info');">3</button>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Next page!', 'info');">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp11Preview" title="Advanced Patient Search & Filter Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp11')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.2s" data-app-title="Staff Profile & Schedule">
+                <h2>12. Staff Profile & Schedule</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A personalized dashboard for staff details and work schedules.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp12Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Profile & Schedule</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .profile-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .schedule-item { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center text-pink-700">Staff Profile: Dr. Alex Lee</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="profile-card p-6 col-span-1 md:col-span-1">
+                <img class="w-24 h-24 rounded-full object-cover mx-auto mb-4" src="https://source.unsplash.com/100x100/?doctor-male" alt="Doctor Avatar" onerror="this.onerror=null;this.src='https://placehold.co/100x100/f472b6/ffffff?text=DR';">
+                <h2 class="text-xl font-bold text-center mb-2">Dr. Alex Lee</h2>
+                <p class="text-gray-600 text-center text-sm mb-4">Orthopedic Surgeon</p>
+                <div class="text-center">
+                    <button class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition duration-200 text-sm" onclick="parent.showMessageBox('Editing profile...', 'info', 'Edit Profile');">Edit Profile</button>
+                </div>
+                <div class="mt-6 border-t border-gray-200 pt-4">
+                    <h3 class="font-semibold text-gray-700 mb-2">Contact Info</h3>
+                    <p class="text-gray-600 text-sm">Email: alex.lee@hospital.com</p>
+                    <p class="text-gray-600 text-sm">Phone: +123-456-7890</p>
+                    <p class="text-gray-600 text-sm">Room: 402</p>
+                </div>
+            </div>
+
+            <div class="md:col-span-2">
+                <h2 class="text-2xl font-bold mb-4">My Schedule (Next 7 Days)</h2>
+                <div class="space-y-4">
+                    <div class="schedule-item p-4 flex items-center space-x-4">
+                        <div class="flex-shrink-0 text-center">
+                            <div class="text-lg font-bold text-pink-600">Mon</div>
+                            <div class="text-sm text-gray-500">May 27</div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold">Morning Rounds (8:00 AM - 12:00 PM)</h3>
+                            <p class="text-gray-600 text-sm">Department: Orthopedics | Patients: 5</p>
+                        </div>
+                        <button class="bg-pink-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-pink-600" onclick="parent.showMessageBox('Viewing Monday details!', 'info');">View</button>
+                    </div>
+                    <div class="schedule-item p-4 flex items-center space-x-4">
+                        <div class="flex-shrink-0 text-center">
+                            <div class="text-lg font-bold text-pink-600">Tue</div>
+                            <div class="text-sm text-gray-500">May 28</div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold">Surgery Block (9:00 AM - 3:00 PM)</h3>
+                            <p class="text-gray-600 text-sm">Operating Room 3 | Procedures: 2</p>
+                        </div>
+                        <button class="bg-pink-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-pink-600" onclick="parent.showMessageBox('Viewing Tuesday details!', 'info');">View</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp12Preview" title="Staff Profile & Schedule Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp12')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.3s" data-app-title="Dynamic Hospital Dashboard">
+                <h2>13. Dynamic Hospital Dashboard</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A comprehensive dashboard with various interactive hospital metrics.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp13Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Hospital Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .dashboard-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .metric-value { font-size: 2.5rem; font-weight: 700; color: #3b82f6; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Hospital Overview Dashboard</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="dashboard-card p-6 text-center">
+                <i class="fas fa-bed text-4xl text-blue-500 mb-3"></i>
+                <h3 class="text-lg font-semibold text-gray-700">Occupancy Rate</h3>
+                <p class="metric-value">85%</p>
+                <p class="text-gray-500 text-sm">170/200 Beds</p>
+            </div>
+            <div class="dashboard-card p-6 text-center">
+                <i class="fas fa-calendar-check text-4xl text-green-500 mb-3"></i>
+                <h3 class="text-lg font-semibold text-gray-700">Appointments Today</h3>
+                <p class="metric-value">45</p>
+                <p class="text-gray-500 text-sm">Upcoming: 12</p>
+            </div>
+            <div class="dashboard-card p-6 text-center">
+                <i class="fas fa-user-injured text-4xl text-red-500 mb-3"></i>
+                <h3 class="text-lg font-semibold text-gray-700">New Patients</h3>
+                <p class="metric-value">8</p>
+                <p class="text-gray-500 text-sm">Last 24 hours</p>
+            </div>
+            <div class="dashboard-card p-6 text-center">
+                <i class="fas fa-user-md text-4xl text-purple-500 mb-3"></i>
+                <h3 class="text-lg font-semibold text-gray-700">Active Doctors</h3>
+                <p class="metric-value">22</p>
+                <p class="text-gray-500 text-sm">On Duty</p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Recent Activities</h2>
+            <ul class="space-y-3">
+                <li class="flex items-center text-gray-700">
+                    <i class="fas fa-notes-medical text-blue-500 mr-3"></i>
+                    <span class="flex-grow">Patient P-001 (John Doe) admitted to Cardiology.</span>
+                    <span class="text-gray-500 text-sm">10 min ago</span>
+                </li>
+                <li class="flex items-center text-gray-700">
+                    <i class="fas fa-calendar-alt text-green-500 mr-3"></i>
+                    <span class="flex-grow">Dr. Smith completed appointment with Jane Smith.</span>
+                    <span class="text-gray-500 text-sm">30 min ago</span>
+                </li>
+                <li class="flex items-center text-gray-700">
+                    <i class="fas fa-vial text-purple-500 mr-3"></i>
+                    <span class="flex-grow">Lab results for P-002 (Sarah Lee) are ready.</span>
+                    <span class="text-gray-500 text-sm">1 hour ago</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp13Preview" title="Dynamic Hospital Dashboard Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp13')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.4s" data-app-title="Patient Quick View Modal">
+                <h2>14. Patient Quick View Modal</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A modal popup to quickly preview patient details without leaving the current page.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp14Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Quick View Modal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .patient-list-item { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center;
+            z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.open { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: white; padding: 2rem; border-radius: 1rem; max-width: 800px; width: 90%;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); transform: scale(0.9); transition: transform 0.3s ease;
+            position: relative;
+        }
+        .modal-overlay.open .modal-content { transform: scale(1); }
+        .modal-close-btn { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; cursor: pointer; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Patient List</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="patient-list-item p-4 text-center">
+                <i class="fas fa-user-injured text-5xl text-blue-500 mb-4"></i>
+                <h3 class="text-lg font-semibold mb-1">John Doe</h3>
+                <p class="text-gray-600 text-sm mb-2">Patient ID: P-001</p>
+                <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.openPatientQuickView()">Quick View</button>
+            </div>
+            <div class="patient-list-item p-4 text-center">
+                <i class="fas fa-child text-5xl text-teal-500 mb-4"></i>
+                <h3 class="text-lg font-semibold mb-1">Sarah Lee</h3>
+                <p class="text-gray-600 text-sm mb-2">Patient ID: P-002</p>
+                <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.openPatientQuickView()">Quick View</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="patientQuickViewModalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <i class="fas fa-times modal-close-btn" onclick="parent.closePatientQuickView()"></i>
+            <div class="md:flex gap-6">
+                <div class="md:w-1/3 flex items-center justify-center">
+                    <i class="fas fa-user-injured text-8xl text-blue-600"></i>
+                </div>
+                <div class="md:w-2/3">
+                    <h3 class="text-2xl font-bold mb-2 text-blue-700">Patient Details: John Doe</h3>
+                    <p class="text-gray-600 text-sm mb-3">Patient ID: P-001 | DOB: 1980-10-20 | Gender: Male</p>
+                    <p class="mb-2 text-gray-700"><span class="font-semibold">Admission Date:</span> 2025-05-27</p>
+                    <p class="mb-2 text-gray-700"><span class="font-semibold">Department:</span> Cardiology</p>
+                    <p class="mb-4 text-gray-700"><span class="font-semibold">Attending Doctor:</span> Dr. John Smith</p>
+                    <button class="bg-blue-500 text-white px-5 py-2 rounded-lg text-lg font-semibold hover:bg-blue-600 w-full" onclick="parent.showMessageBox('Navigating to full patient profile!', 'info'); parent.closePatientQuickView();">View Full Profile</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp14Preview" title="Patient Quick View Modal Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp14')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.5s" data-app-title="Modern Doctor Card">
+                <h2>15. Modern Doctor Card</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A sleek card displaying doctor information with interactive elements.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp15Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Doctor Card</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .doctor-card-modern {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .doctor-card-modern:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .doctor-card-modern .actions {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255,255,255,0.9);
+            padding: 0.75rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #e2e8f0;
+        }
+        .doctor-card-modern:hover .actions {
+            transform: translateY(0);
+        }
+        .doctor-card-modern .actions button {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+        .doctor-card-modern .actions button:hover {
+            background-color: #2563eb;
+        }
+    </style>
+</head>
+<body class="p-4 flex justify-center items-center h-screen">
+    <div class="doctor-card-modern w-80">
+        <img class="w-full h-56 object-cover" src="https://source.unsplash.com/400x300/?doctor-female" alt="Dr. Emily White" onerror="this.onerror=null;this.src='https://placehold.co/400x300/60a5fa/ffffff?text=Doctor';">
+        <div class="p-4">
+            <h3 class="text-xl font-semibold mb-1 text-blue-700">Dr. Emily White</h3>
+            <p class="text-gray-600 text-sm mb-3">Specialty: Pediatrics</p>
+            <div class="flex items-center text-yellow-500 text-sm mb-2">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                <span class="text-gray-600 ml-1">(95 Patient Reviews)</span>
+            </div>
+            <span class="text-md font-bold text-gray-900">Available: Mon, Wed, Fri</span>
+        </div>
+        <div class="actions">
+            <button onclick="parent.showMessageBox('Booking appointment with Dr. White!', 'info', 'Book Now');">
+                <i class="fas fa-calendar-plus mr-1"></i>Book
+            </button>
+            <button class="bg-gray-200 text-gray-700 hover:bg-gray-300" onclick="parent.showMessageBox('Viewing Dr. White\'s profile!', 'info');">
+                <i class="fas fa-user-md mr-1"></i>Profile
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp15Preview" title="Modern Doctor Card Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp15')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.6s" data-app-title="Hospital Image Gallery">
+                <h2>16. Hospital Image Gallery</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">An interactive image gallery showcasing hospital facilities.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp16Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Image Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .gallery-container { background-color: white; border-radius: 0.75rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 1.5rem; }
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            transition: opacity 0.3s ease;
+        }
+        .thumbnail-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+        .thumbnail-image:hover {
+            border-color: #3b82f6;
+            transform: scale(1.05);
+        }
+        .thumbnail-image.active {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="p-4 flex justify-center items-center h-screen">
+    <div class="gallery-container max-w-2xl w-full">
+        <img id="mainHospitalImage" class="main-image" src="https://source.unsplash.com/800x600/?hospital-room-1" alt="Hospital Image 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/3b82f6/ffffff?text=Room+1';">
+        <div class="flex justify-center gap-3">
+            <img class="thumbnail-image active" src="https://source.unsplash.com/150x150/?hospital-room-1-thumb" alt="Thumbnail 1" onclick="parent.changeMainHospitalImage(this.src.replace('150x150', '800x600').replace('-thumb', ''))" onerror="this.onerror=null;this.src='https://placehold.co/150x150/3b82f6/ffffff?text=T1';">
+            <img class="thumbnail-image" src="https://source.unsplash.com/150x150/?hospital-lobby-thumb" alt="Thumbnail 2" onclick="parent.changeMainHospitalImage(this.src.replace('150x150', '800x600').replace('-thumb', ''))" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=T2';">
+            <img class="thumbnail-image" src="https://source.unsplash.com/150x150/?hospital-surgery-thumb" alt="Thumbnail 3" onclick="parent.changeMainHospitalImage(this.src.replace('150x150', '800x600').replace('-thumb', ''))" onerror="this.onerror=null;this.src='https://placehold.co/150x150/34d399/ffffff?text=T3';">
+            <img class="thumbnail-image" src="https://source.unsplash.com/150x150/?hospital-exterior-thumb" alt="Thumbnail 4" onclick="parent.changeMainHospitalImage(this.src.replace('150x150', '800x600').replace('-thumb', ''))" onerror="this.onerror=null;this.src='https://placehold.co/150x150/facc15/ffffff?text=T4';">
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp16Preview" title="Hospital Image Gallery Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp16')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.7s" data-app-title="Pharmacy Inventory Management">
+                <h2>17. Pharmacy Inventory Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage medication stock, add new drugs, and track inventory.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp17Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Inventory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .inventory-table-header { background-color: #e2e8f0; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center text-emerald-700">Pharmacy Inventory</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="pharmacySearch" placeholder="Search medications..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            <button class="bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-emerald-600 transition duration-200" onclick="parent.addMedication()">
+                <i class="fas fa-plus-circle mr-2"></i>Add New Medication
+            </button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="inventory-table-header">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Medication Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock Quantity</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="pharmacyInventoryTableBody">
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Paracetamol 500mg</td>
+                        <td class="px-6 py-4 whitespace-nowrap">5000</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2" onclick="parent.editMedication(this)">Edit</button>
+                            <button class="text-red-600 hover:text-red-900" onclick="parent.deleteMedication(this)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Amoxicillin 250mg</td>
+                        <td class="px-6 py-4 whitespace-nowrap">2500</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2" onclick="parent.editMedication(this)">Edit</button>
+                            <button class="text-red-600 hover:text-red-900" onclick="parent.deleteMedication(this)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp17Preview" title="Pharmacy Inventory Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp17')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.8s" data-app-title="Billing and Invoicing">
+                <h2>18. Billing and Invoicing</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Generate and manage patient invoices for services rendered.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="hospitalApp18Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing and Invoicing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .invoice-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center text-fuchsia-700">Patient Billing & Invoicing</h1>
+        <div class="invoice-card p-8">
+            <div class="mb-6">
+                <label for="invoicePatientName" class="block text-gray-700 text-sm font-bold mb-2"><i class="fas fa-user-injured mr-2"></i>Patient Name</label>
+                <input type="text" id="invoicePatientName" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-fuchsia-500" placeholder="Patient Name" required>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800">Add Service/Item</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="md:col-span-2">
+                    <label for="serviceName" class="block text-gray-700 text-sm font-bold mb-2">Service/Item Name</label>
+                    <input type="text" id="serviceName" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-fuchsia-500" placeholder="Consultation Fee">
+                </div>
+                <div>
+                    <label for="serviceCost" class="block text-gray-700 text-sm font-bold mb-2">Cost ($)</label>
+                    <input type="number" step="0.01" id="serviceCost" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-fuchsia-500" placeholder="100.00">
+                </div>
+            </div>
+            <button class="w-full bg-fuchsia-500 text-white py-2 rounded-lg hover:bg-fuchsia-600 transition duration-200 mb-6" onclick="parent.addServiceItem()">
+                <i class="fas fa-plus mr-2"></i>Add Item
+            </button>
+
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800">Invoice Details</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="py-2 px-4 border-b text-left text-gray-600">Description</th>
+                            <th class="py-2 px-4 border-b text-right text-gray-600">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoiceItems">
+                        <tr>
+                            <td class="py-2 px-4 border-b">Doctor Consultation</td>
+                            <td class="py-2 px-4 border-b text-right">$150.00</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b">Lab Tests (Blood Work)</td>
+                            <td class="py-2 px-4 border-b text-right">$75.50</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="bg-gray-50">
+                            <td class="py-2 px-4 font-bold text-lg text-gray-800">Total:</td>
+                            <td class="py-2 px-4 font-bold text-lg text-right text-gray-800" id="invoiceTotal">$225.50</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <button class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition duration-200 font-semibold mt-6 shadow-md" onclick="parent.generateInvoice()">
+                <i class="fas fa-file-invoice-dollar mr-2"></i>Generate Invoice
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="hospitalApp18Preview" title="Billing and Invoicing Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadHospitalTemplate('hospitalApp18')">Run Example</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <div id="messageBoxOverlay" class="message-box-overlay">
+        <div class="message-box-content">
+            <h3 id="messageBoxTitle" class="text-xl font-bold mb-3"></h3>
+            <p id="messageBoxText" class="text-gray-700 dark:text-gray-300"></p>
+            <button id="messageBoxButton" class="message-box-button" onclick="closeMessageBox()">OK</button>
+        </div>
+    </div>
+
+</body>
+</html>
