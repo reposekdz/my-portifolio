@@ -471,6 +471,73 @@
         .dark .modal-content {
             background-color: #1e293b;
         }
+        .logo-nr {
+  font-family: 'Inter', sans-serif; /* Modern font */
+  font-size: 2.5rem; /* Adjust size as needed */
+  font-weight: 800; /* Bolder for impact */
+  text-decoration: none;
+  color: #1a73e8; /* A vibrant blue */
+  position: relative;
+  display: inline-block;
+  padding: 0.2em 0.4em;
+  border-radius: 8px; /* Slightly rounded corners */
+  transition: all 0.3s ease-in-out; /* Smooth transitions for interactivity */
+  overflow: hidden; /* For pseudo-element effects */
+  background: linear-gradient(45deg, #1a73e8, #007bff); /* Subtle gradient background */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* Apply gradient to text */
+}
+
+/* Hover effect: subtle glow and slight scale */
+.logo-nr:hover {
+  color: #0056b3; /* Slightly darker blue on hover for contrast */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+  box-shadow: 0 5px 15px rgba(26, 115, 232, 0.4); /* Soft blue shadow */
+}
+
+/* Active effect: a deeper press */
+.logo-nr:active {
+  transform: scale(0.98); /* Slightly shrink on click */
+  box-shadow: 0 2px 8px rgba(26, 115, 232, 0.6);
+}
+
+/* Optional: Add a subtle underline animation on hover */
+.logo-nr::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: #00c6ff; /* A lighter, contrasting blue */
+  transform: scaleX(0); /* Start hidden */
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.logo-nr:hover::after {
+  transform: scaleX(1); /* Expand on hover */
+  transform-origin: bottom left;
+}
+
+/* Keyframes for a subtle pulsating animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(26, 115, 232, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(26, 115, 232, 0);
+  }
+}
+
+/* Apply the pulse animation */
+/* .logo-nr {
+  animation: pulse 2s infinite;
+} */
         .modal-overlay.open .modal-content {
             transform: translateY(0);
         }

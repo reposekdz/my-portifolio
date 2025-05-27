@@ -158,17 +158,22 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            position: relative; /* For the new overlay button positioning */
+            border: 1px solid #e2e8f0; /* Added subtle border */
         }
         .dark .project-card-interactive {
             background-color: #1e293b;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid #475569; /* Dark mode border */
         }
         .project-card-interactive:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            border-color: #6366f1; /* Highlight border on hover */
         }
         .dark .project-card-interactive:hover {
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-color: #a78bfa; /* Dark mode highlight */
         }
         .project-image-container {
             position: relative;
@@ -235,10 +240,15 @@
             border-radius: 0.5rem;
             font-size: 0.75rem;
             font-weight: 500;
+            transition: all 0.2s ease; /* Added transition */
         }
         .dark .tech-badge-sm {
             background-color: #3730a3; /* Indigo 800 */
             color: #c7d2fe; /* Indigo 200 */
+        }
+        .tech-badge-sm:hover { /* Added hover for tech badges */
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         /* Skill card styling */
@@ -253,25 +263,28 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            border: 1px solid #f0f4f8; /* Added subtle border */
         }
         .dark .skill-card {
             background-color: #1e293b;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            border: 1px solid #475569; /* Dark mode border */
         }
         .skill-card:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            border-color: #6366f1; /* Indigo 500 */
+            transform: translateY(-8px) scale(1.05); /* More pronounced lift and scale */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            border-color: #6366f1; /* Highlight border on hover */
         }
         .dark .skill-card:hover {
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-            border-color: #a78bfa; /* Purple 400 */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-color: #a78bfa; /* Dark mode highlight */
         }
         .skill-card i, .skill-card .ph-fill { /* Apply transition to Phosphor icons as well */
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease; /* Added transform transition */
         }
         .skill-card:hover i, .skill-card:hover .ph-fill {
             color: #6366f1; /* Indigo 500 */
+            transform: scale(1.1); /* Icon scale on hover */
         }
         .dark .skill-card:hover i, .dark .skill-card:hover .ph-fill {
             color: #a78bfa; /* Purple 400 */
@@ -288,6 +301,9 @@
             font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+            position: relative; /* For potential shimmer */
+            overflow: hidden;
+            z-index: 1;
         }
         .dark .btn-primary {
             background-color: #a78bfa; /* Purple 400 */
@@ -302,6 +318,22 @@
             background-color: #8b5cf6; /* Purple 500 */
             box-shadow: 0 8px 20px rgba(167, 139, 250, 0.4);
         }
+        /* Button shimmer effect */
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease-out;
+            z-index: 0;
+        }
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
 
         .btn-secondary {
             display: inline-flex;
@@ -313,6 +345,9 @@
             border-radius: 0.75rem;
             font-weight: 600;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
         .dark .btn-secondary {
             border-color: #a78bfa; /* Purple 400 */
@@ -329,6 +364,22 @@
             color: #1e293b; /* Slate 800 */
             box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
         }
+        /* Secondary button shimmer effect */
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease-out;
+            z-index: 0;
+        }
+        .btn-secondary:hover::before {
+            left: 100%;
+        }
+
 
         .cta-btn {
             display: inline-flex;
@@ -341,6 +392,9 @@
             font-size: 1.125rem;
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative; /* For potential shimmer */
+            overflow: hidden;
+            z-index: 1;
         }
         .dark .cta-btn {
             color: #a78bfa; /* Purple 400 */
@@ -349,6 +403,21 @@
             transform: translateY(-5px) scale(1.02);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
             background-color: #f0f4f8; /* Lighten on hover */
+        }
+        /* CTA button shimmer effect */
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s ease-out;
+            z-index: 0;
+        }
+        .cta-btn:hover::before {
+            left: 100%;
         }
 
         /* Hero buttons */
@@ -361,6 +430,9 @@
             font-size: 1.125rem;
             transition: all 0.3s ease;
             text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
         .primary-hero-btn {
             background-color: #fcd34d; /* Yellow 300 */
@@ -382,6 +454,22 @@
             border-color: rgba(255, 255, 255, 0.8);
             transform: translateY(-3px) scale(1.02);
         }
+        /* Hero button shimmer effect */
+        .hero-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s ease-out;
+            z-index: 0;
+        }
+        .hero-btn:hover::before {
+            left: 100%;
+        }
+
 
         /* Section titles and subtitles */
         .section-title {
@@ -560,17 +648,21 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            border: 1px solid #e2e8f0; /* Added subtle border */
         }
         .dark .blog-card {
             background-color: #1e293b;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #475569; /* Dark mode border */
         }
         .blog-card:hover {
             transform: translateY(-5px) scale(1.01);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            border-color: #6366f1; /* Highlight border on hover */
         }
         .dark .blog-card:hover {
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            border-color: #a78bfa; /* Dark mode highlight */
         }
         .blog-card img {
             width: 100%;
@@ -578,19 +670,32 @@
             object-fit: cover;
             border-top-left-radius: 1rem;
             border-top-right-radius: 1rem;
+            transition: transform 0.4s ease; /* Image zoom on hover */
+        }
+        .blog-card:hover img {
+            transform: scale(1.05);
         }
         .blog-card-content {
             padding: 1.5rem;
             flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
         .blog-card-title {
             font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: #1e293b;
+            transition: color 0.3s ease; /* Title color change on hover */
         }
         .dark .blog-card-title {
             color: #f8fafc;
+        }
+        .blog-card:hover .blog-card-title {
+            color: #6366f1; /* Indigo 500 */
+        }
+        .dark .blog-card:hover .blog-card-title {
+            color: #a78bfa; /* Purple 400 */
         }
         .blog-card-meta {
             font-size: 0.875rem;
@@ -604,6 +709,7 @@
             font-size: 1rem;
             color: #475569;
             margin-bottom: 1.5rem;
+            flex-grow: 1; /* Allows description to take up available space */
         }
         .dark .blog-card-description {
             color: #cbd5e1;
@@ -614,6 +720,7 @@
             color: #6366f1;
             font-weight: 600;
             transition: color 0.3s ease;
+            margin-top: auto; /* Pushes button to bottom */
         }
         .dark .blog-read-more {
             color: #a78bfa;
@@ -633,14 +740,16 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
             border-left: 5px solid transparent;
+            border: 1px solid #e2e8f0; /* Added subtle border */
         }
         .dark .approach-card, .dark .feature-card {
             background-color: #1e293b;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #475569; /* Dark mode border */
         }
         .approach-card:hover, .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px) scale(1.03); /* More pronounced lift and scale */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Stronger shadow */
             border-left-color: #6366f1; /* Indigo 500 */
         }
         .dark .approach-card:hover, .dark .feature-card:hover {
@@ -649,7 +758,7 @@
         .approach-card i, .approach-card .ph-fill,
         .feature-card i, .feature-card .ph-fill {
             color: #6366f1; /* Indigo 500 */
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease; /* Added transform transition */
         }
         .dark .approach-card i, .dark .approach-card .ph-fill,
         .dark .feature-card i, .dark .feature-card .ph-fill {
@@ -658,6 +767,7 @@
         .approach-card:hover i, .approach-card:hover .ph-fill,
         .feature-card:hover i, .feature-card:hover .ph-fill {
             color: #4f46e5; /* Indigo 600 */
+            transform: translateY(-5px) rotate(5deg); /* Icon animation on hover */
         }
         .dark .approach-card:hover i, .dark .approach-card:hover .ph-fill,
         .dark .feature-card:hover i, .dark .feature-card:hover .ph-fill {
@@ -671,10 +781,20 @@
             margin-bottom: 1rem;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             overflow: hidden;
+            border: 1px solid #e2e8f0; /* Added subtle border */
+            transition: all 0.3s ease; /* Transition for entire item */
         }
         .dark .faq-item {
             background-color: #1e293b;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            border: 1px solid #475569; /* Dark mode border */
+        }
+        .faq-item:hover { /* Added hover for entire FAQ item */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        .dark .faq-item:hover {
+             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
         .faq-question {
             display: flex;
@@ -686,7 +806,7 @@
             cursor: pointer;
             background-color: #f8fafc; /* Slate 50 */
             color: #1e293b; /* Slate 900 */
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .dark .faq-question {
             background-color: #334155; /* Slate 700 */
@@ -854,14 +974,21 @@
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
+            border: 1px solid #e2e8f0; /* Added subtle border */
         }
         .dark .counter-box {
             background-color: #1e293b;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            border: 1px solid #475569; /* Dark mode border */
         }
         .counter-box:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.02); /* Lift and slightly enlarge */
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #6366f1; /* Highlight border on hover */
+        }
+        .dark .counter-box:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            border-color: #a78bfa; /* Dark mode highlight */
         }
         .counter-number {
             font-size: 3.5rem; /* 5xl */
@@ -891,10 +1018,20 @@
             border-radius: 1rem;
             margin-top: 4rem;
             margin-bottom: 4rem;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3); /* Added shadow */
+            transition: all 0.3s ease; /* Added transition */
         }
         .dark #newsletter {
             background-color: #a78bfa; /* Purple 400 */
             color: #1e293b;
+            box-shadow: 0 10px 30px rgba(167, 139, 250, 0.3); /* Dark mode shadow */
+        }
+        #newsletter:hover { /* Added hover for newsletter section */
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+        }
+        .dark #newsletter:hover {
+            box-shadow: 0 15px 40px rgba(167, 139, 250, 0.4);
         }
         #newsletter .newsletter-input {
             padding: 0.75rem 1.25rem;
@@ -904,6 +1041,11 @@
             max-width: 400px;
             margin-right: 1rem;
             color: #1e293b;
+            transition: all 0.3s ease; /* Added transition */
+        }
+        #newsletter .newsletter-input:focus { /* Added focus for input */
+            box-shadow: 0 0 0 3px rgba(252, 211, 77, 0.5);
+            outline: none;
         }
         #newsletter .newsletter-btn {
             background-color: #fcd34d; /* Yellow 300 */
@@ -917,6 +1059,138 @@
             background-color: #fbbf24; /* Yellow 400 */
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Testimonial Card styles */
+        .testimonial-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0; /* Added subtle border */
+        }
+        .dark .testimonial-card {
+            background-color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #475569; /* Dark mode border */
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            border-color: #6366f1; /* Highlight border on hover */
+        }
+        .dark .testimonial-card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            border-color: #a78bfa; /* Dark mode highlight */
+        }
+        .testimonial-card img {
+            transition: transform 0.3s ease;
+        }
+        .testimonial-card:hover img {
+            transform: scale(1.1); /* Image scale on hover */
+        }
+
+        /* Service Card styles */
+        .service-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0; /* Added subtle border */
+        }
+        .logo-nr {
+  font-family: 'Inter', sans-serif; /* Modern font */
+  font-size: 2.5rem; /* Adjust size as needed */
+  font-weight: 800; /* Bolder for impact */
+  text-decoration: none;
+  color: #1a73e8; /* A vibrant blue */
+  position: relative;
+  display: inline-block;
+  padding: 0.2em 0.4em;
+  border-radius: 8px; /* Slightly rounded corners */
+  transition: all 0.3s ease-in-out; /* Smooth transitions for interactivity */
+  overflow: hidden; /* For pseudo-element effects */
+  background: linear-gradient(45deg, #1a73e8, #007bff); /* Subtle gradient background */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* Apply gradient to text */
+}
+
+/* Hover effect: subtle glow and slight scale */
+.logo-nr:hover {
+  color: #0056b3; /* Slightly darker blue on hover for contrast */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+  box-shadow: 0 5px 15px rgba(26, 115, 232, 0.4); /* Soft blue shadow */
+}
+
+/* Active effect: a deeper press */
+.logo-nr:active {
+  transform: scale(0.98); /* Slightly shrink on click */
+  box-shadow: 0 2px 8px rgba(26, 115, 232, 0.6);
+}
+
+/* Optional: Add a subtle underline animation on hover */
+.logo-nr::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: #00c6ff; /* A lighter, contrasting blue */
+  transform: scaleX(0); /* Start hidden */
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.logo-nr:hover::after {
+  transform: scaleX(1); /* Expand on hover */
+  transform-origin: bottom left;
+}
+
+
+/* Keyframes for a subtle pulsating animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(26, 115, 232, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(26, 115, 232, 0);
+  }
+}
+
+/* Apply the pulse animation */
+/* .logo-nr {
+  animation: pulse 2s infinite;
+} */
+        .dark .service-card {
+            background-color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #475569; /* Dark mode border */
+        }
+        .service-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            border-color: #6366f1; /* Highlight border on hover */
+        }
+        .dark .service-card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            border-color: #a78bfa; /* Dark mode highlight */
+        }
+        .service-card i, .service-card .ph-fill {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .service-card:hover i, .service-card:hover .ph-fill {
+            transform: rotateY(180deg) scale(1.1); /* Icon flip and scale */
+            color: #4f46e5; /* Darker indigo on hover */
+        }
+        .dark .service-card:hover i, .dark .service-card:hover .ph-fill {
+            color: #8b5cf6; /* Darker purple on hover */
         }
     </style>
     <script>
@@ -933,9 +1207,7 @@
 
     <nav id="navbar" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
         <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity flex items-center">
-                NR <i class="ph-robot-fill ml-2 text-3xl text-yellow-400 animate-pulse"></i>
-            </a>
+            <a href="index.html" class="logo-nr">NR</a>
 
             <div class="hidden md:flex items-center relative group">
                 <input type="text" id="desktopSearchInput" placeholder="Search projects, skills..." class="nav-search-input peer">
@@ -2025,6 +2297,7 @@
                 document.getElementById(modalId).classList.remove('open');
             }
 
+            window.openModal = openModal; // Make it globally accessible for onclick in HTML
             window.closeModal = closeModal; // Make it globally accessible for onclick in HTML
 
             // Message Box functions
