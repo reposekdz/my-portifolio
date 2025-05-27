@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> <script src="https://unpkg.com/tone@14.7.58/build/Tone.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -26,17 +27,36 @@
             padding: 2rem;
         }
 
-        .section-title {
+        .main-header { /* Enhanced header style */
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed); /* Indigo to Purple */
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+        .dark .main-header {
+            background: linear-gradient(45deg, #3730a3, #5b21b6); /* Darker Indigo to Purple */
+        }
+        .main-header h1 {
+            font-size: 3.5rem; /* 5xl */
+            font-weight: 900; /* Black */
+        }
+        .main-header p {
+            font-size: 1.25rem; /* xl */
+            font-weight: 300; /* Light */
+            opacity: 0.9;
+        }
+
+        .section-title { /* Unified and enhanced section title */
             font-size: 2.75rem; /* 4xl */
             font-weight: 800; /* Extra bold */
             text-align: center;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(45deg, #3b82f6, #60a5fa); /* Blue to Light Blue gradient */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 2.5rem; /* Increased margin */
             position: relative;
-            display: inline-block;
-            padding-bottom: 0.5rem;
+            display: inline-block; /* To make underline fit content */
+            padding-bottom: 0.75rem; /* Space for underline */
         }
         .section-title::after {
             content: '';
@@ -44,50 +64,103 @@
             left: 50%;
             bottom: 0;
             transform: translateX(-50%);
-            width: 100px;
-            height: 5px;
-            background: linear-gradient(90deg, #3b82f6, #60a5fa);
-            border-radius: 2px;
+            width: 120px; /* Wider underline */
+            height: 6px; /* Thicker underline */
+            border-radius: 3px;
         }
 
-        .digital-app-card {
+        /* Specific title styles for each major section type */
+        .video-editors-title {
+            background: linear-gradient(45deg, #2563eb, #60a5fa); /* Blue gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .video-editors-title::after {
+            background: linear-gradient(90deg, #2563eb, #60a5fa);
+        }
+        .dark .video-editors-title {
+             background: linear-gradient(45deg, #60a5fa, #93c5fd); /* Lighter blue for dark mode */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .dark .video-editors-title::after {
+            background: linear-gradient(90deg, #60a5fa, #93c5fd);
+        }
+
+
+        .photo-editors-title {
+            background: linear-gradient(45deg, #db2777, #f472b6); /* Pink gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .photo-editors-title::after {
+            background: linear-gradient(90deg, #db2777, #f472b6);
+        }
+        .dark .photo-editors-title {
+            background: linear-gradient(45deg, #f472b6, #fda4af); /* Lighter pink for dark mode */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .dark .photo-editors-title::after {
+             background: linear-gradient(90deg, #f472b6, #fda4af);
+        }
+
+
+        .music-editors-title {
+            background: linear-gradient(45deg, #16a34a, #4ade80); /* Green gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .music-editors-title::after {
+            background: linear-gradient(90deg, #16a34a, #4ade80);
+        }
+         .dark .music-editors-title {
+            background: linear-gradient(45deg, #4ade80, #86efac); /* Lighter green for dark mode */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .dark .music-editors-title::after {
+             background: linear-gradient(90deg, #4ade80, #86efac);
+        }
+
+        .digital-app-card { /* Enhanced card style */
             background-color: #ffffff;
-            border-radius: 1.5rem;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            margin-bottom: 3rem;
-            transition: all 0.3s ease-in-out;
+            border-radius: 1.5rem; /* More rounded */
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 20px 40px -20px rgba(0, 0, 0, 0.1); /* Softer, layered shadow */
+            padding: 2.5rem; /* Increased padding */
+            margin-bottom: 3.5rem; /* Increased margin */
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
             overflow: hidden;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #e5e7eb; /* Lighter border */
         }
         .dark .digital-app-card {
-            background-color: #1e293b;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border-color: #334155;
+            background-color: #1f2937; /* Darker card background */
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 20px 40px -20px rgba(0, 0, 0, 0.3);
+            border-color: #374151; /* Darker border */
         }
         .digital-app-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px) scale(1.02); /* More pronounced hover effect */
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15), 0 30px 50px -25px rgba(0, 0, 0, 0.15);
         }
         .dark .digital-app-card:hover {
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.4), 0 30px 50px -25px rgba(0, 0, 0, 0.4);
         }
 
-        .digital-app-card h2 {
-            font-size: 2.25rem; /* 3xl */
+        .digital-app-card h2 { /* Card title */
+            font-size: 2rem; /* Slightly smaller for balance */
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #334155;
+            margin-bottom: 2rem; /* Increased margin */
+            color: #111827; /* Darker text */
             text-align: center;
         }
         .dark .digital-app-card h2 {
-            color: #f8fafc;
+            color: #f3f4f6; /* Lighter text for dark mode */
         }
 
         .code-preview-container {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 2rem; /* Increased gap */
         }
         @media (min-width: 1024px) { /* Large screens */
             .code-preview-container {
@@ -99,66 +172,76 @@
             flex: 1;
             border-radius: 1rem;
             overflow: hidden;
-            border: 2px solid #cbd5e1; /* Slate 300 */
+            border: 1px solid #d1d5db; /* Slightly darker border for definition */
             transition: border-color 0.3s ease;
         }
         .dark .code-editor, .dark .live-preview {
-            border-color: #475569; /* Slate 700 */
+            border-color: #4b5563; /* Darker border for dark mode */
         }
 
         .code-editor textarea {
             width: 100%;
-            height: 450px; /* Fixed height for both */
-            padding: 1rem;
-            background-color: #2d3748; /* Dark code background */
-            color: #f8fafc; /* Light text */
-            font-family: monospace;
+            height: 480px; /* Increased height */
+            padding: 1.25rem; /* Increased padding */
+            background-color: #111827; /* Even darker for code */
+            color: #e5e7eb;
+            font-family: 'Roboto Mono', monospace; /* Common coding font */
             font-size: 0.9rem;
+            line-height: 1.6; /* Better readability */
             border: none;
             outline: none;
-            resize: vertical; /* Allow vertical resizing */
-            border-radius: 1rem;
+            resize: vertical;
+            border-radius: 0.75rem; /* Inner radius */
         }
+        .dark .code-editor textarea {
+            background-color: #000000;
+            color: #d1d5db;
+        }
+
 
         .live-preview iframe {
             width: 100%;
-            height: 450px; /* Fixed height for both */
+            height: 480px; /* Increased height */
             background-color: #ffffff;
             border: none;
-            border-radius: 1rem;
+            border-radius: 0.75rem; /* Inner radius */
         }
         .dark .live-preview iframe {
-            background-color: #0f172a;
+            background-color: #111827; /* Match code editor bg for consistency */
         }
 
         .button-group {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
+            gap: 1.25rem; /* Increased gap */
+            margin-top: 2rem; /* Increased margin */
         }
         .button-group button {
-            padding: 0.8rem 1.5rem;
-            background: linear-gradient(45deg, #3b82f6, #60a5fa); /* Blue gradient */
+            padding: 0.9rem 1.75rem; /* Larger buttons */
+            background: linear-gradient(45deg, #4f46e5, #7c3aed); /* Consistent vibrant button */
             color: white;
             border-radius: 0.75rem;
             font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            font-size: 1rem; /* Slightly larger font */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 10px -2px rgba(79, 70, 229, 0.3), 0 2px 4px -2px rgba(79, 70, 229, 0.2);
             border: none;
             cursor: pointer;
+            text-transform: uppercase; /* Added for style */
+            letter-spacing: 0.05em; /* Added for style */
         }
         .dark .button-group button {
-            background: linear-gradient(45deg, #60a5fa, #2563eb);
-            box-shadow: 0 5px 15px rgba(96, 165, 250, 0.3);
+            background: linear-gradient(45deg, #7c3aed, #a78bfa);
+            box-shadow: 0 4px 10px -2px rgba(124, 58, 237, 0.3), 0 2px 4px -2px rgba(124, 58, 237, 0.2);
         }
         .button-group button:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+            transform: translateY(-4px) scale(1.03); /* Enhanced hover */
+            box-shadow: 0 8px 15px -3px rgba(79, 70, 229, 0.35), 0 4px 6px -4px rgba(79, 70, 229, 0.25);
         }
         .dark .button-group button:hover {
-            box-shadow: 0 8px 20px rgba(96, 165, 250, 0.4);
+            box-shadow: 0 8px 15px -3px rgba(124, 58, 237, 0.35), 0 4px 6px -4px rgba(124, 58, 237, 0.25);
         }
+
 
         /* Message Box styles */
         .message-box-overlay {
@@ -167,11 +250,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1001; /* Higher than modals */
+            z-index: 1001;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -182,45 +265,92 @@
         }
         .message-box-content {
             background-color: #ffffff;
-            padding: 2rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            max-width: 400px;
+            padding: 2.5rem; /* Increased padding */
+            border-radius: 1rem; /* More rounded */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 450px; /* Wider */
             width: 90%;
             text-align: center;
-            transform: translateY(-20px);
+            transform: translateY(-20px) scale(0.95);
             opacity: 0;
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
         .dark .message-box-content {
-            background-color: #1e293b;
+            background-color: #1f2937;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
         .message-box-overlay.open .message-box-content {
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
             opacity: 1;
         }
+         .message-box-title { /* For the title inside message box */
+            font-size: 1.5rem; /* Larger title */
+            font-weight: 700;
+            margin-bottom: 1rem;
+         }
+        .message-box-text { /* For the text inside message box */
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #4b5563;
+        }
+        .dark .message-box-text {
+            color: #d1d5db;
+        }
         .message-box-button {
-            background-color: #3b82f6;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed); /* Match main buttons */
             color: white;
-            padding: 0.6rem 1.5rem;
-            border-radius: 0.5rem;
+            padding: 0.8rem 1.75rem; /* Match main buttons */
+            border-radius: 0.75rem;
             font-weight: 600;
-            margin-top: 1.5rem;
+            margin-top: 2rem; /* Increased margin */
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         .dark .message-box-button {
-            background-color: #60a5fa;
+            background: linear-gradient(45deg, #7c3aed, #a78bfa);
         }
         .message-box-button:hover {
-            background-color: #2563eb;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(79, 70, 229, 0.3);
         }
-        .dark .message-box-button:hover {
-            background-color: #2563eb;
+         .dark .message-box-button:hover {
+            box-shadow: 0 6px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #374151; /* Darker gray */
+            color: #e5e7eb;
+            border: none;
+            border-radius: 50%;
+            width: 55px; /* Slightly larger */
+            height: 55px;
+            font-size: 1.6rem; /* Larger icon */
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .dark .dark-mode-toggle {
+            background-color: #f3f4f6; /* Lighter gray for dark mode */
+            color: #1f2937;
+        }
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
         }
     </style>
     <script>
-        // Initialize dark mode preference immediately to prevent FOUC
+        // Initialize dark mode preference immediately
         if (localStorage.getItem('darkMode') === 'true' ||
             (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -231,16 +361,18 @@
 </head>
 <body class="transition-colors duration-300">
 
-    <header class="py-12 bg-gradient-to-r from-blue-600 to-cyan-700 dark:from-blue-800 dark:to-cyan-900 text-white text-center shadow-lg">
-        <h1 class="text-5xl font-extrabold mb-3 animate__animated animate__fadeInDown">Interactive Editors</h1>
-        <p class="text-xl font-light animate__animated animate__fadeInUp animate__delay-1s">Diverse multimedia and text editing experiences.</p>
+    <header class="main-header">
+        <h1 class="animate__animated animate__fadeInDown">Interactive Editors</h1>
+        <p class="animate__animated animate__fadeInUp animate__delay-1s">Multimedia & Text Creation Tools</p>
     </header>
 
-    <main class="container py-16">
-        <h2 class="section-title mb-16 wow animate__animated animate__fadeIn">Video Editors</h2>
+    <main class="container py-10">
+        <div class="text-center mb-16">
+            <h2 class="section-title video-editors-title wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">Video Editors</h2>
+        </div>
 
-        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
-            <h2>1. Basic Video Player & Trimmer</h2>
+        <section class="digital-app-card wow animate__animated animate__zoomIn" data-wow-delay="0.2s">
+            <h2>1. Video Player & Basic Editor</h2>
             <div class="code-preview-container">
                 <div class="code-editor">
                     <textarea id="videoEditor1Code">
@@ -249,167 +381,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Video Editor</title>
+    <title>Video Player & Basic Editor</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .video-editor-container {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 700px;
-            border: 1px solid #e2e8f0;
-        }
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            background-color: #000;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            margin-bottom: 1rem;
-        }
-        .video-wrapper video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Ensure video fits without cropping */
-        }
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-        .controls button, .controls input[type="range"] {
-            padding: 0.6rem 1rem;
-            border-radius: 0.5rem;
-            background-color: #dbeafe; /* Blue 100 */
-            color: #2563eb; /* Blue 600 */
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-        }
-        .controls button:hover {
-            background-color: #bfdbfe;
-            transform: translateY(-1px);
-        }
-        .controls input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 8px;
-            background: #cbd5e1;
-            outline: none;
-            opacity: 0.7;
-            transition: opacity .2s;
-            border-radius: 4px;
-        }
-        .controls input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #3b82f6;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .controls input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #3b82f6;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .time-display {
-            text-align: center;
-            font-size: 0.9rem;
-            color: #64748b;
-            margin-top: 0.5rem;
-        }
-        @media (max-width: 600px) {
-            .video-editor-container { padding: 1rem; }
-            .controls button, .controls input[type="range"] { padding: 0.5rem 0.75rem; font-size: 0.9rem; }
-            .controls input[type="range"] { height: 6px; }
-            .controls input[type="range"]::-webkit-slider-thumb, .controls input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; }
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding:1rem; }
+        .video-editor-container { background-color: #ffffff; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 700px; border: 1px solid #e2e8f0; }
+        .video-wrapper { position: relative; width: 100%; padding-bottom: 56.25%; background-color: #000; border-radius: 0.5rem; overflow: hidden; margin-bottom: 1rem; }
+        .video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; }
+        .controls { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-bottom: 1rem; }
+        .controls button, .controls input[type="range"] { padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #dbeafe; color: #2563eb; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; }
+        .controls button:hover { background-color: #bfdbfe; transform: translateY(-1px); }
+        .controls input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; background: #cbd5e1; outline: none; opacity: 0.7; transition: opacity .2s; border-radius: 4px; }
+        .controls input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #3b82f6; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .time-display { text-align: center; font-size: 0.9rem; color: #64748b; margin-top: 0.5rem; }
+        .file-input-label { display: inline-block; padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #10b981; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s ease; text-align: center; }
+        .file-input-label:hover { background-color: #059669; transform: translateY(-1px); }
+        .hidden-input { display: none; }
+        @media (max-width: 600px) { .video-editor-container { padding: 1rem; } .controls button, .controls input[type="range"], .file-input-label { padding: 0.5rem 0.75rem; font-size: 0.9rem; } }
     </style>
 </head>
 <body>
     <div class="video-editor-container">
         <div class="video-wrapper">
             <video id="videoPlayer" controls>
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" onerror="this.parentElement.innerHTML = '<p class=\'text-red-500 p-4 text-center\'>Error loading video. <br>Please try a different source.</p>';">
                 Your browser does not support the video tag.
             </video>
         </div>
         <div class="controls">
+            <label for="videoUpload" class="file-input-label"><i class="fa-solid fa-upload"></i> Upload Video</label>
+            <input type="file" id="videoUpload" accept="video/*" class="hidden-input" onchange="loadVideo(event)">
             <button onclick="playVideo()"><i class="fa-solid fa-play"></i> Play</button>
             <button onclick="pauseVideo()"><i class="fa-solid fa-pause"></i> Pause</button>
             <button onclick="stopVideo()"><i class="fa-solid fa-stop"></i> Stop</button>
             <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1" oninput="setVolume()">
-            <button onclick="trimVideo()"><i class="fa-solid fa-scissors"></i> Trim (Simulated)</button>
-            <button onclick="cropVideo()"><i class="fa-solid fa-crop"></i> Crop (Simulated)</button>
+            <button onclick="trimVideo()"><i class="fa-solid fa-scissors"></i> Trim (Sim)</button>
+            <button onclick="cropVideo()"><i class="fa-solid fa-crop"></i> Crop (Sim)</button>
         </div>
         <div class="time-display" id="timeDisplay">00:00 / 00:00</div>
     </div>
-
     <script>
         const videoPlayer = document.getElementById('videoPlayer');
         const volumeControl = document.getElementById('volumeControl');
         const timeDisplay = document.getElementById('timeDisplay');
-
+        function loadVideo(event) { const file = event.target.files[0]; if (file) { const fileURL = URL.createObjectURL(file); videoPlayer.src = fileURL; videoPlayer.load(); videoPlayer.play(); if (parent && parent.showMessageBox) parent.showMessageBox('Video loaded and playing!', 'success', 'Video Loaded'); } }
         function playVideo() { videoPlayer.play(); }
         function pauseVideo() { videoPlayer.pause(); }
-        function stopVideo() {
-            videoPlayer.pause();
-            videoPlayer.currentTime = 0;
-        }
+        function stopVideo() { videoPlayer.pause(); videoPlayer.currentTime = 0; }
         function setVolume() { videoPlayer.volume = volumeControl.value; }
-
-        function trimVideo() {
-            parent.showMessageBox('Simulating video trim... (This requires complex backend processing)', 'info', 'Video Operation');
-        }
-        function cropVideo() {
-            parent.showMessageBox('Simulating video crop... (This requires complex backend processing)', 'info', 'Video Operation');
-        }
-
-        videoPlayer.addEventListener('timeupdate', () => {
-            const currentMinutes = Math.floor(videoPlayer.currentTime / 60);
-            const currentSeconds = Math.floor(videoPlayer.currentTime % 60);
-            const durationMinutes = Math.floor(videoPlayer.duration / 60);
-            const durationSeconds = Math.floor(videoPlayer.duration % 60);
-
-            const formattedCurrent = `${currentMinutes.toString().padStart(2, '0')}:${currentSeconds.toString().padStart(2, '0')}`;
-            const formattedDuration = `${durationMinutes.toString().padStart(2, '0')}:${durationSeconds.toString().padStart(2, '0')}`;
-
-            timeDisplay.textContent = `${formattedCurrent} / ${formattedDuration}`;
-        });
-
-        videoPlayer.addEventListener('loadedmetadata', () => {
-            // Set initial time display once video metadata is loaded
-            const durationMinutes = Math.floor(videoPlayer.duration / 60);
-            const durationSeconds = Math.floor(videoPlayer.duration % 60);
-            const formattedDuration = `${durationMinutes.toString().padStart(2, '0')}:${durationSeconds.toString().padStart(2, '0')}`;
-            timeDisplay.textContent = `00:00 / ${formattedDuration}`;
-        });
+        function trimVideo() { if (parent && parent.showMessageBox) parent.showMessageBox('Simulating video trim... (Requires server-side processing)', 'info', 'Video Operation'); }
+        function cropVideo() { if (parent && parent.showMessageBox) parent.showMessageBox('Simulating video crop... (Requires server-side processing)', 'info', 'Video Operation'); }
+        videoPlayer.addEventListener('timeupdate', () => { const cM = Math.floor(videoPlayer.currentTime / 60); const cS = Math.floor(videoPlayer.currentTime % 60); const dM = Math.floor(videoPlayer.duration / 60) || 0; const dS = Math.floor(videoPlayer.duration % 60) || 0; timeDisplay.textContent = `${cM.toString().padStart(2, '0')}:${cS.toString().padStart(2, '0')} / ${dM.toString().padStart(2, '0')}:${dS.toString().padStart(2, '0')}`; });
+        videoPlayer.addEventListener('loadedmetadata', () => { const dM = Math.floor(videoPlayer.duration / 60) || 0; const dS = Math.floor(videoPlayer.duration % 60) || 0; timeDisplay.textContent = `00:00 / ${dM.toString().padStart(2, '0')}:${dS.toString().padStart(2, '0')}`; });
     </script>
 </body>
 </html>
                     </textarea>
                 </div>
                 <div class="live-preview">
-                    <iframe id="videoEditor1Preview" title="Basic Video Editor Preview"></iframe>
+                    <iframe id="videoEditor1Preview" title="Video Player & Basic Editor Preview"></iframe>
                 </div>
             </div>
             <div class="button-group">
@@ -417,11 +449,90 @@
             </div>
         </section>
 
-        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
-            <h2>2. AI Video Enhancer</h2>
+        <section class="digital-app-card wow animate__animated animate__zoomIn" data-wow-delay="0.3s">
+            <h2>2. Video Speed & Filter Applier</h2>
             <div class="code-preview-container">
                 <div class="code-editor">
                     <textarea id="videoEditor2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Speed & Filter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding:1rem; }
+        .video-editor-container { background-color: #ffffff; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 700px; border: 1px solid #e2e8f0; }
+        .video-wrapper { position: relative; width: 100%; padding-bottom: 56.25%; background-color: #000; border-radius: 0.5rem; overflow: hidden; margin-bottom: 1rem; }
+        .video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; transition: filter 0.3s ease; }
+        .controls-group { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+        .control-row { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; align-items: center; }
+        .control-row label { font-weight: 600; color: #334155; }
+        .control-row input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; max-width: 300px; height: 8px; background: #cbd5e1; outline: none; opacity: 0.7; transition: opacity .2s; border-radius: 4px; }
+        .control-row input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #3b82f6; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .control-row span { font-weight: 600; color: #334155; margin-left: 0.5rem; }
+        .filter-buttons button { padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #dbeafe; color: #2563eb; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; }
+        .filter-buttons button:hover { background-color: #bfdbfe; transform: translateY(-1px); }
+        .file-input-label { display: inline-block; padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #10b981; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s ease; text-align: center; }
+        .file-input-label:hover { background-color: #059669; transform: translateY(-1px); }
+        .hidden-input { display: none; }
+        @media (max-width: 600px) { .video-editor-container { padding: 1rem; } .control-row { flex-direction: column; } .control-row input[type="range"] { max-width: 100%; } .control-row span { margin-left: 0; margin-top: 0.5rem; } .filter-buttons button, .file-input-label { padding: 0.5rem 0.75rem; font-size: 0.9rem; } }
+    </style>
+</head>
+<body>
+    <div class="video-editor-container">
+        <div class="video-wrapper">
+            <video id="videoPlayerSpeedFilter" controls>
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" onerror="this.parentElement.innerHTML = '<p class=\'text-red-500 p-4 text-center\'>Error loading video. <br>Please try a different source.</p>';">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="controls-group">
+            <div class="control-row">
+                <label for="speedControl">Playback Speed:</label>
+                <input type="range" id="speedControl" min="0.25" max="4" step="0.25" value="1" oninput="setPlaybackSpeed()">
+                <span id="currentSpeed">1.00x</span>
+            </div>
+            <div class="control-row filter-buttons">
+                <label for="videoUploadSpeedFilter" class="file-input-label"><i class="fa-solid fa-upload"></i> Upload Video</label>
+                <input type="file" id="videoUploadSpeedFilter" accept="video/*" class="hidden-input" onchange="loadVideoSpeedFilter(event)">
+                <button onclick="applyVideoFilter('none')">Original</button>
+                <button onclick="applyVideoFilter('grayscale(100%)')">Grayscale</button>
+                <button onclick="applyVideoFilter('sepia(100%)')">Sepia</button>
+                <button onclick="applyVideoFilter('invert(100%)')">Invert</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const videoPlayerSpeedFilter = document.getElementById('videoPlayerSpeedFilter');
+        const speedControl = document.getElementById('speedControl');
+        const currentSpeedDisplay = document.getElementById('currentSpeed');
+        function loadVideoSpeedFilter(event) { const file = event.target.files[0]; if (file) { const fileURL = URL.createObjectURL(file); videoPlayerSpeedFilter.src = fileURL; videoPlayerSpeedFilter.load(); videoPlayerSpeedFilter.play(); videoPlayerSpeedFilter.style.filter = 'none'; speedControl.value = 1; currentSpeedDisplay.textContent = '1.00x'; if (parent && parent.showMessageBox) parent.showMessageBox('Video loaded!', 'success', 'Video Loaded'); } }
+        function setPlaybackSpeed() { const speed = parseFloat(speedControl.value); videoPlayerSpeedFilter.playbackRate = speed; currentSpeedDisplay.textContent = `${speed.toFixed(2)}x`; }
+        function applyVideoFilter(filter) { videoPlayerSpeedFilter.style.filter = filter; }
+        setPlaybackSpeed(); // Initial setup
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="videoEditor2Preview" title="Video Speed & Filter Applier Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('videoEditor2')">Run Editor</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__zoomIn" data-wow-delay="0.4s">
+            <h2>3. AI Video Enhancer</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="videoEditor3Code">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -432,107 +543,197 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #1e293b; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .ai-video-editor-container {
-            background-color: #0f172a;
-            padding: 2rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 600px;
-            border: 1px solid #334155;
-            color: #e2e8f0;
-        }
-        .video-placeholder {
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            background-color: #2d3748;
-            border-radius: 0.5rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            color: #94a3b8;
-            border: 2px dashed #475569;
-        }
-        .ai-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .ai-options button {
-            padding: 0.8rem 1rem;
-            border-radius: 0.75rem;
-            background-color: #6366f1; /* Indigo 500 */
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
-        }
-        .ai-options button:hover {
-            background-color: #4f46e5; /* Indigo 600 */
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.4);
-        }
-        .ai-status {
-            text-align: center;
-            font-size: 1rem;
-            color: #94a3b8;
-            min-height: 24px;
-        }
-        @media (max-width: 600px) {
-            .ai-video-editor-container { padding: 1.5rem; }
-            .ai-options button { padding: 0.6rem 0.8rem; font-size: 0.9rem; }
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #1e293b; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding:1rem; }
+        .ai-video-editor-container { background-color: #0f172a; padding: 2rem; border-radius: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; max-width: 600px; border: 1px solid #334155; color: #e2e8f0; }
+        .video-placeholder { width: 100%; padding-bottom: 56.25%; background-color: #2d3748; border-radius: 0.5rem; margin-bottom: 1.5rem; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; color: #94a3b8; border: 2px dashed #475569; overflow: hidden; position: relative; }
+        .video-placeholder video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; }
+        .ai-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .ai-options button { padding: 0.8rem 1rem; border-radius: 0.75rem; background-color: #6366f1; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); }
+        .ai-options button:hover { background-color: #4f46e5; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(99, 102, 241, 0.4); }
+        .ai-options button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+        .status-area { text-align: center; margin-top: 1rem; }
+        .status-message { font-size: 1rem; color: #94a3b8; min-height: 24px; margin-bottom: 0.5rem; }
+        .progress-bar-container { width: 100%; background-color: #475569; border-radius: 9999px; height: 8px; overflow: hidden; }
+        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #6366f1, #a78bfa); border-radius: 9999px; transition: width 0.3s ease; }
+        .file-input-label { display: inline-block; padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #10b981; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s ease; text-align: center; }
+        .file-input-label:hover { background-color: #059669; transform: translateY(-1px); }
+        .hidden-input { display: none; }
+        @media (max-width: 600px) { .ai-video-editor-container { padding: 1.5rem; } .ai-options button, .file-input-label { padding: 0.6rem 0.8rem; font-size: 0.9rem; } }
     </style>
 </head>
 <body>
     <div class="ai-video-editor-container">
         <div class="video-placeholder">
-            <i class="fa-solid fa-video text-4xl mr-2"></i> Video Preview (Upload/Drag Here)
+            <video id="aiVideoPlayer" controls class="hidden">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" onerror="this.parentElement.innerHTML = '<p class=\'text-red-500 p-4 text-center\'>Error loading video. <br>Please try a different source.</p>';">
+                Your browser does not support the video tag.
+            </video>
+            <div id="placeholderText" class="absolute inset-0 flex items-center justify-center text-center text-gray-400"><i class="fa-solid fa-video text-4xl mr-2"></i> Upload Video</div>
         </div>
         <div class="ai-options">
-            <button onclick="simulateAI('enhance')"><i class="fa-solid fa-magic"></i> Enhance Video</button>
-            <button onclick="simulateAI('stabilize')"><i class="fa-solid fa-shake"></i> Stabilize Footage</button>
-            <button onclick="simulateAI('upscale')"><i class="fa-solid fa-arrow-up-right-from-square"></i> Upscale Resolution</button>
-            <button onclick="simulateAI('autocut')"><i class="fa-solid fa-cut"></i> AI Auto-Cut</button>
+            <label for="videoUploadAI" class="file-input-label"><i class="fa-solid fa-upload"></i> Upload Video</label>
+            <input type="file" id="videoUploadAI" accept="video/*" class="hidden-input" onchange="loadAIVideo(event)">
+            <button id="enhanceBtn" onclick="simulateAIVideo('enhance')" disabled><i class="fa-solid fa-magic"></i> Enhance</button>
+            <button id="stabilizeBtn" onclick="simulateAIVideo('stabilize')" disabled><i class="fa-solid fa-shake"></i> Stabilize</button>
+            <button id="upscaleBtn" onclick="simulateAIVideo('upscale')" disabled><i class="fa-solid fa-arrow-up-right-from-square"></i> Upscale</button>
         </div>
-        <div id="aiStatus" class="ai-status">Ready for AI magic!</div>
+        <div class="status-area">
+            <div id="aiStatus" class="status-message">Upload a video to start AI processing.</div>
+            <div class="progress-bar-container"><div id="progressBar" class="progress-bar"></div></div>
+        </div>
     </div>
-
     <script>
-        function simulateAI(feature) {
-            const statusDisplay = document.getElementById('aiStatus');
-            statusDisplay.textContent = `Applying AI ${feature} to video... Please wait.`;
-            statusDisplay.style.color = '#f97316'; // Orange
-
-            setTimeout(() => {
-                statusDisplay.textContent = `AI ${feature} completed! (Simulated)`;
-                statusDisplay.style.color = '#34d399'; // Green
-                parent.showMessageBox(`AI ${feature} operation finished successfully!`, 'success', 'AI Operation Complete');
-            }, 3000); // Simulate processing time
-        }
+        const aiVideoPlayer = document.getElementById('aiVideoPlayer'); const placeholderText = document.getElementById('placeholderText'); const aiStatus = document.getElementById('aiStatus'); const progressBar = document.getElementById('progressBar'); const aiButtons = document.querySelectorAll('.ai-options button'); let videoLoaded = false;
+        function enableAIButtons(enable) { aiButtons.forEach(button => button.disabled = !enable); }
+        function loadAIVideo(event) { const file = event.target.files[0]; if (file) { const fileURL = URL.createObjectURL(file); aiVideoPlayer.src = fileURL; aiVideoPlayer.load(); aiVideoPlayer.classList.remove('hidden'); placeholderText.classList.add('hidden'); videoLoaded = true; enableAIButtons(true); aiStatus.textContent = 'Video loaded. Choose an AI operation.'; aiStatus.style.color = '#94a3b8'; progressBar.style.width = '0%'; if (parent && parent.showMessageBox) parent.showMessageBox('Video loaded successfully!', 'success', 'Video Loaded'); } }
+        function simulateAIVideo(feature) { if (!videoLoaded) { if (parent && parent.showMessageBox) parent.showMessageBox('Please upload a video first!', 'warning', 'No Video'); return; } enableAIButtons(false); aiStatus.textContent = `Applying AI ${feature}... Please wait.`; aiStatus.style.color = '#f97316'; progressBar.style.width = '0%'; let progress = 0; const interval = setInterval(() => { progress += 5; progressBar.style.width = `${progress}%`; if (progress >= 100) { clearInterval(interval); aiStatus.textContent = `AI ${feature} completed! (Simulated)`; aiStatus.style.color = '#34d399'; enableAIButtons(true); if (parent && parent.showMessageBox) parent.showMessageBox(`AI ${feature} operation finished successfully!`, 'success', 'AI Operation Complete'); } }, 150); }
     </script>
 </body>
 </html>
                     </textarea>
                 </div>
                 <div class="live-preview">
-                    <iframe id="videoEditor2Preview" title="AI Video Enhancer Preview"></iframe>
+                    <iframe id="videoEditor3Preview" title="AI Video Enhancer Preview"></iframe>
                 </div>
             </div>
             <div class="button-group">
-                <button onclick="loadDigitalApp('videoEditor2')">Run Editor</button>
+                <button onclick="loadDigitalApp('videoEditor3')">Run Editor</button>
             </div>
         </section>
 
-        <h2 class="section-title mb-16 mt-24 wow animate__animated animate__fadeIn">Photo Editors</h2>
+        <section class="digital-app-card wow animate__animated animate__zoomIn" data-wow-delay="0.5s">
+            <h2>4. Video Merger</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="videoEditor4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Merger</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1e293b; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding:1rem; }
+        .video-merger-container { background-color: #0f172a; padding: 2rem; border-radius: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; max-width: 600px; border: 1px solid #334155; color: #e2e8f0; }
+        .file-upload-area { border: 2px dashed #475569; border-radius: 0.75rem; padding: 1.5rem; text-align: center; margin-bottom: 1.5rem; cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease; }
+        .file-upload-area:hover { background-color: #1e293b; border-color: #64748b; }
+        .file-upload-area i { font-size: 2.5rem; color: #94a3b8; margin-bottom: 0.75rem; }
+        .file-upload-area p { font-size: 1rem; color: #cbd5e1; }
+        .video-list { margin-bottom: 1.5rem; background-color: #2d3748; border-radius: 0.5rem; padding: 1rem; min-height: 100px; max-height: 200px; overflow-y: auto; border: 1px solid #475569; }
+        .video-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px dashed #475569; }
+        .video-item:last-child { border-bottom: none; }
+        .video-item span { font-size: 0.95rem; color: #f8fafc; }
+        .video-item button { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.1rem; transition: color 0.2s ease; }
+        .video-item button:hover { color: #dc2626; }
+        .merge-button { display: block; width: 100%; padding: 0.8rem 1.5rem; background-color: #34d399; color: white; border-radius: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; box-shadow: 0 4px 10px rgba(52, 211, 153, 0.3); }
+        .merge-button:hover { background-color: #10b981; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(52, 211, 153, 0.4); }
+        .status-message { text-align: center; font-size: 1rem; color: #94a3b8; min-height: 24px; margin-top: 1rem; }
+        @media (max-width: 600px) { .video-merger-container { padding: 1.5rem; } .file-upload-area { padding: 1rem; } .file-upload-area i { font-size: 2rem; } .file-upload-area p { font-size: 0.9rem; } .video-list { padding: 0.75rem; min-height: 80px; } .video-item span { font-size: 0.85rem; } .merge-button { padding: 0.7rem 1rem; font-size: 0.9rem; } }
+    </style>
+</head>
+<body>
+    <div class="video-merger-container">
+        <h3 class="text-xl font-bold mb-4 text-center">Merge Videos</h3>
+        <label for="videoUploadMerger" class="file-upload-area">
+            <i class="fa-solid fa-cloud-arrow-up"></i><p>Drag & Drop Videos Here or Click to Upload</p>
+        </label>
+        <input type="file" id="videoUploadMerger" accept="video/*" multiple class="hidden" onchange="addVideos(event)">
+        <div id="videoList" class="video-list"><p class="text-center text-gray-500">No videos added yet.</p></div>
+        <button id="mergeButton" class="merge-button" onclick="mergeVideos()" disabled><i class="fa-solid fa-video"></i> Merge Videos</button>
+        <div id="mergeStatus" class="status-message">Upload at least two videos to merge.</div>
+    </div>
+    <script>
+        const videoListContainer = document.getElementById('videoList'); const mergeStatus = document.getElementById('mergeStatus'); const mergeButton = document.getElementById('mergeButton'); let uploadedVideos = [];
+        function addVideos(event) { const files = event.target.files; if (files.length === 0) return; Array.from(files).forEach(file => { if (file.type.startsWith('video/')) { uploadedVideos.push(file); } else { if (parent && parent.showMessageBox) parent.showMessageBox(`File "${file.name}" is not a video.`, 'warning', 'Invalid File Type'); } }); renderVideoList(); checkMergeEligibility(); }
+        function removeVideo(index) { uploadedVideos.splice(index, 1); renderVideoList(); checkMergeEligibility(); }
+        function renderVideoList() { videoListContainer.innerHTML = ''; if (uploadedVideos.length === 0) { videoListContainer.innerHTML = '<p class="text-center text-gray-500">No videos added yet.</p>'; return; } uploadedVideos.forEach((file, index) => { const videoItem = document.createElement('div'); videoItem.classList.add('video-item'); videoItem.innerHTML = `<span>${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB)</span><button onclick="removeVideo(${index})"><i class="fa-solid fa-xmark"></i></button>`; videoListContainer.appendChild(videoItem); }); }
+        function checkMergeEligibility() { if (uploadedVideos.length >= 2) { mergeButton.disabled = false; mergeStatus.textContent = `Ready to merge ${uploadedVideos.length} videos.`; mergeStatus.style.color = '#94a3b8'; } else { mergeButton.disabled = true; mergeStatus.textContent = 'Upload at least two videos to merge.'; mergeStatus.style.color = '#94a3b8'; } }
+        function mergeVideos() { mergeButton.disabled = true; mergeStatus.textContent = `Merging ${uploadedVideos.length} videos... This will take time.`; mergeStatus.style.color = '#f97316'; setTimeout(() => { mergeStatus.textContent = 'Videos merged successfully! (Simulated)'; mergeStatus.style.color = '#34d399'; if (parent && parent.showMessageBox) parent.showMessageBox('Videos merged successfully! (Simulated)', 'success', 'Merge Complete'); uploadedVideos = []; renderVideoList(); checkMergeEligibility(); }, 5000); }
+        checkMergeEligibility();
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="videoEditor4Preview" title="Video Merger Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('videoEditor4')">Run Editor</button>
+            </div>
+        </section>
 
-        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+        <section class="digital-app-card wow animate__animated animate__zoomIn" data-wow-delay="0.6s">
+            <h2>5. AI Video Transcriber</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="videoEditor5Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Video Transcriber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1e293b; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding:1rem; }
+        .transcriber-container { background-color: #0f172a; padding: 2rem; border-radius: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; max-width: 600px; border: 1px solid #334155; color: #e2e8f0; }
+        .video-input-area { border: 2px dashed #475569; border-radius: 0.75rem; padding: 1.5rem; text-align: center; margin-bottom: 1.5rem; cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease; }
+        .video-input-area:hover { background-color: #1e293b; border-color: #64748b; }
+        .video-input-area i { font-size: 2.5rem; color: #94a3b8; margin-bottom: 0.75rem; }
+        .video-input-area p { font-size: 1rem; color: #cbd5e1; }
+        .transcribe-button { display: block; width: 100%; padding: 0.8rem 1.5rem; background-color: #6366f1; color: white; border-radius: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); }
+        .transcribe-button:hover { background-color: #4f46e5; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(99, 102, 241, 0.4); }
+        .transcription-output { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed #475569; }
+        .transcription-output h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; text-align: center; }
+        .transcription-output textarea { width: 100%; min-height: 150px; padding: 1rem; border-radius: 0.5rem; background-color: #2d3748; border: 1px solid #475569; color: #f8fafc; font-size: 0.9rem; outline: none; resize: vertical; white-space: pre-wrap; }
+        .status-message { text-align: center; font-size: 1rem; color: #94a3b8; min-height: 24px; margin-top: 1rem; }
+        @media (max-width: 600px) { .transcriber-container { padding: 1.5rem; } .video-input-area { padding: 1rem; } .video-input-area i { font-size: 2rem; } .video-input-area p { font-size: 0.9rem; } .transcribe-button { padding: 0.7rem 1rem; font-size: 0.9rem; } .transcription-output textarea { min-height: 120px; font-size: 0.8rem; padding: 0.75rem; } }
+    </style>
+</head>
+<body>
+    <div class="transcriber-container">
+        <h3 class="text-xl font-bold mb-4 text-center">AI Video Transcriber</h3>
+        <label for="videoUploadTranscriber" class="video-input-area">
+            <i class="fa-solid fa-cloud-arrow-up"></i><p id="videoFileName">Upload a video to transcribe</p>
+        </label>
+        <input type="file" id="videoUploadTranscriber" accept="video/*" class="hidden" onchange="loadVideoTranscriber(event)">
+        <button id="transcribeButton" class="transcribe-button" onclick="transcribeVideo()" disabled><i class="fa-solid fa-microphone-lines"></i> Transcribe Video</button>
+        <div class="transcription-output">
+            <h3>Transcription:</h3>
+            <textarea id="transcriptionText" readonly placeholder="Transcription will appear here..."></textarea>
+            <div id="transcribeStatus" class="status-message">Upload video and click 'Transcribe'.</div>
+        </div>
+    </div>
+    <script>
+        const videoFileNameDisplay = document.getElementById('videoFileName'); const transcribeButton = document.getElementById('transcribeButton'); const transcriptionTextarea = document.getElementById('transcriptionText'); const transcribeStatus = document.getElementById('transcribeStatus'); let loadedVideoFile = null;
+        function loadVideoTranscriber(event) { const file = event.target.files[0]; if (file) { loadedVideoFile = file; videoFileNameDisplay.textContent = `Video loaded: ${file.name}`; transcribeButton.disabled = false; transcriptionTextarea.value = ''; transcribeStatus.textContent = 'Video ready for transcription.'; transcribeStatus.style.color = '#94a3b8'; if (parent && parent.showMessageBox) parent.showMessageBox('Video loaded!', 'success', 'Video Loaded'); } }
+        function transcribeVideo() { if (!loadedVideoFile) { if (parent && parent.showMessageBox) parent.showMessageBox('Please upload a video first!', 'warning', 'No Video'); return; } transcribeButton.disabled = true; transcribeStatus.textContent = 'Transcribing video with AI... This will take a moment.'; transcribeStatus.style.color = '#f97316'; transcriptionTextarea.value = ''; setTimeout(() => { const simulatedTranscription = `[00:00:01] Hello, and welcome to this demonstration.\n[00:00:04] This is an AI video transcriber.\n[00:00:07] It can convert spoken words into text.\n[00:00:10] This is very useful for creating subtitles, documentation, or content analysis.\n[00:00:15] Thank you for watching this simulation.`; transcriptionTextarea.value = simulatedTranscription.trim(); transcribeStatus.textContent = 'Transcription complete! (Simulated)'; transcribeStatus.style.color = '#34d399'; transcribeButton.disabled = false; if (parent && parent.showMessageBox) parent.showMessageBox('Video transcribed successfully! (Simulated)', 'success', 'Transcription Complete'); }, 4000); }
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="videoEditor5Preview" title="AI Video Transcriber Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('videoEditor5')">Run Editor</button>
+            </div>
+        </section>
+
+        <div class="text-center mb-16 mt-24">
+             <h2 class="section-title photo-editors-title wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">Photo Editors</h2>
+        </div>
+
+        <section class="digital-app-card wow animate__animated animate__zoomIn" data-wow-delay="0.2s">
             <h2>1. Basic Photo Editor</h2>
             <div class="code-preview-container">
                 <div class="code-editor">
@@ -547,135 +748,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .photo-editor-container {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 600px;
-            border: 1px solid #e2e8f0;
-        }
-        .image-display {
-            width: 100%;
-            height: 300px;
-            background-color: #e2e8f0;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
-        .image-display img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            transition: filter 0.3s ease;
-        }
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            justify-content: center;
-        }
-        .controls button {
-            padding: 0.6rem 1rem;
-            border-radius: 0.5rem;
-            background-color: #dbeafe; /* Blue 100 */
-            color: #2563eb; /* Blue 600 */
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-        }
-        .controls button:hover {
-            background-color: #bfdbfe;
-            transform: translateY(-1px);
-        }
-        .file-input-label {
-            display: inline-block;
-            padding: 0.6rem 1rem;
-            border-radius: 0.5rem;
-            background-color: #10b981; /* Emerald 500 */
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-        }
-        .file-input-label:hover {
-            background-color: #059669;
-            transform: translateY(-1px);
-        }
-        .hidden-input {
-            display: none;
-        }
-        @media (max-width: 600px) {
-            .photo-editor-container { padding: 1rem; }
-            .image-display { height: 200px; }
-            .controls button, .file-input-label { padding: 0.5rem 0.75rem; font-size: 0.9rem; }
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding:1rem; }
+        .photo-editor-container { background-color: #ffffff; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 600px; border: 1px solid #e2e8f0; }
+        .image-display { width: 100%; height: 300px; background-color: #e2e8f0; border-radius: 0.5rem; margin-bottom: 1rem; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; }
+        .image-display img { max-width: 100%; max-height: 100%; object-fit: contain; transition: filter 0.3s ease; }
+        .controls { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+        .controls button { padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #dbeafe; color: #2563eb; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; }
+        .controls button:hover { background-color: #bfdbfe; transform: translateY(-1px); }
+        .file-input-label { display: inline-block; padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #10b981; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s ease; text-align: center; }
+        .file-input-label:hover { background-color: #059669; transform: translateY(-1px); }
+        .hidden-input { display: none; }
+        @media (max-width: 600px) { .photo-editor-container { padding: 1rem; } .image-display { height: 200px; } .controls button, .file-input-label { padding: 0.5rem 0.75rem; font-size: 0.9rem; } }
     </style>
 </head>
 <body>
     <div class="photo-editor-container">
         <div class="image-display">
-            <img id="editableImage" src="https://placehold.co/400x250/a78bfa/ffffff?text=Upload%20Image" alt="Editable Image">
+            <img id="editableImage" src="https://placehold.co/400x250/a78bfa/ffffff?text=Upload%20Image" alt="Editable Image" onerror="this.src='https://placehold.co/400x250/ef4444/ffffff?text=Error+Loading'; this.onerror=null;">
         </div>
         <div class="controls">
-            <label for="imageUpload" class="file-input-label">
-                <i class="fa-solid fa-upload"></i> Upload Image
-            </label>
+            <label for="imageUpload" class="file-input-label"><i class="fa-solid fa-upload"></i> Upload Image</label>
             <input type="file" id="imageUpload" accept="image/*" class="hidden-input" onchange="loadImage(event)">
-            <button onclick="applyFilter('grayscale')"><i class="fa-solid fa-filter"></i> Grayscale</button>
-            <button onclick="applyFilter('sepia')"><i class="fa-solid fa-filter"></i> Sepia</button>
-            <button onclick="applyFilter('invert')"><i class="fa-solid fa-filter"></i> Invert</button>
+            <button onclick="applyFilter('grayscale(100%)')"><i class="fa-solid fa-filter"></i> Grayscale</button>
+            <button onclick="applyFilter('sepia(100%)')"><i class="fa-solid fa-filter"></i> Sepia</button>
+            <button onclick="applyFilter('invert(100%)')"><i class="fa-solid fa-filter"></i> Invert</button>
+            <button onclick="applyFilter('blur(5px)')"><i class="fa-solid fa-filter"></i> Blur</button>
+            <button onclick="applyFilter('contrast(200%)')"><i class="fa-solid fa-filter"></i> Contrast</button>
             <button onclick="resetImage()"><i class="fa-solid fa-undo"></i> Reset</button>
+            <button onclick="downloadImage()"><i class="fa-solid fa-download"></i> Download</button>
         </div>
     </div>
-
     <script>
-        const editableImage = document.getElementById('editableImage');
-        let originalFilter = 'none';
-
-        function loadImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    editableImage.src = e.target.result;
-                    editableImage.style.filter = 'none'; // Reset filter on new image
-                    originalFilter = 'none';
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function applyFilter(filterType) {
-            switch (filterType) {
-                case 'grayscale':
-                    editableImage.style.filter = 'grayscale(100%)';
-                    break;
-                case 'sepia':
-                    editableImage.style.filter = 'sepia(100%)';
-                    break;
-                case 'invert':
-                    editableImage.style.filter = 'invert(100%)';
-                    break;
-                default:
-                    editableImage.style.filter = 'none';
-            }
-        }
-
-        function resetImage() {
-            editableImage.style.filter = originalFilter;
-            // For a real reset, you might reload the original image source if stored
-            // For now, it just removes applied filters
-            editableImage.style.filter = 'none';
-        }
+        const editableImage = document.getElementById('editableImage'); let originalImageSrc = "https://placehold.co/400x250/a78bfa/ffffff?text=Upload%20Image"; let currentFilter = 'none';
+        function loadImage(event) { const file = event.target.files[0]; if (file) { const reader = new FileReader(); reader.onload = (e) => { editableImage.src = e.target.result; originalImageSrc = e.target.result; editableImage.style.filter = 'none'; currentFilter = 'none'; if (parent && parent.showMessageBox) parent.showMessageBox('Image loaded!', 'success', 'Image Loaded'); }; reader.readAsDataURL(file); } }
+        function applyFilter(filterCss) { editableImage.style.filter = filterCss; currentFilter = filterCss; }
+        function resetImage() { editableImage.src = originalImageSrc; editableImage.style.filter = 'none'; currentFilter = 'none'; if (parent && parent.showMessageBox) parent.showMessageBox('Image reset!', 'info', 'Image Reset'); }
+        function downloadImage() { if (editableImage.src.includes('placehold.co')) { if (parent && parent.showMessageBox) parent.showMessageBox('Please upload an image first!', 'warning', 'No Image'); return; } const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d'); const img = new Image(); img.crossOrigin = "Anonymous"; img.onload = () => { canvas.width = img.naturalWidth; canvas.height = img.naturalHeight; ctx.filter = currentFilter; ctx.drawImage(img, 0, 0); const link = document.createElement('a'); link.href = canvas.toDataURL('image/png'); link.download = 'filtered_image.png'; document.body.appendChild(link); link.click(); document.body.removeChild(link); if (parent && parent.showMessageBox) parent.showMessageBox('Image download initiated!', 'success', 'Download Complete'); }; img.onerror = () => { if (parent && parent.showMessageBox) parent.showMessageBox('Could not load image for download.', 'error', 'Download Error'); }; img.src = editableImage.src; }
     </script>
 </body>
 </html>
@@ -690,11 +798,224 @@
             </div>
         </section>
 
-        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
-            <h2>2. AI Photo Retoucher</h2>
-            <div class="code-preview-container">
+        <section class="digital-app-card wow animate__animated animate__zoomIn" data-wow-delay="0.3s">
+            <h2>2. Image Resizer & Rotator</h2>
+             <div class="code-preview-container">
                 <div class="code-editor">
                     <textarea id="photoEditor2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resizer & Rotator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding:1rem; }
+        .image-transform-container { background-color: #ffffff; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 600px; border: 1px solid #e2e8f0; }
+        .canvas-wrapper { width: 100%; padding-bottom: 75%; position: relative; background-color: #e2e8f0; border-radius: 0.5rem; margin-bottom: 1rem; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        .canvas-wrapper canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #fefefe; border-radius: 0.5rem; }
+        .controls { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; align-items: center; }
+        .controls label { font-weight: 600; color: #334155; }
+        .controls input[type="number"] { width: 80px; padding: 0.4rem 0.6rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; text-align: center; font-size: 0.9rem; background-color: #fefefe; }
+        .controls button { padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #dbeafe; color: #2563eb; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; }
+        .controls button:hover { background-color: #bfdbfe; transform: translateY(-1px); }
+        .file-input-label { display: inline-block; padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #10b981; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s ease; text-align: center; width: fit-content; margin: 0 auto 1rem; }
+        .file-input-label:hover { background-color: #059669; transform: translateY(-1px); }
+        .hidden-input { display: none; }
+        @media (max-width: 600px) { .image-transform-container { padding: 1rem; } .canvas-wrapper { padding-bottom: 100%; } .controls { flex-direction: column; } .controls input[type="number"] { width: 100%; } .controls button, .file-input-label { width: 100%; } }
+    </style>
+</head>
+<body>
+    <div class="image-transform-container">
+        <label for="imageUploadTransform" class="file-input-label"><i class="fa-solid fa-upload"></i> Upload Image</label>
+        <input type="file" id="imageUploadTransform" accept="image/*" class="hidden-input" onchange="loadImageToCanvas(event)">
+        <div class="canvas-wrapper"><canvas id="imageCanvas"></canvas></div>
+        <div class="controls">
+            <label for="newWidth">Width:</label><input type="number" id="newWidth" value="400" min="50" oninput="resizeImage()">
+            <label for="newHeight">Height:</label><input type="number" id="newHeight" value="300" min="50" oninput="resizeImage()">
+            <button onclick="rotateImage(90)"><i class="fa-solid fa-rotate-right"></i> Rotate 90°</button>
+            <button onclick="rotateImage(-90)"><i class="fa-solid fa-rotate-left"></i> Rotate -90°</button>
+            <button onclick="resetCanvas()"><i class="fa-solid fa-undo"></i> Reset</button>
+            <button onclick="downloadTransformedImage()"><i class="fa-solid fa-download"></i> Download</button>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById('imageCanvas'); const ctx = canvas.getContext('2d'); const newWidthInput = document.getElementById('newWidth'); const newHeightInput = document.getElementById('newHeight'); let currentImage = new Image(); let originalImageSrc = "https://placehold.co/400x300/60a5fa/ffffff?text=Upload%20Image"; let currentRotation = 0; let imageLoaded = false;
+        function setCanvasSize() { const container = canvas.parentElement; canvas.width = container.clientWidth; canvas.height = container.clientHeight; drawImage(); }
+        setCanvasSize(); window.addEventListener('resize', setCanvasSize);
+        currentImage.onload = () => { newWidthInput.value = currentImage.naturalWidth; newHeightInput.value = currentImage.naturalHeight; imageLoaded = true; drawImage(); };
+        currentImage.onerror = () => { imageLoaded = false; drawImage(); if(parent && parent.showMessageBox) parent.showMessageBox('Error loading placeholder image.', 'error', 'Image Error');};
+        currentImage.src = originalImageSrc;
+        function loadImageToCanvas(event) { const file = event.target.files[0]; if (file) { const reader = new FileReader(); reader.onload = (e) => { currentImage.src = e.target.result; originalImageSrc = e.target.result; currentRotation = 0; imageLoaded = true; if (parent && parent.showMessageBox) parent.showMessageBox('Image loaded!', 'success', 'Image Loaded'); }; reader.readAsDataURL(file); } }
+        function drawImage() { ctx.clearRect(0, 0, canvas.width, canvas.height); if (!imageLoaded) { ctx.fillStyle = '#fefefe'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#64748b'; ctx.font = '16px Inter, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('Upload Image or Placeholder Error', canvas.width / 2, canvas.height / 2); return; } const imgWidth = parseFloat(newWidthInput.value) || currentImage.naturalWidth; const imgHeight = parseFloat(newHeightInput.value) || currentImage.naturalHeight; ctx.save(); ctx.translate(canvas.width / 2, canvas.height / 2); ctx.rotate(currentRotation * Math.PI / 180); ctx.drawImage(currentImage, -imgWidth / 2, -imgHeight / 2, imgWidth, imgHeight); ctx.restore(); }
+        function resizeImage() { if (!imageLoaded) { if (parent && parent.showMessageBox) parent.showMessageBox('Please upload an image first!', 'warning', 'No Image'); return; } drawImage(); }
+        function rotateImage(angle) { if (!imageLoaded) { if (parent && parent.showMessageBox) parent.showMessageBox('Please upload an image first!', 'warning', 'No Image'); return; } currentRotation = (currentRotation + angle) % 360; drawImage(); }
+        function resetCanvas() { currentImage.src = originalImageSrc; currentRotation = 0; imageLoaded = false; newWidthInput.value = 400; newHeightInput.value = 300; drawImage(); if (parent && parent.showMessageBox) parent.showMessageBox('Image reset!', 'info', 'Image Reset'); }
+        function downloadTransformedImage() { if (!imageLoaded || currentImage.src.includes('placehold.co')) { if (parent && parent.showMessageBox) parent.showMessageBox('Please upload an image first!', 'warning', 'No Image'); return; } const tempCanvas = document.createElement('canvas'); const tempCtx = tempCanvas.getContext('2d'); const imgWidth = parseFloat(newWidthInput.value) || currentImage.naturalWidth; const imgHeight = parseFloat(newHeightInput.value) || currentImage.naturalHeight; const radians = currentRotation * Math.PI / 180; const absCos = Math.abs(Math.cos(radians)); const absSin = Math.abs(Math.sin(radians)); const rotatedWidth = imgHeight * absSin + imgWidth * absCos; const rotatedHeight = imgHeight * absCos + imgWidth * absSin; tempCanvas.width = rotatedWidth; tempCanvas.height = rotatedHeight; tempCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2); tempCtx.rotate(radians); tempCtx.drawImage(currentImage, -imgWidth / 2, -imgHeight / 2, imgWidth, imgHeight); const dataURL = tempCanvas.toDataURL('image/png'); const link = document.createElement('a'); link.href = dataURL; link.download = 'transformed_image.png'; document.body.appendChild(link); link.click(); document.body.removeChild(link); if (parent && parent.showMessageBox) parent.showMessageBox('Transformed image downloaded!', 'success', 'Download Complete'); }
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="photoEditor2Preview" title="Image Resizer & Rotator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('photoEditor2')">Run Editor</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__zoomIn" data-wow-delay="0.4s">
+            <h2>3. Color Adjuster</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="photoEditor3Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Adjuster</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding:1rem; }
+        .color-adjuster-container { background-color: #ffffff; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 600px; border: 1px solid #e2e8f0; }
+        .image-display { width: 100%; height: 300px; background-color: #e2e8f0; border-radius: 0.5rem; margin-bottom: 1rem; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; }
+        .image-display img { max-width: 100%; max-height: 100%; object-fit: contain; transition: filter 0.1s linear; }
+        .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .control-group { display: flex; flex-direction: column; align-items: center; background-color: #f0f4f8; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid #cbd5e1; }
+        .control-group label { font-weight: 600; color: #334155; margin-bottom: 0.5rem; }
+        .control-group input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; background: #cbd5e1; outline: none; opacity: 0.7; transition: opacity .2s; border-radius: 3px; }
+        .control-group input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #3b82f6; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .control-group span { font-size: 0.85rem; color: #64748b; margin-top: 0.25rem; }
+        .action-buttons { display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: center; }
+        .action-buttons button { padding: 0.8rem 1.5rem; border-radius: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .action-buttons button.reset { background-color: #ef4444; color: white; } .action-buttons button.reset:hover { background-color: #dc2626; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(239, 68, 68, 0.4); }
+        .action-buttons button.download { background-color: #10b981; color: white; } .action-buttons button.download:hover { background-color: #059669; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4); }
+        .file-input-label { display: inline-block; padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #3b82f6; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s ease; text-align: center; width: fit-content; margin: 0 auto 1rem; }
+        .file-input-label:hover { background-color: #2563eb; transform: translateY(-1px); }
+        .hidden-input { display: none; }
+        @media (max-width: 600px) { .color-adjuster-container { padding: 1rem; } .image-display { height: 200px; } .controls { grid-template-columns: 1fr; } .control-group { padding: 0.6rem; } .control-group label { font-size: 0.9rem; } .control-group span { font-size: 0.75rem; } .action-buttons button, .file-input-label { padding: 0.7rem 1rem; font-size: 0.9rem; } }
+    </style>
+</head>
+<body>
+    <div class="color-adjuster-container">
+        <label for="imageUploadColor" class="file-input-label"><i class="fa-solid fa-upload"></i> Upload Image</label>
+        <input type="file" id="imageUploadColor" accept="image/*" class="hidden-input" onchange="loadImageForColorAdjust(event)">
+        <div class="image-display"><img id="adjustableImage" src="https://placehold.co/400x250/a78bfa/ffffff?text=Upload%20Image" alt="Adjustable Image" onerror="this.src='https://placehold.co/400x250/ef4444/ffffff?text=Error+Loading'; this.onerror=null;"></div>
+        <div class="controls">
+            <div class="control-group"><label for="brightness">Brightness</label><input type="range" id="brightness" min="0" max="200" value="100" oninput="applyColorFilters()"><span id="brightnessValue">100%</span></div>
+            <div class="control-group"><label for="contrast">Contrast</label><input type="range" id="contrast" min="0" max="200" value="100" oninput="applyColorFilters()"><span id="contrastValue">100%</span></div>
+            <div class="control-group"><label for="saturation">Saturation</label><input type="range" id="saturation" min="0" max="200" value="100" oninput="applyColorFilters()"><span id="saturationValue">100%</span></div>
+            <div class="control-group"><label for="grayscale">Grayscale</label><input type="range" id="grayscale" min="0" max="100" value="0" oninput="applyColorFilters()"><span id="grayscaleValue">0%</span></div>
+            <div class="control-group"><label for="hueRotate">Hue Rotate</label><input type="range" id="hueRotate" min="0" max="360" value="0" oninput="applyColorFilters()"><span id="hueRotateValue">0°</span></div>
+        </div>
+        <div class="action-buttons">
+            <button class="reset" onclick="resetColorFilters()"><i class="fa-solid fa-undo"></i> Reset</button>
+            <button class="download" onclick="downloadAdjustedImage()"><i class="fa-solid fa-download"></i> Download</button>
+        </div>
+    </div>
+    <script>
+        const adjustableImage = document.getElementById('adjustableImage'); const brightnessControl = document.getElementById('brightness'); const contrastControl = document.getElementById('contrast'); const saturationControl = document.getElementById('saturation'); const grayscaleControl = document.getElementById('grayscale'); const hueRotateControl = document.getElementById('hueRotate'); const brightnessValueDisplay = document.getElementById('brightnessValue'); const contrastValueDisplay = document.getElementById('contrastValue'); const saturationValueDisplay = document.getElementById('saturationValue'); const grayscaleValueDisplay = document.getElementById('grayscaleValue'); const hueRotateValueDisplay = document.getElementById('hueRotateValue'); let originalImageSrcColor = "https://placehold.co/400x250/a78bfa/ffffff?text=Upload%20Image"; let imageLoadedColor = false;
+        function loadImageForColorAdjust(event) { const file = event.target.files[0]; if (file) { const reader = new FileReader(); reader.onload = (e) => { adjustableImage.src = e.target.result; originalImageSrcColor = e.target.result; imageLoadedColor = true; resetColorFilters(); if (parent && parent.showMessageBox) parent.showMessageBox('Image loaded!', 'success', 'Image Loaded'); }; reader.readAsDataURL(file); } }
+        function applyColorFilters() { if (!imageLoadedColor && !adjustableImage.src.includes('placehold.co')) { /* Allow adjusting placeholder if no image is uploaded yet */ } const br = brightnessControl.value; const co = contrastControl.value; const sa = saturationControl.value; const gr = grayscaleControl.value; const hu = hueRotateControl.value; adjustableImage.style.filter = `brightness(${br}%) contrast(${co}%) saturate(${sa}%) grayscale(${gr}%) hue-rotate(${hu}deg)`; brightnessValueDisplay.textContent = `${br}%`; contrastValueDisplay.textContent = `${co}%`; saturationValueDisplay.textContent = `${sa}%`; grayscaleValueDisplay.textContent = `${gr}%`; hueRotateValueDisplay.textContent = `${hu}°`; }
+        function resetColorFilters() { brightnessControl.value = 100; contrastControl.value = 100; saturationControl.value = 100; grayscaleControl.value = 0; hueRotateControl.value = 0; applyColorFilters(); if (imageLoadedColor && parent && parent.showMessageBox) parent.showMessageBox('Filters reset!', 'info', 'Filters Reset'); }
+        function downloadAdjustedImage() { if (!imageLoadedColor || adjustableImage.src.includes('placehold.co')) { if (parent && parent.showMessageBox) parent.showMessageBox('Please upload an image first!', 'warning', 'No Image'); return; } const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d'); const img = new Image(); img.crossOrigin = "Anonymous"; img.onload = () => { canvas.width = img.naturalWidth; canvas.height = img.naturalHeight; ctx.filter = adjustableImage.style.filter; ctx.drawImage(img, 0, 0); const link = document.createElement('a'); link.href = canvas.toDataURL('image/png'); link.download = 'adjusted_image.png'; document.body.appendChild(link); link.click(); document.body.removeChild(link); if (parent && parent.showMessageBox) parent.showMessageBox('Adjusted image download initiated!', 'success', 'Download Complete'); }; img.onerror = () => { if (parent && parent.showMessageBox) parent.showMessageBox('Could not load image for download.', 'error', 'Download Error'); }; img.src = adjustableImage.src; }
+        applyColorFilters();
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="photoEditor3Preview" title="Color Adjuster Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('photoEditor3')">Run Editor</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__zoomIn" data-wow-delay="0.5s">
+            <h2>4. Text Overlay on Image</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="photoEditor4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Overlay on Image</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding:1rem; }
+        .text-overlay-container { background-color: #ffffff; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 600px; border: 1px solid #e2e8f0; }
+        .canvas-wrapper { width: 100%; padding-bottom: 75%; position: relative; background-color: #e2e8f0; border-radius: 0.5rem; margin-bottom: 1rem; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        .canvas-wrapper canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #fefefe; border-radius: 0.5rem; }
+        .controls { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; align-items: center; margin-top: 1rem; }
+        .controls input[type="text"], .controls input[type="color"], .controls select, .controls input[type="number"] { padding: 0.6rem 0.8rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; font-size: 0.9rem; background-color: #fefefe; }
+        .controls input[type="color"] { width: 50px; height: 38px; padding: 0; cursor: pointer; }
+        .controls button { padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #dbeafe; color: #2563eb; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; }
+        .controls button:hover { background-color: #bfdbfe; transform: translateY(-1px); }
+        .file-input-label { display: inline-block; padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #10b981; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s ease; text-align: center; width: fit-content; margin: 0 auto 1rem; }
+        .file-input-label:hover { background-color: #059669; transform: translateY(-1px); }
+        .hidden-input { display: none; }
+        @media (max-width: 600px) { .text-overlay-container { padding: 1rem; } .canvas-wrapper { padding-bottom: 100%; } .controls { flex-direction: column; } .controls input, .controls select, .controls button, .file-input-label { width: 100%; } .controls input[type="color"] { width: 100%; height: 35px; } }
+    </style>
+</head>
+<body>
+    <div class="text-overlay-container">
+        <label for="imageUploadOverlay" class="file-input-label"><i class="fa-solid fa-upload"></i> Upload Image</label>
+        <input type="file" id="imageUploadOverlay" accept="image/*" class="hidden-input" onchange="loadImageForOverlay(event)">
+        <div class="canvas-wrapper"><canvas id="overlayCanvas"></canvas></div>
+        <div class="controls">
+            <input type="text" id="overlayText" placeholder="Enter text" value="Your Text Here" oninput="drawOverlay()">
+            <input type="color" id="textColor" value="#ffffff" oninput="drawOverlay()">
+            <select id="fontSize" onchange="drawOverlay()"><option value="20px">20px</option><option value="30px" selected>30px</option><option value="40px">40px</option><option value="50px">50px</option></select>
+            <label for="posX">X (%):</label><input type="number" id="posX" value="50" min="0" max="100" step="1" oninput="drawOverlay()">
+            <label for="posY">Y (%):</label><input type="number" id="posY" value="50" min="0" max="100" step="1" oninput="drawOverlay()">
+            <button onclick="downloadImageWithText()"><i class="fa-solid fa-download"></i> Download</button>
+        </div>
+    </div>
+    <script>
+        const overlayCanvas = document.getElementById('overlayCanvas'); const overlayCtx = overlayCanvas.getContext('2d'); const overlayTextInput = document.getElementById('overlayText'); const textColorInput = document.getElementById('textColor'); const fontSizeSelect = document.getElementById('fontSize'); const posXInput = document.getElementById('posX'); const posYInput = document.getElementById('posY'); let baseImage = new Image(); let imageLoadedOverlay = false;
+        function setOverlayCanvasSize() { const container = overlayCanvas.parentElement; overlayCanvas.width = container.clientWidth; overlayCanvas.height = container.clientHeight; drawOverlay(); }
+        setOverlayCanvasSize(); window.addEventListener('resize', setOverlayCanvasSize);
+        baseImage.onload = () => { imageLoadedOverlay = true; drawOverlay(); };
+        baseImage.onerror = () => { imageLoadedOverlay = false; drawOverlay(); if(parent && parent.showMessageBox) parent.showMessageBox('Error loading placeholder image.', 'error', 'Image Error');};
+        baseImage.src = "https://placehold.co/400x300/3b82f6/ffffff?text=Add%20Text%20Here";
+        function loadImageForOverlay(event) { const file = event.target.files[0]; if (file) { const reader = new FileReader(); reader.onload = (e) => { baseImage.src = e.target.result; imageLoadedOverlay = true; posXInput.value = 50; posYInput.value = 50; drawOverlay(); if (parent && parent.showMessageBox) parent.showMessageBox('Image loaded!', 'success', 'Image Loaded'); }; reader.readAsDataURL(file); } }
+        function drawOverlay() { overlayCtx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height); if (!imageLoadedOverlay) { overlayCtx.fillStyle = '#f0f4f8'; overlayCtx.fillRect(0, 0, overlayCanvas.width, overlayCanvas.height); overlayCtx.fillStyle = '#64748b'; overlayCtx.font = '16px Inter, sans-serif'; overlayCtx.textAlign = 'center'; overlayCtx.textBaseline = 'middle'; overlayCtx.fillText('Upload Image or Placeholder Error', overlayCanvas.width / 2, overlayCanvas.height / 2); return; } const aspectRatio = baseImage.width / baseImage.height; let drawWidth = overlayCanvas.width; let drawHeight = overlayCanvas.width / aspectRatio; if (drawHeight > overlayCanvas.height) { drawHeight = overlayCanvas.height; drawWidth = overlayCanvas.height * aspectRatio; } const xOffset = (overlayCanvas.width - drawWidth) / 2; const yOffset = (overlayCanvas.height - drawHeight) / 2; overlayCtx.drawImage(baseImage, xOffset, yOffset, drawWidth, drawHeight); const text = overlayTextInput.value; const textColor = textColorInput.value; const fontSize = fontSizeSelect.value; const posX = parseFloat(posXInput.value) / 100; const posY = parseFloat(posYInput.value) / 100; overlayCtx.font = `${fontSize} 'Inter', sans-serif`; overlayCtx.fillStyle = textColor; overlayCtx.textAlign = 'center'; overlayCtx.textBaseline = 'middle'; overlayCtx.fillText(text, overlayCanvas.width * posX, overlayCanvas.height * posY); }
+        function downloadImageWithText() { if (!imageLoadedOverlay || baseImage.src.includes('placehold.co')) { if (parent && parent.showMessageBox) parent.showMessageBox('Please upload an image first!', 'warning', 'No Image'); return; } const dataURL = overlayCanvas.toDataURL('image/png'); const link = document.createElement('a'); link.href = dataURL; link.download = 'image_with_text.png'; document.body.appendChild(link); link.click(); document.body.removeChild(link); if (parent && parent.showMessageBox) parent.showMessageBox('Image with text downloaded!', 'success', 'Download Complete'); }
+        drawOverlay();
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="photoEditor4Preview" title="Text Overlay on Image Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('photoEditor4')">Run Editor</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__zoomIn" data-wow-delay="0.6s">
+            <h2>5. AI Photo Retoucher</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="photoEditor5Code">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -705,137 +1026,67 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .ai-photo-editor-container {
-            background-color: #1e293b;
-            padding: 2rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 600px;
-            border: 1px solid #334155;
-            color: #e2e8f0;
-        }
-        .image-placeholder {
-            width: 100%;
-            height: 300px;
-            background-color: #2d3748;
-            border-radius: 0.5rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            color: #94a3b8;
-            border: 2px dashed #475569;
-            overflow: hidden;
-        }
-        .image-placeholder img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-        .ai-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .ai-options button {
-            padding: 0.8rem 1rem;
-            border-radius: 0.75rem;
-            background-color: #38bdf8; /* Sky 400 */
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-            box-shadow: 0 4px 10px rgba(56, 189, 248, 0.3);
-        }
-        .ai-options button:hover {
-            background-color: #0ea5e9; /* Sky 500 */
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(56, 189, 248, 0.4);
-        }
-        .ai-status {
-            text-align: center;
-            font-size: 1rem;
-            color: #94a3b8;
-            min-height: 24px;
-        }
-        @media (max-width: 600px) {
-            .ai-photo-editor-container { padding: 1.5rem; }
-            .image-placeholder { height: 200px; }
-            .ai-options button { padding: 0.6rem 0.8rem; font-size: 0.9rem; }
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding:1rem; }
+        .ai-photo-editor-container { background-color: #1e293b; padding: 2rem; border-radius: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; max-width: 600px; border: 1px solid #334155; color: #e2e8f0; }
+        .image-placeholder { width: 100%; height: 300px; background-color: #2d3748; border-radius: 0.5rem; margin-bottom: 1.5rem; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; color: #94a3b8; border: 2px dashed #475569; overflow: hidden; position: relative; }
+        .image-placeholder img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .ai-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .ai-options button { padding: 0.8rem 1rem; border-radius: 0.75rem; background-color: #38bdf8; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; box-shadow: 0 4px 10px rgba(56, 189, 248, 0.3); }
+        .ai-options button:hover { background-color: #0ea5e9; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(56, 189, 248, 0.4); }
+        .ai-options button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+        .status-area { text-align: center; margin-top: 1rem; }
+        .status-message { font-size: 1rem; color: #94a3b8; min-height: 24px; margin-bottom: 0.5rem; }
+        .progress-bar-container { width: 100%; background-color: #475569; border-radius: 9999px; height: 8px; overflow: hidden; }
+        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #38bdf8, #60a5fa); border-radius: 9999px; transition: width 0.3s ease; }
+        .file-input-label { display: inline-block; padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #10b981; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s ease; text-align: center; }
+        .file-input-label:hover { background-color: #059669; transform: translateY(-1px); }
+        .hidden-input { display: none; }
+        @media (max-width: 600px) { .ai-photo-editor-container { padding: 1.5rem; } .image-placeholder { height: 200px; } .ai-options button, .file-input-label { padding: 0.6rem 0.8rem; font-size: 0.9rem; } }
     </style>
 </head>
 <body>
     <div class="ai-photo-editor-container">
         <div class="image-placeholder">
-            <img id="aiPhoto" src="https://placehold.co/400x250/60a5fa/ffffff?text=Upload%20Image" alt="AI Photo">
+            <img id="aiPhoto" src="https://placehold.co/400x250/60a5fa/ffffff?text=Upload%20Image" alt="AI Photo" onerror="this.src='https://placehold.co/400x250/ef4444/ffffff?text=Error+Loading'; this.onerror=null;">
         </div>
         <div class="ai-options">
-            <label for="imageUploadAI" class="ai-options button">
-                <i class="fa-solid fa-upload"></i> Upload Image
-            </label>
+            <label for="imageUploadAI" class="file-input-label"><i class="fa-solid fa-upload"></i> Upload Image</label>
             <input type="file" id="imageUploadAI" accept="image/*" class="hidden-input" onchange="loadImageAI(event)">
-            <button onclick="simulateAIPhoto('auto-enhance')"><i class="fa-solid fa-wand-magic-sparkles"></i> Auto-Enhance</button>
-            <button onclick="simulateAIPhoto('background-remove')"><i class="fa-solid fa-eraser"></i> Remove Background</button>
-            <button onclick="simulateAIPhoto('smart-crop')"><i class="fa-solid fa-crop-simple"></i> Smart Crop</button>
+            <button id="autoEnhanceBtn" onclick="simulateAIPhoto('auto-enhance')" disabled><i class="fa-solid fa-wand-magic-sparkles"></i> Enhance</button>
+            <button id="bgRemoveBtn" onclick="simulateAIPhoto('background-remove')" disabled><i class="fa-solid fa-eraser"></i> BG Remove</button>
+            <button id="smartCropBtn" onclick="simulateAIPhoto('smart-crop')" disabled><i class="fa-solid fa-crop-simple"></i> Smart Crop</button>
+            <button id="denoiseBtn" onclick="simulateAIPhoto('denoise')" disabled><i class="fa-solid fa-cloud"></i> Denoise</button>
         </div>
-        <div id="aiPhotoStatus" class="ai-status">Ready for AI photo magic!</div>
+        <div class="status-area">
+            <div id="aiPhotoStatus" class="status-message">Upload an image to start AI magic!</div>
+            <div class="progress-bar-container"><div id="aiProgressBar" class="progress-bar"></div></div>
+        </div>
     </div>
-
     <script>
-        const aiPhoto = document.getElementById('aiPhoto');
-        const aiPhotoStatus = document.getElementById('aiPhotoStatus');
-
-        function loadImageAI(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    aiPhoto.src = e.target.result;
-                    aiPhotoStatus.textContent = 'Image loaded. Choose an AI operation.';
-                    aiPhotoStatus.style.color = '#94a3b8';
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function simulateAIPhoto(feature) {
-            if (aiPhoto.src.includes('placehold.co')) {
-                parent.showMessageBox('Please upload an image first!', 'warning', 'No Image');
-                return;
-            }
-            aiPhotoStatus.textContent = `Applying AI ${feature}... Please wait.`;
-            aiPhotoStatus.style.color = '#f97316'; // Orange
-
-            setTimeout(() => {
-                aiPhotoStatus.textContent = `AI ${feature} completed! (Simulated)`;
-                aiPhotoStatus.style.color = '#34d399'; // Green
-                parent.showMessageBox(`AI ${feature} operation finished successfully!`, 'success', 'AI Photo Complete');
-            }, 3000); // Simulate processing time
-        }
+        const aiPhoto = document.getElementById('aiPhoto'); const aiPhotoStatus = document.getElementById('aiPhotoStatus'); const aiProgressBar = document.getElementById('aiProgressBar'); const aiPhotoButtons = document.querySelectorAll('.ai-options button'); let aiPhotoLoaded = false;
+        function enableAIPhotoButtons(enable) { aiPhotoButtons.forEach(button => button.disabled = !enable); }
+        function loadImageAI(event) { const file = event.target.files[0]; if (file) { const reader = new FileReader(); reader.onload = (e) => { aiPhoto.src = e.target.result; aiPhotoLoaded = true; enableAIPhotoButtons(true); aiPhotoStatus.textContent = 'Image loaded. Choose an AI operation.'; aiPhotoStatus.style.color = '#94a3b8'; aiProgressBar.style.width = '0%'; if (parent && parent.showMessageBox) parent.showMessageBox('Image loaded successfully!', 'success', 'Image Loaded'); }; reader.readAsDataURL(file); } }
+        function simulateAIPhoto(feature) { if (!aiPhotoLoaded) { if (parent && parent.showMessageBox) parent.showMessageBox('Please upload an image first!', 'warning', 'No Image'); return; } enableAIPhotoButtons(false); aiPhotoStatus.textContent = `Applying AI ${feature}... Please wait.`; aiPhotoStatus.style.color = '#f97316'; aiProgressBar.style.width = '0%'; let progress = 0; const interval = setInterval(() => { progress += 5; aiProgressBar.style.width = `${progress}%`; if (progress >= 100) { clearInterval(interval); aiPhotoStatus.textContent = `AI ${feature} completed! (Simulated)`; aiPhotoStatus.style.color = '#34d399'; enableAIPhotoButtons(true); if (parent && parent.showMessageBox) parent.showMessageBox(`AI ${feature} operation finished successfully!`, 'success', 'AI Photo Complete'); aiPhoto.src = `https://placehold.co/400x250/60a5fa/ffffff?text=AI%20${feature.replace('-', '%20')}%20Applied`; } }, 150); }
     </script>
 </body>
 </html>
                     </textarea>
                 </div>
                 <div class="live-preview">
-                    <iframe id="photoEditor2Preview" title="AI Photo Retoucher Preview"></iframe>
+                    <iframe id="photoEditor5Preview" title="AI Photo Retoucher Preview"></iframe>
                 </div>
             </div>
             <div class="button-group">
-                <button onclick="loadDigitalApp('photoEditor2')">Run Editor</button>
+                <button onclick="loadDigitalApp('photoEditor5')">Run Editor</button>
             </div>
         </section>
 
-        <h2 class="section-title mb-16 mt-24 wow animate__animated animate__fadeIn">Music Editors</h2>
+        <div class="text-center mb-16 mt-24">
+             <h2 class="section-title music-editors-title wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">Music Editors</h2>
+        </div>
 
-        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
-            <h2>1. Basic Audio Editor</h2>
+        <section class="digital-app-card wow animate__animated animate__zoomIn" data-wow-delay="0.2s">
+            <h2>1. Audio Player & Basic Editor</h2>
             <div class="code-preview-container">
                 <div class="code-editor">
                     <textarea id="musicEditor1Code">
@@ -844,150 +1095,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Audio Editor</title>
+    <title>Audio Player & Basic Editor</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .audio-editor-container {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 500px;
-            border: 1px solid #e2e8f0;
-        }
-        .audio-player {
-            width: 100%;
-            margin-bottom: 1rem;
-        }
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            justify-content: center;
-        }
-        .controls button, .controls input[type="range"] {
-            padding: 0.6rem 1rem;
-            border-radius: 0.5rem;
-            background-color: #dbeafe; /* Blue 100 */
-            color: #2563eb; /* Blue 600 */
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-        }
-        .controls button:hover {
-            background-color: #bfdbfe;
-            transform: translateY(-1px);
-        }
-        .controls input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 8px;
-            background: #cbd5e1;
-            outline: none;
-            opacity: 0.7;
-            transition: opacity .2s;
-            border-radius: 4px;
-        }
-        .controls input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #3b82f6;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .controls input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #3b82f6;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .time-display {
-            text-align: center;
-            font-size: 0.9rem;
-            color: #64748b;
-            margin-top: 0.5rem;
-        }
-        @media (max-width: 600px) {
-            .audio-editor-container { padding: 1rem; }
-            .controls button, .controls input[type="range"] { padding: 0.5rem 0.75rem; font-size: 0.9rem; }
-            .controls input[type="range"] { height: 6px; }
-            .controls input[type="range"]::-webkit-slider-thumb, .controls input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; }
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding:1rem; }
+        .audio-editor-container { background-color: #ffffff; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 500px; border: 1px solid #e2e8f0; }
+        .audio-player { width: 100%; margin-bottom: 1rem; }
+        .controls { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+        .controls button, .controls input[type="range"] { padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #dbeafe; color: #2563eb; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; }
+        .controls button:hover { background-color: #bfdbfe; transform: translateY(-1px); }
+        .controls input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; background: #cbd5e1; outline: none; opacity: 0.7; transition: opacity .2s; border-radius: 4px; }
+        .controls input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #3b82f6; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .time-display { text-align: center; font-size: 0.9rem; color: #64748b; margin-top: 0.5rem; }
+        .file-input-label { display: inline-block; padding: 0.6rem 1rem; border-radius: 0.5rem; background-color: #10b981; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s ease; text-align: center; }
+        .file-input-label:hover { background-color: #059669; transform: translateY(-1px); }
+        .hidden-input { display: none; }
+        @media (max-width: 600px) { .audio-editor-container { padding: 1rem; } .controls button, .controls input[type="range"], .file-input-label { padding: 0.5rem 0.75rem; font-size: 0.9rem; } }
     </style>
 </head>
 <body>
     <div class="audio-editor-container">
         <audio id="audioPlayer" class="audio-player" controls>
-            <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+            <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg" onerror="this.parentElement.innerHTML = '<p class=\'text-red-500 p-4 text-center\'>Error loading audio.</p>';">
             Your browser does not support the audio element.
         </audio>
         <div class="controls">
+            <label for="audioUpload" class="file-input-label"><i class="fa-solid fa-upload"></i> Upload Audio</label>
+            <input type="file" id="audioUpload" accept="audio/*" class="hidden-input" onchange="loadAudio(event)">
             <button onclick="playAudio()"><i class="fa-solid fa-play"></i> Play</button>
             <button onclick="pauseAudio()"><i class="fa-solid fa-pause"></i> Pause</button>
             <button onclick="stopAudio()"><i class="fa-solid fa-stop"></i> Stop</button>
             <input type="range" id="audioVolumeControl" min="0" max="1" step="0.01" value="1" oninput="setAudioVolume()">
-            <button onclick="simulateAudioEffect('reverb')"><i class="fa-solid fa-waveform"></i> Add Reverb</button>
-            <button onclick="simulateAudioEffect('normalize')"><i class="fa-solid fa-compress"></i> Normalize</button>
+            <button onclick="simulateAudioEffect('reverb')"><i class="fa-solid fa-waveform"></i> Reverb (Sim)</button>
+            <button onclick="simulateAudioEffect('normalize')"><i class="fa-solid fa-compress"></i> Normalize (Sim)</button>
+            <button onclick="simulateAudioEffect('trim')"><i class="fa-solid fa-scissors"></i> Trim (Sim)</button>
         </div>
         <div class="time-display" id="audioTimeDisplay">00:00 / 00:00</div>
     </div>
-
     <script>
-        const audioPlayer = document.getElementById('audioPlayer');
-        const audioVolumeControl = document.getElementById('audioVolumeControl');
-        const audioTimeDisplay = document.getElementById('audioTimeDisplay');
-
-        function playAudio() { audioPlayer.play(); }
-        function pauseAudio() { audioPlayer.pause(); }
-        function stopAudio() {
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0;
-        }
-        function setAudioVolume() { audioPlayer.volume = audioVolumeControl.value; }
-
-        function simulateAudioEffect(effect) {
-            parent.showMessageBox(`Applying audio effect: ${effect}... (Simulated)`, 'info', 'Audio Operation');
-            setTimeout(() => {
-                parent.showMessageBox(`Audio effect ${effect} applied! (Simulated)`, 'success', 'Audio Operation Complete');
-            }, 2500);
-        }
-
-        audioPlayer.addEventListener('timeupdate', () => {
-            const currentMinutes = Math.floor(audioPlayer.currentTime / 60);
-            const currentSeconds = Math.floor(audioPlayer.currentTime % 60);
-            const durationMinutes = Math.floor(audioPlayer.duration / 60);
-            const durationSeconds = Math.floor(audioPlayer.duration % 60);
-
-            const formattedCurrent = `${currentMinutes.toString().padStart(2, '0')}:${currentSeconds.toString().padStart(2, '0')}`;
-            const formattedDuration = `${durationMinutes.toString().padStart(2, '0')}:${durationSeconds.toString().padStart(2, '0')}`;
-
-            audioTimeDisplay.textContent = `${formattedCurrent} / ${formattedDuration}`;
-        });
-
-        audioPlayer.addEventListener('loadedmetadata', () => {
-            const durationMinutes = Math.floor(audioPlayer.duration / 60);
-            const durationSeconds = Math.floor(audioPlayer.duration % 60);
-            const formattedDuration = `${durationMinutes.toString().padStart(2, '0')}:${durationSeconds.toString().padStart(2, '0')}`;
-            audioTimeDisplay.textContent = `00:00 / ${formattedDuration}`;
-        });
+        const audioPlayer = document.getElementById('audioPlayer'); const audioVolumeControl = document.getElementById('audioVolumeControl'); const audioTimeDisplay = document.getElementById('audioTimeDisplay');
+        function loadAudio(event) { const file = event.target.files[0]; if (file) { const fileURL = URL.createObjectURL(file); audioPlayer.src = fileURL; audioPlayer.load(); audioPlayer.play(); if (parent && parent.showMessageBox) parent.showMessageBox('Audio loaded and playing!', 'success', 'Audio Loaded'); } }
+        function playAudio() { audioPlayer.play(); } function pauseAudio() { audioPlayer.pause(); } function stopAudio() { audioPlayer.pause(); audioPlayer.currentTime = 0; } function setAudioVolume() { audioPlayer.volume = audioVolumeControl.value; }
+        function simulateAudioEffect(effect) { if (parent && parent.showMessageBox) parent.showMessageBox(`Applying audio effect: ${effect}... (Simulated)`, 'info', 'Audio Operation'); setTimeout(() => { if (parent && parent.showMessageBox) parent.showMessageBox(`Audio effect ${effect} applied! (Simulated)`, 'success', 'Audio Operation Complete'); }, 2500); }
+        audioPlayer.addEventListener('timeupdate', () => { const cM = Math.floor(audioPlayer.currentTime / 60); const cS = Math.floor(audioPlayer.currentTime % 60); const dM = Math.floor(audioPlayer.duration / 60) || 0; const dS = Math.floor(audioPlayer.duration % 60) || 0; audioTimeDisplay.textContent = `${cM.toString().padStart(2, '0')}:${cS.toString().padStart(2, '0')} / ${dM.toString().padStart(2, '0')}:${dS.toString().padStart(2, '0')}`; });
+        audioPlayer.addEventListener('loadedmetadata', () => { const dM = Math.floor(audioPlayer.duration / 60) || 0; const dS = Math.floor(audioPlayer.duration % 60) || 0; audioTimeDisplay.textContent = `00:00 / ${dM.toString().padStart(2, '0')}:${dS.toString().padStart(2, '0')}`; });
     </script>
 </body>
 </html>
                     </textarea>
                 </div>
                 <div class="live-preview">
-                    <iframe id="musicEditor1Preview" title="Basic Audio Editor Preview"></iframe>
+                    <iframe id="musicEditor1Preview" title="Audio Player & Basic Editor Preview"></iframe>
                 </div>
             </div>
             <div class="button-group">
@@ -995,8 +1155,8 @@
             </div>
         </section>
 
-        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
-            <h2>2. AI Music Generator</h2>
+        <section class="digital-app-card wow animate__animated animate__zoomIn" data-wow-delay="0.3s">
+            <h2>2. Simple Synthesizer</h2>
             <div class="code-preview-container">
                 <div class="code-editor">
                     <textarea id="musicEditor2Code">
@@ -1005,146 +1165,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Music Generator</title>
+    <title>Simple Synthesizer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/tone@14.7.58/build/Tone.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #1e293b; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .ai-music-container {
-            background-color: #0f172a;
-            padding: 2rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 600px;
-            border: 1px solid #334155;
-            color: #e2e8f0;
-        }
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-        .input-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #cbd5e1;
-        }
-        .input-group input[type="text"], .input-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            background-color: #2d3748;
-            border: 1px solid #475569;
-            color: #f8fafc;
-            font-size: 1rem;
-            outline: none;
-        }
-        .input-group input[type="text"]:focus, .input-group select:focus {
-            border-color: #6366f1;
-            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
-        }
-        .ai-generate-button {
-            display: block;
-            width: 100%;
-            padding: 0.8rem 1.5rem;
-            background-color: #a78bfa; /* Purple 300 */
-            color: white;
-            border-radius: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-            box-shadow: 0 4px 10px rgba(167, 139, 250, 0.3);
-        }
-        .ai-generate-button:hover {
-            background-color: #8b5cf6; /* Purple 400 */
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(167, 139, 250, 0.4);
-        }
-        .music-output {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px dashed #475569;
-            text-align: center;
-        }
-        .music-output audio {
-            width: 100%;
-            margin-top: 1rem;
-        }
-        .ai-status {
-            font-size: 1rem;
-            color: #94a3b8;
-            min-height: 24px;
-        }
-        @media (max-width: 600px) {
-            .ai-music-container { padding: 1.5rem; }
-            .input-group input, .input-group select { padding: 0.6rem; font-size: 0.9rem; }
-            .ai-generate-button { padding: 0.7rem 1rem; font-size: 0.9rem; }
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding:1rem; }
+        .synth-container { background-color: #ffffff; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 500px; border: 1px solid #e2e8f0; text-align: center; }
+        .synth-controls { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
+        .control-group { display: flex; justify-content: space-between; align-items: center; }
+        .control-group label { font-weight: 600; color: #334155; flex-basis: 30%; text-align: left; }
+        .control-group input[type="range"] { flex-grow: 1; -webkit-appearance: none; appearance: none; height: 8px; background: #cbd5e1; outline: none; opacity: 0.7; transition: opacity .2s; border-radius: 4px; }
+        .control-group input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #3b82f6; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .control-group span { font-size: 0.9rem; color: #64748b; margin-left: 0.5rem; width: 40px; text-align: right; }
+        .keyboard { display: flex; justify-content: center; gap: 0.25rem; margin-top: 1.5rem; flex-wrap: wrap; }
+        .key { background-color: #4f46e5; color: white; padding: 1rem 0.75rem; border-radius: 0.5rem; cursor: pointer; transition: background-color 0.1s ease, transform 0.05s ease; font-weight: 600; width: 50px; height: 80px; display: flex; justify-content: center; align-items: flex-end; font-size: 0.8rem; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .key:active { background-color: #6366f1; transform: translateY(2px); box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        @media (max-width: 600px) { .synth-container { padding: 1rem; } .control-group { flex-direction: column; align-items: flex-start; } .control-group label { text-align: left; margin-bottom: 0.25rem; } .control-group input[type="range"] { width: 100%; } .control-group span { margin-left: 0; width: auto; } .key { width: 45px; height: 70px; padding: 0.75rem 0.5rem; font-size: 0.7rem; } }
     </style>
 </head>
 <body>
-    <div class="ai-music-container">
-        <h3 class="text-xl font-bold mb-4 text-center">Generate Music with AI</h3>
-        <div class="input-group">
-            <label for="musicPrompt">Describe your music:</label>
-            <input type="text" id="musicPrompt" placeholder="e.g., 'Upbeat electronic track for coding'">
+    <div class="synth-container">
+        <h3 class="text-xl font-bold mb-4">Simple Synthesizer</h3>
+        <div class="synth-controls">
+            <div class="control-group"><label for="oscillatorType">Waveform:</label><select id="oscillatorType" onchange="updateSynth()"><option value="sine">Sine</option><option value="triangle">Triangle</option><option value="sawtooth">Sawtooth</option><option value="square">Square</option></select></div>
+            <div class="control-group"><label for="volume">Volume:</label><input type="range" id="volume" min="-40" max="0" value="-10" oninput="updateSynth()"><span id="volumeValue">-10dB</span></div>
+            <div class="control-group"><label for="attack">Attack:</label><input type="range" id="attack" min="0.01" max="1" step="0.01" value="0.05" oninput="updateSynth()"><span id="attackValue">0.05s</span></div>
+            <div class="control-group"><label for="release">Release:</label><input type="range" id="release" min="0.1" max="5" step="0.1" value="1" oninput="updateSynth()"><span id="releaseValue">1.0s</span></div>
         </div>
-        <div class="input-group">
-            <label for="musicGenre">Genre:</label>
-            <select id="musicGenre">
-                <option value="pop">Pop</option>
-                <option value="rock">Rock</option>
-                <option value="electronic">Electronic</option>
-                <option value="classical">Classical</option>
-                <option value="jazz">Jazz</option>
-            </select>
-        </div>
-        <button class="ai-generate-button" onclick="generateMusic()">
-            <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Music
-        </button>
-        <div class="music-output">
-            <div id="aiMusicStatus" class="ai-status">Enter prompt and genre to generate.</div>
-            <audio id="generatedMusic" controls class="hidden"></audio>
+        <div class="keyboard">
+            <div class="key" data-note="C4">C</div><div class="key" data-note="D4">D</div><div class="key" data-note="E4">E</div><div class="key" data-note="F4">F</div>
+            <div class="key" data-note="G4">G</div><div class="key" data-note="A4">A</div><div class="key" data-note="B4">B</div><div class="key" data-note="C5">C5</div>
         </div>
     </div>
-
     <script>
-        function generateMusic() {
-            const prompt = document.getElementById('musicPrompt').value;
-            const genre = document.getElementById('musicGenre').value;
-            const statusDisplay = document.getElementById('aiMusicStatus');
-            const generatedMusicPlayer = document.getElementById('generatedMusic');
-
-            if (!prompt.trim()) {
-                parent.showMessageBox('Please enter a description for your music!', 'warning', 'Missing Prompt');
-                return;
-            }
-
-            statusDisplay.textContent = `Generating a ${genre} track based on "${prompt}"...`;
-            statusDisplay.style.color = '#f97316'; // Orange
-            generatedMusicPlayer.classList.add('hidden');
-
-            setTimeout(() => {
-                // In a real application, this would be an API call to an AI music generation model.
-                // For demonstration, we'll just "generate" a placeholder audio.
-                const placeholderAudioSrc = "https://www.w3schools.com/html/horse.mp3"; // Reusing for demo
-                generatedMusicPlayer.src = placeholderAudioSrc;
-                generatedMusicPlayer.load(); // Load the new source
-                generatedMusicPlayer.classList.remove('hidden');
-                statusDisplay.textContent = `Music generated! (Simulated)`;
-                statusDisplay.style.color = '#34d399'; // Green
-                parent.showMessageBox('Your music has been generated! (Simulated)', 'success', 'Music Generation Complete');
-            }, 4000); // Simulate longer generation time
-        }
+        let synth; // Declare synth here
+        document.documentElement.addEventListener('mousedown', async () => { if (Tone.context.state !== 'running') { await Tone.start(); if (parent && parent.showMessageBox) parent.showMessageBox('Audio context started.', 'info', 'Audio Ready'); } if (!synth) { synth = new Tone.Synth().toDestination(); updateSynth(); } });
+        const oscillatorTypeSelect = document.getElementById('oscillatorType'); const volumeControl = document.getElementById('volume'); const attackControl = document.getElementById('attack'); const releaseControl = document.getElementById('release'); const volumeValueDisplay = document.getElementById('volumeValue'); const attackValueDisplay = document.getElementById('attackValue'); const releaseValueDisplay = document.getElementById('releaseValue');
+        function updateSynth() { if (!synth) return; synth.oscillator.type = oscillatorTypeSelect.value; synth.volume.value = parseFloat(volumeControl.value); synth.envelope.attack = parseFloat(attackControl.value); synth.envelope.release = parseFloat(releaseControl.value); volumeValueDisplay.textContent = `${volumeControl.value}dB`; attackValueDisplay.textContent = `${attackControl.value}s`; releaseValueDisplay.textContent = `${releaseControl.value}s`; }
+        document.querySelectorAll('.key').forEach(keyElement => { keyElement.addEventListener('mousedown', () => { if (synth) { const note = keyElement.dataset.note; synth.triggerAttack(note); } }); keyElement.addEventListener('mouseup', () => { if (synth) synth.triggerRelease(); }); keyElement.addEventListener('mouseleave', () => { if (synth && synth.envelope.value > 0) synth.triggerRelease(); }); keyElement.addEventListener('touchstart', (e) => { e.preventDefault(); if (synth) { const note = keyElement.dataset.note; synth.triggerAttack(note); } }); keyElement.addEventListener('touchend', (e) => { e.preventDefault(); if (synth) synth.triggerRelease(); }); });
+        // updateSynth(); // Call initially if synth was defined globally
     </script>
 </body>
 </html>
                     </textarea>
                 </div>
                 <div class="live-preview">
-                    <iframe id="musicEditor2Preview" title="AI Music Generator Preview"></iframe>
+                    <iframe id="musicEditor2Preview" title="Simple Synthesizer Preview"></iframe>
                 </div>
             </div>
             <div class="button-group">
@@ -1152,823 +1220,178 @@
             </div>
         </section>
 
-        <h2 class="section-title mb-16 mt-24 wow animate__animated animate__fadeIn">Game Creators</h2>
-
-        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s">
-            <h2>1. Simple Level Editor</h2>
+        <section class="digital-app-card wow animate__animated animate__zoomIn" data-wow-delay="0.4s">
+            <h2>3. Audio Recorder</h2>
             <div class="code-preview-container">
                 <div class="code-editor">
-                    <textarea id="gameCreator1Code">
+                    <textarea id="musicEditor3Code">
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Level Editor</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Press Start 2P', cursive; background-color: #2d3748; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .level-editor-container {
-            background-color: #1a202c;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 700px;
-            border: 1px solid #4a5568;
-            color: #f8fafc;
-        }
-        .palette {
-            display: flex;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-            justify-content: center;
-            padding: 0.75rem;
-            background-color: #4a5568;
-            border-radius: 0.5rem;
-        }
-        .palette-item {
-            width: 40px;
-            height: 40px;
-            background-color: #64748b;
-            border-radius: 0.25rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            cursor: grab;
-            transition: transform 0.1s ease, background-color 0.2s ease;
-            border: 2px solid transparent;
-        }
-        .palette-item:hover {
-            transform: scale(1.1);
-            background-color: #94a3b8;
-        }
-        .palette-item.selected {
-            border-color: #38bdf8;
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.5);
-        }
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr); /* 10x10 grid */
-            grid-template-rows: repeat(10, 1fr);
-            width: 100%;
-            padding-bottom: 100%; /* Maintain square aspect ratio */
-            background-color: #0f172a;
-            border: 2px solid #334155;
-            border-radius: 0.5rem;
-            position: relative;
-        }
-        .grid-cell {
-            width: 100%;
-            height: 100%;
-            border: 1px solid #2d3748;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            color: #cbd5e1;
-            overflow: hidden;
-        }
-        .grid-cell i {
-            pointer-events: none; /* Allow click to pass through to cell */
-        }
-        .grid-cell.ground { background-color: #65a30d; } /* Lime 700 */
-        .grid-cell.wall { background-color: #475569; } /* Slate 700 */
-        .grid-cell.player { background-color: #ef4444; } /* Red 500 */
-        .grid-cell.enemy { background-color: #f97316; } /* Orange 500 */
-        .grid-cell.coin { background-color: #facc15; } /* Yellow 500 */
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            justify-content: center;
-        }
-        .action-buttons button {
-            padding: 0.7rem 1.2rem;
-            border-radius: 0.75rem;
-            background-color: #3b82f6;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-        }
-        .action-buttons button:hover {
-            background-color: #2563eb;
-            transform: translateY(-2px);
-        }
-        @media (max-width: 600px) {
-            .level-editor-container { padding: 1rem; }
-            .palette-item { width: 35px; height: 35px; font-size: 1.2rem; }
-            .grid-cell { font-size: 1rem; }
-            .action-buttons button { padding: 0.6rem 1rem; font-size: 0.9rem; }
-        }
-    </style>
-</head>
-<body>
-    <div class="level-editor-container">
-        <h3 class="text-xl font-bold mb-4 text-center">Build Your Level!</h3>
-        <div class="palette">
-            <div class="palette-item selected" data-tool="ground" title="Ground"><i class="fa-solid fa-square"></i></div>
-            <div class="palette-item" data-tool="wall" title="Wall"><i class="fa-solid fa-cube"></i></div>
-            <div class="palette-item" data-tool="player" title="Player"><i class="fa-solid fa-person"></i></div>
-            <div class="palette-item" data-tool="enemy" title="Enemy"><i class="fa-solid fa-ghost"></i></div>
-            <div class="palette-item" data-tool="coin" title="Coin"><i class="fa-solid fa-coin"></i></div>
-            <div class="palette-item" data-tool="eraser" title="Eraser"><i class="fa-solid fa-eraser"></i></div>
-        </div>
-        <div id="gameGrid" class="game-grid">
-            </div>
-        <div class="action-buttons">
-            <button onclick="clearGrid()"><i class="fa-solid fa-trash"></i> Clear Grid</button>
-            <button onclick="saveLevel()"><i class="fa-solid fa-save"></i> Save Level (Simulated)</button>
-            <button onclick="loadLevel()"><i class="fa-solid fa-folder-open"></i> Load Level (Simulated)</button>
-        </div>
-    </div>
-
-    <script>
-        const gameGrid = document.getElementById('gameGrid');
-        const paletteItems = document.querySelectorAll('.palette-item');
-        let activeTool = 'ground'; // Default tool
-
-        // Initialize grid
-        for (let i = 0; i < 100; i++) {
-            const cell = document.createElement('div');
-            cell.classList.add('grid-cell');
-            cell.dataset.type = 'empty'; // Default type
-            cell.addEventListener('click', () => placeTile(cell));
-            gameGrid.appendChild(cell);
-        }
-
-        paletteItems.forEach(item => {
-            item.addEventListener('click', () => {
-                paletteItems.forEach(p => p.classList.remove('selected'));
-                item.classList.add('selected');
-                activeTool = item.dataset.tool;
-            });
-        });
-
-        function placeTile(cell) {
-            cell.dataset.type = activeTool;
-            cell.innerHTML = ''; // Clear previous icon
-            cell.className = 'grid-cell'; // Reset classes
-
-            if (activeTool === 'ground') {
-                cell.classList.add('ground');
-            } else if (activeTool === 'wall') {
-                cell.classList.add('wall');
-            } else if (activeTool === 'player') {
-                // Ensure only one player
-                document.querySelectorAll('.grid-cell.player').forEach(p => {
-                    p.classList.remove('player');
-                    p.innerHTML = '';
-                    p.dataset.type = 'empty';
-                });
-                cell.classList.add('player');
-                cell.innerHTML = '<i class="fa-solid fa-person"></i>';
-            } else if (activeTool === 'enemy') {
-                cell.classList.add('enemy');
-                cell.innerHTML = '<i class="fa-solid fa-ghost"></i>';
-            } else if (activeTool === 'coin') {
-                cell.classList.add('coin');
-                cell.innerHTML = '<i class="fa-solid fa-coin"></i>';
-            } else if (activeTool === 'eraser') {
-                cell.dataset.type = 'empty';
-            }
-        }
-
-        function clearGrid() {
-            document.querySelectorAll('.grid-cell').forEach(cell => {
-                cell.className = 'grid-cell';
-                cell.innerHTML = '';
-                cell.dataset.type = 'empty';
-            });
-            parent.showMessageBox('Grid cleared!', 'info', 'Level Editor');
-        }
-
-        function saveLevel() {
-            const levelData = Array.from(document.querySelectorAll('.grid-cell')).map(cell => cell.dataset.type);
-            console.log('Simulating save:', levelData);
-            parent.showMessageBox('Level saved successfully! (Simulated)', 'success', 'Level Saved');
-            // In a real app, you'd serialize 'levelData' and send to a server or local storage
-        }
-
-        function loadLevel() {
-            // Simulate loading a predefined level
-            const sampleLevel = [
-                'wall', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall',
-                'wall', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'wall',
-                'wall', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'wall',
-                'wall', 'ground', 'ground', 'player', 'ground', 'ground', 'ground', 'ground', 'ground', 'wall',
-                'wall', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'wall',
-                'wall', 'ground', 'ground', 'ground', 'ground', 'enemy', 'ground', 'ground', 'ground', 'wall',
-                'wall', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'wall',
-                'wall', 'ground', 'coin', 'ground', 'ground', 'ground', 'ground', 'coin', 'ground', 'wall',
-                'wall', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'ground', 'wall',
-                'wall', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall'
-            ];
-
-            clearGrid(); // Clear current grid before loading
-            const cells = document.querySelectorAll('.grid-cell');
-            sampleLevel.forEach((type, index) => {
-                if (cells[index]) {
-                    activeTool = type; // Temporarily set tool to apply class/icon
-                    placeTile(cells[index]);
-                }
-            });
-            // Reset active tool to default after loading
-            activeTool = 'ground';
-            paletteItems.forEach(p => p.classList.remove('selected'));
-            document.querySelector('.palette-item[data-tool="ground"]').classList.add('selected');
-
-            parent.showMessageBox('Sample level loaded! (Simulated)', 'info', 'Level Loaded');
-        }
-    </script>
-</body>
-</html>
-                    </textarea>
-                </div>
-                <div class="live-preview">
-                    <iframe id="gameCreator1Preview" title="Simple Level Editor Preview"></iframe>
-                </div>
-            </div>
-            <div class="button-group">
-                <button onclick="loadDigitalApp('gameCreator1')">Run Editor</button>
-            </div>
-        </section>
-
-        <h2 class="section-title mb-16 mt-24 wow animate__animated animate__fadeIn">Text Editors</h2>
-
-        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
-            <h2>1. Basic Rich Text Editor</h2>
-            <div class="code-preview-container">
-                <div class="code-editor">
-                    <textarea id="textEditor1Code">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Rich Text Editor</title>
+    <title>Audio Recorder</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .editor-container {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 600px;
-            border: 1px solid #e2e8f0;
-        }
-        .toolbar {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .toolbar button {
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.5rem;
-            background-color: #dbeafe; /* Blue 100 */
-            color: #2563eb; /* Blue 600 */
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-        }
-        .toolbar button:hover {
-            background-color: #bfdbfe; /* Blue 200 */
-            transform: translateY(-1px);
-        }
-        .editor-area {
-            min-height: 200px;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            outline: none;
-            overflow-y: auto;
-            font-size: 1rem;
-            line-height: 1.5;
-            background-color: #fefefe;
-        }
-        .editor-area:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-        }
-        @media (max-width: 600px) {
-            .editor-container { padding: 1rem; }
-            .toolbar { flex-wrap: wrap; }
-            .toolbar button { flex: 1 1 auto; font-size: 0.9rem; }
-            .editor-area { min-height: 150px; font-size: 0.9rem; }
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding:1rem; }
+        .recorder-container { background-color: #ffffff; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 500px; border: 1px solid #e2e8f0; text-align: center; }
+        .controls { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-bottom: 1rem; }
+        .controls button { padding: 0.8rem 1.5rem; border-radius: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .controls button.record { background-color: #ef4444; color: white; } .controls button.record:hover { background-color: #dc2626; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3); }
+        .controls button.stop { background-color: #f97316; color: white; } .controls button.stop:hover { background-color: #ea580c; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(249, 115, 22, 0.3); }
+        .controls button.play { background-color: #10b981; color: white; } .controls button.play:hover { background-color: #059669; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3); }
+        .controls button.download { background-color: #3b82f6; color: white; } .controls button.download:hover { background-color: #2563eb; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(59, 130, 246, 0.3); }
+        .controls button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+        .audio-playback-area { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px dashed #e2e8f0; }
+        .audio-playback-area audio { width: 100%; margin-top: 1rem; }
+        .status-message { font-size: 0.9rem; color: #64748b; min-height: 24px; }
+        @media (max-width: 600px) { .recorder-container { padding: 1rem; } .controls button { padding: 0.7rem 1rem; font-size: 0.9rem; } }
     </style>
 </head>
 <body>
-    <div class="editor-container">
-        <div class="toolbar">
-            <button onclick="formatDoc('bold')"><b>B</b></button>
-            <button onclick="formatDoc('italic')"><i>I</i></button>
-            <button onclick="formatDoc('underline')"><u>U</u></button>
-            <button onclick="formatDoc('insertOrderedList')"><i class="fa-solid fa-list-ol"></i></button>
-            <button onclick="formatDoc('insertUnorderedList')"><i class="fa-solid fa-list-ul"></i></button>
-            <button onclick="formatDoc('undo')"><i class="fa-solid fa-undo"></i></button>
-            <button onclick="formatDoc('redo')"><i class="fa-solid fa-redo"></i></button>
+    <div class="recorder-container">
+        <h3 class="text-xl font-bold mb-4">Audio Recorder</h3>
+        <div class="controls">
+            <button id="recordButton" class="record" onclick="startRecording()"><i class="fa-solid fa-microphone"></i> Record</button>
+            <button id="stopButton" class="stop" onclick="stopRecording()" disabled><i class="fa-solid fa-stop"></i> Stop</button>
+            <button id="playButton" class="play" onclick="playRecording()" disabled><i class="fa-solid fa-play"></i> Play</button>
+            <button id="downloadButton" class="download" onclick="downloadRecording()" disabled><i class="fa-solid fa-download"></i> Download</button>
         </div>
-        <div id="editorArea" class="editor-area" contenteditable="true">
-            <p>Start typing here...</p>
-        </div>
+        <div id="recorderStatus" class="status-message">Click 'Record' to start.</div>
+        <div class="audio-playback-area"><audio id="audioPlayback" controls class="hidden"></audio></div>
     </div>
-
     <script>
-        function formatDoc(command, value = null) {
-            document.execCommand(command, false, value);
-            document.getElementById('editorArea').focus();
-        }
+        const recordButton = document.getElementById('recordButton'); const stopButton = document.getElementById('stopButton'); const playButton = document.getElementById('playButton'); const downloadButton = document.getElementById('downloadButton'); const recorderStatus = document.getElementById('recorderStatus'); const audioPlayback = document.getElementById('audioPlayback'); let mediaRecorder; let audioChunks = []; let audioBlob;
+        async function startRecording() { try { const stream = await navigator.mediaDevices.getUserMedia({ audio: true }); mediaRecorder = new MediaRecorder(stream); audioChunks = []; mediaRecorder.ondataavailable = (event) => { audioChunks.push(event.data); }; mediaRecorder.onstop = () => { audioBlob = new Blob(audioChunks, { type: 'audio/webm' }); const audioUrl = URL.createObjectURL(audioBlob); audioPlayback.src = audioUrl; audioPlayback.classList.remove('hidden'); playButton.disabled = false; downloadButton.disabled = false; recorderStatus.textContent = 'Recording stopped. Ready to play or download.'; recorderStatus.style.color = '#34d399'; }; mediaRecorder.start(); recordButton.disabled = true; stopButton.disabled = false; playButton.disabled = true; downloadButton.disabled = true; recorderStatus.textContent = 'Recording...'; recorderStatus.style.color = '#f97316'; if (parent && parent.showMessageBox) parent.showMessageBox('Recording started!', 'info', 'Audio Recorder'); } catch (err) { if (parent && parent.showMessageBox) parent.showMessageBox(`Error accessing microphone: ${err.message}. Please ensure microphone access is granted.`, 'error', 'Mic Access Error'); recorderStatus.textContent = 'Microphone access denied or error.'; recorderStatus.style.color = '#ef4444'; console.error('Error accessing microphone:', err); } }
+        function stopRecording() { if (mediaRecorder && mediaRecorder.state !== 'inactive') { mediaRecorder.stop(); mediaRecorder.stream.getTracks().forEach(track => track.stop()); recordButton.disabled = false; stopButton.disabled = true; } }
+        function playRecording() { if (audioBlob) { audioPlayback.play(); recorderStatus.textContent = 'Playing recording...'; recorderStatus.style.color = '#34d399'; } else { if (parent && parent.showMessageBox) parent.showMessageBox('No recording available. Please record first.', 'warning', 'No Recording'); } }
+        function downloadRecording() { if (audioBlob) { const a = document.createElement('a'); a.href = URL.createObjectURL(audioBlob); a.download = 'my_recording.webm'; document.body.appendChild(a); a.click(); document.body.removeChild(a); if (parent && parent.showMessageBox) parent.showMessageBox('Recording downloaded!', 'success', 'Download Complete'); } else { if (parent && parent.showMessageBox) parent.showMessageBox('No recording to download. Please record first.', 'warning', 'No Recording'); } }
+        audioPlayback.addEventListener('ended', () => { recorderStatus.textContent = 'Playback finished.'; recorderStatus.style.color = '#64748b'; });
     </script>
 </body>
 </html>
                     </textarea>
                 </div>
                 <div class="live-preview">
-                    <iframe id="textEditor1Preview" title="Basic Rich Text Editor Preview"></iframe>
+                    <iframe id="musicEditor3Preview" title="Audio Recorder Preview"></iframe>
                 </div>
             </div>
             <div class="button-group">
-                <button onclick="loadDigitalApp('textEditor1')">Run Editor</button>
-            </div>
-        </section>
-
-        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s">
-            <h2>2. Code Editor with Line Numbers</h2>
-            <div class="code-preview-container">
-                <div class="code-editor">
-                    <textarea id="textEditor2Code">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Editor with Line Numbers</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Fira Code', monospace; background-color: #1a202c; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .code-editor-container {
-            background-color: #2d3748;
-            padding: 1rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 700px;
-            display: flex;
-            overflow: hidden;
-            border: 1px solid #4a5568;
-        }
-        .line-numbers {
-            flex-shrink: 0;
-            padding: 0.5rem 0.75rem;
-            background-color: #4a5568;
-            color: #a0aec0;
-            text-align: right;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            border-right: 1px solid #64748b;
-            user-select: none;
-            overflow-y: hidden; /* Controlled by textarea scroll */
-        }
-        .code-textarea {
-            flex-grow: 1;
-            padding: 0.5rem 1rem;
-            background-color: #2d3748;
-            color: #f8fafc;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            border: none;
-            outline: none;
-            resize: none; /* Controlled by JS for height */
-            overflow-y: auto;
-            white-space: pre; /* Preserve whitespace */
-        }
-        @media (max-width: 600px) {
-            .code-editor-container { padding: 0.5rem; }
-            .line-numbers { padding: 0.4rem 0.5rem; font-size: 0.8rem; }
-            .code-textarea { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
-        }
-    </style>
-</head>
-<body>
-    <div class="code-editor-container">
-        <div id="lineNumbers" class="line-numbers">1</div>
-        <textarea id="codeEditor" class="code-textarea" spellcheck="false" oninput="updateLineNumbers(); syncScroll();" onscroll="syncScroll()">
-function greet(name) {
-    console.log(`Hello, ${name}!`);
-}
-
-greet('World');
-
-// This is a multi-line
-// code example to show
-// line numbers working.
-for (let i = 0; i < 10; i++) {
-    console.log(i);
-}
-        </textarea>
-    </div>
-
-    <script>
-        const codeEditor = document.getElementById('codeEditor');
-        const lineNumbers = document.getElementById('lineNumbers');
-
-        function updateLineNumbers() {
-            const lines = codeEditor.value.split('\n').length;
-            let numbers = '';
-            for (let i = 1; i <= lines; i++) {
-                numbers += i + '\n';
-            }
-            lineNumbers.textContent = numbers.trim();
-            // Adjust line numbers height to match textarea
-            lineNumbers.style.height = codeEditor.scrollHeight + 'px';
-        }
-
-        function syncScroll() {
-            lineNumbers.scrollTop = codeEditor.scrollTop;
-        }
-
-        // Initial setup
-        updateLineNumbers();
-        // Ensure textarea height adjusts on load
-        codeEditor.style.height = codeEditor.scrollHeight + 'px';
-    </script>
-</body>
-</html>
-                    </textarea>
-                </div>
-                <div class="live-preview">
-                    <iframe id="textEditor2Preview" title="Code Editor with Line Numbers Preview"></iframe>
-                </div>
-            </div>
-            <div class="button-group">
-                <button onclick="loadDigitalApp('textEditor2')">Run Editor</button>
-            </div>
-        </section>
-
-        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s">
-            <h2>3. Markdown Editor with Live Preview</h2>
-            <div class="code-preview-container">
-                <div class="code-editor">
-                    <textarea id="textEditor3Code">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markdown Editor</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .markdown-editor-container {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 800px;
-            display: flex;
-            gap: 1rem;
-            border: 1px solid #e2e8f0;
-        }
-        .markdown-input, .markdown-preview {
-            flex: 1;
-            min-height: 300px;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-        .markdown-input {
-            background-color: #f8fafc;
-            border: 1px solid #cbd5e1;
-            outline: none;
-            resize: vertical;
-        }
-        .markdown-input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-        }
-        .markdown-preview {
-            background-color: #e2e8f0;
-            border: 1px solid #cbd5e1;
-            overflow-y: auto;
-            color: #1e293b;
-        }
-        /* Basic Markdown Styling (for preview) */
-        .markdown-preview h1 { font-size: 2em; font-weight: bold; margin-bottom: 0.5em; }
-        .markdown-preview h2 { font-size: 1.5em; font-weight: bold; margin-bottom: 0.5em; }
-        .markdown-preview p { margin-bottom: 1em; }
-        .markdown-preview ul, .markdown-preview ol { margin-left: 1.5em; margin-bottom: 1em; list-style-type: disc; }
-        .markdown-preview pre { background-color: #2d3748; color: #f8fafc; padding: 0.75em; border-radius: 0.5em; overflow-x: auto; }
-        .markdown-preview code { font-family: monospace; background-color: #e2e8f0; padding: 0.2em 0.4em; border-radius: 0.3em; }
-        .markdown-preview strong { font-weight: bold; }
-        .markdown-preview em { font-style: italic; }
-
-        @media (max-width: 768px) {
-            .markdown-editor-container {
-                flex-direction: column;
-            }
-        }
-        @media (max-width: 600px) {
-            .markdown-editor-container { padding: 1rem; }
-            .markdown-input, .markdown-preview { min-height: 150px; font-size: 0.9rem; }
-        }
-    </style>
-</head>
-<body>
-    <div class="markdown-editor-container">
-        <textarea id="markdownInput" class="markdown-input" oninput="updatePreview()">
-# Hello Markdown!
-
-This is a **simple** markdown editor.
-
-- Item 1
-- Item 2
-
-Here's some `inline code`.
-
-```javascript
-// A code block
-function greet() {
-    console.log("Hello!");
-}
-greet();
-```
-        </textarea>
-        <div id="markdownPreview" class="markdown-preview"></div>
-    </div>
-
-    <script>
-        // Basic markdown parser (very simplified)
-        function parseMarkdown(markdownText) {
-            let html = markdownText
-                .replace(/^### (.*$)/gim, '<h3>$1</h3>') // h3
-                .replace(/^## (.*$)/gim, '<h2>$1</h2>') // h2
-                .replace(/^# (.*$)/gim, '<h1>$1</h1>')   // h1
-                .replace(/^\* (.*$)/gim, '<li>$1</li>')  // unordered list
-                .replace(/^- (.*$)/gim, '<li>$1</li>')   // unordered list (alternative)
-                .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>') // bold
-                .replace(/__(.*)__/gim, '<strong>$1</strong>')  // bold (alternative)
-                .replace(/\*(.*)\*/gim, '<em>$1</em>')     // italic
-                .replace(/_(.*)_/gim, '<em>$1</em>')      // italic (alternative)
-                .replace(/`([^`]+)`/gim, '<code>$1</code>'); // inline code
-
-            // Handle code blocks (simple, assumes no nested backticks within code)
-            html = html.replace(/```(.*?)```/gs, (match, p1) => {
-                return `<pre>${p1.trim()}</pre>`;
-            });
-
-            // Wrap lines not already in block tags with <p>
-            html = html.split('\n').map(line => {
-                if (line.trim() === '' || line.match(/<\/?(h[1-6]|ul|ol|li|pre|code|strong|em|u|b)>/i)) {
-                    return line;
-                }
-                return `<p>${line}</p>`;
-            }).join('');
-
-            return html;
-        }
-
-        function updatePreview() {
-            const markdownInput = document.getElementById('markdownInput').value;
-            const markdownPreview = document.getElementById('markdownPreview');
-            markdownPreview.innerHTML = parseMarkdown(markdownInput);
-        }
-
-        updatePreview(); // Initial render
-    </script>
-</body>
-</html>
-                    </textarea>
-                </div>
-                <div class="live-preview">
-                    <iframe id="textEditor3Preview" title="Markdown Editor with Live Preview"></iframe>
-                </div>
-            </div>
-            <div class="button-group">
-                <button onclick="loadDigitalApp('textEditor3')">Run Editor</button>
-            </div>
-        </section>
-
-        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.1s">
-            <h2>4. AI Text Summarizer</h2>
-            <div class="code-preview-container">
-                <div class="code-editor">
-                    <textarea id="textEditor4Code">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Text Summarizer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .summarizer-container {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 600px;
-            border: 1px solid #e2e8f0;
-        }
-        .input-textarea, .output-textarea {
-            width: 100%;
-            min-height: 150px;
-            padding: 1rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            outline: none;
-            resize: vertical;
-            background-color: #fefefe;
-            transition: border-color 0.3s ease;
-        }
-        .input-textarea:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-        }
-        .output-textarea {
-            background-color: #e2e8f0;
-            color: #1e293b;
-            margin-top: 1rem;
-            cursor: default;
-        }
-        .summarize-button {
-            display: block;
-            width: 100%;
-            padding: 0.8rem 1.5rem;
-            margin-top: 1rem;
-            background-color: #6366f1; /* Indigo 500 */
-            color: white;
-            border-radius: 0.75rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border: none;
-        }
-        .summarize-button:hover {
-            background-color: #4f46e5; /* Indigo 600 */
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
-        }
-        .status-message {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            color: #64748b;
-            min-height: 24px;
-        }
-        @media (max-width: 600px) {
-            .summarizer-container { padding: 1rem; }
-            .input-textarea, .output-textarea { min-height: 120px; font-size: 0.9rem; padding: 0.75rem; }
-            .summarize-button { padding: 0.6rem 1rem; font-size: 0.9rem; }
-            .status-message { font-size: 0.8rem; }
-        }
-    </style>
-</head>
-<body>
-    <div class="summarizer-container">
-        <h3 class="text-xl font-bold mb-4 text-center">AI Text Summarizer</h3>
-        <textarea id="inputText" class="input-textarea" placeholder="Paste your text here to summarize...">
-Artificial intelligence (AI) is intelligence demonstrated by machines, unlike the natural intelligence displayed by humans and animals. Leading AI textbooks define the field as the study of "intelligent agents": any device that perceives its environment and takes actions that maximize its chance of successfully achieving its goals. Colloquially, the term "artificial intelligence" is often used to describe machines that mimic "cognitive" functions that humans associate with the human mind, such as "learning" and "problem-solving".
-        </textarea>
-        <button class="summarize-button" onclick="summarizeText()">
-            <i class="fa-solid fa-robot"></i> Summarize Text
-        </button>
-        <textarea id="outputText" class="output-textarea" readonly placeholder="Summary will appear here..."></textarea>
-        <div id="summarizeStatus" class="status-message">Ready to summarize.</div>
-    </div>
-
-    <script>
-        const inputText = document.getElementById('inputText');
-        const outputText = document.getElementById('outputText');
-        const summarizeStatus = document.getElementById('summarizeStatus');
-
-        function summarizeText() {
-            const text = inputText.value.trim();
-            if (!text) {
-                parent.showMessageBox('Please enter some text to summarize!', 'warning', 'No Text Input');
-                return;
-            }
-
-            summarizeStatus.textContent = 'Summarizing... Please wait.';
-            summarizeStatus.style.color = '#f97316'; // Orange
-            outputText.value = ''; // Clear previous output
-
-            setTimeout(() => {
-                // In a real application, this would be an API call to an AI summarization model.
-                // For demonstration, we'll provide a simplified mock summary.
-                const mockSummary = "AI is machine intelligence, defined as intelligent agents perceiving environments to achieve goals. It often mimics human cognitive functions like learning and problem-solving.";
-                outputText.value = mockSummary;
-                summarizeStatus.textContent = 'Summarization complete! (Simulated)';
-                summarizeStatus.style.color = '#34d399'; // Green
-                parent.showMessageBox('Text summarized successfully! (Simulated)', 'success', 'Summarization Complete');
-            }, 3000); // Simulate AI processing time
-        }
-    </script>
-</body>
-</html>
-                    </textarea>
-                </div>
-                <div class="live-preview">
-                    <iframe id="textEditor4Preview" title="AI Text Summarizer Preview"></iframe>
-                </div>
-            </div>
-            <div class="button-group">
-                <button onclick="loadDigitalApp('textEditor4')">Run Editor</button>
+                <button onclick="loadDigitalApp('musicEditor3')">Run Editor</button>
             </div>
         </section>
 
     </main>
 
-    <div id="messageBoxOverlay" class="message-box-overlay">
+    <div id="messageBox" class="message-box-overlay">
         <div class="message-box-content">
-            <h3 id="messageBoxTitle" class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100"></h3>
-            <p id="messageBoxText" class="text-gray-600 dark:text-gray-300"></p>
+            <h3 id="messageBoxTitle" class="message-box-title"></h3>
+            <p id="messageBoxText" class="message-box-text"></p>
             <button id="messageBoxCloseBtn" class="message-box-button">OK</button>
         </div>
     </div>
 
+    <button id="darkModeToggle" class="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script>
-        // Message box functions
-        const messageBox = document.getElementById('messageBoxOverlay');
-        const messageBoxTitle = document.getElementById('messageBoxTitle');
-        const messageBoxText = document.getElementById('messageBoxText');
-        const messageBoxCloseBtn = document.getElementById('messageBoxCloseBtn');
+        document.addEventListener('DOMContentLoaded', function() {
+            new WOW().init();
 
-        window.showMessageBox = function(message, type = 'info', title = 'Notification') {
-            messageBoxTitle.textContent = title;
-            messageBoxText.textContent = message;
-            messageBox.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        };
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const htmlElement = document.documentElement;
+            const moonIcon = '<i class="fas fa-moon"></i>';
+            const sunIcon = '<i class="fas fa-sun"></i>';
 
-        messageBoxCloseBtn.addEventListener('click', () => {
-            messageBox.classList.remove('open');
-            document.body.style.overflow = '';
-        });
+            if (htmlElement.classList.contains('dark')) {
+                darkModeToggle.innerHTML = sunIcon;
+            } else {
+                darkModeToggle.innerHTML = moonIcon;
+            }
 
-        messageBox.addEventListener('click', (e) => {
-            if (e.target === messageBox) {
+            darkModeToggle.addEventListener('click', () => {
+                htmlElement.classList.toggle('dark');
+                if (htmlElement.classList.contains('dark')) {
+                    localStorage.setItem('darkMode', 'true');
+                    darkModeToggle.innerHTML = sunIcon;
+                } else {
+                    localStorage.setItem('darkMode', 'false');
+                    darkModeToggle.innerHTML = moonIcon;
+                }
+            });
+
+            const messageBox = document.getElementById('messageBox');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxText = document.getElementById('messageBoxText');
+            const messageBoxCloseBtn = document.getElementById('messageBoxCloseBtn');
+            let messageBoxContent = messageBox.querySelector('.message-box-content');
+
+
+            window.showMessageBox = function(message, type = 'info', title = 'Notification') {
+                messageBoxTitle.textContent = title;
+                messageBoxText.textContent = message;
+                messageBoxTitle.style.color = '';
+                messageBoxContent.style.borderColor = '';
+
+                if (htmlElement.classList.contains('dark')) {
+                     messageBoxTitle.style.color = (type === 'success') ? '#4ade80' : (type === 'error') ? '#f87171' : '#93c5fd';
+                     messageBoxContent.style.borderColor = (type === 'success') ? '#4ade80' : (type === 'error') ? '#f87171' : '#93c5fd';
+                } else {
+                    messageBoxTitle.style.color = (type === 'success') ? '#16a34a' : (type === 'error') ? '#dc2626' : '#2563eb';
+                    messageBoxContent.style.borderColor = (type === 'success') ? '#16a34a' : (type === 'error') ? '#dc2626' : '#2563eb';
+                }
+                 messageBoxContent.style.borderWidth = '3px';
+                 messageBoxContent.style.borderStyle = 'solid';
+
+                messageBox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            messageBoxCloseBtn.addEventListener('click', () => {
                 messageBox.classList.remove('open');
                 document.body.style.overflow = '';
-            }
-        });
+            });
 
-        // Function to load app code into iframe
-        window.loadDigitalApp = function(appId) {
-            const codeTextarea = document.getElementById(`${appId}Code`);
-            const previewIframe = document.getElementById(`${appId}Preview`);
+            messageBox.addEventListener('click', (e) => {
+                if (e.target === messageBox) {
+                    messageBox.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
 
-            if (codeTextarea && previewIframe) {
-                const htmlContent = codeTextarea.value;
-                const doc = previewIframe.contentWindow.document;
+            window.loadDigitalApp = function(appId) {
+                const codeTextarea = document.getElementById(`${appId}Code`);
+                const previewIframe = document.getElementById(`${appId}Preview`);
 
-                doc.open();
-                doc.write(htmlContent);
-                doc.close();
-            } else {
-                showMessageBox('Error: App elements not found.', 'error');
-            }
-        };
+                if (codeTextarea && previewIframe) {
+                    const htmlContent = codeTextarea.value;
+                    const doc = previewIframe.contentWindow.document;
+                    doc.open();
+                    doc.write(htmlContent);
+                    doc.close();
+                } else {
+                    // Only show error if the element is expected to exist
+                    const expectedAppIds = [
+                        'videoEditor1', 'videoEditor2', 'videoEditor3', 'videoEditor4', 'videoEditor5',
+                        'photoEditor1', 'photoEditor2', 'photoEditor3', 'photoEditor4', 'photoEditor5',
+                        'musicEditor1', 'musicEditor2', 'musicEditor3'
+                    ];
+                    if (expectedAppIds.includes(appId)) {
+                         showMessageBox(`Error: App elements for ${appId} not found.`, 'error', 'Loading Error');
+                    }
+                }
+            };
 
-        // Automatically load all apps on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            // Load Video Editors
-            loadDigitalApp('videoEditor1');
-            loadDigitalApp('videoEditor2');
-            // Load Photo Editors
-            loadDigitalApp('photoEditor1');
-            loadDigitalApp('photoEditor2');
-            // Load Music Editors
-            loadDigitalApp('musicEditor1');
-            loadDigitalApp('musicEditor2');
-            // Load Game Creators
-            loadDigitalApp('gameCreator1');
-            // Load Text Editors
-            loadDigitalApp('textEditor1');
-            loadDigitalApp('textEditor2');
-            loadDigitalApp('textEditor3');
-            loadDigitalApp('textEditor4');
+            const appIdsToLoad = [
+                'videoEditor1', 'videoEditor2', 'videoEditor3', 'videoEditor4', 'videoEditor5',
+                'photoEditor1', 'photoEditor2', 'photoEditor3', 'photoEditor4', 'photoEditor5',
+                'musicEditor1', 'musicEditor2', 'musicEditor3'
+            ];
+            appIdsToLoad.forEach(id => loadDigitalApp(id));
         });
     </script>
 </body>

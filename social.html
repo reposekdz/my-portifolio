@@ -1,0 +1,2028 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 Interactive Social Media App Templates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles consistent with ecomerce.html */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light slate background */
+            color: #1e293b; /* Dark slate text */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark body {
+            background-color: #0f172a; /* Darker slate background */
+            color: #e2e8f0; /* Light slate text */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem; /* 4xl */
+            font-weight: 800; /* Extra bold */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899); /* Purple to Pink gradient for Social Media */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+            border-radius: 2px;
+        }
+
+        .app-card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .app-card {
+            background-color: #1e293b;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #334155;
+        }
+        .app-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+        }
+        .dark .app-card:hover {
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .app-card h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #334155;
+            text-align: center;
+        }
+        .dark .app-card h2 {
+            color: #f8fafc;
+        }
+
+        .code-preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) {
+            .code-preview-container {
+                flex-direction: row;
+            }
+        }
+
+        .code-editor, .live-preview {
+            flex: 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid #cbd5e1;
+            transition: border-color 0.3s ease;
+        }
+        .dark .code-editor, .dark .live-preview {
+            border-color: #475569;
+        }
+
+        .code-editor textarea {
+            width: 100%;
+            height: 450px;
+            padding: 1rem;
+            background-color: #2d3748;
+            color: #f8fafc;
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: none;
+            outline: none;
+            resize: vertical;
+            border-radius: 1rem;
+        }
+
+        .live-preview iframe {
+            width: 100%;
+            height: 450px;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 1rem;
+        }
+        .dark .live-preview iframe {
+            background-color: #0f172a;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .button-group button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899); /* Purple to Pink */
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .dark .button-group button {
+            background: linear-gradient(45deg, #ec4899, #f472b6);
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
+        }
+        .button-group button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+        }
+        .dark .button-group button:hover {
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        /* Message Box styles (copied directly from ecomerce.html) */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .message-box-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .dark .message-box-content {
+            background-color: #1e293b;
+        }
+        .message-box-overlay.open .message-box-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .message-box-button {
+            background-color: #8b5cf6; /* Adjusted for social media theme */
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .dark .message-box-button {
+            background-color: #ec4899; /* Adjusted for social media theme */
+        }
+        .message-box-button:hover {
+            background-color: #7c3aed;
+        }
+        .dark .message-box-button:hover {
+            background-color: #db2777;
+        }
+
+        /* Search Bar Only Header (copied directly from ecomerce.html) */
+        .simplified-header {
+            background-color: #ffffff; /* White background for simplicity */
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .dark .simplified-header {
+            background-color: #1e293b;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .simplified-header .search-container {
+            position: relative;
+            width: 80%; /* Wider search bar */
+            max-width: 600px; /* Max width for larger screens */
+        }
+
+        .simplified-header input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem; /* Left padding for icon */
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem; /* Rounded corners */
+            font-size: 1rem;
+            color: #1e293b;
+            background-color: #f8fafc;
+            transition: all 0.3s ease;
+        }
+        .dark .simplified-header input {
+            background-color: #334155;
+            border-color: #475569;
+            color: #e2e8f0;
+            placeholder-color: #94a3b8;
+        }
+
+        .simplified-header input:focus {
+            outline: none;
+            border-color: #8b5cf6; /* Focus color - adjusted for social media theme */
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+        .dark .simplified-header input:focus {
+            border-color: #ec4899; /* Focus color - adjusted for social media theme */
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2);
+        }
+
+        .simplified-header .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+        .dark .simplified-header .search-icon {
+            color: #94a3b8;
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Function to show a custom message box
+        window.showMessageBox = function(message, type, title = 'Notification') {
+            const messageBoxOverlay = document.getElementById('messageBoxOverlay');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxText = document.getElementById('messageBoxText');
+            const messageBoxButton = document.getElementById('messageBoxButton');
+
+            messageBoxTitle.textContent = title;
+            messageBoxText.textContent = message;
+
+            // Apply type-specific styling
+            messageBoxTitle.className = 'text-xl font-bold mb-3';
+            messageBoxButton.className = 'message-box-button';
+
+            if (type === 'success') {
+                messageBoxTitle.classList.add('text-green-600', 'dark:text-green-400');
+                messageBoxButton.classList.add('bg-green-600', 'hover:bg-green-700', 'dark:bg-green-500', 'dark:hover:bg-green-600');
+            } else if (type === 'error') {
+                messageBoxTitle.classList.add('text-red-600', 'dark:text-red-400');
+                messageBoxButton.classList.add('bg-red-600', 'hover:bg-red-700', 'dark:bg-red-500', 'dark:hover:bg-red-600');
+            } else { // info or default
+                messageBoxTitle.classList.add('text-blue-600', 'dark:text-blue-400');
+                messageBoxButton.classList.add('bg-blue-600', 'hover:bg-blue-700', 'dark:bg-blue-500', 'dark:hover:bg-blue-600');
+            }
+
+            messageBoxOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        };
+
+        // Function to close the custom message box
+        window.closeMessageBox = function() {
+            document.getElementById('messageBoxOverlay').classList.remove('open');
+            document.body.style.overflow = ''; // Restore scrolling
+        };
+
+        // Function to toggle dark mode
+        window.toggleDarkMode = function() {
+            const isDarkMode = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDarkMode);
+            showMessageBox(`Dark mode ${isDarkMode ? 'enabled' : 'disabled'}!`, 'info', 'Theme Change');
+        };
+
+        // Function to load template into iframe
+        window.loadSocialTemplate = function(appId) {
+            const codeTextarea = document.getElementById(appId + 'Code');
+            const previewIframe = document.getElementById(appId + 'Preview');
+            if (codeTextarea && previewIframe) {
+                previewIframe.srcdoc = codeTextarea.value;
+            }
+        };
+
+        // Specific functions for social media templates (examples)
+        window.followUser = function(button) {
+            if (button.textContent === 'Follow') {
+                button.textContent = 'Following';
+                button.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                button.classList.add('bg-gray-400', 'hover:bg-gray-500');
+                parent.showMessageBox('You are now following this user!', 'success');
+            } else {
+                button.textContent = 'Follow';
+                button.classList.remove('bg-gray-400', 'hover:bg-gray-500');
+                button.classList.add('bg-blue-500', 'hover:bg-blue-600');
+                parent.showMessageBox('You unfollowed this user.', 'info');
+            }
+        };
+
+        window.likePost = function(button) {
+            const icon = button.querySelector('i');
+            if (icon.classList.contains('fa-regular')) {
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid', 'text-red-500');
+                parent.showMessageBox('Post liked!', 'success');
+            } else {
+                icon.classList.remove('fa-solid', 'text-red-500');
+                icon.classList.add('fa-regular');
+                parent.showMessageBox('Post unliked.', 'info');
+            }
+        };
+
+        window.addComment = function() {
+            const commentText = prompt("Enter your comment:");
+            if (commentText) {
+                parent.showMessageBox(`Comment added: "${commentText}"`, 'success');
+            } else {
+                parent.showMessageBox('Comment cancelled.', 'info');
+            }
+        };
+
+        window.createPost = function() {
+            const postContent = prompt("What's on your mind?");
+            if (postContent) {
+                parent.showMessageBox(`New post created: "${postContent}"`, 'success', 'Post Created');
+            } else {
+                parent.showMessageBox('Post creation cancelled.', 'info');
+            }
+        };
+
+        window.sendMessage = function() {
+            const message = prompt("Type your message:");
+            if (message) {
+                parent.showMessageBox(`Message sent: "${message}"`, 'success', 'Message Sent');
+            } else {
+                parent.showMessageBox('Message cancelled.', 'info');
+            }
+        };
+
+        window.acceptFriendRequest = function(button) {
+            button.closest('div').innerHTML = '<span class="text-green-500">Friends!</span>';
+            parent.showMessageBox('Friend request accepted!', 'success');
+        };
+
+        window.declineFriendRequest = function(button) {
+            button.closest('div').remove();
+            parent.showMessageBox('Friend request declined.', 'info');
+        };
+
+        window.createEvent = function() {
+            const eventName = prompt("Enter event name:");
+            if (eventName) {
+                parent.showMessageBox(`Event "${eventName}" created!`, 'success', 'Event Created');
+            } else {
+                parent.showMessageBox('Event creation cancelled.', 'info');
+            }
+        };
+
+        window.joinGroup = function(button) {
+            if (button.textContent === 'Join Group') {
+                button.textContent = 'Joined';
+                button.classList.remove('bg-purple-500', 'hover:bg-purple-600');
+                button.classList.add('bg-gray-400', 'hover:bg-gray-500');
+                parent.showMessageBox('You have joined the group!', 'success');
+            } else {
+                button.textContent = 'Join Group';
+                button.classList.remove('bg-gray-400', 'hover:bg-gray-500');
+                button.classList.add('bg-purple-500', 'hover:bg-purple-600');
+                parent.showMessageBox('You left the group.', 'info');
+            }
+        };
+
+        window.viewStory = function() {
+            parent.showMessageBox('Viewing story... (Simulated)', 'info', 'Story Viewer');
+        };
+
+        window.loginUser = function() {
+            parent.showMessageBox('Login successful! (Simulated)', 'success', 'Login');
+        };
+
+        window.signupUser = function() {
+            parent.showMessageBox('Signup successful! (Simulated)', 'success', 'Signup');
+        };
+
+        window.submitPoll = function(button) {
+            parent.showMessageBox('Poll submitted! (Simulated)', 'success', 'Poll Submitted');
+            button.disabled = true; // Disable button after submission
+        };
+
+        window.showSearchResults = function() {
+            parent.showMessageBox('Showing search results... (Simulated)', 'info', 'Search Results');
+        };
+
+        window.startOnboarding = function() {
+            parent.showMessageBox('Starting onboarding! (Simulated)', 'info', 'Onboarding');
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Automatically load all social media template previews
+            const appCards = document.querySelectorAll('.app-card');
+            appCards.forEach((card, index) => {
+                const appId = `socialApp${index + 1}`;
+                loadSocialTemplate(appId);
+            });
+        });
+    </script>
+</head>
+<body class="transition-colors duration-300">
+
+    <header class="simplified-header">
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="mainSearchInput" placeholder="Search templates...">
+        </div>
+        <button class="dark-mode-toggle ml-4" onclick="toggleDarkMode()">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:inline-block"></i>
+        </button>
+    </header>
+
+    <main class="container py-16">
+        <h2 class="section-title mb-16 wow animate__animated animate__fadeIn">Social Media App Templates</h2>
+
+        <div id="appCardsContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-app-title="User Profile Page">
+                <h2>1. User Profile Page</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A clean and modern user profile with posts, followers, and following counts.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp1Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="relative h-40 bg-gradient-to-r from-purple-500 to-pink-500">
+            <img class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-32 h-32 rounded-full border-4 border-white object-cover" src="https://source.unsplash.com/150x150/?person-portrait" alt="Profile Picture" onerror="this.onerror=null;this.src='https://placehold.co/150x150/8b5cf6/ffffff?text=JP';">
+        </div>
+        <div class="pt-20 pb-8 px-6 text-center">
+            <h1 class="text-3xl font-bold text-gray-900">Jane P.</h1>
+            <p class="text-gray-600">@janep_official</p>
+            <p class="text-gray-700 mt-3 max-w-md mx-auto">Passionate photographer and digital artist. Sharing my world one pixel at a time.</p>
+            <div class="flex justify-center space-x-6 mt-5">
+                <div>
+                    <span class="block text-xl font-bold">1.2K</span>
+                    <span class="text-gray-600 text-sm">Posts</span>
+                </div>
+                <div>
+                    <span class="block text-xl font-bold">8.5K</span>
+                    <span class="text-gray-600 text-sm">Followers</span>
+                </div>
+                <div>
+                    <span class="block text-xl font-bold">450</span>
+                    <span class="text-gray-600 text-sm">Following</span>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-center space-x-4">
+                <button class="bg-blue-500 text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-600 transition duration-200" onclick="parent.followUser(this)">Follow</button>
+                <button class="bg-gray-200 text-gray-700 px-5 py-2 rounded-full font-semibold hover:bg-gray-300 transition duration-200" onclick="parent.sendMessage()">Message</button>
+            </div>
+        </div>
+        <div class="grid grid-cols-3 gap-1 p-2 border-t border-gray-200">
+            <img class="w-full h-32 object-cover" src="https://source.unsplash.com/300x300/?nature-photography" alt="Post 1" onerror="this.onerror=null;this.src='https://placehold.co/300x300/e0e0e0/ffffff?text=Post1';">
+            <img class="w-full h-32 object-cover" src="https://source.unsplash.com/300x300/?art-digital" alt="Post 2" onerror="this.onerror=null;this.src='https://placehold.co/300x300/e0e0e0/ffffff?text=Post2';">
+            <img class="w-full h-32 object-cover" src="https://source.unsplash.com/300x300/?cityscape" alt="Post 3" onerror="this.onerror=null;this.src='https://placehold.co/300x300/e0e0e0/ffffff?text=Post3';">
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp1Preview" title="User Profile Page Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp1')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-app-title="Feed/Timeline">
+                <h2>2. Feed/Timeline</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A scrollable feed displaying posts from followed users with interactive elements.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Feed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .post-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-xl mx-auto space-y-6">
+        <h1 class="text-3xl font-bold text-center mb-6">Your Feed</h1>
+
+        <div class="post-card p-4">
+            <div class="flex items-center mb-3">
+                <img class="w-10 h-10 rounded-full object-cover mr-3" src="https://source.unsplash.com/50x50/?profile-user-1" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=U1';">
+                <div>
+                    <span class="font-semibold text-gray-900">Alice Wonderland</span>
+                    <p class="text-gray-500 text-sm">2 hours ago</p>
+                </div>
+            </div>
+            <p class="text-gray-800 mb-4">Enjoying a beautiful sunset at the beach! 🌅 #sunsetlover #beachlife</p>
+            <img class="w-full h-64 object-cover rounded-lg mb-4" src="https://source.unsplash.com/600x400/?sunset-beach" alt="Post Image" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e0e0/ffffff?text=Post+Image';">
+            <div class="flex items-center justify-between text-gray-600">
+                <div class="flex space-x-4">
+                    <button class="flex items-center space-x-1 hover:text-red-500 transition duration-150" onclick="parent.likePost(this)">
+                        <i class="fa-regular fa-heart text-lg"></i>
+                        <span>123</span>
+                    </button>
+                    <button class="flex items-center space-x-1 hover:text-blue-500 transition duration-150" onclick="parent.addComment()">
+                        <i class="fa-regular fa-comment text-lg"></i>
+                        <span>45</span>
+                    </button>
+                    <button class="flex items-center space-x-1 hover:text-green-500 transition duration-150" onclick="parent.showMessageBox('Post shared!', 'success');">
+                        <i class="fa-regular fa-share-from-square text-lg"></i>
+                        <span>10</span>
+                    </button>
+                </div>
+                <button class="hover:text-gray-900" onclick="parent.showMessageBox('Options opened!', 'info');"><i class="fa-solid fa-ellipsis-h"></i></button>
+            </div>
+        </div>
+
+        <div class="post-card p-4">
+            <div class="flex items-center mb-3">
+                <img class="w-10 h-10 rounded-full object-cover mr-3" src="https://source.unsplash.com/50x50/?profile-user-2" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/ec4899/ffffff?text=U2';">
+                <div>
+                    <span class="font-semibold text-gray-900">Bob The Builder</span>
+                    <p class="text-gray-500 text-sm">1 day ago</p>
+                </div>
+            </div>
+            <p class="text-gray-800 mb-4">Just finished building my new desk setup! What do you think? #workspace #tech</p>
+            <img class="w-full h-64 object-cover rounded-lg mb-4" src="https://source.unsplash.com/600x400/?desk-setup" alt="Post Image" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e0e0/ffffff?text=Post+Image+2';">
+            <div class="flex items-center justify-between text-gray-600">
+                <div class="flex space-x-4">
+                    <button class="flex items-center space-x-1 hover:text-red-500 transition duration-150" onclick="parent.likePost(this)">
+                        <i class="fa-regular fa-heart text-lg"></i>
+                        <span>250</span>
+                    </button>
+                    <button class="flex items-center space-x-1 hover:text-blue-500 transition duration-150" onclick="parent.addComment()">
+                        <i class="fa-regular fa-comment text-lg"></i>
+                        <span>78</span>
+                    </button>
+                    <button class="flex items-center space-x-1 hover:text-green-500 transition duration-150" onclick="parent.showMessageBox('Post shared!', 'success');">
+                        <i class="fa-regular fa-share-from-square text-lg"></i>
+                        <span>22</span>
+                    </button>
+                </div>
+                <button class="hover:text-gray-900" onclick="parent.showMessageBox('Options opened!', 'info');"><i class="fa-solid fa-ellipsis-h"></i></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp2Preview" title="Feed/Timeline Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp2')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-app-title="Create Post/Upload">
+                <h2>3. Create Post/Upload</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A simple interface for users to compose and share new posts.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp3Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-xl mx-auto bg-white rounded-xl shadow-lg p-6">
+        <h1 class="text-2xl font-bold text-center mb-6">Create New Post</h1>
+        <div class="flex items-center mb-4">
+            <img class="w-12 h-12 rounded-full object-cover mr-4" src="https://source.unsplash.com/50x50/?user-avatar" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=Me';">
+            <textarea id="postContent" class="flex-grow p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-purple-500" rows="4" placeholder="What's on your mind, Jane?"></textarea>
+        </div>
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex space-x-3 text-gray-600">
+                <button class="flex items-center space-x-1 hover:text-purple-600" onclick="parent.showMessageBox('Photo/Video picker opened!', 'info');">
+                    <i class="fas fa-image"></i>
+                    <span>Photo/Video</span>
+                </button>
+                <button class="flex items-center space-x-1 hover:text-purple-600" onclick="parent.showMessageBox('Tag friends opened!', 'info');">
+                    <i class="fas fa-user-tag"></i>
+                    <span>Tag Friends</span>
+                </button>
+                <button class="flex items-center space-x-1 hover:text-purple-600" onclick="parent.showMessageBox('Location picker opened!', 'info');">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Location</span>
+                </button>
+            </div>
+        </div>
+        <button class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition duration-200" onclick="parent.createPost()">Post</button>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp3Preview" title="Create Post/Upload Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp3')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-app-title="Notifications Page">
+                <h2>4. Notifications Page</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A list of recent activities and alerts for the user.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .notification-item { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .notification-item.unread { background-color: #eef2ff; } /* Light blue for unread */
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-6">Notifications</h1>
+
+        <div class="space-y-4">
+            <div class="notification-item unread p-4 flex items-center space-x-4">
+                <img class="w-10 h-10 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-3" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/ec4899/ffffff?text=U3';">
+                <div class="flex-grow">
+                    <p class="text-gray-800"><span class="font-semibold">Charlie D.</span> liked your photo.</p>
+                    <p class="text-gray-500 text-sm">15 minutes ago</p>
+                </div>
+                <i class="fas fa-circle text-blue-500 text-xs"></i> </div>
+
+            <div class="notification-item p-4 flex items-center space-x-4">
+                <img class="w-10 h-10 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-4" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=U4';">
+                <div class="flex-grow">
+                    <p class="text-gray-800"><span class="font-semibold">Diana M.</span> started following you.</p>
+                    <p class="text-gray-500 text-sm">1 hour ago</p>
+                </div>
+            </div>
+
+            <div class="notification-item p-4 flex items-center space-x-4">
+                <img class="w-10 h-10 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-5" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/ec4899/ffffff?text=U5';">
+                <div class="flex-grow">
+                    <p class="text-gray-800"><span class="font-semibold">Eve L.</span> commented on your post: "Looks amazing!"</p>
+                    <p class="text-gray-500 text-sm">3 hours ago</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp4Preview" title="Notifications Page Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp4')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s" data-app-title="Direct Messaging/Chat">
+                <h2>5. Direct Messaging/Chat</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A simple chat interface for direct messages.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp5Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Messages</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .chat-bubble-sent { background-color: #8b5cf6; color: white; border-radius: 1.25rem 1.25rem 0.25rem 1.25rem; }
+        .chat-bubble-received { background-color: #e2e8f0; color: #1e293b; border-radius: 1.25rem 1.25rem 1.25rem 0.25rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-md mx-auto bg-white rounded-xl shadow-lg flex flex-col h-[500px]">
+        <div class="flex items-center p-4 border-b border-gray-200">
+            <img class="w-10 h-10 rounded-full object-cover mr-3" src="https://source.unsplash.com/50x50/?profile-user-6" alt="Chat Partner" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=CP';">
+            <h2 class="text-lg font-semibold flex-grow">Mark T.</h2>
+            <button class="text-gray-500 hover:text-gray-700" onclick="parent.showMessageBox('Call initiated!', 'info');"><i class="fas fa-phone"></i></button>
+            <button class="text-gray-500 hover:text-gray-700 ml-3" onclick="parent.showMessageBox('Video call initiated!', 'info');"><i class="fas fa-video"></i></button>
+        </div>
+
+        <div class="flex-grow p-4 overflow-y-auto space-y-4">
+            <div class="flex items-start">
+                <img class="w-8 h-8 rounded-full object-cover mr-2" src="https://source.unsplash.com/50x50/?profile-user-6" alt="Chat Partner" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=CP';">
+                <div class="chat-bubble-received p-3 max-w-[75%]">
+                    Hi there! How are you doing today?
+                </div>
+            </div>
+            <p class="text-center text-gray-500 text-xs">Yesterday</p>
+
+            <div class="flex justify-end">
+                <div class="chat-bubble-sent p-3 max-w-[75%]">
+                    I'm doing great, thanks! Just working on some new designs.
+                </div>
+            </div>
+
+            <div class="flex items-start">
+                <img class="w-8 h-8 rounded-full object-cover mr-2" src="https://source.unsplash.com/50x50/?profile-user-6" alt="Chat Partner" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=CP';">
+                <div class="chat-bubble-received p-3 max-w-[75%]">
+                    That sounds interesting! What kind of designs?
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 border-t border-gray-200 flex items-center">
+            <input type="text" placeholder="Type a message..." class="flex-grow p-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <button class="ml-3 bg-purple-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-purple-600 transition duration-200" onclick="parent.sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp5Preview" title="Direct Messaging/Chat Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp5')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s" data-app-title="Friends/Connections List">
+                <h2>6. Friends/Connections List</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A list of user's friends or connections with search and action buttons.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp6Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .friend-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-6">My Connections</h1>
+        <input type="text" placeholder="Search friends..." class="w-full p-3 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:ring-2 focus:ring-purple-500" onkeyup="parent.showMessageBox('Searching for: ' + this.value, 'info', 'Search');">
+
+        <div class="space-y-4">
+            <div class="friend-card p-4 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img class="w-12 h-12 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-7" alt="Friend Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/ec4899/ffffff?text=F1';">
+                    <div>
+                        <p class="font-semibold text-gray-900">Frank G.</p>
+                        <p class="text-gray-500 text-sm">Online</p>
+                    </div>
+                </div>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200 text-sm" onclick="parent.sendMessage()">Message</button>
+            </div>
+            <div class="friend-card p-4 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img class="w-12 h-12 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-8" alt="Friend Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=F2';">
+                    <div>
+                        <p class="font-semibold text-gray-900">Grace H.</p>
+                        <p class="text-gray-500 text-sm">Last seen 1 hour ago</p>
+                    </div>
+                </div>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200 text-sm" onclick="parent.sendMessage()">Message</button>
+            </div>
+            <div class="friend-card p-4 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img class="w-12 h-12 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-9" alt="Friend Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/ec4899/ffffff?text=F3';">
+                    <div>
+                        <p class="font-semibold text-gray-900">Henry I.</p>
+                        <p class="text-gray-500 text-sm">Offline</p>
+                    </div>
+                </div>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200 text-sm" onclick="parent.sendMessage()">Message</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp6Preview" title="Friends/Connections List Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp6')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s" data-app-title="Explore/Discover Page">
+                <h2>7. Explore/Discover Page</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Discover trending posts and suggested users.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp7Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .trending-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .suggested-user-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-6">Explore</h1>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Trending Posts</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="trending-card p-4">
+                    <img class="w-full h-48 object-cover rounded-lg mb-3" src="https://source.unsplash.com/400x300/?travel-adventure" alt="Trending Post" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e0e0e0/ffffff?text=Trending+1';">
+                    <p class="font-semibold text-gray-800 mb-1">#TravelGoals</p>
+                    <p class="text-gray-600 text-sm">Exploring new horizons! ✈️</p>
+                    <span class="text-gray-500 text-xs">1.5K likes</span>
+                </div>
+                <div class="trending-card p-4">
+                    <img class="w-full h-48 object-cover rounded-lg mb-3" src="https://source.unsplash.com/400x300/?food-cooking" alt="Trending Post" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e0e0e0/ffffff?text=Trending+2';">
+                    <p class="font-semibold text-gray-800 mb-1">#FoodieAdventures</p>
+                    <p class="text-gray-600 text-sm">Delicious homemade pasta!</p>
+                    <span class="text-gray-500 text-xs">900 likes</span>
+                </div>
+                <div class="trending-card p-4">
+                    <img class="w-full h-48 object-cover rounded-lg mb-3" src="https://source.unsplash.com/400x300/?fitness-workout" alt="Trending Post" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e0e0e0/ffffff?text=Trending+3';">
+                    <p class="font-semibold text-gray-800 mb-1">#FitnessMotivation</p>
+                    <p class="text-gray-600 text-sm">Morning workout done! 💪</p>
+                    <span class="text-gray-500 text-xs">1.1K likes</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold mb-4">Suggested Users</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="suggested-user-card p-4 text-center">
+                    <img class="w-20 h-20 rounded-full object-cover mx-auto mb-3" src="https://source.unsplash.com/50x50/?profile-user-10" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=U10';">
+                    <p class="font-semibold text-gray-900">Kevin J.</p>
+                    <p class="text-gray-600 text-sm mb-3">Photographer</p>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200 text-sm" onclick="parent.followUser(this)">Follow</button>
+                </div>
+                <div class="suggested-user-card p-4 text-center">
+                    <img class="w-20 h-20 rounded-full object-cover mx-auto mb-3" src="https://source.unsplash.com/50x50/?profile-user-11" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/ec4899/ffffff?text=U11';">
+                    <p class="font-semibold text-gray-900">Linda K.</p>
+                    <p class="text-gray-600 text-sm mb-3">Travel Blogger</p>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200 text-sm" onclick="parent.followUser(this)">Follow</button>
+                </div>
+                <div class="suggested-user-card p-4 text-center">
+                    <img class="w-20 h-20 rounded-full object-cover mx-auto mb-3" src="https://source.unsplash.com/50x50/?profile-user-12" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=U12';">
+                    <p class="font-semibold text-gray-900">Mike L.</p>
+                    <p class="text-gray-600 text-sm mb-3">Chef</p>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200 text-sm" onclick="parent.followUser(this)">Follow</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp7Preview" title="Explore/Discover Page Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp7')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s" data-app-title="Settings Page">
+                <h2>8. Settings Page</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage account, privacy, and notification settings.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp8Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .settings-section { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-6">Settings</h1>
+
+        <div class="space-y-6">
+            <div class="settings-section p-6">
+                <h2 class="text-xl font-bold mb-4">Account Settings</h2>
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                    <input type="text" id="username" value="janep_official" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                    <input type="email" id="email" value="jane.p@example.com" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-200" onclick="parent.showMessageBox('Account settings saved!', 'success');">Save Changes</button>
+            </div>
+
+            <div class="settings-section p-6">
+                <h2 class="text-xl font-bold mb-4">Privacy Settings</h2>
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-gray-700">Private Account</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer" checked onchange="parent.showMessageBox('Private account toggled!', 'info');">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
+                    </label>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-gray-700">Allow Direct Messages</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer" onchange="parent.showMessageBox('DM setting toggled!', 'info');">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-section p-6">
+                <h2 class="text-xl font-bold mb-4">Notifications</h2>
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-gray-700">Email Notifications</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer" checked onchange="parent.showMessageBox('Email notifications toggled!', 'info');">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
+                    </label>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-gray-700">Push Notifications</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer" checked onchange="parent.showMessageBox('Push notifications toggled!', 'info');">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp8Preview" title="Settings Page Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp8')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s" data-app-title="Event Creation/Management">
+                <h2>9. Event Creation/Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Create and manage social events with details and RSVPs.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp9Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .event-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-6">Events</h1>
+
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Create New Event</h2>
+            <div class="mb-4">
+                <label for="eventName" class="block text-gray-700 text-sm font-bold mb-2">Event Name</label>
+                <input type="text" id="eventName" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="e.g., Tech Meetup, Art Exhibition">
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="eventDate" class="block text-gray-700 text-sm font-bold mb-2">Date</label>
+                    <input type="date" id="eventDate" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <div>
+                    <label for="eventTime" class="block text-gray-700 text-sm font-bold mb-2">Time</label>
+                    <input type="time" id="eventTime" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="eventLocation" class="block text-gray-700 text-sm font-bold mb-2">Location</label>
+                <input type="text" id="eventLocation" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="e.g., Central Park, Online (Zoom)">
+            </div>
+            <div class="mb-6">
+                <label for="eventDescription" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+                <textarea id="eventDescription" class="w-full p-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-purple-500" rows="3" placeholder="Tell us more about your event..."></textarea>
+            </div>
+            <button class="w-full bg-purple-500 text-white py-3 rounded-lg font-semibold hover:bg-purple-600 transition duration-200" onclick="parent.createEvent()">Create Event</button>
+        </div>
+
+        <h2 class="text-2xl font-bold mb-4">Upcoming Events</h2>
+        <div class="space-y-4">
+            <div class="event-card p-4 flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold">Community Cleanup Day</h3>
+                    <p class="text-gray-600 text-sm">June 10, 2025 | 9:00 AM - 12:00 PM</p>
+                    <p class="text-gray-500 text-xs">Local Park</p>
+                </div>
+                <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200 text-sm" onclick="parent.showMessageBox('RSVP confirmed!', 'success');">RSVP</button>
+            </div>
+            <div class="event-card p-4 flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold">Online Gaming Tournament</h3>
+                    <p class="text-gray-600 text-sm">July 5, 2025 | 7:00 PM EST</p>
+                    <p class="text-gray-500 text-xs">Online</p>
+                </div>
+                <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200 text-sm" onclick="parent.showMessageBox('RSVP confirmed!', 'success');">RSVP</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp9Preview" title="Event Creation/Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp9')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s" data-app-title="Group/Community Page">
+                <h2>10. Group/Community Page</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A dedicated page for communities with a feed and member list.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp10Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .group-header { background-image: url('https://source.unsplash.com/800x200/?community-group'); background-size: cover; background-position: center; }
+        .group-post-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-3xl mx-auto">
+        <div class="group-header h-40 rounded-t-xl relative flex items-center justify-center text-white">
+            <div class="absolute inset-0 bg-black bg-opacity-40 rounded-t-xl"></div>
+            <h1 class="relative z-10 text-4xl font-bold">Creative Minds Hub</h1>
+        </div>
+        <div class="bg-white rounded-b-xl shadow-lg p-6">
+            <p class="text-gray-700 text-center mb-4">A community for artists, designers, and innovators to share ideas and collaborate.</p>
+            <div class="flex justify-center space-x-4 mb-6">
+                <button class="bg-purple-500 text-white px-5 py-2 rounded-lg font-semibold hover:bg-purple-600 transition duration-200" onclick="parent.joinGroup(this)">Join Group</button>
+                <button class="bg-gray-200 text-gray-700 px-5 py-2 rounded-lg font-semibold hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Sharing group!', 'info');">Share Group</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-2 space-y-4">
+                    <h2 class="text-xl font-bold mb-3">Group Feed</h2>
+                    <div class="group-post-card p-4">
+                        <div class="flex items-center mb-3">
+                            <img class="w-8 h-8 rounded-full object-cover mr-3" src="https://source.unsplash.com/50x50/?profile-user-13" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=U13';">
+                            <div>
+                                <span class="font-semibold text-gray-900">Olivia P.</span>
+                                <p class="text-gray-500 text-sm">Just now</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-800 mb-4">Excited to share my latest digital painting project with you all! Feedback welcome!</p>
+                        <img class="w-full h-48 object-cover rounded-lg mb-4" src="https://source.unsplash.com/600x400/?digital-art" alt="Post Image" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e0e0/ffffff?text=Group+Post';">
+                        <div class="flex items-center justify-between text-gray-600">
+                            <button class="flex items-center space-x-1 hover:text-red-500" onclick="parent.likePost(this)"><i class="fa-regular fa-heart"></i><span>50</span></button>
+                            <button class="flex items-center space-x-1 hover:text-blue-500" onclick="parent.addComment()"><i class="fa-regular fa-comment"></i><span>12</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-1">
+                    <h2 class="text-xl font-bold mb-3">Members (150)</h2>
+                    <ul class="space-y-2">
+                        <li class="flex items-center space-x-3">
+                            <img class="w-8 h-8 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-14" alt="Member Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/ec4899/ffffff?text=M1';">
+                            <span class="text-gray-800">Paul Q.</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <img class="w-8 h-8 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-15" alt="Member Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=M2';">
+                            <span class="text-gray-800">Quinn R.</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <img class="w-8 h-8 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-16" alt="Member Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/ec4899/ffffff?text=M3';">
+                            <span class="text-gray-800">Rachel S.</span>
+                        </li>
+                    </ul>
+                    <button class="mt-4 w-full bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Viewing all members!', 'info');">View All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp10Preview" title="Group/Community Page Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp10')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.1s" data-app-title="Story/Status Viewer">
+                <h2>11. Story/Status Viewer</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A full-screen viewer for ephemeral stories.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp11Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Viewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .story-viewer {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 600px;
+            margin: auto;
+            background-color: black;
+            border-radius: 1rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .story-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .story-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0));
+        }
+        .story-header {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+        }
+        .story-footer {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+        .progress-bar {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            right: 0.5rem;
+            height: 4px;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            z-index: 10;
+        }
+        .progress-bar-fill {
+            width: 70%; /* Simulate progress */
+            height: 100%;
+            background-color: white;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="p-4 flex justify-center items-center h-screen">
+    <div class="story-viewer">
+        <div class="progress-bar"><div class="progress-bar-fill"></div></div>
+        <img class="story-image" src="https://source.unsplash.com/400x600/?story-nature" alt="Story Image" onerror="this.onerror=null;this.src='https://placehold.co/400x600/8b5cf6/ffffff?text=Story';">
+        <div class="story-overlay"></div>
+
+        <div class="story-header">
+            <div class="flex items-center">
+                <img class="w-8 h-8 rounded-full object-cover mr-2" src="https://source.unsplash.com/50x50/?profile-user-17" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/ec4899/ffffff?text=U17';">
+                <span class="font-semibold">Sarah T.</span>
+            </div>
+            <button class="text-white text-xl" onclick="parent.showMessageBox('Story closed!', 'info');"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div class="story-footer">
+            <input type="text" placeholder="Send message..." class="flex-grow p-2 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-full text-white placeholder-gray-200 focus:outline-none focus:ring-1 focus:ring-white">
+            <button class="ml-3 text-white text-xl" onclick="parent.showMessageBox('Message sent to story owner!', 'success');"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp11Preview" title="Story/Status Viewer Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp11')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.2s" data-app-title="Login/Signup Page">
+                <h2>12. Login/Signup Page</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A modern, clean login and signup form.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp12Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Signup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .auth-card { background-color: white; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .tab-button.active {
+            background-color: #8b5cf6;
+            color: white;
+            box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="p-4 flex justify-center items-center h-screen">
+    <div class="auth-card w-full max-w-md p-8">
+        <h1 class="text-3xl font-bold text-center mb-6">Welcome</h1>
+
+        <div class="flex bg-gray-100 rounded-full p-1 mb-6">
+            <button id="loginTab" class="flex-1 py-2 rounded-full text-gray-700 font-semibold transition duration-200 tab-button active" onclick="showAuthTab('login')">Login</button>
+            <button id="signupTab" class="flex-1 py-2 rounded-full text-gray-700 font-semibold transition duration-200 tab-button" onclick="showAuthTab('signup')">Signup</button>
+        </div>
+
+        <div id="loginForm" class="auth-form">
+            <div class="mb-4">
+                <label for="loginEmail" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                <input type="email" id="loginEmail" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="your@example.com">
+            </div>
+            <div class="mb-6">
+                <label for="loginPassword" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                <input type="password" id="loginPassword" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="********">
+            </div>
+            <button class="w-full bg-purple-500 text-white py-3 rounded-lg font-semibold hover:bg-purple-600 transition duration-200" onclick="parent.loginUser()">Login</button>
+            <p class="text-center text-gray-600 text-sm mt-4">Forgot password? <a href="#" class="text-purple-600 hover:underline" onclick="parent.showMessageBox('Password reset initiated!', 'info');">Reset here</a></p>
+        </div>
+
+        <div id="signupForm" class="auth-form hidden">
+            <div class="mb-4">
+                <label for="signupUsername" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                <input type="text" id="signupUsername" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Choose a username">
+            </div>
+            <div class="mb-4">
+                <label for="signupEmail" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                <input type="email" id="signupEmail" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="your@example.com">
+            </div>
+            <div class="mb-6">
+                <label for="signupPassword" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                <input type="password" id="signupPassword" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="********">
+            </div>
+            <button class="w-full bg-pink-500 text-white py-3 rounded-lg font-semibold hover:bg-pink-600 transition duration-200" onclick="parent.signupUser()">Signup</button>
+        </div>
+    </div>
+
+    <script>
+        function showAuthTab(tabName) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const loginTab = document.getElementById('loginTab');
+            const signupTab = document.getElementById('signupTab');
+
+            if (tabName === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                loginTab.classList.add('active');
+                signupTab.classList.remove('active');
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                loginTab.classList.remove('active');
+                signupTab.classList.add('active');
+            }
+        }
+        // Initialize with login tab active
+        document.addEventListener('DOMContentLoaded', () => showAuthTab('login'));
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp12Preview" title="Login/Signup Page Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp12')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.3s" data-app-title="Friend Request Management">
+                <h2>13. Friend Request Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage incoming friend requests with accept/decline options.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp13Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend Requests</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .request-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-6">Friend Requests</h1>
+
+        <div class="space-y-4">
+            <div class="request-card p-4 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img class="w-12 h-12 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-18" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=U18';">
+                    <div>
+                        <p class="font-semibold text-gray-900">Sophia M.</p>
+                        <p class="text-gray-500 text-sm">Sent 3 hours ago</p>
+                    </div>
+                </div>
+                <div class="flex space-x-2">
+                    <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200 text-sm" onclick="parent.acceptFriendRequest(this)">Accept</button>
+                    <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200 text-sm" onclick="parent.declineFriendRequest(this)">Decline</button>
+                </div>
+            </div>
+            <div class="request-card p-4 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img class="w-12 h-12 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-19" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/ec4899/ffffff?text=U19';">
+                    <div>
+                        <p class="font-semibold text-gray-900">Tom N.</p>
+                        <p class="text-gray-500 text-sm">Sent yesterday</p>
+                    </div>
+                </div>
+                <div class="flex space-x-2">
+                    <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200 text-sm" onclick="parent.acceptFriendRequest(this)">Accept</button>
+                    <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200 text-sm" onclick="parent.declineFriendRequest(this)">Decline</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp13Preview" title="Friend Request Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp13')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.4s" data-app-title="Photo Grid/Gallery">
+                <h2>14. Photo Grid/Gallery</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A responsive grid display for user photos.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp14Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .photo-grid img { transition: transform 0.2s ease-in-out; }
+        .photo-grid img:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-6">My Photo Gallery</h1>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 photo-grid">
+            <img class="w-full h-48 object-cover rounded-lg shadow-md cursor-pointer" src="https://source.unsplash.com/400x300/?landscape-1" alt="Gallery Image" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e0e0e0/ffffff?text=Photo1';" onclick="parent.showMessageBox('Viewing image 1!', 'info', 'Image Viewer');">
+            <img class="w-full h-48 object-cover rounded-lg shadow-md cursor-pointer" src="https://source.unsplash.com/400x300/?city-view-1" alt="Gallery Image" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e0e0e0/ffffff?text=Photo2';" onclick="parent.showMessageBox('Viewing image 2!', 'info', 'Image Viewer');">
+            <img class="w-full h-48 object-cover rounded-lg shadow-md cursor-pointer" src="https://source.unsplash.com/400x300/?abstract-art-1" alt="Gallery Image" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e0e0e0/ffffff?text=Photo3';" onclick="parent.showMessageBox('Viewing image 3!', 'info', 'Image Viewer');">
+            <img class="w-full h-48 object-cover rounded-lg shadow-md cursor-pointer" src="https://source.unsplash.com/400x300/?portrait-photography-1" alt="Gallery Image" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e0e0e0/ffffff?text=Photo4';" onclick="parent.showMessageBox('Viewing image 4!', 'info', 'Image Viewer');">
+            <img class="w-full h-48 object-cover rounded-lg shadow-md cursor-pointer" src="https://source.unsplash.com/400x300/?wildlife-1" alt="Gallery Image" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e0e0e0/ffffff?text=Photo5';" onclick="parent.showMessageBox('Viewing image 5!', 'info', 'Image Viewer');">
+            <img class="w-full h-48 object-cover rounded-lg shadow-md cursor-pointer" src="https://source.unsplash.com/400x300/?architecture-1" alt="Gallery Image" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e0e0e0/ffffff?text=Photo6';" onclick="parent.showMessageBox('Viewing image 6!', 'info', 'Image Viewer');">
+            <img class="w-full h-48 object-cover rounded-lg shadow-md cursor-pointer" src="https://source.unsplash.com/400x300/?food-photography-1" alt="Gallery Image" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e0e0e0/ffffff?text=Photo7';" onclick="parent.showMessageBox('Viewing image 7!', 'info', 'Image Viewer');">
+            <img class="w-full h-48 object-cover rounded-lg shadow-md cursor-pointer" src="https://source.unsplash.com/400x300/?travel-destination-1" alt="Gallery Image" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e0e0e0/ffffff?text=Photo8';" onclick="parent.showMessageBox('Viewing image 8!', 'info', 'Image Viewer');">
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp14Preview" title="Photo Grid/Gallery Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp14')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.5s" data-app-title="Video Player with Comments">
+                <h2>15. Video Player with Comments</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">An embedded video player with a dedicated comment section.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp15Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .video-container { position: relative; padding-bottom: 56.25%; /* 16:9 aspect ratio */ height: 0; overflow: hidden; border-radius: 0.75rem; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .comment-section { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-6">Featured Video</h1>
+
+        <div class="video-container mb-6">
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <div class="comment-section p-6">
+            <h2 class="text-xl font-bold mb-4">Comments (5)</h2>
+            <div class="space-y-4 mb-6">
+                <div class="flex items-start space-x-3">
+                    <img class="w-8 h-8 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-20" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=U20';">
+                    <div>
+                        <p class="font-semibold text-gray-900">User A</p>
+                        <p class="text-gray-700 text-sm">Amazing video! Really enjoyed the content.</p>
+                        <p class="text-gray-500 text-xs">1 hour ago</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <img class="w-8 h-8 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-21" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/ec4899/ffffff?text=U21';">
+                    <div>
+                        <p class="font-semibold text-gray-900">User B</p>
+                        <p class="text-gray-700 text-sm">Great insights, thanks for sharing!</p>
+                        <p class="text-gray-500 text-xs">30 minutes ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <input type="text" placeholder="Add a comment..." class="flex-grow p-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <button class="ml-3 bg-purple-500 text-white px-4 py-2 rounded-full hover:bg-purple-600 transition duration-200" onclick="parent.addComment()">Post</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp15Preview" title="Video Player with Comments Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp15')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.6s" data-app-title="Live Stream/Event Card">
+                <h2>16. Live Stream/Event Card</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A card displaying a live stream or upcoming event.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp16Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Stream Card</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .live-card { background-color: white; border-radius: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); overflow: hidden; }
+        .live-indicator { background-color: #ef4444; color: white; padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-size: 0.8rem; font-weight: 600; }
+    </style>
+</head>
+<body class="p-4 flex justify-center items-center h-screen">
+    <div class="live-card w-full max-w-sm">
+        <div class="relative">
+            <img class="w-full h-48 object-cover" src="https://source.unsplash.com/600x400/?live-event" alt="Live Event Thumbnail" onerror="this.onerror=null;this.src='https://placehold.co/600x400/8b5cf6/ffffff?text=Live+Event';">
+            <div class="absolute top-3 left-3 live-indicator">LIVE</div>
+            <div class="absolute bottom-3 right-3 bg-black bg-opacity-50 text-white px-2 py-1 rounded-md text-sm">
+                <i class="fas fa-eye mr-1"></i> 1.5K
+            </div>
+        </div>
+        <div class="p-4">
+            <h3 class="text-xl font-bold mb-2">Morning Yoga & Mindfulness</h3>
+            <p class="text-gray-600 text-sm mb-3">Join our instructor for a relaxing morning session.</p>
+            <div class="flex items-center mb-4">
+                <img class="w-8 h-8 rounded-full object-cover mr-2" src="https://source.unsplash.com/50x50/?profile-user-22" alt="Host Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/ec4899/ffffff?text=H';">
+                <span class="font-semibold text-gray-800">Hosted by YogaFlow</span>
+            </div>
+            <button class="w-full bg-purple-500 text-white py-2 rounded-lg font-semibold hover:bg-purple-600 transition duration-200" onclick="parent.showMessageBox('Joining live stream!', 'info', 'Live Stream');">Join Live</button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp16Preview" title="Live Stream/Event Card Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp16')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.7s" data-app-title="Poll/Survey Post">
+                <h2>17. Poll/Survey Post</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">An interactive poll embedded within a social media post.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp17Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poll Post</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .poll-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .poll-option {
+            background-color: #f0f4f8;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        .poll-option:hover { background-color: #e2e8f0; border-color: #94a3b8; }
+        .poll-option.selected { background-color: #dbeafe; border-color: #3b82f6; font-weight: 600; }
+    </style>
+</head>
+<body class="p-4 flex justify-center items-center h-screen">
+    <div class="poll-card p-5 w-full max-w-md">
+        <div class="flex items-center mb-3">
+            <img class="w-10 h-10 rounded-full object-cover mr-3" src="https://source.unsplash.com/50x50/?profile-user-23" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=U23';">
+            <div>
+                <span class="font-semibold text-gray-900">Community Hub</span>
+                <p class="text-gray-500 text-sm">1 hour ago</p>
+            </div>
+        </div>
+        <p class="text-gray-800 text-lg font-semibold mb-4">What's your favorite social media platform?</p>
+
+        <div class="space-y-2 mb-5">
+            <div class="poll-option" onclick="this.classList.toggle('selected');">
+                Facebook
+            </div>
+            <div class="poll-option" onclick="this.classList.toggle('selected');">
+                Instagram
+            </div>
+            <div class="poll-option" onclick="this.classList.toggle('selected');">
+                Twitter (X)
+            </div>
+            <div class="poll-option" onclick="this.classList.toggle('selected');">
+                TikTok
+            </div>
+        </div>
+
+        <button class="w-full bg-purple-500 text-white py-2 rounded-lg font-semibold hover:bg-purple-600 transition duration-200" onclick="parent.submitPoll(this)">Submit Vote</button>
+        <p class="text-gray-500 text-xs text-center mt-3">120 votes</p>
+    </div>
+
+    <script>
+        // Simple client-side selection logic for the poll
+        document.querySelectorAll('.poll-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Optional: allow only one selection
+                document.querySelectorAll('.poll-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp17Preview" title="Poll/Survey Post Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp17')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.8s" data-app-title="Hashtag Trending Topics">
+                <h2>18. Hashtag Trending Topics</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Display a list of trending hashtags and topics.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp18Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trending Topics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .trending-section { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .trending-item:hover { background-color: #f0f4f8; }
+    </style>
+</head>
+<body class="p-4 flex justify-center items-center h-screen">
+    <div class="trending-section p-6 w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-4">Trending for you</h2>
+        <ul class="divide-y divide-gray-200">
+            <li class="py-3 trending-item cursor-pointer" onclick="parent.showMessageBox('Viewing #AIRevolution posts!', 'info');">
+                <p class="text-sm text-gray-500">Trending in Technology</p>
+                <p class="font-semibold text-gray-900 text-lg">#AIRevolution</p>
+                <p class="text-sm text-gray-500">50.1K posts</p>
+            </li>
+            <li class="py-3 trending-item cursor-pointer" onclick="parent.showMessageBox('Viewing #WorldCup2026 posts!', 'info');">
+                <p class="text-sm text-gray-500">Sports</p>
+                <p class="font-semibold text-gray-900 text-lg">#WorldCup2026</p>
+                <p class="text-sm text-gray-500">45.2K posts</p>
+            </li>
+            <li class="py-3 trending-item cursor-pointer" onclick="parent.showMessageBox('Viewing #NewMusicFriday posts!', 'info');">
+                <p class="text-sm text-gray-500">Music</p>
+                <p class="font-semibold text-gray-900 text-lg">#NewMusicFriday</p>
+                <p class="text-sm text-gray-500">32.8K posts</p>
+            </li>
+            <li class="py-3 trending-item cursor-pointer" onclick="parent.showMessageBox('Viewing #HealthyEating posts!', 'info');">
+                <p class="text-sm text-gray-500">Health</p>
+                <p class="font-semibold text-gray-900 text-lg">#HealthyEating</p>
+                <p class="text-sm text-gray-500">28.5K posts</p>
+            </li>
+        </ul>
+        <button class="mt-4 w-full bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Loading more trends!', 'info');">Show more</button>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp18Preview" title="Hashtag Trending Topics Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp18')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.9s" data-app-title="User Search Results">
+                <h2>19. User Search Results</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Display search results for users with follow buttons.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp19Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Search Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .user-result-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-6">Search Results for "John"</h1>
+        <input type="text" placeholder="Search users..." class="w-full p-3 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:ring-2 focus:ring-purple-500" onkeyup="parent.showSearchResults()">
+
+        <div class="space-y-4">
+            <div class="user-result-card p-4 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img class="w-12 h-12 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-24" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=J1';">
+                    <div>
+                        <p class="font-semibold text-gray-900">John Doe</p>
+                        <p class="text-gray-500 text-sm">@johndoe_official</p>
+                    </div>
+                </div>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200 text-sm" onclick="parent.followUser(this)">Follow</button>
+            </div>
+            <div class="user-result-card p-4 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img class="w-12 h-12 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-25" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/ec4899/ffffff?text=J2';">
+                    <div>
+                        <p class="font-semibold text-gray-900">Johnny Appleseed</p>
+                        <p class="text-gray-500 text-sm">@johnny_apples</p>
+                    </div>
+                </div>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200 text-sm" onclick="parent.followUser(this)">Follow</button>
+            </div>
+            <div class="user-result-card p-4 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img class="w-12 h-12 rounded-full object-cover" src="https://source.unsplash.com/50x50/?profile-user-26" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8b5cf6/ffffff?text=J3';">
+                    <div>
+                        <p class="font-semibold text-gray-900">Joanna Smith</p>
+                        <p class="text-gray-500 text-sm">@joanna_s</p>
+                    </div>
+                </div>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200 text-sm" onclick="parent.followUser(this)">Follow</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp19Preview" title="User Search Results Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp19')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="2.0s" data-app-title="Onboarding/Walkthrough Page">
+                <h2>20. Onboarding/Walkthrough Page</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A multi-step onboarding experience for new users.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="socialApp20Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .onboarding-card { background-color: white; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .onboarding-step { display: none; }
+        .onboarding-step.active { display: block; }
+        .dot-indicator {
+            width: 10px; height: 10px; border-radius: 9999px;
+            background-color: #cbd5e1; transition: background-color 0.3s ease;
+        }
+        .dot-indicator.active { background-color: #8b5cf6; }
+    </style>
+</head>
+<body class="p-4 flex justify-center items-center h-screen">
+    <div class="onboarding-card w-full max-w-md p-8 text-center">
+        <h1 class="text-3xl font-bold mb-6 text-purple-600">Welcome to Our App!</h1>
+
+        <div id="onboardingStep1" class="onboarding-step active">
+            <img class="w-48 h-48 mx-auto mb-6" src="https://placehold.co/200x200/8b5cf6/ffffff?text=Connect" alt="Connect Icon">
+            <h2 class="text-2xl font-semibold mb-3">Connect with Friends</h2>
+            <p class="text-gray-700 mb-6">Find and connect with people you know, and discover new communities.</p>
+            <button class="bg-purple-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-600 transition duration-200" onclick="nextOnboardingStep()">Next</button>
+        </div>
+
+        <div id="onboardingStep2" class="onboarding-step">
+            <img class="w-48 h-48 mx-auto mb-6" src="https://placehold.co/200x200/ec4899/ffffff?text=Share" alt="Share Icon">
+            <h2 class="text-2xl font-semibold mb-3">Share Your Moments</h2>
+            <p class="text-gray-700 mb-6">Post photos, videos, and updates to your feed for everyone to see.</p>
+            <button class="bg-purple-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-600 transition duration-200" onclick="nextOnboardingStep()">Next</button>
+        </div>
+
+        <div id="onboardingStep3" class="onboarding-step">
+            <img class="w-48 h-48 mx-auto mb-6" src="https://placehold.co/200x200/3b82f6/ffffff?text=Explore" alt="Explore Icon">
+            <h2 class="text-2xl font-semibold mb-3">Explore New Content</h2>
+            <p class="text-gray-700 mb-6">Discover trending topics, popular posts, and exciting new profiles.</p>
+            <button class="bg-green-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-600 transition duration-200" onclick="parent.startOnboarding()">Get Started</button>
+        </div>
+
+        <div class="flex justify-center space-x-2 mt-8">
+            <div id="dot1" class="dot-indicator active"></div>
+            <div id="dot2" class="dot-indicator"></div>
+            <div id="dot3" class="dot-indicator"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentOnboardingStep = 1;
+        const totalOnboardingSteps = 3;
+
+        function showOnboardingStep(stepNum) {
+            for (let i = 1; i <= totalOnboardingSteps; i++) {
+                document.getElementById(`onboardingStep${i}`).classList.remove('active');
+                document.getElementById(`dot${i}`).classList.remove('active');
+            }
+            document.getElementById(`onboardingStep${stepNum}`).classList.add('active');
+            document.getElementById(`dot${stepNum}`).classList.add('active');
+        }
+
+        function nextOnboardingStep() {
+            if (currentOnboardingStep < totalOnboardingSteps) {
+                currentOnboardingStep++;
+                showOnboardingStep(currentOnboardingStep);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showOnboardingStep(currentOnboardingStep);
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="socialApp20Preview" title="Onboarding/Walkthrough Page Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadSocialTemplate('socialApp20')">Run Example</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <div id="messageBoxOverlay" class="message-box-overlay">
+        <div class="message-box-content">
+            <h3 id="messageBoxTitle" class="text-xl font-bold mb-3"></h3>
+            <p id="messageBoxText" class="text-gray-700 dark:text-gray-300"></p>
+            <button id="messageBoxButton" class="message-box-button" onclick="closeMessageBox()">OK</button>
+        </div>
+    </div>
+
+</body>
+</html>

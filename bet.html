@@ -1,0 +1,2288 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 Interactive Betting Website Templates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles consistent with ecomerce.html and social.html */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light slate background */
+            color: #1e293b; /* Dark slate text */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark body {
+            background-color: #0f172a; /* Darker slate background */
+            color: #e2e8f0; /* Light slate text */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem; /* 4xl */
+            font-weight: 800; /* Extra bold */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #4ade80, #3b82f6); /* Green to Blue gradient for Betting */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #4ade80, #3b82f6);
+            border-radius: 2px;
+        }
+
+        .app-card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .app-card {
+            background-color: #1e293b;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #334155;
+        }
+        .app-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+        }
+        .dark .app-card:hover {
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .app-card h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #334155;
+            text-align: center;
+        }
+        .dark .app-card h2 {
+            color: #f8fafc;
+        }
+
+        .code-preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) {
+            .code-preview-container {
+                flex-direction: row;
+            }
+        }
+
+        .code-editor, .live-preview {
+            flex: 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid #cbd5e1;
+            transition: border-color 0.3s ease;
+        }
+        .dark .code-editor, .dark .live-preview {
+            border-color: #475569;
+        }
+
+        .code-editor textarea {
+            width: 100%;
+            height: 450px;
+            padding: 1rem;
+            background-color: #2d3748;
+            color: #f8fafc;
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: none;
+            outline: none;
+            resize: vertical;
+            border-radius: 1rem;
+        }
+
+        .live-preview iframe {
+            width: 100%;
+            height: 450px;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 1rem;
+        }
+        .dark .live-preview iframe {
+            background-color: #0f172a;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .button-group button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #4ade80, #3b82f6); /* Green to Blue */
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(74, 222, 128, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .dark .button-group button {
+            background: linear-gradient(45deg, #3b82f6, #60a5fa);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+        .button-group button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(74, 222, 128, 0.4);
+        }
+        .dark .button-group button:hover {
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Message Box styles (copied directly from social.html) */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .message-box-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .dark .message-box-content {
+            background-color: #1e293b;
+        }
+        .message-box-overlay.open .message-box-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .message-box-button {
+            background-color: #3b82f6; /* Adjusted for betting theme */
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .dark .message-box-button {
+            background-color: #60a5fa; /* Adjusted for betting theme */
+        }
+        .message-box-button:hover {
+            background-color: #2563eb;
+        }
+        .dark .message-box-button:hover {
+            background-color: #3b82f6;
+        }
+
+        /* Search Bar Only Header (copied directly from social.html) */
+        .simplified-header {
+            background-color: #ffffff; /* White background for simplicity */
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .dark .simplified-header {
+            background-color: #1e293b;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .simplified-header .search-container {
+            position: relative;
+            width: 80%; /* Wider search bar */
+            max-width: 600px; /* Max width for larger screens */
+        }
+
+        .simplified-header input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem; /* Left padding for icon */
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem; /* Rounded corners */
+            font-size: 1rem;
+            color: #1e293b;
+            background-color: #f8fafc;
+            transition: all 0.3s ease;
+        }
+        .dark .simplified-header input {
+            background-color: #334155;
+            border-color: #475569;
+            color: #e2e8f0;
+            placeholder-color: #94a3b8;
+        }
+
+        .simplified-header input:focus {
+            outline: none;
+            border-color: #4ade80; /* Focus color - adjusted for betting theme */
+            box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
+        }
+        .dark .simplified-header input:focus {
+            border-color: #3b82f6; /* Focus color - adjusted for betting theme */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .simplified-header .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+        .dark .simplified-header .search-icon {
+            color: #94a3b8;
+        }
+
+        /* Specific styles for betting templates (from previous bet.html, adapted) */
+        .odds-button {
+            background-color: #f0f4f8; /* Light background for odds */
+            color: #1e293b;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            border: 1px solid #cbd5e1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dark .odds-button {
+            background-color: #334155;
+            color: #e2e8f0;
+            border-color: #475569;
+        }
+        .odds-button:hover {
+            background-color: #e2e8f0;
+            border-color: #94a3b8;
+            transform: scale(1.02);
+        }
+        .dark .odds-button:hover {
+            background-color: #475569;
+            border-color: #64748b;
+        }
+        .odds-button.selected {
+            background-color: #4ade80; /* Green when selected */
+            color: white;
+            border-color: #22c55e;
+            box-shadow: 0 3px 10px rgba(74, 222, 128, 0.4);
+        }
+        .dark .odds-button.selected {
+            background-color: #22c55e;
+            border-color: #16a34a;
+        }
+        .odds-button .odds-value {
+            font-size: 1.1rem;
+            margin-left: 0.5rem;
+        }
+
+        .live-match-card {
+            background-color: #1a202c; /* Dark background for live matches */
+            color: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #2d3748;
+        }
+        .dark .live-match-card {
+            background-color: #0c1017;
+            border-color: #1e293b;
+        }
+        .live-match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+        .live-score {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #4ade80;
+        }
+        .live-odds-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .game-card {
+            background-color: #2d3748; /* Dark background for game cards */
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #e2e8f0;
+        }
+        .dark .game-card {
+            background-color: #1e293b;
+        }
+        .game-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .game-card-content {
+            padding: 1rem;
+        }
+        .game-card-title {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .game-card-category {
+            font-size: 0.875rem;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+        .play-game-btn {
+            background-color: #f59e0b; /* Yellow */
+            color: white;
+            padding: 0.6rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .play-game-btn:hover {
+            background-color: #d97706;
+            transform: translateY(-2px);
+        }
+
+        .promo-card {
+            background: linear-gradient(135deg, #4ade80, #3b82f6); /* Green to Blue */
+            color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .promo-card h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+        .promo-card p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        .promo-card .claim-btn {
+            background-color: white;
+            color: #1a202c;
+            padding: 0.8rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .promo-card .claim-btn:hover {
+            background-color: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        .bet-slip-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+        .dark .bet-slip-item {
+            border-color: #475569;
+        }
+        .bet-slip-item:last-child {
+            border-bottom: none;
+        }
+        .bet-slip-item .remove-btn {
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.2s ease;
+        }
+        .bet-slip-item .remove-btn:hover {
+            color: #dc2626;
+        }
+        .bet-slip-input {
+            width: 80px;
+            padding: 0.4rem 0.6rem;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            background-color: #f8fafc;
+            color: #1e293b;
+            text-align: right;
+        }
+        .dark .bet-slip-input {
+            background-color: #334155;
+            border-color: #475569;
+            color: #e2e8f0;
+        }
+        .place-bet-btn {
+            background-color: #4ade80;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            width: 100%;
+            margin-top: 1.5rem;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(74, 222, 128, 0.3);
+        }
+        .place-bet-btn:hover {
+            background-color: #22c55e;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(74, 222, 128, 0.4);
+        }
+
+        /* Modal styles (from previous bet.html, adapted) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-30px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            position: relative;
+        }
+        .dark .modal-content {
+            background-color: #1e293b;
+        }
+        .modal-overlay.open .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #64748b;
+            cursor: pointer;
+        }
+        .modal-close-btn:hover {
+            color: #1e293b;
+        }
+        .dark .modal-close-btn:hover {
+            color: #e2e8f0;
+        }
+        .modal-content h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+        }
+        .dark .modal-content h3 {
+            color: #e2e8f0;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .dark .modal-content input {
+            background-color: #334155;
+            border-color: #475569;
+            color: #e2e8f0;
+        }
+        .modal-content button {
+            background-color: #4ade80;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .modal-content button:hover {
+            background-color: #22c55e;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .header {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            .nav-links {
+                order: 2;
+                flex-basis: 100%;
+                text-align: center;
+            }
+            .auth-buttons {
+                order: 3;
+            }
+            .balance-display {
+                order: 4;
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links a {
+                margin: 0 0.75rem;
+                font-size: 0.9rem;
+            }
+            .auth-buttons button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .game-card img {
+                height: 120px;
+            }
+            .game-card-title {
+                font-size: 1rem;
+            }
+            .promo-card {
+                padding: 1.5rem;
+            }
+            .promo-card h3 {
+                font-size: 1.5rem;
+            }
+            .promo-card p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="transition-colors duration-300">
+
+    <header class="simplified-header">
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="mainSearchInput" placeholder="Search betting events, games...">
+        </div>
+        <button class="dark-mode-toggle ml-4" onclick="toggleDarkMode()">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:inline-block"></i>
+        </button>
+    </header>
+
+    <main class="container py-16">
+        <h2 class="section-title mb-16 wow animate__animated animate__fadeIn">Betting Website Templates</h2>
+
+        <div id="appCardsContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-app-title="Hero Section / Featured Events">
+                <h2>1. Hero Section / Featured Events</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A prominent banner for featured events or welcome bonuses.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp1Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="bg-gradient-to-r from-green-500 to-blue-500 text-white p-8 rounded-3xl shadow-xl text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4 animate__animated animate__pulse animate__infinite" style="animation-duration: 3s;">
+            Your Ultimate Betting Destination
+        </h1>
+        <p class="text-lg md:text-xl mb-6">
+            Experience thrilling live action, top sports odds, and exciting casino games.
+        </p>
+        <button class="bg-white text-green-700 px-8 py-3 rounded-full font-bold text-lg shadow-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300" onclick="parent.showMessageBox('Claim your welcome bonus now!', 'info', 'Welcome Bonus');">
+            Claim Your Welcome Bonus!
+        </button>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp1Preview" title="Hero Section Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp1')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-app-title="Live Betting Dashboard">
+                <h2>2. Live Betting Dashboard</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Real-time updates for ongoing matches with live odds.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Betting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .live-match-card { background-color: #1a202c; color: white; border-radius: 1.5rem; padding: 1.5rem; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); }
+        .odds-button { background-color: #f0f4f8; color: #1e293b; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 700; transition: all 0.2s ease; border: 1px solid #cbd5e1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .odds-button.selected { background-color: #4ade80; color: white; border-color: #22c55e; }
+        .odds-button .odds-value { font-size: 1.1rem; margin-left: 0.5rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="grid grid-cols-1 gap-6">
+        <div class="live-match-card">
+            <div class="flex justify-between items-center mb-1 text-sm text-gray-400">
+                <span class="text-red-500"><i class="fas fa-circle animate-pulse"></i> LIVE</span>
+                <span>Football - Premier League</span>
+                <span>Match Time: <span class="live-match-time">75:30</span></span>
+            </div>
+            <h3 class="text-2xl font-bold text-center mb-2">Manchester Utd vs. Chelsea</h3>
+            <div class="text-4xl font-bold text-center mb-4 text-green-400">2 - 1</div>
+            <div class="flex justify-around items-center mb-4 text-gray-300">
+                <div class="text-center">
+                    <p class="text-lg font-semibold">Manchester Utd</p>
+                    <p class="text-gray-400">Attacks: 65</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-lg font-semibold">Chelsea</p>
+                    <p class="text-gray-400">Attacks: 58</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+                <button class="odds-button" data-team="Man Utd" data-odds="2.10" data-event="Man Utd vs. Chelsea" onclick="parent.addToBetSlip(this)">
+                    Man Utd <span class="odds-value">2.10</span>
+                </button>
+                <button class="odds-button" data-team="Draw" data-odds="3.50" data-event="Man Utd vs. Chelsea" onclick="parent.addToBetSlip(this)">
+                    Draw <span class="odds-value">3.50</span>
+                </button>
+                <button class="odds-button" data-team="Chelsea" data-odds="3.20" data-event="Man Utd vs. Chelsea" onclick="parent.addToBetSlip(this)">
+                    Chelsea <span class="odds-value">3.20</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // This script is for the iframe preview only.
+        // The actual logic (addToBetSlip, updateLiveOdds) is in the parent frame's script.
+        // Simulate live updates for the iframe
+        let matchMinutes = 75;
+        let matchSeconds = 30;
+
+        function updateIframeLiveTime() {
+            const matchTimeSpan = document.querySelector('.live-match-time');
+            if (matchTimeSpan) {
+                matchSeconds++;
+                if (matchSeconds === 60) {
+                    matchSeconds = 0;
+                    matchMinutes++;
+                }
+                matchTimeSpan.textContent = `${matchMinutes.toString().padStart(2, '0')}:${matchSeconds.toString().padStart(2, '0')}`;
+            }
+        }
+        setInterval(updateIframeLiveTime, 1000); // Update every second for demonstration
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp2Preview" title="Live Betting Dashboard Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp2')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-app-title="Upcoming Sports Events Grid">
+                <h2>3. Upcoming Sports Events Grid</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A grid displaying various upcoming sports matches with betting options.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp3Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Sports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .event-card { background-color: white; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 1.5rem; }
+        .odds-button { background-color: #f0f4f8; color: #1e293b; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 700; transition: all 0.2s ease; border: 1px solid #cbd5e1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .odds-button.selected { background-color: #4ade80; color: white; border-color: #22c55e; }
+        .odds-button .odds-value { font-size: 1.1rem; margin-left: 0.5rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="event-card">
+            <h3 class="text-xl font-bold mb-2">Football: Real Madrid vs. Barcelona</h3>
+            <p class="text-gray-600 text-sm mb-3">La Liga - Sat, May 27th, 20:00 CAT</p>
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-semibold">Match Winner</span>
+                <div class="flex gap-2">
+                    <button class="odds-button" data-team="Real Madrid" data-odds="1.95" data-event="Real Madrid vs. Barcelona" onclick="parent.addToBetSlip(this)">
+                        Real Madrid <span class="odds-value">1.95</span>
+                    </button>
+                    <button class="odds-button" data-team="Draw" data-odds="3.40" data-event="Real Madrid vs. Barcelona" onclick="parent.addToBetSlip(this)">
+                        Draw <span class="odds-value">3.40</span>
+                    </button>
+                    <button class="odds-button" data-team="Barcelona" data-odds="3.75" data-event="Real Madrid vs. Barcelona" onclick="parent.addToBetSlip(this)">
+                        Barcelona <span class="odds-value">3.75</span>
+                    </button>
+                </div>
+            </div>
+            <button class="text-blue-500 text-sm hover:underline" onclick="parent.showMessageBox('More markets for Real Madrid vs. Barcelona match.', 'info', 'More Markets');">
+                More Markets <i class="fas fa-chevron-right text-xs ml-1"></i>
+            </button>
+        </div>
+
+        <div class="event-card">
+            <h3 class="text-xl font-bold mb-2">Tennis: Djokovic vs. Alcaraz</h3>
+            <p class="text-gray-600 text-sm mb-3">French Open Final - Sun, May 28th, 15:00 CAT</p>
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-semibold">Match Winner</span>
+                <div class="flex gap-2">
+                    <button class="odds-button" data-team="Djokovic" data-odds="1.60" data-event="Djokovic vs. Alcaraz" onclick="parent.addToBetSlip(this)">
+                        Djokovic <span class="odds-value">1.60</span>
+                    </button>
+                    <button class="odds-button" data-team="Alcaraz" data-odds="2.30" data-event="Djokovic vs. Alcaraz" onclick="parent.addToBetSlip(this)">
+                        Alcaraz <span class="odds-value">2.30</span>
+                    </button>
+                </div>
+            </div>
+            <button class="text-blue-500 text-sm hover:underline" onclick="parent.showMessageBox('More markets for Djokovic vs. Alcaraz match.', 'info', 'More Markets');">
+                More Markets <i class="fas fa-chevron-right text-xs ml-1"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp3Preview" title="Upcoming Sports Events Grid Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp3')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-app-title="Popular Casino Games Grid">
+                <h2>4. Popular Casino Games Grid</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A selection of popular casino games with play buttons.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino Games</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .game-card { background-color: #2d3748; border-radius: 1rem; overflow: hidden; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); color: #e2e8f0; }
+        .game-card img { width: 100%; height: 150px; object-fit: cover; }
+        .play-game-btn { background-color: #f59e0b; color: white; padding: 0.6rem 1rem; border-radius: 0.5rem; font-weight: 600; width: 100%; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="grid grid-cols-2 gap-6">
+        <div class="game-card">
+            <img src="https://placehold.co/400x250/000000/FFFFFF?text=Slot+Machine" alt="Slot Machine" onerror="this.onerror=null;this.src='https://placehold.co/400x250/2d3748/e2e8f0?text=Slot+Machine';">
+            <div class="p-3">
+                <h3 class="font-bold text-lg mb-1">Lucky 7 Slots</h3>
+                <p class="text-gray-400 text-sm mb-3">Slots</p>
+                <button class="play-game-btn" onclick="parent.playGame('Lucky 7 Slots')">Play Now</button>
+            </div>
+        </div>
+        <div class="game-card">
+            <img src="https://placehold.co/400x250/000000/FFFFFF?text=Blackjack" alt="Blackjack" onerror="this.onerror=null;this.src='https://placehold.co/400x250/2d3748/e2e8f0?text=Blackjack';">
+            <div class="p-3">
+                <h3 class="font-bold text-lg mb-1">Classic Blackjack</h3>
+                <p class="text-gray-400 text-sm mb-3">Table Games</p>
+                <button class="play-game-btn" onclick="parent.playGame('Classic Blackjack')">Play Now</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp4Preview" title="Popular Casino Games Grid Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp4')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s" data-app-title="Esports Event List">
+                <h2>5. Esports Event List</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">List of upcoming esports matches with betting options.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp5Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esports Events</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .event-card { background-color: white; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 1.5rem; }
+        .odds-button { background-color: #f0f4f8; color: #1e293b; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 700; transition: all 0.2s ease; border: 1px solid #cbd5e1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .odds-button.selected { background-color: #4ade80; color: white; border-color: #22c55e; }
+        .odds-button .odds-value { font-size: 1.1rem; margin-left: 0.5rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="grid grid-cols-1 gap-6">
+        <div class="event-card">
+            <h3 class="text-xl font-bold mb-2">CS:GO - FaZe Clan vs. G2 Esports</h3>
+            <p class="text-gray-600 text-sm mb-3">ESL Pro League - Today, 18:00 CAT</p>
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-semibold">Match Winner</span>
+                <div class="flex gap-2">
+                    <button class="odds-button" data-team="FaZe Clan" data-odds="1.80" data-event="CS:GO - FaZe Clan vs. G2 Esports" onclick="parent.addToBetSlip(this)">
+                        FaZe <span class="odds-value">1.80</span>
+                    </button>
+                    <button class="odds-button" data-team="G2 Esports" data-odds="2.00" data-event="CS:GO - FaZe Clan vs. G2 Esports" onclick="parent.addToBetSlip(this)">
+                        G2 <span class="odds-value">2.00</span>
+                    </button>
+                </div>
+            </div>
+            <button class="text-blue-500 text-sm hover:underline" onclick="parent.showMessageBox('More markets for CS:GO match.', 'info', 'More Markets');">
+                More Markets <i class="fas fa-chevron-right text-xs ml-1"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp5Preview" title="Esports Event List Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp5')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s" data-app-title="Promotions & Bonuses Cards">
+                <h2>6. Promotions & Bonuses Cards</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Attractive cards highlighting current promotions and bonuses.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp6Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promotions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .promo-card { background: linear-gradient(135deg, #4ade80, #3b82f6); color: white; border-radius: 1.5rem; padding: 2rem; text-align: center; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); }
+        .promo-card .claim-btn { background-color: white; color: #1a202c; padding: 0.8rem 2rem; border-radius: 0.75rem; font-weight: 700; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="grid grid-cols-1 gap-6">
+        <div class="promo-card">
+            <h3>100% Welcome Bonus</h3>
+            <p class="text-lg mb-6">Double your first deposit up to $200! Limited time offer.</p>
+            <button class="claim-btn" onclick="parent.showMessageBox('Welcome bonus claimed! Check your balance.', 'success', 'Bonus Claimed');">
+                Claim Now <i class="fas fa-gift ml-2"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp6Preview" title="Promotions & Bonuses Cards Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp6')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s" data-app-title="Bet Slip Component">
+                <h2>7. Bet Slip Component</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Interactive bet slip to manage selections, stake, and potential winnings.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp7Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bet Slip</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .bet-slip { background-color: white; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); padding: 1.5rem; }
+        .bet-slip-item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px dashed #cbd5e1; }
+        .bet-slip-item:last-child { border-bottom: none; }
+        .bet-slip-item .remove-btn { color: #ef4444; cursor: pointer; font-size: 1.2rem; }
+        .bet-slip-input { width: 80px; padding: 0.4rem 0.6rem; border-radius: 0.5rem; border: 1px solid #cbd5e1; background-color: #f8fafc; color: #1e293b; text-align: right; }
+        .place-bet-btn { background-color: #4ade80; color: white; padding: 0.8rem 1.5rem; border-radius: 0.75rem; font-weight: 700; width: 100%; margin-top: 1.5rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="bet-slip">
+        <h3 class="text-2xl font-bold mb-4 text-center">Bet Slip</h3>
+        <div id="betSlipItems" class="mb-4">
+            <p class="text-gray-600 text-center" id="emptyBetSlipMessage">Your bet slip is empty.</p>
+        </div>
+        <div class="border-t border-dashed border-gray-300 pt-4 mt-4">
+            <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold">Total Odds:</span>
+                <span class="font-bold text-xl text-green-600" id="totalOdds">1.00</span>
+            </div>
+            <div class="mb-4">
+                <label for="stakeInput" class="block text-sm font-semibold mb-1">Stake (USD):</label>
+                <input type="number" id="stakeInput" class="bet-slip-input w-full" value="10.00" min="1" step="0.01" oninput="parent.calculatePotentialWinnings()">
+            </div>
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-semibold">Potential Winnings:</span>
+                <span class="font-bold text-xl text-green-600" id="potentialWinnings">0.00 USD</span>
+            </div>
+            <button class="place-bet-btn" onclick="parent.placeBet()">Place Bet</button>
+        </div>
+    </div>
+    <script>
+        // This script is for the iframe preview only.
+        // The actual logic (betSlip array, addToBetSlip, placeBet etc.) is in the parent frame's script.
+        // Simulate a bet being added for preview purposes
+        document.addEventListener('DOMContentLoaded', () => {
+            const emptyMessage = document.getElementById('emptyBetSlipMessage');
+            const betSlipItems = document.getElementById('betSlipItems');
+            const totalOdds = document.getElementById('totalOdds');
+            const potentialWinnings = document.getElementById('potentialWinnings');
+            const stakeInput = document.getElementById('stakeInput');
+
+            // Add a dummy item to show how it looks
+            emptyMessage.style.display = 'none';
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'bet-slip-item';
+            itemDiv.innerHTML = `
+                <div>
+                    <p class="font-semibold">Man Utd vs. Chelsea</p>
+                    <p class="text-sm text-gray-600">Man Utd @ 2.10</p>
+                </div>
+                <button class="remove-btn" onclick="this.closest('.bet-slip-item').remove(); parent.showMessageBox('Item removed from slip.', 'info');">
+                    <i class="fas fa-times-circle"></i>
+                </button>
+            `;
+            betSlipItems.appendChild(itemDiv);
+
+            totalOdds.textContent = '2.10';
+            stakeInput.value = '10.00';
+            potentialWinnings.textContent = '21.00 USD';
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp7Preview" title="Bet Slip Component Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp7')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s" data-app-title="User Dashboard Overview">
+                <h2>8. User Dashboard Overview</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A summary of user's account, balance, and recent activities.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp8Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .dashboard-card { background-color: white; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); padding: 2rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="dashboard-card">
+        <h3 class="text-2xl font-bold mb-4 text-center">Account Overview</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-lg">
+            <p><span class="font-semibold">Current Balance:</span> <span class="text-green-600 font-bold" id="dashboardBalance">1,250.00 USD</span></p>
+            <p><span class="font-semibold">Active Bets:</span> <span id="activeBetsCount">3</span></p>
+            <p><span class="font-semibold">Total Winnings:</span> <span class="text-blue-600 font-bold">500.00 USD</span></p>
+            <p><span class="font-semibold">Total Deposits:</span> <span class="text-purple-600 font-bold">1,000.00 USD</span></p>
+        </div>
+        <div class="mt-6">
+            <h4 class="text-xl font-bold mb-3">Recent Bets</h4>
+            <ul id="recentBetsList" class="list-disc list-inside text-gray-700">
+                <li class="mb-2">Placed $10.00 on Man Utd vs. Chelsea. Potential Win: $21.00.</li>
+                <li class="mb-2">Placed $5.00 on Lucky 7 Slots. Won: $15.00.</li>
+                <li class="mb-2">Placed $20.00 on Lakers vs. Warriors. Lost.</li>
+            </ul>
+        </div>
+        <div class="mt-6 flex justify-center gap-4">
+            <button class="bg-blue-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors" onclick="parent.showMessageBox('Navigating to deposit page...', 'info', 'Deposit');">
+                <i class="fas fa-plus-circle mr-2"></i> Deposit
+            </button>
+            <button class="bg-yellow-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-yellow-600 transition-colors" onclick="parent.showMessageBox('Navigating to withdrawal page...', 'info', 'Withdraw');">
+                <i class="fas fa-money-bill-wave mr-2"></i> Withdraw
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp8Preview" title="User Dashboard Overview Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp8')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s" data-app-title="Deposit/Withdrawal Section">
+                <h2>9. Deposit/Withdrawal Section</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Forms for users to deposit and withdraw funds.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp9Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit/Withdrawal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .fund-card { background-color: white; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); padding: 2rem; }
+        input[type="number"] { width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid #cbd5e1; background-color: #f8fafc; color: #1e293b; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="fund-card">
+        <h3 class="text-2xl font-bold mb-4 text-center">Manage Funds</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h4 class="text-xl font-bold mb-3">Deposit</h4>
+                <input type="number" id="depositAmount" placeholder="Amount (USD)" class="mb-3">
+                <button class="bg-green-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-600 transition-colors w-full" onclick="parent.simulateDeposit()">
+                    <i class="fas fa-money-check-alt mr-2"></i> Deposit Now
+                </button>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-3">Withdraw</h4>
+                <input type="number" id="withdrawAmount" placeholder="Amount (USD)" class="mb-3">
+                <button class="bg-red-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-600 transition-colors w-full" onclick="parent.simulateWithdraw()">
+                    <i class="fas fa-money-bill-transfer mr-2"></i> Withdraw Funds
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp9Preview" title="Deposit/Withdrawal Section Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp9')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s" data-app-title="Account Settings Form">
+                <h2>10. Account Settings Form</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Form to update user profile, password, and preferences.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp10Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .settings-card { background-color: white; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); padding: 2rem; }
+        input[type="text"], input[type="email"], input[type="password"], select { width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid #cbd5e1; background-color: #f8fafc; color: #1e293b; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="settings-card">
+        <h3 class="text-2xl font-bold mb-4 text-center">Personal Settings</h3>
+        <form onsubmit="event.preventDefault(); parent.saveSettings();">
+            <div class="mb-4">
+                <label for="usernameInput" class="block text-sm font-semibold mb-1">Username:</label>
+                <input type="text" id="usernameInput" value="BetMaster247">
+            </div>
+            <div class="mb-4">
+                <label for="emailInput" class="block text-sm font-semibold mb-1">Email:</label>
+                <input type="email" id="emailInput" value="user@example.com">
+            </div>
+            <div class="mb-4">
+                <label for="passwordInput" class="block text-sm font-semibold mb-1">New Password:</label>
+                <input type="password" id="passwordInput" placeholder="Leave blank to keep current">
+            </div>
+            <div class="mb-4">
+                <label for="currencySelect" class="block text-sm font-semibold mb-1">Preferred Currency:</label>
+                <select id="currencySelect">
+                    <option value="USD">USD - United States Dollar</option>
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="GBP">GBP - British Pound</option>
+                </select>
+            </div>
+            <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors w-full">
+                <i class="fas fa-save mr-2"></i> Save Settings
+            </button>
+        </form>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp10Preview" title="Account Settings Form Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp10')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.1s" data-app-title="Search & Filter Bar for Events">
+                <h2>11. Search & Filter Bar for Events</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Dynamic search and filter options for sports events.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp11Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Search & Filter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .filter-card { background-color: white; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); padding: 2rem; }
+        input[type="text"], select { width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid #cbd5e1; background-color: #f8fafc; color: #1e293b; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="filter-card">
+        <h3 class="text-2xl font-bold mb-4 text-center">Find Your Event</h3>
+        <div class="flex flex-col md:flex-row gap-4 mb-4">
+            <div class="relative flex-grow">
+                <input type="text" id="eventSearchInput" placeholder="Search for teams, leagues..." class="pl-10" oninput="parent.filterEvents()">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+            <select id="sportFilter" onchange="parent.filterEvents()">
+                <option value="">All Sports</option>
+                <option value="Football">Football</option>
+                <option value="Basketball">Basketball</option>
+                <option value="Tennis">Tennis</option>
+                <option value="Esports">Esports</option>
+            </select>
+            <select id="timeFilter" onchange="parent.filterEvents()">
+                <option value="">Any Time</option>
+                <option value="Live">Live</option>
+                <option value="Today">Today</option>
+                <option value="Tomorrow">Tomorrow</option>
+            </select>
+        </div>
+        <div id="filteredEventsResult" class="text-gray-700">
+            <p>Showing results for: <span id="currentFilters">All Events</span></p>
+            <ul id="filteredEventsList" class="mt-4 space-y-2">
+                <li>No events found matching your criteria.</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        // This script is for the iframe preview only.
+        // The actual logic (allEvents array, filterEvents) is in the parent frame's script.
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulate some events for the iframe preview
+            const dummyEvents = [
+                { id: 'e1', title: 'Football Match A', sport: 'Football', time: 'Live', date: 'Today' },
+                { id: 'e2', title: 'Basketball Game B', sport: 'Basketball', time: 'Upcoming', date: 'Tomorrow' },
+            ];
+            const filteredList = document.getElementById('filteredEventsList');
+            const currentFiltersSpan = document.getElementById('currentFilters');
+
+            filteredList.innerHTML = '';
+            dummyEvents.forEach(event => {
+                const li = document.createElement('li');
+                li.textContent = `${event.title} (${event.sport}, ${event.time})`;
+                filteredList.appendChild(li);
+            });
+            currentFiltersSpan.textContent = 'Simulated Events';
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp11Preview" title="Search & Filter Bar for Events Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp11')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.2s" data-app-title="Top Winners / Leaderboard">
+                <h2>12. Top Winners / Leaderboard</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Display a list of recent big winners on the platform.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp12Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Winners</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .winners-card { background-color: white; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); padding: 2rem; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background-color: #f0f4f8; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="winners-card">
+        <h3 class="text-2xl font-bold mb-4 text-center">Recent Big Winners!</h3>
+        <table>
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="rounded-tl-lg">Rank</th>
+                    <th>User</th>
+                    <th>Winnings</th>
+                    <th class="rounded-tr-lg">Game/Event</th>
+                </tr>
+            </thead>
+            <tbody id="winnersTableBody">
+                <tr>
+                    <td class="font-semibold">1</td>
+                    <td>LuckyLeo</td>
+                    <td class="text-green-600 font-bold">5200.00 USD</td>
+                    <td class="text-gray-600">Mega Jackpot</td>
+                </tr>
+                <tr>
+                    <td class="font-semibold">2</td>
+                    <td>BetKing</td>
+                    <td class="text-green-600 font-bold">3150.00 USD</td>
+                    <td class="text-gray-600">Man Utd vs. Chelsea</td>
+                </tr>
+                <tr>
+                    <td class="font-semibold">3</td>
+                    <td>GambleGuru</td>
+                    <td class="text-green-600 font-bold">2800.00 USD</td>
+                    <td class="text-gray-600">European Roulette</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp12Preview" title="Top Winners / Leaderboard Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp12')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.3s" data-app-title="Customer Support / FAQ Section">
+                <h2>13. Customer Support / FAQ Section</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Accordion-style FAQ and contact options for support.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp13Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ & Support</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .support-card { background-color: white; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); padding: 2rem; }
+        .faq-item { border: 1px solid #e2e8f0; border-radius: 0.75rem; overflow: hidden; }
+        .faq-question { background-color: #f8fafc; padding: 1rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .faq-answer { padding: 1rem; color: #475569; display: none; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="support-card">
+        <h3 class="text-2xl font-bold mb-4 text-center">Frequently Asked Questions</h3>
+        <div class="space-y-4">
+            <div class="faq-item">
+                <button class="faq-question w-full text-left" onclick="parent.toggleFaq(this)">
+                    How do I deposit funds? <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer">
+                    You can deposit funds by navigating to the 'Deposit' section in your account dashboard. We support various payment methods including credit cards, e-wallets, and bank transfers.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question w-full text-left" onclick="parent.toggleFaq(this)">
+                    What is the minimum withdrawal amount? <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer">
+                    The minimum withdrawal amount is 10 USD. Please ensure your account is fully verified before requesting a withdrawal.
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-8">
+            <p class="mb-4">Can't find your answer? Contact our 24/7 support team!</p>
+            <button class="bg-purple-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-purple-600 transition-colors" onclick="parent.showMessageBox('Connecting to live chat support...', 'info', 'Support');">
+                <i class="fas fa-headset mr-2"></i> Live Chat
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp13Preview" title="Customer Support / FAQ Section Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp13')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.4s" data-app-title="Responsible Gambling Info">
+                <h2>14. Responsible Gambling Info</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Information and tools for promoting responsible gambling.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp14Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsible Gambling</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .responsible-card { background-color: #fef2f2; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); padding: 2rem; border: 1px solid #fecaca; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="responsible-card">
+        <h3 class="text-2xl font-bold mb-4 text-center text-red-700">Gamble Responsibly</h3>
+        <p class="text-gray-700 mb-4">
+            Betting should be a fun and entertaining activity, not a source of financial or personal problems.
+            We are committed to promoting responsible gambling and providing tools to help you stay in control.
+        </p>
+        <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
+            <li>Set deposit limits to control your spending.</li>
+            <li>Set loss limits to manage potential losses.</li>
+            <li>Take a break with self-exclusion options.</li>
+            <li>Do not gamble under the influence of alcohol or drugs.</li>
+            <li>Seek professional help if gambling becomes a problem.</li>
+        </ul>
+        <div class="text-center">
+            <button class="bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors" onclick="parent.showMessageBox('Navigating to Responsible Gambling tools...', 'info', 'Responsible Gambling');">
+                <i class="fas fa-shield-alt mr-2"></i> Learn More & Set Limits
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp14Preview" title="Responsible Gambling Info Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp14')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.5s" data-app-title="Payment Methods Display">
+                <h2>15. Payment Methods Display</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Icons and names of supported payment methods.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp15Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Methods</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .payment-card { background-color: white; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); padding: 2rem; }
+        .payment-icon { text-align: center; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="payment-card">
+        <h3 class="text-2xl font-bold mb-4 text-center">Supported Payment Methods</h3>
+        <div class="flex flex-wrap justify-center items-center gap-6">
+            <div class="payment-icon">
+                <i class="fab fa-cc-visa text-6xl text-blue-600"></i>
+                <p class="text-sm text-gray-600 mt-2">Visa</p>
+            </div>
+            <div class="payment-icon">
+                <i class="fab fa-cc-mastercard text-6xl text-red-600"></i>
+                <p class="text-sm text-gray-600 mt-2">Mastercard</p>
+            </div>
+            <div class="payment-icon">
+                <i class="fab fa-paypal text-6xl text-blue-800"></i>
+                <p class="text-sm text-gray-600 mt-2">PayPal</p>
+            </div>
+            <div class="payment-icon">
+                <i class="fas fa-wallet text-6xl text-green-600"></i>
+                <p class="text-sm text-gray-600 mt-2">Skrill</p>
+            </div>
+            <div class="payment-icon">
+                <i class="fas fa-money-check-dollar text-6xl text-gray-600"></i>
+                <p class="text-sm text-gray-600 mt-2">Bank Transfer</p>
+            </div>
+            <div class="payment-icon">
+                <i class="fab fa-bitcoin text-6xl text-yellow-500"></i>
+                <p class="text-sm text-gray-600 mt-2">Bitcoin</p>
+            </div>
+        </div>
+        <p class="text-center text-gray-600 text-sm mt-6">
+            Secure and fast transactions for all your betting needs.
+        </p>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp15Preview" title="Payment Methods Display Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp15')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.6s" data-app-title="News & Blog Section">
+                <h2>16. News & Blog Section</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Teasers for latest news, tips, and blog posts.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp16Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .news-card { background-color: white; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 1.5rem; }
+        .news-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 0.5rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="news-card">
+            <img src="https://placehold.co/400x200/22c55e/FFFFFF?text=Football+News" alt="Football News" onerror="this.onerror=null;this.src='https://placehold.co/400x200/e0e0e0/ffffff?text=News1';">
+            <h3 class="text-xl font-bold mb-2">Premier League Title Race Heats Up!</h3>
+            <p class="text-gray-600 text-sm mb-3">May 25, 2025 | Football</p>
+            <p class="text-gray-700 text-sm mb-4">
+                With only two games left, the Premier League title race is going down to the wire...
+            </p>
+            <button class="text-blue-500 text-sm hover:underline" onclick="parent.showMessageBox('Reading full article: Premier League Title Race...', 'info', 'News Article');">
+                Read More <i class="fas fa-arrow-right text-xs ml-1"></i>
+            </button>
+        </div>
+        <div class="news-card">
+            <img src="https://placehold.co/400x200/3b82f6/FFFFFF?text=Casino+Tips" alt="Casino Tips" onerror="this.onerror=null;this.src='https://placehold.co/400x200/e0e0e0/ffffff?text=News2';">
+            <h3 class="text-xl font-bold mb-2">Top 5 Strategies for Blackjack</h3>
+            <p class="text-gray-600 text-sm mb-3">May 20, 2025 | Casino</p>
+            <p class="text-gray-700 text-sm mb-4">
+                Improve your odds at the blackjack table with these expert tips and tricks...
+            </p>
+            <button class="text-blue-500 text-sm hover:underline" onclick="parent.showMessageBox('Reading full article: Top 5 Blackjack Strategies...', 'info', 'News Article');">
+                Read More <i class="fas fa-arrow-right text-xs ml-1"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp16Preview" title="News & Blog Section Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp16')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.7s" data-app-title="Mobile App Download Section">
+                <h2>17. Mobile App Download Section</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Promotional section for downloading the mobile application.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp17Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile App Download</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .mobile-app-card { background: linear-gradient(to right, #3b82f6, #60a5fa); color: white; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); padding: 2rem; text-align: center; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="mobile-app-card">
+        <h3 class="text-3xl font-bold mb-4">Download Our Mobile App!</h3>
+        <p class="text-lg mb-6">
+            Bet on the go with our fast and intuitive mobile application, available for both iOS and Android.
+        </p>
+        <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+            <a href="#" class="bg-black text-white px-6 py-3 rounded-lg flex items-center gap-3 hover:bg-gray-800 transition-colors">
+                <i class="fab fa-apple text-3xl"></i>
+                <div>
+                    <p class="text-xs">Download on the</p>
+                    <p class="text-lg font-semibold">App Store</p>
+                </div>
+            </a>
+            <a href="#" class="bg-black text-white px-6 py-3 rounded-lg flex items-center gap-3 hover:bg-gray-800 transition-colors">
+                <i class="fab fa-google-play text-3xl"></i>
+                <div>
+                    <p class="text-xs">GET IT ON</p>
+                    <p class="text-lg font-semibold">Google Play</p>
+                </div>
+            </a>
+        </div>
+        <div class="mt-8">
+            <p class="text-sm mb-2">Scan QR code to download:</p>
+            <img src="https://placehold.co/150x150/ffffff/000000?text=QR+Code" alt="QR Code" class="mx-auto rounded-lg shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=QR';">
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp17Preview" title="Mobile App Download Section Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp17')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.8s" data-app-title="Affiliate Program Info">
+                <h2>18. Affiliate Program Info</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Details about the affiliate program for partners.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp18Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affiliate Program</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .affiliate-card { background-color: #fffbeb; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); padding: 2rem; border: 1px solid #fed7aa; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="affiliate-card">
+        <h3 class="text-2xl font-bold mb-4 text-center text-yellow-800">Join Our Affiliate Program!</h3>
+        <p class="text-gray-700 mb-4">
+            Partner with BETIFY and earn generous commissions by referring new players to our platform.
+            It's easy to sign up and start earning today!
+        </p>
+        <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
+            <li>Competitive commission rates.</li>
+            <li>Dedicated affiliate support.</li>
+            <li>Real-time tracking and reporting.</li>
+            <li>Promotional materials provided.</li>
+        </ul>
+        <div class="text-center">
+            <button class="bg-yellow-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-yellow-700 transition-colors" onclick="parent.showMessageBox('Navigating to Affiliate Program details...', 'info', 'Affiliate Program');">
+                <i class="fas fa-handshake mr-2"></i> Become an Affiliate
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp18Preview" title="Affiliate Program Info Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp18')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.9s" data-app-title="Terms & Conditions / Legal">
+                <h2>19. Terms & Conditions / Legal</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Important legal information and links to policies.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp19Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Information</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .legal-card { background-color: white; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); padding: 2rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="legal-card">
+        <h3 class="text-2xl font-bold mb-4 text-center">Legal Information</h3>
+        <div class="text-gray-700 text-sm space-y-3">
+            <p>
+                By using this website, you agree to our <a href="#" class="text-blue-500 hover:underline" onclick="parent.showMessageBox('Displaying Terms & Conditions...', 'info', 'Legal Info');">Terms and Conditions</a>
+                and <a href="#" class="text-blue-500 hover:underline" onclick="parent.showMessageBox('Displaying Privacy Policy...', 'info', 'Legal Info');">Privacy Policy</a>.
+                All content on this site is for entertainment purposes only.
+            </p>
+            <p>
+                BETIFY is licensed and regulated by the Gaming Authority of Curacao under license number #12345/JAZ.
+                Please ensure online gambling is legal in your jurisdiction before participating.
+            </p>
+            <p class="font-semibold text-center mt-4">
+                <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>
+                Remember to gamble responsibly.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp19Preview" title="Terms & Conditions / Legal Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp19')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="2.0s" data-app-title="Login/Register Modals">
+                <h2>20. Login/Register Modals</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Interactive modal forms for user login and registration.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="bettingApp20Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1001; opacity: 1; visibility: visible; }
+        .modal-content { background-color: #ffffff; padding: 2.5rem; border-radius: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); max-width: 500px; width: 90%; text-align: center; position: relative; }
+        .modal-close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: #64748b; cursor: pointer; }
+        input[type="text"], input[type="email"], input[type="password"] { width: 100%; padding: 0.8rem 1rem; margin-bottom: 1rem; border: 1px solid #cbd5e1; border-radius: 0.75rem; background-color: #f8fafc; color: #1e293b; }
+        button { background-color: #4ade80; color: white; padding: 0.8rem 1.5rem; border-radius: 0.75rem; font-weight: 700; width: 100%; }
+    </style>
+</head>
+<body class="p-4">
+    <div id="loginModal" class="modal-overlay open">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="parent.showMessageBox('Modal closed!', 'info'); this.closest('.modal-overlay').classList.remove('open');"><i class="fas fa-times"></i></button>
+            <h3>Login to Your Account</h3>
+            <input type="email" placeholder="Email Address">
+            <input type="password" placeholder="Password">
+            <button onclick="parent.simulateLogin()">Login</button>
+            <p class="text-sm text-gray-600 mt-4">Don't have an account? <a href="#" class="text-blue-500 hover:underline" onclick="parent.showMessageBox('Opening register modal!', 'info');">Register here</a></p>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="parent.showMessageBox('Modal closed!', 'info'); this.closest('.modal-overlay').classList.remove('open');"><i class="fas fa-times"></i></button>
+            <h3>Create a New Account</h3>
+            <input type="text" placeholder="Username">
+            <input type="email" placeholder="Email Address">
+            <input type="password" placeholder="Password">
+            <input type="password" placeholder="Confirm Password">
+            <button onclick="parent.simulateRegister()">Register</button>
+            <p class="text-sm text-gray-600 mt-4">Already have an account? <a href="#" class="text-blue-500 hover:underline" onclick="parent.showMessageBox('Opening login modal!', 'info');">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="bettingApp20Preview" title="Login/Register Modals Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadBettingTemplate('bettingApp20')">Run Example</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 dark:bg-gray-900 text-gray-300 py-8 mt-12 rounded-t-3xl shadow-inner">
+        <div class="container text-center">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-white">Quick Links</h4>
+                    <ul>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Contact</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">FAQ</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-white">Sports</h4>
+                    <ul>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Football</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Basketball</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Tennis</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Esports</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-white">Casino</h4>
+                    <ul>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Slots</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Table Games</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Live Casino</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Jackpots</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 dark:border-gray-800 pt-6 mt-6">
+                <p class="text-sm mb-2">
+                    <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>
+                    Gambling can be addictive. Please gamble responsibly.
+                </p>
+                <p class="text-sm mb-4">
+                    If you or someone you know has a gambling problem and wants help, call 1-800-GAMBLER.
+                </p>
+                <p class="text-sm">&copy; 2025 BETIFY. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="messageBoxOverlay" class="message-box-overlay">
+        <div class="message-box-content">
+            <h3 id="messageBoxTitle" class="text-xl font-bold mb-3"></h3>
+            <p id="messageBoxText" class="text-gray-700 dark:text-gray-300"></p>
+            <button id="messageBoxButton" class="message-box-button" onclick="closeMessageBox()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Function to toggle dark mode
+        window.toggleDarkMode = function() {
+            const isDarkMode = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDarkMode);
+            showMessageBox(`Dark mode ${isDarkMode ? 'enabled' : 'disabled'}!`, 'info', 'Theme Change');
+        };
+
+        // Message Box functions (from ecomerce.html)
+        window.showMessageBox = function(message, type, title = 'Notification') {
+            const messageBoxOverlay = document.getElementById('messageBoxOverlay');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxText = document.getElementById('messageBoxText');
+            const messageBoxButton = document.getElementById('messageBoxButton');
+
+            messageBoxTitle.textContent = title;
+            messageBoxText.textContent = message;
+
+            messageBoxTitle.className = 'text-xl font-bold mb-3';
+            messageBoxButton.className = 'message-box-button';
+
+            if (type === 'success') {
+                messageBoxTitle.classList.add('text-green-600', 'dark:text-green-400');
+                messageBoxButton.classList.add('bg-green-600', 'hover:bg-green-700', 'dark:bg-green-500', 'dark:hover:bg-green-600');
+            } else if (type === 'error') {
+                messageBoxTitle.classList.add('text-red-600', 'dark:text-red-400');
+                messageBoxButton.classList.add('bg-red-600', 'hover:bg-red-700', 'dark:bg-red-500', 'dark:hover:bg-red-600');
+            } else { // info or default
+                messageBoxTitle.classList.add('text-blue-600', 'dark:text-blue-400');
+                messageBoxButton.classList.add('bg-blue-600', 'hover:bg-blue-700', 'dark:bg-blue-500', 'dark:hover:bg-blue-600');
+            }
+
+            messageBoxOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        };
+
+        window.closeMessageBox = function() {
+            document.getElementById('messageBoxOverlay').classList.remove('open');
+            document.body.style.overflow = ''; // Restore scrolling
+        };
+
+        // Function to load template into iframe
+        window.loadBettingTemplate = function(appId) {
+            const codeTextarea = document.getElementById(appId + 'Code');
+            const previewIframe = document.getElementById(appId + 'Preview');
+            if (codeTextarea && previewIframe) {
+                previewIframe.srcdoc = codeTextarea.value;
+            }
+        };
+
+        // Simulated user balance (Global for parent frame)
+        let userBalance = 1250.00;
+        const betSlip = []; // Stores selected bets
+
+        // Function to update balance display (Global for parent frame)
+        function updateBalanceDisplay() {
+            // This function would typically update balance elements in the main header/dashboard
+            // For this integrated template, it primarily affects the simulated balance.
+            console.log(`User balance updated to: ${userBalance.toFixed(2)} USD`);
+        }
+
+        // Function to add a bet to the bet slip (Global for parent frame)
+        window.addToBetSlip = function(button) {
+            const team = button.dataset.team;
+            const odds = parseFloat(button.dataset.odds);
+            const eventTitle = button.dataset.event;
+
+            const existingBetIndex = betSlip.findIndex(bet => bet.eventTitle === eventTitle && bet.team === team);
+
+            // Deselect previously selected odds for the same event
+            const eventContainer = button.closest('.live-match-card') || button.closest('.event-card');
+            if (eventContainer) {
+                const allOddsButtonsInEvent = eventContainer.querySelectorAll('.odds-button');
+                allOddsButtonsInEvent.forEach(btn => btn.classList.remove('selected'));
+            }
+
+            if (existingBetIndex > -1) {
+                betSlip.splice(existingBetIndex, 1);
+                button.classList.remove('selected');
+                showMessageBox(`Removed ${team} from bet slip.`, 'info', 'Bet Slip Update');
+            } else {
+                const existingEventBetIndex = betSlip.findIndex(bet => bet.eventTitle === eventTitle);
+                if (existingEventBetIndex > -1) {
+                    betSlip.splice(existingEventBetIndex, 1);
+                }
+                betSlip.push({
+                    eventTitle: eventTitle,
+                    team: team,
+                    odds: odds,
+                    id: `${eventTitle}-${team}`
+                });
+                button.classList.add('selected');
+                showMessageBox(`Added ${team} (${odds.toFixed(2)}) to bet slip.`, 'success', 'Bet Slip Update');
+            }
+            // In a real app, you'd update the bet slip UI here
+            console.log('Current Bet Slip:', betSlip);
+        };
+
+        // Function to remove a bet from the bet slip (Global for parent frame)
+        window.removeFromBetSlip = function(id) {
+            const index = betSlip.findIndex(bet => bet.id === id);
+            if (index > -1) {
+                const removedBet = betSlip.splice(index, 1)[0];
+                document.querySelectorAll('.odds-button').forEach(btn => {
+                    if (btn.dataset.team === removedBet.team && btn.dataset.event === removedBet.eventTitle) {
+                        btn.classList.remove('selected');
+                    }
+                });
+                showMessageBox(`Removed ${removedBet.team} from bet slip.`, 'info', 'Bet Slip Update');
+            }
+            console.log('Current Bet Slip:', betSlip);
+        };
+
+        // Function to calculate total odds (Global for parent frame)
+        window.calculateTotalOdds = function() {
+            let totalOdds = 1.00;
+            if (betSlip.length > 0) {
+                totalOdds = betSlip.reduce((acc, bet) => acc * bet.odds, 1.00);
+            }
+            return totalOdds.toFixed(2);
+        };
+
+        // Function to calculate potential winnings (Global for parent frame)
+        window.calculatePotentialWinnings = function() {
+            // This function is primarily for the bet slip iframe's internal calculation
+            // The main frame's bet slip will call this if needed.
+            const stakeInput = document.getElementById('bettingApp7Code').contentWindow.document.getElementById('stakeInput');
+            if (stakeInput) {
+                const stake = parseFloat(stakeInput.value);
+                const totalOdds = parseFloat(window.calculateTotalOdds());
+                let potentialWinnings = 0;
+
+                if (!isNaN(stake) && stake > 0 && betSlip.length > 0) {
+                    potentialWinnings = stake * totalOdds;
+                }
+                const potentialWinningsSpan = document.getElementById('bettingApp7Code').contentWindow.document.getElementById('potentialWinnings');
+                if (potentialWinningsSpan) {
+                    potentialWinningsSpan.textContent = `${potentialWinnings.toFixed(2)} USD`;
+                }
+            }
+        };
+
+        // Function to simulate placing a bet (Global for parent frame)
+        window.placeBet = function() {
+            const stakeInput = document.getElementById('bettingApp7Code').contentWindow.document.getElementById('stakeInput');
+            const stake = parseFloat(stakeInput ? stakeInput.value : 0);
+
+            if (betSlip.length === 0) {
+                showMessageBox('Please add selections to your bet slip.', 'error', 'Bet Error');
+                return;
+            }
+            if (isNaN(stake) || stake <= 0) {
+                showMessageBox('Please enter a valid stake amount.', 'error', 'Bet Error');
+                return;
+            }
+            if (userBalance < stake) {
+                showMessageBox('Insufficient balance. Please deposit funds.', 'error', 'Bet Error');
+                return;
+            }
+
+            userBalance -= stake;
+            updateBalanceDisplay();
+
+            const potentialWin = parseFloat(window.calculatePotentialWinnings()); // This will be from the bet slip's current calculation
+            const betSummary = betSlip.map(b => `${b.team} (${b.odds.toFixed(2)})`).join(', ');
+
+            // Simulate adding to recent bets
+            // In a real app, this would be a more complex update to a dashboard component.
+            const dashboardRecentBetsList = document.getElementById('bettingApp8Code').contentWindow.document.getElementById('recentBetsList');
+            if (dashboardRecentBetsList) {
+                const newBetItem = document.createElement('li');
+                newBetItem.className = 'mb-2';
+                newBetItem.innerHTML = `Placed $${stake.toFixed(2)} on ${betSummary}. Potential Win: $${potentialWin.toFixed(2)}.`;
+                dashboardRecentBetsList.prepend(newBetItem);
+            }
+
+            // Clear bet slip after placing bet
+            betSlip.length = 0;
+            document.querySelectorAll('.odds-button.selected').forEach(btn => btn.classList.remove('selected'));
+            // In a real app, you'd trigger a re-render of the bet slip iframe here.
+            // For this demo, we'll just log and show message.
+            console.log('Bet placed. Bet Slip cleared.');
+
+            showMessageBox(`Bet placed successfully! Stake: $${stake.toFixed(2)}. Potential Winnings: $${potentialWin.toFixed(2)}.`, 'success', 'Bet Placed!');
+        };
+
+        // Function to simulate playing a casino game (Global for parent frame)
+        window.playGame = function(gameTitle) {
+            showMessageBox(`Launching ${gameTitle}... Enjoy!`, 'info', 'Game Launch');
+        };
+
+        // Function to simulate deposit (Global for parent frame)
+        window.simulateDeposit = function() {
+            const depositAmountInput = document.getElementById('bettingApp9Code').contentWindow.document.getElementById('depositAmount');
+            const amount = parseFloat(depositAmountInput ? depositAmountInput.value : 0);
+            if (isNaN(amount) || amount <= 0) {
+                showMessageBox('Please enter a valid deposit amount.', 'error', 'Deposit Error');
+                return;
+            }
+            userBalance += amount;
+            updateBalanceDisplay();
+            showMessageBox(`Successfully deposited $${amount.toFixed(2)}.`, 'success', 'Deposit Success');
+            if (depositAmountInput) depositAmountInput.value = '';
+        };
+
+        // Function to simulate withdrawal (Global for parent frame)
+        window.simulateWithdraw = function() {
+            const withdrawAmountInput = document.getElementById('bettingApp9Code').contentWindow.document.getElementById('withdrawAmount');
+            const amount = parseFloat(withdrawAmountInput ? withdrawAmountInput.value : 0);
+            if (isNaN(amount) || amount <= 0) {
+                showMessageBox('Please enter a valid withdrawal amount.', 'error', 'Withdrawal Error');
+                return;
+            }
+            if (userBalance < amount) {
+                showMessageBox('Insufficient balance for withdrawal.', 'error', 'Withdrawal Error');
+                return;
+            }
+            userBalance -= amount;
+            updateBalanceDisplay();
+            showMessageBox(`Successfully withdrew $${amount.toFixed(2)}.`, 'success', 'Withdrawal Success');
+            if (withdrawAmountInput) withdrawAmountInput.value = '';
+        };
+
+        // Function to simulate saving settings (Global for parent frame)
+        window.saveSettings = function() {
+            const username = document.getElementById('bettingApp10Code').contentWindow.document.getElementById('usernameInput').value;
+            const email = document.getElementById('bettingApp10Code').contentWindow.document.getElementById('emailInput').value;
+            const password = document.getElementById('bettingApp10Code').contentWindow.document.getElementById('passwordInput').value;
+            const currency = document.getElementById('bettingApp10Code').contentWindow.document.getElementById('currencySelect').value;
+
+            showMessageBox('Settings saved successfully!', 'success', 'Settings Saved');
+            console.log('Saved Settings:', { username, email, password: password ? 'changed' : 'not changed', currency });
+        };
+
+        // Data for search & filter (Global for parent frame)
+        const allEvents = [
+            { id: 'e1', title: 'Manchester Utd vs. Chelsea', sport: 'Football', time: 'Live', date: 'Today' },
+            { id: 'e2', title: 'Lakers vs. Warriors', sport: 'Basketball', time: 'Live', date: 'Today' },
+            { id: 'e3', title: 'Real Madrid vs. Barcelona', sport: 'Football', time: 'Upcoming', date: 'Today' },
+            { id: 'e4', title: 'Djokovic vs. Alcaraz', sport: 'Tennis', time: 'Upcoming', date: 'Tomorrow' },
+            { id: 'e5', title: 'Celtics vs. Heat', sport: 'Basketball', time: 'Upcoming', date: 'Tomorrow' },
+            { id: 'e6', title: 'FaZe Clan vs. G2 Esports', sport: 'Esports', time: 'Upcoming', date: 'Today' },
+            { id: 'e7', title: 'T1 vs. Gen.G', sport: 'Esports', time: 'Upcoming', date: 'Tomorrow' }
+        ];
+
+        // Function to filter events (Global for parent frame)
+        window.filterEvents = function() {
+            const searchInput = document.getElementById('bettingApp11Code').contentWindow.document.getElementById('eventSearchInput');
+            const sportFilter = document.getElementById('bettingApp11Code').contentWindow.document.getElementById('sportFilter');
+            const timeFilter = document.getElementById('bettingApp11Code').contentWindow.document.getElementById('timeFilter');
+            const filteredList = document.getElementById('bettingApp11Code').contentWindow.document.getElementById('filteredEventsList');
+            const currentFiltersSpan = document.getElementById('bettingApp11Code').contentWindow.document.getElementById('currentFilters');
+
+            const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+            const selectedSport = sportFilter ? sportFilter.value : '';
+            const selectedTime = timeFilter ? timeFilter.value : '';
+
+            let filtered = allEvents.filter(event => {
+                const matchesSearch = event.title.toLowerCase().includes(searchTerm);
+                const matchesSport = selectedSport === '' || event.sport === selectedSport;
+                const matchesTime = selectedTime === '' || event.time === selectedTime || event.date === selectedTime;
+                return matchesSearch && matchesSport && matchesTime;
+            });
+
+            if (filteredList) {
+                filteredList.innerHTML = '';
+                if (filtered.length === 0) {
+                    const li = document.createElement('li');
+                    li.className = 'text-gray-600 dark:text-gray-400';
+                    li.textContent = 'No events found matching your criteria.';
+                    filteredList.appendChild(li);
+                } else {
+                    filtered.forEach(event => {
+                        const li = document.createElement('li');
+                        li.className = 'text-gray-700 dark:text-gray-300';
+                        li.textContent = `${event.title} (${event.sport}, ${event.time})`;
+                        filteredList.appendChild(li);
+                    });
+                }
+            }
+
+            if (currentFiltersSpan) {
+                let filterText = [];
+                if (searchTerm) filterText.push(`"${searchTerm}"`);
+                if (selectedSport) filterText.push(selectedSport);
+                if (selectedTime) filterText.push(selectedTime);
+                currentFiltersSpan.textContent = filterText.length > 0 ? filterText.join(', ') : 'All Events';
+            }
+        };
+
+        // Function to toggle FAQ (Global for parent frame)
+        window.toggleFaq = function(button) {
+            const answer = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            if (answer && icon) {
+                answer.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            }
+        };
+
+        // Simulate Login/Register (Global for parent frame)
+        window.simulateLogin = function() {
+            // In a real app, you'd handle authentication here
+            showMessageBox('Login successful! Welcome back.', 'success', 'Login Status');
+        };
+
+        window.simulateRegister = function() {
+            // In a real app, you'd handle registration here
+            showMessageBox('Registration successful! Please login.', 'success', 'Registration Status');
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Automatically load all betting template previews
+            const appCards = document.querySelectorAll('.app-card');
+            appCards.forEach((card, index) => {
+                const appId = `bettingApp${index + 1}`;
+                loadBettingTemplate(appId);
+            });
+        });
+    </script>
+</body>
+</html>

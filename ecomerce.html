@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16 Interactive E-commerce Templates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles consistent with previous versions */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light slate background */
+            color: #1e293b; /* Dark slate text */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark body {
+            background-color: #0f172a; /* Darker slate background */
+            color: #e2e8f0; /* Light slate text */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem; /* 4xl */
+            font-weight: 800; /* Extra bold */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ef4444, #f97316); /* Red to Orange gradient for E-commerce */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #ef4444, #f97316);
+            border-radius: 2px;
+        }
+
+        .app-card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .app-card {
+            background-color: #1e293b;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #334155;
+        }
+        .app-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+        }
+        .dark .app-card:hover {
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .app-card h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #334155;
+            text-align: center;
+        }
+        .dark .app-card h2 {
+            color: #f8fafc;
+        }
+
+        .code-preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) {
+            .code-preview-container {
+                flex-direction: row;
+            }
+        }
+
+        .code-editor, .live-preview {
+            flex: 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid #cbd5e1;
+            transition: border-color 0.3s ease;
+        }
+        .dark .code-editor, .dark .live-preview {
+            border-color: #475569;
+        }
+
+        .code-editor textarea {
+            width: 100%;
+            height: 450px;
+            padding: 1rem;
+            background-color: #2d3748;
+            color: #f8fafc;
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: none;
+            outline: none;
+            resize: vertical;
+            border-radius: 1rem;
+        }
+
+        .live-preview iframe {
+            width: 100%;
+            height: 450px;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 1rem;
+        }
+        .dark .live-preview iframe {
+            background-color: #0f172a;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .button-group button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #ef4444, #f97316);
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .dark .button-group button {
+            background: linear-gradient(45deg, #f97316, #fb923c);
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+        }
+        .button-group button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+        }
+        .dark .button-group button:hover {
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
+        }
+
+        /* Message Box styles */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .message-box-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .dark .message-box-content {
+            background-color: #1e293b;
+        }
+        .message-box-overlay.open .message-box-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .message-box-button {
+            background-color: #ef4444;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .dark .message-box-button {
+            background-color: #f97316;
+        }
+        .message-box-button:hover {
+            background-color: #dc2626;
+        }
+        .dark .message-box-button:hover {
+            background-color: #ea580c;
+        }
+
+        /* Search Bar Only Header */
+        .simplified-header {
+            background-color: #ffffff; /* White background for simplicity */
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .dark .simplified-header {
+            background-color: #1e293b;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .simplified-header .search-container {
+            position: relative;
+            width: 80%; /* Wider search bar */
+            max-width: 600px; /* Max width for larger screens */
+        }
+
+        .simplified-header input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem; /* Left padding for icon */
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem; /* Rounded corners */
+            font-size: 1rem;
+            color: #1e293b;
+            background-color: #f8fafc;
+            transition: all 0.3s ease;
+        }
+        .dark .simplified-header input {
+            background-color: #334155;
+            border-color: #475569;
+            color: #e2e8f0;
+            placeholder-color: #94a3b8;
+        }
+
+        .simplified-header input:focus {
+            outline: none;
+            border-color: #ef4444; /* Focus color */
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        }
+        .dark .simplified-header input:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+        }
+
+        .simplified-header .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+        .dark .simplified-header .search-icon {
+            color: #94a3b8;
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Function to show a custom message box
+        window.showMessageBox = function(message, type, title = 'Notification') {
+            const messageBoxOverlay = document.getElementById('messageBoxOverlay');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxText = document.getElementById('messageBoxText');
+            const messageBoxButton = document.getElementById('messageBoxButton');
+
+            messageBoxTitle.textContent = title;
+            messageBoxText.textContent = message;
+
+            // Apply type-specific styling
+            messageBoxTitle.className = 'text-xl font-bold mb-3';
+            messageBoxButton.className = 'message-box-button';
+
+            if (type === 'success') {
+                messageBoxTitle.classList.add('text-green-600', 'dark:text-green-400');
+                messageBoxButton.classList.add('bg-green-600', 'hover:bg-green-700', 'dark:bg-green-500', 'dark:hover:bg-green-600');
+            } else if (type === 'error') {
+                messageBoxTitle.classList.add('text-red-600', 'dark:text-red-400');
+                messageBoxButton.classList.add('bg-red-600', 'hover:bg-red-700', 'dark:bg-red-500', 'dark:hover:bg-red-600');
+            } else { // info or default
+                messageBoxTitle.classList.add('text-blue-600', 'dark:text-blue-400');
+                messageBoxButton.classList.add('bg-blue-600', 'hover:bg-blue-700', 'dark:bg-blue-500', 'dark:hover:bg-blue-600');
+            }
+
+            messageBoxOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        };
+
+        // Function to close the custom message box
+        window.closeMessageBox = function() {
+            document.getElementById('messageBoxOverlay').classList.remove('open');
+            document.body.style.overflow = ''; // Restore scrolling
+        };
+
+        // Function to toggle dark mode (added for completeness, though not used in original header)
+        window.toggleDarkMode = function() {
+            const isDarkMode = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDarkMode);
+            showMessageBox(`Dark mode ${isDarkMode ? 'enabled' : 'disabled'}!`, 'info', 'Theme Change');
+        };
+
+        // Function to load template into iframe
+        window.loadEcommerceTemplate = function(appId) {
+            const codeTextarea = document.getElementById(appId + 'Code');
+            const previewIframe = document.getElementById(appId + 'Preview');
+            if (codeTextarea && previewIframe) {
+                previewIframe.srcdoc = codeTextarea.value;
+                // No message box here to avoid spamming on auto-load
+            }
+        };
+
+        // Checkout Process functions (from ecommerceApp4)
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        window.showStep = function(stepNum) {
+            for (let i = 1; i <= totalSteps; i++) {
+                const stepElement = document.getElementById(`step${i}`);
+                const indicatorElement = document.getElementById(`step${i}Indicator`);
+                if (stepElement) {
+                    stepElement.classList.remove('active');
+                }
+                if (indicatorElement) {
+                    indicatorElement.classList.remove('active', 'border-blue-500', 'text-blue-500');
+                    indicatorElement.classList.add('border-gray-300', 'text-gray-500');
+                }
+            }
+            const activeStepElement = document.getElementById(`step${stepNum}`);
+            const activeIndicatorElement = document.getElementById(`step${stepNum}Indicator`);
+            if (activeStepElement) {
+                activeStepElement.classList.add('active');
+            }
+            if (activeIndicatorElement) {
+                activeIndicatorElement.classList.add('active', 'border-blue-500', 'text-blue-500');
+                activeIndicatorElement.classList.remove('border-gray-300', 'text-gray-500');
+            }
+        }
+
+        window.nextStep = function() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+                showMessageBox(`Moved to Step ${currentStep}`, 'info');
+            }
+        }
+
+        window.prevStep = function() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+                showMessageBox(`Moved back to Step ${currentStep}`, 'info');
+            }
+        }
+
+        window.placeOrder = function() {
+            showMessageBox('Order placed successfully! (Simulated)', 'success', 'Order Confirmation');
+        }
+
+        // Admin Product Management functions (from ecommerceApp8)
+        window.addProductAdmin = function() {
+            const name = prompt("Enter Product Name:");
+            const category = prompt("Enter Category:");
+            const price = prompt("Enter Price:");
+            const stock = prompt("Enter Stock:");
+            if (name && category && price && stock) {
+                const tableBody = document.getElementById('adminProductTableBody');
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${category}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">$${parseFloat(price).toFixed(2)}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${stock}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button class="text-blue-600 hover:text-blue-900 mr-2" onclick="parent.editProductAdmin(this)">Edit</button>
+                        <button class="text-red-600 hover:text-red-900" onclick="parent.deleteProductAdmin(this)">Delete</button>
+                    </td>
+                `;
+                showMessageBox('Product added successfully!', 'success');
+            } else {
+                showMessageBox('Product addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.editProductAdmin = function(button) {
+            const row = button.closest('tr');
+            const cells = row.children;
+            const currentName = cells[0].textContent;
+            const currentCategory = cells[1].textContent;
+            const currentPrice = cells[2].textContent.replace('$', '');
+            const currentStock = cells[3].textContent;
+
+            const newName = prompt("Edit Product Name:", currentName);
+            const newCategory = prompt("Edit Category:", currentCategory);
+            const newPrice = prompt("Edit Price:", currentPrice);
+            const newStock = prompt("Edit Stock:", currentStock);
+
+            if (newName !== null && newCategory !== null && newPrice !== null && newStock !== null) {
+                cells[0].textContent = newName;
+                cells[1].textContent = newCategory;
+                cells[2].textContent = `$${parseFloat(newPrice).toFixed(2)}`;
+                cells[3].textContent = newStock;
+                showMessageBox('Product updated successfully!', 'success');
+            } else {
+                showMessageBox('Product update cancelled.', 'info');
+            }
+        };
+
+        window.deleteProductAdmin = function(button) {
+            // Using custom message box instead of confirm()
+            showMessageBox('Are you sure you want to delete this product?', 'error', 'Confirm Deletion');
+            document.getElementById('messageBoxButton').onclick = function() {
+                button.closest('tr').remove();
+                showMessageBox('Product deleted!', 'success');
+                closeMessageBox();
+            };
+        };
+
+        // Quick View Modal functions (from ecommerceApp14)
+        window.openQuickView = function() {
+            document.getElementById('quickViewModalOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            showMessageBox('Quick View opened!', 'info');
+        };
+
+        window.closeQuickView = function() {
+            document.getElementById('quickViewModalOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize the first step for checkout (if present)
+            if (document.getElementById('step1')) {
+                showStep(currentStep);
+            }
+            // Initialize search for admin product management (if present)
+            const adminProductSearch = document.getElementById('adminProductSearch');
+            if (adminProductSearch) {
+                adminProductSearch.addEventListener('keyup', function() {
+                    const filter = this.value.toLowerCase();
+                    const rows = document.querySelectorAll('#adminProductTableBody tr');
+                    rows.forEach(row => {
+                        const productName = row.children[0].textContent.toLowerCase();
+                        const category = row.children[1].textContent.toLowerCase();
+                        if (productName.includes(filter) || category.includes(filter)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            }
+
+            // Automatically load all e-commerce template previews
+            const appCards = document.querySelectorAll('.app-card');
+            appCards.forEach((card, index) => {
+                // Assuming IDs are ecommerceApp1, ecommerceApp2, etc.
+                // The index + 1 will give us the number part of the ID.
+                const appId = `ecommerceApp${index + 1}`;
+                loadEcommerceTemplate(appId);
+            });
+        });
+    </script>
+</head>
+<body class="transition-colors duration-300">
+
+    <header class="simplified-header">
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="mainSearchInput" placeholder="Search templates...">
+        </div>
+        <button class="dark-mode-toggle ml-4" onclick="toggleDarkMode()">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:inline-block"></i>
+        </button>
+    </header>
+
+    <main class="container py-16">
+        <h2 class="section-title mb-16 wow animate__animated animate__fadeIn">E-commerce Template Showcase</h2>
+
+        <div id="appCardsContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-app-title="Product Detail Page">
+                <h2>1. Product Detail Page</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A sleek product page with image, details, and add-to-cart.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp1Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="md:flex">
+            <div class="md:flex-shrink-0">
+                <img class="h-64 w-full object-cover md:w-64 rounded-l-xl" src="https://source.unsplash.com/600x600/?smartwatch" alt="Modern Smartwatch" onerror="this.onerror=null;this.src='https://placehold.co/600x600/3b82f6/ffffff?text=Product+Image';">
+            </div>
+            <div class="p-8 flex-grow">
+                <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Electronics</div>
+                <h1 class="block mt-1 text-3xl leading-tight font-medium text-black">Modern Smartwatch X Pro</h1>
+                <p class="mt-2 text-gray-500">Stay connected and track your fitness with this stylish and feature-packed smartwatch. Compatible with iOS and Android, featuring a vibrant AMOLED display and long-lasting battery life.</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-4xl font-bold text-indigo-600">$199.99</span>
+                    <div class="flex items-center">
+                        <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded-l-md hover:bg-gray-300 transition duration-200">-</button>
+                        <input type="text" value="1" class="w-12 text-center border-t border-b border-gray-200 py-1" readonly>
+                        <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded-r-md hover:bg-gray-300 transition duration-200">+</button>
+                    </div>
+                </div>
+                <button class="mt-6 w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition duration-200 font-semibold" onclick="parent.showMessageBox('Added to Cart!', 'success', 'Item Added');">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp1Preview" title="Product Detail Page Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp1')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-app-title="Product Listing Page">
+                <h2>2. Product Listing Page</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A grid layout for displaying multiple products with filters.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Listing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .product-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">Our Latest Products</h1>
+        <div class="flex justify-between items-center mb-6 p-4 bg-white rounded-lg shadow-sm">
+            <div class="flex items-center space-x-4">
+                <label for="sort" class="text-gray-700">Sort by:</label>
+                <select id="sort" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option>Relevance</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Newest Arrivals</option>
+                </select>
+            </div>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Filters applied!', 'info');"><i class="fas fa-filter mr-2"></i>Filters</button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="product-card p-4">
+                <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?gaming-laptop" alt="Gaming Laptop" onerror="this.onerror=null;this.src='https://placehold.co/400x300/a78bfa/ffffff?text=Laptop';">
+                <h3 class="text-lg font-semibold mb-1">Gaming Laptop Pro X</h3>
+                <p class="text-gray-600 text-sm mb-2">High-performance laptop for serious gamers with RTX 4080.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-gray-900">$1499.00</span>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Added Gaming Laptop Pro X to cart!', 'success');">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card p-4">
+                <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?headphones" alt="Noise-Cancelling Headphones" onerror="this.onerror=null;this.src='https://placehold.co/400x300/34d399/ffffff?text=Headphones';">
+                <h3 class="text-lg font-semibold mb-1">Elite Noise-Cancelling Headphones</h3>
+                <p class="text-gray-600 text-sm mb-2">Immersive sound with active noise cancellation and comfortable earcups.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-gray-900">$249.99</span>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Added Elite Noise-Cancelling Headphones to cart!', 'success');">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card p-4">
+                <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?mechanical-keyboard" alt="Mechanical Keyboard" onerror="this.onerror=null;this.src='https://placehold.co/400x300/facc15/ffffff?text=Keyboard';">
+                <h3 class="text-lg font-semibold mb-1">RGB Mechanical Keyboard</h3>
+                <p class="text-gray-600 text-sm mb-2">Tactile feedback for superior typing experience with customizable RGB lighting.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-gray-900">$99.50</span>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Added RGB Mechanical Keyboard to cart!', 'success');">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card p-4">
+                <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?ergonomic-mouse" alt="Ergonomic Mouse" onerror="this.onerror=null;this.src='https://placehold.co/400x300/ef4444/ffffff?text=Mouse';">
+                <h3 class="text-lg font-semibold mb-1">Wireless Ergonomic Mouse</h3>
+                <p class="text-gray-600 text-sm mb-2">Comfortable design for long hours of use, with multi-device connectivity.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-gray-900">$45.00</span>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Added Wireless Ergonomic Mouse to cart!', 'success');">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp2Preview" title="Product Listing Page Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp2')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-app-title="Shopping Cart">
+                <h2>3. Shopping Cart</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Review items, adjust quantities, and proceed to checkout.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp3Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .cart-item { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">Your Shopping Cart</h1>
+        <div class="space-y-4">
+            <div class="cart-item p-4 flex items-center space-x-4">
+                <img class="h-24 w-24 object-cover rounded-md" src="https://source.unsplash.com/100x100/?smartwatch-black" alt="Smartwatch" onerror="this.onerror=null;this.src='https://placehold.co/100x100/3b82f6/ffffff?text=Product';">
+                <div class="flex-grow">
+                    <h3 class="text-lg font-semibold">Modern Smartwatch X Pro</h3>
+                    <p class="text-gray-600 text-sm">Color: Black, Size: Standard</p>
+                    <div class="flex items-center mt-2">
+                        <button class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-l-md hover:bg-gray-300">-</button>
+                        <input type="text" value="1" class="w-10 text-center border-t border-b border-gray-200 py-0.5" readonly>
+                        <button class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-r-md hover:bg-gray-300">+</button>
+                        <span class="ml-4 font-semibold text-lg">$199.99</span>
+                    </div>
+                </div>
+                <button class="text-red-500 hover:text-red-700" onclick="parent.showMessageBox('Item removed!', 'info', 'Cart Update');"><i class="fas fa-trash-alt"></i></button>
+            </div>
+            <div class="cart-item p-4 flex items-center space-x-4">
+                <img class="h-24 w-24 object-cover rounded-md" src="https://source.unsplash.com/100x100/?gaming-laptop-closed" alt="Gaming Laptop" onerror="this.onerror=null;this.src='https://placehold.co/100x100/a78bfa/ffffff?text=Product';">
+                <div class="flex-grow">
+                    <h3 class="text-lg font-semibold">Gaming Laptop Pro X</h3>
+                    <p class="text-gray-600 text-sm">Configuration: i7, 16GB RAM, 512GB SSD</p>
+                    <div class="flex items-center mt-2">
+                        <button class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-l-md hover:bg-gray-300">-</button>
+                        <input type="text" value="1" class="w-10 text-center border-t border-b border-gray-200 py-0.5" readonly>
+                        <button class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-r-md hover:bg-gray-300">+</button>
+                        <span class="ml-4 font-semibold text-lg">$1499.00</span>
+                    </div>
+                </div>
+                <button class="text-red-500 hover:text-red-700" onclick="parent.showMessageBox('Item removed!', 'info', 'Cart Update');"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        </div>
+        <div class="mt-6 p-4 bg-white rounded-xl shadow-lg flex justify-between items-center">
+            <span class="text-2xl font-bold">Total: $1698.99</span>
+            <button class="bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition duration-200 font-semibold" onclick="parent.showMessageBox('Proceeding to checkout!', 'info');">Proceed to Checkout</button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp3Preview" title="Shopping Cart Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp3')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-app-title="Checkout Process">
+                <h2>4. Checkout Process</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A multi-step form for completing a purchase.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .checkout-step { display: none; }
+        .checkout-step.active { display: block; }
+        .step-indicator {
+            width: 40px; height: 40px; border-radius: 9999px;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid #cbd5e1; color: #64748b; font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .step-indicator.active { background-color: #3b82f6; color: white; border-color: #3b82f6; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8">
+        <h1 class="text-3xl font-bold mb-6 text-center">Checkout</h1>
+        <div class="flex justify-around mb-8">
+            <div id="step1Indicator" class="step-indicator">1</div>
+            <div id="step2Indicator" class="step-indicator">2</div>
+            <div id="step3Indicator" class="step-indicator">3</div>
+        </div>
+
+        <div id="step1" class="checkout-step">
+            <h2 class="text-2xl font-semibold mb-4">Shipping Information</h2>
+            <div class="mb-4">
+                <label for="fullName" class="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
+                <input type="text" id="fullName" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="John Doe">
+            </div>
+            <div class="mb-4">
+                <label for="address" class="block text-gray-700 text-sm font-bold mb-2">Address</label>
+                <input type="text" id="address" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="123 Main St">
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label for="city" class="block text-gray-700 text-sm font-bold mb-2">City</label>
+                    <input type="text" id="city" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Anytown">
+                </div>
+                <div>
+                    <label for="zip" class="block text-gray-700 text-sm font-bold mb-2">Zip Code</label>
+                    <input type="text" id="zip" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="12345">
+                </div>
+            </div>
+            <button onclick="parent.nextStep()" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200 float-right">Next</button>
+        </div>
+
+        <div id="step2" class="checkout-step">
+            <h2 class="text-2xl font-semibold mb-4">Payment Information</h2>
+            <div class="mb-4">
+                <label for="cardNumber" class="block text-gray-700 text-sm font-bold mb-2">Card Number</label>
+                <input type="text" id="cardNumber" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="**** **** **** ****">
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label for="expiry" class="block text-gray-700 text-sm font-bold mb-2">Expiry Date</label>
+                    <input type="text" id="expiry" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="MM/YY">
+                </div>
+                <div>
+                    <label for="cvv" class="block text-gray-700 text-sm font-bold mb-2">CVV</label>
+                    <input type="text" id="cvv" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="123">
+                </div>
+            </div>
+            <div class="flex justify-between">
+                <button onclick="parent.prevStep()" class="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400 transition duration-200">Previous</button>
+                <button onclick="parent.nextStep()" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200">Next</button>
+            </div>
+        </div>
+
+        <div id="step3" class="checkout-step">
+            <h2 class="text-2xl font-semibold mb-4">Order Review</h2>
+            <div class="bg-gray-100 p-4 rounded-lg mb-6">
+                <h3 class="font-bold text-lg mb-2">Items:</h3>
+                <ul class="list-disc list-inside text-gray-700">
+                    <li>Modern Smartwatch X Pro (x1) - $199.99</li>
+                    <li>Gaming Laptop Pro X (x1) - $1499.00</li>
+                </ul>
+                <p class="font-bold text-xl mt-4">Total: $1698.99</p>
+            </div>
+            <div class="flex justify-between">
+                <button onclick="parent.prevStep()" class="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400 transition duration-200">Previous</button>
+                <button onclick="parent.placeOrder()" class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-200">Place Order</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp4Preview" title="Checkout Process Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp4')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s" data-app-title="User Dashboard (Orders)">
+                <h2>5. User Dashboard (Orders)</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">View past orders and their current status.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp5Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .order-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">My Orders</h1>
+        <div class="space-y-4">
+            <div class="order-card p-4">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xl font-semibold">Order #1001</h3>
+                    <span class="bg-yellow-200 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Processing</span>
+                </div>
+                <p class="text-gray-600 text-sm mb-2">Ordered on: May 20, 2025</p>
+                <ul class="list-disc list-inside text-sm text-gray-700 mb-3">
+                    <li>Modern Smartwatch X Pro (x1)</li>
+                </ul>
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-lg">$199.99</span>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Viewing details for Order #1001', 'info', 'Order Details');">View Details</button>
+                </div>
+            </div>
+            <div class="order-card p-4">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xl font-semibold">Order #1000</h3>
+                    <span class="bg-green-200 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Delivered</span>
+                </div>
+                <p class="text-gray-600 text-sm mb-2">Ordered on: April 15, 2025</p>
+                <ul class="list-disc list-inside text-sm text-gray-700 mb-3">
+                    <li>Gaming Laptop Pro X (x1)</li>
+                    <li>Elite Noise-Cancelling Headphones (x1)</li>
+                </ul>
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-lg">$1748.99</span>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Viewing details for Order #1000', 'info', 'Order Details');">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp5Preview" title="User Dashboard Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp5')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s" data-app-title="Category Page with Filters">
+                <h2>6. Category Page with Filters</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Browse products with interactive filtering options.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp6Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .product-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .filter-section { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-6">
+        <div class="md:w-1/4 filter-section p-6">
+            <h2 class="text-xl font-bold mb-4">Filters</h2>
+            <div class="mb-6">
+                <h3 class="font-semibold text-gray-700 mb-2">Category</h3>
+                <ul class="space-y-1 text-gray-600">
+                    <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Filter applied!', 'info');"> Laptops</li>
+                    <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Filter applied!', 'info');"> Headphones</li>
+                    <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Filter applied!', 'info');"> Keyboards</li>
+                    <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Filter applied!', 'info');"> Mice</li>
+                    <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Filter applied!', 'info');"> Smartwatches</li>
+                </ul>
+            </div>
+            <div class="mb-6">
+                <h3 class="font-semibold text-gray-700 mb-2">Price Range</h3>
+                <input type="range" min="0" max="2000" value="1000" class="w-full" onchange="parent.showMessageBox('Price range adjusted!', 'info');">
+                <div class="flex justify-between text-sm text-gray-500"><span>$0</span><span>$2000+</span></div>
+            </div>
+            <div class="mb-6">
+                <h3 class="font-semibold text-gray-700 mb-2">Brand</h3>
+                <select class="w-full p-2 border border-gray-300 rounded-lg" onchange="parent.showMessageBox('Brand filter applied!', 'info');">
+                    <option>All Brands</option>
+                    <option>TechCo</option>
+                    <option>GadgetZone</option>
+                    <option>ElectroLux</option>
+                </select>
+            </div>
+            <button class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Filters applied!', 'success');">Apply Filters</button>
+        </div>
+
+        <div class="md:w-3/4">
+            <h1 class="text-3xl font-bold mb-6 text-center md:text-left">Electronics</h1>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="product-card p-4">
+                    <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?laptop-silver" alt="Gaming Laptop" onerror="this.onerror=null;this.src='https://placehold.co/400x300/a78bfa/ffffff?text=Laptop';">
+                    <h3 class="text-lg font-semibold mb-1">Gaming Laptop Pro X</h3>
+                    <p class="text-gray-600 text-sm mb-2">High-performance laptop for serious gamers.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-gray-900">$1499.00</span>
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm" onclick="parent.showMessageBox('Added Gaming Laptop Pro X to cart!', 'success');">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card p-4">
+                    <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?wireless-headphones" alt="Noise-Cancelling Headphones" onerror="this.onerror=null;this.src='https://placehold.co/400x300/34d399/ffffff?text=Headphones';">
+                    <h3 class="text-lg font-semibold mb-1">Elite Noise-Cancelling Headphones</h3>
+                    <p class="text-gray-600 text-sm mb-2">Immersive sound with active noise cancellation.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-gray-900">$249.99</span>
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm" onclick="parent.showMessageBox('Added Elite Noise-Cancelling Headphones to cart!', 'success');">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card p-4">
+                    <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?rgb-keyboard" alt="Mechanical Keyboard" onerror="this.onerror=null;this.src='https://placehold.co/400x300/facc15/ffffff?text=Keyboard';">
+                    <h3 class="text-lg font-semibold mb-1">RGB Mechanical Keyboard</h3>
+                    <p class="text-gray-600 text-sm mb-2">Tactile feedback for superior typing experience.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-gray-900">$99.50</span>
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm" onclick="parent.showMessageBox('Added RGB Mechanical Keyboard to cart!', 'success');">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp6Preview" title="Category Page with Filters Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp6')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s" data-app-title="Homepage Hero Section">
+                <h2>7. Homepage Hero Section</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A compelling hero section to greet visitors.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp7Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage Hero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .hero-section {
+            background-image: url('https://source.unsplash.com/1200x600/?new-arrivals,electronics');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-6xl mx-auto">
+        <div class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="relative z-10 p-4">
+                <h1 class="text-5xl font-extrabold mb-4 leading-tight">Discover Your Next Favorite Gadget</h1>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">Explore our curated collection of cutting-edge electronics and accessories.</p>
+                <button class="bg-white text-indigo-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition duration-200 shadow-lg" onclick="parent.showMessageBox('Navigating to shop page!', 'info');">Shop Now</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp7Preview" title="Homepage Hero Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp7')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s" data-app-title="Admin Product Management">
+                <h2>8. Admin Product Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">An administrative interface for managing products.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp8Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Product Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .admin-table-header { background-color: #e2e8f0; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">Product Management</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="adminProductSearch" placeholder="Search products..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-200" onclick="parent.addProductAdmin()">Add New Product</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="admin-table-header">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="adminProductTableBody">
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Modern Smartwatch X Pro</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Electronics</td>
+                        <td class="px-6 py-4 whitespace-nowrap">$199.99</td>
+                        <td class="px-6 py-4 whitespace-nowrap">150</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2" onclick="parent.editProductAdmin(this)">Edit</button>
+                            <button class="text-red-600 hover:text-red-900" onclick="parent.deleteProductAdmin(this)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Gaming Laptop Pro X</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Computers</td>
+                        <td class="px-6 py-4 whitespace-nowrap">$1499.00</td>
+                        <td class="px-6 py-4 whitespace-nowrap">30</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2" onclick="parent.editProductAdmin(this)">Edit</button>
+                            <button class="text-red-600 hover:text-red-900" onclick="parent.deleteProductAdmin(this)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp8Preview" title="Admin Product Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp8')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s" data-app-title="Customer Reviews Section">
+                <h2>9. Customer Reviews Section</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Display product reviews with ratings and user comments.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp9Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .review-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .star-rating .fa-star { color: #facc15; } /* Yellow stars */
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">Customer Reviews</h1>
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Overall Rating: 4.5/5</h2>
+            <div class="flex items-center mb-4">
+                <div class="star-rating text-xl mr-2">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <span class="text-gray-600">(Based on 120 reviews)</span>
+            </div>
+            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Opening review form...', 'info', 'Write a Review');">Write a Review</button>
+        </div>
+
+        <div class="space-y-6">
+            <div class="review-card p-4">
+                <div class="flex items-center mb-2">
+                    <div class="star-rating text-lg mr-2">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <span class="font-semibold">Excellent Product!</span>
+                </div>
+                <p class="text-gray-700 text-sm mb-2">"I absolutely love this smartwatch! It's stylish, easy to use, and has all the features I need for my daily activities."</p>
+                <p class="text-gray-500 text-xs">By Jane D. on May 25, 2025</p>
+            </div>
+            <div class="review-card p-4">
+                <div class="flex items-center mb-2">
+                    <div class="star-rating text-lg mr-2">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                    </div>
+                    <span class="font-semibold">Great Value for Money</span>
+                </div>
+                <p class="text-gray-700 text-sm mb-2">"For the price, this laptop offers incredible performance. Highly recommend for gaming and productivity."</p>
+                <p class="text-gray-500 text-xs">By Alex R. on May 18, 2025</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp9Preview" title="Customer Reviews Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp9')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s" data-app-title="Search Results Page">
+                <h2>10. Search Results Page</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Display search results with pagination for easy navigation.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp10Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .product-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">Search Results for "Laptop"</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+            <div class="product-card p-4">
+                <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?laptop-gaming" alt="Gaming Laptop" onerror="this.onerror=null;this.src='https://placehold.co/400x300/a78bfa/ffffff?text=Laptop+A';">
+                <h3 class="text-lg font-semibold mb-1">Gaming Laptop Pro X</h3>
+                <p class="text-gray-600 text-sm mb-2">High-performance laptop for serious gamers.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-gray-900">$1499.00</span>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Added Gaming Laptop Pro X to cart!', 'success');">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card p-4">
+                <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?ultrabook" alt="Work Laptop" onerror="this.onerror=null;this.src='https://placehold.co/400x300/34d399/ffffff?text=Laptop+B';">
+                <h3 class="text-lg font-semibold mb-1">Ultra Thin Laptop</h3>
+                <p class="text-gray-600 text-sm mb-2">Lightweight and powerful for professionals.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-gray-900">$1199.00</span>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Added Ultra Thin Laptop to cart!', 'success');">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card p-4">
+                <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?student-laptop" alt="Budget Laptop" onerror="this.onerror=null;this.src='https://placehold.co/400x300/facc15/ffffff?text=Laptop+C';">
+                <h3 class="text-lg font-semibold mb-1">Student Laptop</h3>
+                <p class="text-gray-600 text-sm mb-2">Affordable and reliable for everyday tasks.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-gray-900">$699.00</span>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Added Student Laptop to cart!', 'success');">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center items-center space-x-2">
+            <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Previous page!', 'info');">Previous</button>
+            <span class="px-4 py-2 bg-blue-500 text-white rounded-lg">1</span>
+            <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Navigating to page 2!', 'info');">2</button>
+            <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Navigating to page 3!', 'info');">3</button>
+            <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Next page!', 'info');">Next</button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp10Preview" title="Search Results Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp10')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.1s" data-app-title="Advanced Product Search & Filter">
+                <h2>11. Advanced Product Search & Filter</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A powerful search page with extensive filtering options.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp11Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Search & Filter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .filter-panel { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .product-grid-item { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">Search Results</h1>
+        <div class="flex flex-col md:flex-row gap-6">
+            <div class="md:w-1/4 filter-panel p-6">
+                <h2 class="text-xl font-bold mb-4">Filters</h2>
+                <div class="mb-5">
+                    <label for="searchBar" class="block text-gray-700 text-sm font-bold mb-2">Search</label>
+                    <input type="text" id="searchBar" placeholder="e.g., Wireless Earbuds" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" onkeyup="parent.showMessageBox('Searching for: ' + this.value, 'info', 'Search');">
+                </div>
+                <div class="mb-5">
+                    <h3 class="font-semibold text-gray-700 mb-2">Category</h3>
+                    <select class="w-full p-2 border border-gray-300 rounded-md" onchange="parent.showMessageBox('Category filter applied!', 'info');">
+                        <option>All Categories</option>
+                        <option>Electronics</option>
+                        <option>Home Appliances</option>
+                        <option>Fashion</option>
+                        <option>Books</option>
+                    </select>
+                </div>
+                <div class="mb-5">
+                    <h3 class="font-semibold text-gray-700 mb-2">Price Range</h3>
+                    <input type="range" min="0" max="1000" value="500" class="w-full" onchange="parent.showMessageBox('Price range adjusted!', 'info');">
+                    <div class="flex justify-between text-sm text-gray-500"><span>$0</span><span>$1000+</span></div>
+                </div>
+                <div class="mb-5">
+                    <h3 class="font-semibold text-gray-700 mb-2">Brand</h3>
+                    <ul class="space-y-1 text-gray-600">
+                        <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Brand filter applied!', 'info');"> Brand A</li>
+                        <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Brand filter applied!', 'info');"> Brand B</li>
+                        <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Brand filter applied!', 'info');"> Brand C</li>
+                    </ul>
+                </div>
+                <div class="mb-5">
+                    <h3 class="font-semibold text-gray-700 mb-2">Customer Rating</h3>
+                    <ul class="space-y-1 text-gray-600">
+                        <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Rating filter applied!', 'info');"> 5 Stars</li>
+                        <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Rating filter applied!', 'info');"> 4 Stars & Up</li>
+                        <li><input type="checkbox" class="mr-2" onchange="parent.showMessageBox('Rating filter applied!', 'info');"> 3 Stars & Up</li>
+                    </ul>
+                </div>
+                <button class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.showMessageBox('Filters applied!', 'success');">Apply Filters</button>
+            </div>
+
+            <div class="md:w-3/4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="product-grid-item p-4">
+                        <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?wireless-earbuds" alt="Wireless Earbuds" onerror="this.onerror=null;this.src='https://placehold.co/400x300/3b82f6/ffffff?text=Product';">
+                        <h3 class="text-lg font-semibold mb-1">Ultra-Compact Wireless Earbuds</h3>
+                        <p class="text-gray-600 text-sm mb-2">Crystal clear audio with noise cancellation.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$129.00</span>
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.showMessageBox('Added Ultra-Compact Wireless Earbuds to cart!', 'success');">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-grid-item p-4">
+                        <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?smart-speaker" alt="Smart Speaker" onerror="this.onerror=null;this.src='https://placehold.co/400x300/a78bfa/ffffff?text=Product';">
+                        <h3 class="text-lg font-semibold mb-1">Smart Home Speaker</h3>
+                        <p class="text-gray-600 text-sm mb-2">Voice-activated assistant for your home.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$89.99</span>
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.showMessageBox('Added Smart Home Speaker to cart!', 'success');">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-grid-item p-4">
+                        <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?portable-charger" alt="Portable Charger" onerror="this.onerror=null;this.src='https://placehold.co/400x300/34d399/ffffff?text=Product';">
+                        <h3 class="text-lg font-semibold mb-1">High-Capacity Power Bank</h3>
+                        <p class="text-gray-600 text-sm mb-2">Keep your devices charged on the go.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$35.50</span>
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.showMessageBox('Added High-Capacity Power Bank to cart!', 'success');">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center items-center space-x-2 mt-8">
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Previous page!', 'info');">Previous</button>
+                    <span class="px-4 py-2 bg-blue-500 text-white rounded-lg">1</span>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Navigating to page 2!', 'info');">2</button>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Navigating to page 3!', 'info');">3</button>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200" onclick="parent.showMessageBox('Next page!', 'info');">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp11Preview" title="Advanced Search & Filter Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp11')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.2s" data-app-title="User Profile & Wishlist">
+                <h2>12. User Profile & Wishlist</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A personalized dashboard for user details and saved items.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp12Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile & Wishlist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .profile-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .wishlist-item { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">My Account</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="profile-card p-6 col-span-1 md:col-span-1">
+                <img class="w-24 h-24 rounded-full object-cover mx-auto mb-4" src="https://source.unsplash.com/100x100/?portrait-person" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/100x100/6366f1/ffffff?text=AV';">
+                <h2 class="text-xl font-bold text-center mb-2">John Doe</h2>
+                <p class="text-gray-600 text-center text-sm mb-4">john.doe@example.com</p>
+                <div class="text-center">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200 text-sm" onclick="parent.showMessageBox('Editing profile...', 'info', 'Edit Profile');">Edit Profile</button>
+                </div>
+                <div class="mt-6 border-t border-gray-200 pt-4">
+                    <h3 class="font-semibold text-gray-700 mb-2">Account Details</h3>
+                    <p class="text-gray-600 text-sm">Member Since: Jan 2023</p>
+                    <p class="text-gray-600 text-sm">Total Orders: 12</p>
+                    <p class="text-gray-600 text-sm">Shipping Address: 123 Main St, Anytown</p>
+                </div>
+            </div>
+
+            <div class="md:col-span-2">
+                <h2 class="text-2xl font-bold mb-4">My Wishlist</h2>
+                <div class="space-y-4">
+                    <div class="wishlist-item p-4 flex items-center space-x-4">
+                        <img class="h-24 w-24 object-cover rounded-md" src="https://source.unsplash.com/100x100/?drone" alt="Drone" onerror="this.onerror=null;this.src='https://placehold.co/100x100/3b82f6/ffffff?text=Product';">
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold">Pro Aerial Drone</h3>
+                            <p class="text-gray-600 text-sm">4K Camera, 30min Flight Time</p>
+                            <span class="font-semibold text-lg">$799.00</span>
+                        </div>
+                        <div class="flex flex-col space-y-2">
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.showMessageBox('Added Pro Aerial Drone to cart!', 'success');">Add to Cart</button>
+                            <button class="text-red-500 hover:text-red-700 text-sm" onclick="parent.showMessageBox('Removed Pro Aerial Drone from wishlist!', 'info');">Remove</button>
+                        </div>
+                    </div>
+                    <div class="wishlist-item p-4 flex items-center space-x-4">
+                        <img class="h-24 w-24 object-cover rounded-md" src="https://source.unsplash.com/100x100/?coffee-maker" alt="Coffee Maker" onerror="this.onerror=null;this.src='https://placehold.co/100x100/a78bfa/ffffff?text=Product';">
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold">Smart Coffee Maker</h3>
+                            <p class="text-gray-600 text-sm">Programmable, Wi-Fi enabled</p>
+                            <span class="font-semibold text-lg">$120.50</span>
+                        </div>
+                        <div class="flex flex-col space-y-2">
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.showMessageBox('Added Smart Coffee Maker to cart!', 'success');">Add to Cart</button>
+                            <button class="text-red-500 hover:text-red-700 text-sm" onclick="parent.showMessageBox('Removed Smart Coffee Maker from wishlist!', 'info');">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp12Preview" title="User Profile & Wishlist Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp12')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.3s" data-app-title="Dynamic Homepage">
+                <h2>13. Dynamic Homepage</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A comprehensive homepage with various interactive sections.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp13Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic E-commerce Homepage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .section-title { font-size: 2.25rem; font-weight: 700; text-align: center; margin-bottom: 2rem; color: #334155; }
+        .product-card-home { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .category-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-7xl mx-auto">
+        <section class="relative bg-cover bg-center h-96 rounded-xl overflow-hidden mb-12" style="background-image: url('https://source.unsplash.com/1200x500/?modern-home-electronics');">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-white">
+                <div class="text-center p-4">
+                    <h1 class="text-5xl font-extrabold mb-4">Your Ultimate Tech Destination</h1>
+                    <p class="text-xl mb-8">Explore the latest gadgets and electronics with exclusive deals!</p>
+                    <button class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-200" onclick="parent.showMessageBox('Navigating to shop page!', 'info');">Shop All Products</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="category-card p-4 text-center">
+                    <img class="w-32 h-32 object-cover rounded-full mx-auto mb-4" src="https://source.unsplash.com/150x150/?laptop-category" alt="Laptops" onerror="this.onerror=null;this.src='https://placehold.co/150x150/3b82f6/ffffff?text=Laptops';">
+                    <h3 class="text-lg font-semibold">Laptops</h3>
+                    <p class="text-gray-600 text-sm">Powerful machines for work & play.</p>
+                </div>
+                <div class="category-card p-4 text-center">
+                    <img class="w-32 h-32 object-cover rounded-full mx-auto mb-4" src="https://source.unsplash.com/150x150/?smartphone-category" alt="Smartphones" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Phones';">
+                    <h3 class="text-lg font-semibold">Smartphones</h3>
+                    <p class="text-gray-600 text-sm">Stay connected with the latest models.</p>
+                </div>
+                <div class="category-card p-4 text-center">
+                    <img class="w-32 h-32 object-cover rounded-full mx-auto mb-4" src="https://source.unsplash.com/150x150/?camera-category" alt="Cameras" onerror="this.onerror=null;this.src='https://placehold.co/150x150/34d399/ffffff?text=Cameras';">
+                    <h3 class="text-lg font-semibold">Cameras</h3>
+                    <p class="text-gray-600 text-sm">Capture life's moments in stunning detail.</p>
+                </div>
+                <div class="category-card p-4 text-center">
+                    <img class="w-32 h-32 object-cover rounded-full mx-auto mb-4" src="https://source.unsplash.com/150x150/?gaming-console-category" alt="Gaming" onerror="this.onerror=null;this.src='https://placehold.co/150x150/facc15/ffffff?text=Gaming';">
+                    <h3 class="text-lg font-semibold">Gaming</h3>
+                    <p class="text-gray-600 text-sm">Level up your gaming experience.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="section-title">Trending Products</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div class="product-card-home p-4">
+                    <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?smartwatch-silver" alt="Smartwatch" onerror="this.onerror=null;this.src='https://placehold.co/400x300/a78bfa/ffffff?text=Product';">
+                    <h3 class="text-lg font-semibold mb-1">Fitness Smartwatch</h3>
+                    <p class="text-gray-600 text-sm mb-2">Track your health and notifications.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-gray-900">$179.99</span>
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.showMessageBox('Added Fitness Smartwatch to cart!', 'success');">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card-home p-4">
+                    <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?bluetooth-speaker" alt="Bluetooth Speaker" onerror="this.onerror=null;this.src='https://placehold.co/400x300/34d399/ffffff?text=Product';">
+                    <h3 class="text-lg font-semibold mb-1">Portable Bluetooth Speaker</h3>
+                    <p class="text-gray-600 text-sm mb-2">Powerful sound on the go.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-gray-900">$75.00</span>
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.showMessageBox('Added Portable Bluetooth Speaker to cart!', 'success');">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card-home p-4">
+                    <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?wireless-charger" alt="Wireless Charger" onerror="this.onerror=null;this.src='https://placehold.co/400x300/facc15/ffffff?text=Product';">
+                    <h3 class="text-lg font-semibold mb-1">Fast Wireless Charger</h3>
+                    <p class="text-gray-600 text-sm mb-2">Charge your devices quickly and conveniently.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-gray-900">$30.00</span>
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.showMessageBox('Added Fast Wireless Charger to cart!', 'success');">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card-home p-4">
+                    <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?vr-headset" alt="VR Headset" onerror="this.onerror=null;this.src='https://placehold.co/400x300/ef4444/ffffff?text=Product';">
+                    <h3 class="text-lg font-semibold mb-1">Immersive VR Headset</h3>
+                    <p class="text-gray-600 text-sm mb-2">Dive into virtual worlds with stunning clarity.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-gray-900">$399.00</span>
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.showMessageBox('Added Immersive VR Headset to cart!', 'success');">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-red-600 text-white p-8 rounded-xl text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">Stay Updated with Our Newsletter!</h2>
+            <p class="text-lg mb-6">Get exclusive deals, new product announcements, and tech insights directly to your inbox.</p>
+            <div class="flex justify-center">
+                <input type="email" placeholder="Enter your email address" class="p-3 rounded-l-lg w-full max-w-md text-gray-800 focus:outline-none">
+                <button class="bg-red-800 text-white px-6 py-3 rounded-r-lg font-semibold hover:bg-red-900 transition duration-200" onclick="parent.showMessageBox('Subscribed to newsletter!', 'success');">Subscribe</button>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp13Preview" title="Dynamic Homepage Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp13')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.4s" data-app-title="Quick View Modal">
+                <h2>14. Quick View Modal</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A modal popup to quickly preview product details without leaving the current page.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp14Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick View Modal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .product-grid-item { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center;
+            z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.open { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: white; padding: 2rem; border-radius: 1rem; max-width: 800px; width: 90%;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); transform: scale(0.9); transition: transform 0.3s ease;
+            position: relative;
+        }
+        .modal-overlay.open .modal-content { transform: scale(1); }
+        .modal-close-btn { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; cursor: pointer; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">Products</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="product-grid-item p-4 text-center">
+                <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?wireless-earbuds" alt="Wireless Earbuds" onerror="this.onerror=null;this.src='https://placehold.co/400x300/3b82f6/ffffff?text=Earbuds';">
+                <h3 class="text-lg font-semibold mb-1">Wireless Earbuds</h3>
+                <p class="text-gray-600 text-sm mb-2">$129.00</p>
+                <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.openQuickView()">Quick View</button>
+            </div>
+            <div class="product-grid-item p-4 text-center">
+                <img class="w-full h-48 object-cover rounded-md mb-4" src="https://source.unsplash.com/400x300/?smart-speaker" alt="Smart Speaker" onerror="this.onerror=null;this.src='https://placehold.co/400x300/a78bfa/ffffff?text=Speaker';">
+                <h3 class="text-lg font-semibold mb-1">Smart Speaker</h3>
+                <p class="text-gray-600 text-sm mb-2">$89.99</p>
+                <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.openQuickView()">Quick View</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="quickViewModalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <i class="fas fa-times modal-close-btn" onclick="parent.closeQuickView()"></i>
+            <div class="md:flex gap-6">
+                <div class="md:w-1/2">
+                    <img class="w-full h-64 object-cover rounded-lg mb-4" src="https://source.unsplash.com/600x400/?wireless-earbuds-detail" alt="Wireless Earbuds Detail" onerror="this.onerror=null;this.src='https://placehold.co/600x400/3b82f6/ffffff?text=Product+Detail';">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold mb-2">Ultra-Compact Wireless Earbuds</h3>
+                    <p class="text-gray-600 text-sm mb-3">Crystal clear audio with noise cancellation and ergonomic fit.</p>
+                    <div class="flex items-center text-xl text-yellow-500 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        <span class="text-gray-600 text-sm ml-2">(150 Reviews)</span>
+                    </div>
+                    <span class="text-3xl font-bold text-gray-900 mb-4 block">$129.00</span>
+                    <p class="mb-4 text-gray-700">Available in Black, White, and Blue.</p>
+                    <button class="bg-blue-500 text-white px-5 py-2 rounded-lg text-lg font-semibold hover:bg-blue-600 w-full" onclick="parent.showMessageBox('Added to Cart!', 'success', 'Item Added'); parent.closeQuickView();">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp14Preview" title="Quick View Modal Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp14')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.5s" data-app-title="Modern Product Card">
+                <h2>15. Modern Product Card</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A sleek product card with interactive hover effects.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp15Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Product Card</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .product-card-modern {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .product-card-modern:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .product-card-modern .actions {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255,255,255,0.9);
+            padding: 0.75rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #e2e8f0;
+        }
+        .product-card-modern:hover .actions {
+            transform: translateY(0);
+        }
+        .product-card-modern .actions button {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+        .product-card-modern .actions button:hover {
+            background-color: #2563eb;
+        }
+    </style>
+</head>
+<body class="p-4 flex justify-center items-center h-screen">
+    <div class="product-card-modern w-80">
+        <img class="w-full h-56 object-cover" src="https://source.unsplash.com/400x300/?modern-headphone" alt="Stylish Headphones" onerror="this.onerror=null;this.src='https://placehold.co/400x300/6366f1/ffffff?text=Headphones';">
+        <div class="p-4">
+            <h3 class="text-xl font-semibold mb-1">AeroFlow Headphones</h3>
+            <p class="text-gray-600 text-sm mb-3">Premium audio experience with active noise cancellation.</p>
+            <div class="flex items-center text-yellow-500 text-sm mb-2">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                <span class="text-gray-600 ml-1">(85)</span>
+            </div>
+            <span class="text-2xl font-bold text-gray-900">$249.00</span>
+        </div>
+        <div class="actions">
+            <button onclick="parent.showMessageBox('Added to Cart!', 'success', 'Item Added');">Add to Cart</button>
+            <button class="bg-gray-200 text-gray-700 hover:bg-gray-300" onclick="parent.showMessageBox('Quick View opened!', 'info');">Quick View</button>
+        </div>
+    </div>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp15Preview" title="Modern Product Card Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp15')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.6s" data-app-title="Product Image Gallery">
+                <h2>16. Product Image Gallery</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">An interactive image gallery for product details.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="ecommerceApp16Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Image Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .gallery-container { background-color: white; border-radius: 0.75rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 1.5rem; }
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: contain; /* Changed to contain for better image display */
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            transition: opacity 0.3s ease;
+        }
+        .thumbnail-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+        .thumbnail-image:hover {
+            border-color: #3b82f6;
+            transform: scale(1.05);
+        }
+        .thumbnail-image.active {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="p-4 flex justify-center items-center h-screen">
+    <div class="gallery-container max-w-2xl w-full">
+        <img id="mainProductImage" class="main-image" src="https://source.unsplash.com/800x600/?product-tech-1" alt="Product Image 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/3b82f6/ffffff?text=Image+1';">
+        <div class="flex justify-center gap-3">
+            <img class="thumbnail-image active" src="https://source.unsplash.com/150x150/?product-tech-1-thumb" alt="Thumbnail 1" onclick="changeMainImage(this.src.replace('150x150', '800x600').replace('-thumb', ''))" onerror="this.onerror=null;this.src='https://placehold.co/150x150/3b82f6/ffffff?text=T1';">
+            <img class="thumbnail-image" src="https://source.unsplash.com/150x150/?product-tech-2-thumb" alt="Thumbnail 2" onclick="changeMainImage(this.src.replace('150x150', '800x600').replace('-thumb', ''))" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=T2';">
+            <img class="thumbnail-image" src="https://source.unsplash.com/150x150/?product-tech-3-thumb" alt="Thumbnail 3" onclick="changeMainImage(this.src.replace('150x150', '800x600').replace('-thumb', ''))" onerror="this.onerror=null;this.src='https://placehold.co/150x150/34d399/ffffff?text=T3';">
+            <img class="thumbnail-image" src="https://source.unsplash.com/150x150/?product-tech-4-thumb" alt="Thumbnail 4" onclick="changeMainImage(this.src.replace('150x150', '800x600').replace('-thumb', ''))" onerror="this.onerror=null;this.src='https://placehold.co/150x150/facc15/ffffff?text=T4';">
+        </div>
+    </div>
+
+    <script>
+        function changeMainImage(newSrc) {
+            const mainImage = document.getElementById('mainProductImage');
+            mainImage.style.opacity = 0; // Fade out
+
+            setTimeout(() => {
+                mainImage.src = newSrc;
+                mainImage.style.opacity = 1; // Fade in
+
+                // Update active thumbnail class
+                const thumbnails = document.querySelectorAll('.thumbnail-image');
+                thumbnails.forEach(thumb => {
+                    if (thumb.src.replace('150x150', '800x600').replace('-thumb', '') === newSrc) {
+                        thumb.classList.add('active');
+                    } else {
+                        thumb.classList.remove('active');
+                    }
+                });
+            }, 300); // Match with CSS transition duration
+        }
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="ecommerceApp16Preview" title="Product Image Gallery Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadEcommerceTemplate('ecommerceApp16')">Run Example</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <div id="messageBoxOverlay" class="message-box-overlay">
+        <div class="message-box-content">
+            <h3 id="messageBoxTitle" class="text-xl font-bold mb-3"></h3>
+            <p id="messageBoxText" class="text-gray-700 dark:text-gray-300"></p>
+            <button id="messageBoxButton" class="message-box-button" onclick="closeMessageBox()">OK</button>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,3257 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 Interactive Management Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles from aside.html for consistency */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light slate background */
+            color: #1e293b; /* Dark slate text */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark body {
+            background-color: #0f172a; /* Darker slate background */
+            color: #e2e8f0; /* Light slate text */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem; /* 4xl */
+            font-weight: 800; /* Extra bold */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #6366f1, #a78bfa); /* Indigo to Purple gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #6366f1, #a78bfa);
+            border-radius: 2px;
+        }
+
+        .app-card { /* Renamed from template-card for semantic clarity and consistency with aside.html */
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .app-card {
+            background-color: #1e293b;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #334155;
+        }
+        .app-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+        }
+        .dark .app-card:hover {
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .app-card h2 {
+            font-size: 2.25rem; /* 3xl */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #334155;
+            text-align: center;
+        }
+        .dark .app-card h2 {
+            color: #f8fafc;
+        }
+
+        .code-preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) { /* Large screens */
+            .code-preview-container {
+                flex-direction: row;
+            }
+        }
+
+        .code-editor, .live-preview {
+            flex: 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid #cbd5e1; /* Slate 300 */
+            transition: border-color 0.3s ease;
+        }
+        .dark .code-editor, .dark .live-preview {
+            border-color: #475569; /* Slate 700 */
+        }
+
+        .code-editor textarea {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            padding: 1rem;
+            background-color: #2d3748; /* Dark code background */
+            color: #f8fafc; /* Light text */
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: none;
+            outline: none;
+            resize: vertical; /* Allow vertical resizing */
+            border-radius: 1rem;
+        }
+
+        .live-preview iframe {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            background-color: #ffffff;
+            border: none;
+            border-radius: 1rem;
+        }
+        .dark .live-preview iframe {
+            background-color: #0f172a;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .button-group button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .dark .button-group button {
+            background: linear-gradient(45deg, #a78bfa, #8b5cf6);
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+        .button-group button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+        .dark .button-group button:hover {
+            box-shadow: 0 8px 20px rgba(167, 139, 250, 0.4);
+        }
+
+        /* Message Box styles (copied for consistency) */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001; /* Higher than modals */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .message-box-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .dark .message-box-content {
+            background-color: #1e293b;
+        }
+        .message-box-overlay.open .message-box-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .message-box-button {
+            background-color: #6366f1;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .dark .message-box-button {
+            background-color: #a78bfa;
+        }
+        .message-box-button:hover {
+            background-color: #4f46e5;
+        }
+        .dark .message-box-button:hover {
+            background-color: #8b5cf6;
+        }
+
+        /* Dark mode toggle specific styles for the header */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Header Specific Styles */
+        .header-nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease, transform 0.2s ease;
+            font-weight: 500;
+        }
+        .header-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+        .header-nav-link:hover::after {
+            width: 100%;
+            transform: translateX(-50%) scaleX(1);
+        }
+        .dark .header-nav-link:hover::after {
+            background-color: #a78bfa; /* Lighter purple for dark mode hover */
+        }
+
+        /* Footer Specific Styles */
+        .footer-link {
+            color: #cbd5e1; /* Light gray for links */
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+        .footer-link:hover {
+            color: #6366f1; /* Indigo on hover */
+            transform: translateX(5px);
+        }
+        .dark .footer-link:hover {
+            color: #a78bfa; /* Lighter purple on hover in dark mode */
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="transition-colors duration-300">
+
+    <header class="py-6 bg-gradient-to-r from-blue-600 to-purple-700 dark:from-gray-900 dark:to-indigo-900 text-white shadow-xl">
+        <div class="container flex flex-col md:flex-row justify-between items-center gap-4">
+            <a href="#" class="text-4xl font-extrabold animate__animated animate__fadeInLeft">
+                <i class="fas fa-cogs mr-2"></i> ManagePro
+            </a>
+
+            <div class="relative w-full md:w-1/3 animate__animated animate__fadeInDown animate__delay-0.5s">
+                <input type="text" id="mainSearchInput" placeholder="Search management systems..."
+                       class="w-full pl-10 pr-4 py-2 rounded-full bg-white bg-opacity-20 text-white placeholder-gray-200
+                              focus:outline-none focus:ring-2 focus:ring-white focus:bg-opacity-30 transition duration-300">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-200"></i>
+            </div>
+
+            <nav class="flex items-center space-x-6 animate__animated animate__fadeInRight animate__delay-1s">
+                <a href="#" class="header-nav-link">Home</a>
+                <a href="#" class="header-nav-link">Features</a>
+                <a href="#" class="header-nav-link">About</a>
+                <a href="#" class="header-nav-link">Contact</a>
+                <a href="#" class="text-white hover:text-gray-200 transition duration-300"><i class="fas fa-user-circle text-2xl"></i></a>
+                <a href="#" class="text-white hover:text-gray-200 transition duration-300"><i class="fas fa-bell text-2xl"></i></a>
+
+                <label class="toggle-switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider"></span>
+                </label>
+            </nav>
+        </div>
+        <p class="text-xl font-light mt-4 text-center animate__animated animate__fadeInUp animate__delay-1.5s">Modern tools for efficient operations.</p>
+    </header>
+
+    <main class="container py-16">
+        <h2 class="section-title mb-16 wow animate__animated animate__fadeIn">Management App Showcase</h2>
+
+        <div id="appCardsContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-app-title="Project Management Dashboard">
+                <h2>1. Project Management Dashboard</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A simple Kanban-style project management board.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp1Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .kanban-column { min-width: 280px; background-color: #e2e8f0; border-radius: 0.75rem; padding: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .task-card { background-color: white; border-radius: 0.5rem; padding: 1rem; margin-bottom: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: grab; }
+        .task-card:active { cursor: grabbing; }
+        .add-task-btn { background-color: #4f46e5; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; transition: background-color 0.2s ease; }
+        .add-task-btn:hover { background-color: #4338ca; }
+    </style>
+</head>
+<body>
+    <div class="flex flex-col h-full">
+        <h1 class="text-2xl font-bold mb-6 text-center text-indigo-700">Project Dashboard</h1>
+        <div class="flex flex-grow overflow-x-auto space-x-4 pb-4">
+            <div class="kanban-column bg-blue-100 p-4 rounded-xl shadow-md flex-shrink-0">
+                <h2 class="text-xl font-semibold mb-4 text-blue-800">To Do</h2>
+                <div class="space-y-3" id="todo-tasks">
+                    <div class="task-card p-4" draggable="true">
+                        <h3 class="font-medium text-lg mb-1">Design Homepage</h3>
+                        <p class="text-gray-600 text-sm">Create wireframes and mockups.</p>
+                        <span class="text-xs text-gray-500 mt-2 block">Due: 28 May</span>
+                    </div>
+                    <div class="task-card p-4" draggable="true">
+                        <h3 class="font-medium text-lg mb-1">Set up Database</h3>
+                        <p class="text-gray-600 text-sm">Configure PostgreSQL instance.</p>
+                        <span class="text-xs text-gray-500 mt-2 block">Due: 30 May</span>
+                    </div>
+                </div>
+                <button class="mt-4 w-full add-task-btn" onclick="parent.addTask('todo-tasks', 'New Task', 'Description of new task', 'Today')">Add Task</button>
+            </div>
+
+            <div class="kanban-column bg-yellow-100 p-4 rounded-xl shadow-md flex-shrink-0">
+                <h2 class="text-xl font-semibold mb-4 text-yellow-800">In Progress</h2>
+                <div class="space-y-3" id="in-progress-tasks">
+                    <div class="task-card p-4" draggable="true">
+                        <h3 class="font-medium text-lg mb-1">Develop User Auth</h3>
+                        <p class="text-gray-600 text-sm">Implement login and registration.</p>
+                        <span class="text-xs text-gray-500 mt-2 block">Due: 05 Jun</span>
+                    </div>
+                </div>
+                <button class="mt-4 w-full add-task-btn" onclick="parent.addTask('in-progress-tasks', 'New In Progress Task', 'Description of in progress task', 'Soon')">Add Task</button>
+            </div>
+
+            <div class="kanban-column bg-green-100 p-4 rounded-xl shadow-md flex-shrink-0">
+                <h2 class="text-xl font-semibold mb-4 text-green-800">Done</h2>
+                <div class="space-y-3" id="done-tasks">
+                    <div class="task-card p-4" draggable="true">
+                        <h3 class="font-medium text-lg mb-1">Project Kickoff</h3>
+                        <p class="text-gray-600 text-sm">Initial meeting with stakeholders.</p>
+                        <span class="text-xs text-gray-500 mt-2 block">Completed: 20 May</span>
+                    </div>
+                </div>
+                <button class="mt-4 w-full add-task-btn" onclick="parent.addTask('done-tasks', 'New Done Task', 'Description of done task', 'Recently')">Add Task</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to add a task (called from parent window)
+        window.addTask = function(columnId, title, description, dueDate) {
+            const column = document.getElementById(columnId);
+            if (column) {
+                const newTaskHtml = `
+                    <div class="task-card p-4" draggable="true">
+                        <h3 class="font-medium text-lg mb-1">${title}</h3>
+                        <p class="text-gray-600 text-sm">${description}</p>
+                        <span class="text-xs text-gray-500 mt-2 block">Due: ${dueDate}</span>
+                    </div>
+                `;
+                column.insertAdjacentHTML('beforeend', newTaskHtml);
+                parent.showMessageBox('Task "' + title + '" added!', 'success');
+            }
+        };
+
+        // Basic Drag and Drop (conceptual within iframe)
+        document.addEventListener('DOMContentLoaded', () => {
+            const columns = document.querySelectorAll('.kanban-column div[id$="-tasks"]');
+            let draggedItem = null;
+
+            columns.forEach(column => {
+                column.addEventListener('dragstart', (e) => {
+                    if (e.target.classList.contains('task-card')) {
+                        draggedItem = e.target;
+                        setTimeout(() => {
+                            e.target.style.opacity = '0.5';
+                        }, 0);
+                    }
+                });
+
+                column.addEventListener('dragend', (e) => {
+                    if (draggedItem) {
+                        draggedItem.style.opacity = '1';
+                        draggedItem = null;
+                    }
+                });
+
+                column.addEventListener('dragover', (e) => {
+                    e.preventDefault(); // Allow drop
+                });
+
+                column.addEventListener('dragenter', (e) => {
+                    e.preventDefault();
+                    if (e.target.classList.contains('task-card') || e.target.classList.contains('space-y-3')) {
+                        e.target.classList.add('border-indigo-500', 'border-2');
+                    }
+                });
+
+                column.addEventListener('dragleave', (e) => {
+                    if (e.target.classList.contains('task-card') || e.target.classList.contains('space-y-3')) {
+                        e.target.classList.remove('border-indigo-500', 'border-2');
+                    }
+                });
+
+                column.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    if (e.target.classList.contains('task-card') || e.target.classList.contains('space-y-3')) {
+                        e.target.classList.remove('border-indigo-500', 'border-2');
+                        if (draggedItem) {
+                            // Determine where to drop: before a specific card or at the end of the column
+                            const dropTarget = e.target.closest('.task-card') || e.target;
+                            if (dropTarget.classList.contains('task-card')) {
+                                dropTarget.parentNode.insertBefore(draggedItem, dropTarget);
+                            } else { // Dropped directly on the column's task container
+                                dropTarget.appendChild(draggedItem);
+                            }
+                            parent.showMessageBox('Task moved!', 'info');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp1Preview" title="Project Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp1')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-app-title="Inventory Management">
+                <h2>2. Inventory Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Track products, stock levels, and reorder points.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .table-header { background-color: #e2e8f0; }
+        .dark .table-header { background-color: #334155; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-teal-700">Inventory Dashboard</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="productSearch" placeholder="Search products..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.addProduct()">Add New Product</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="table-header">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SKU</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="inventoryTableBody">
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Laptop Pro X</td>
+                        <td class="px-6 py-4 whitespace-nowrap">LPX-2024</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">150</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">$1200.00</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.editProduct(this)">Edit</button>
+                            <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteProduct(this)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Wireless Mouse</td>
+                        <td class="px-6 py-4 whitespace-nowrap">WM-001</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">30</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">$25.00</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.editProduct(this)">Edit</button>
+                            <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteProduct(this)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">USB-C Hub</td>
+                        <td class="px-6 py-4 whitespace-nowrap">UCH-005</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">5</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">$45.00</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.editProduct(this)">Edit</button>
+                            <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteProduct(this)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        window.addProduct = function() {
+            const name = prompt("Enter Product Name:");
+            const sku = prompt("Enter SKU:");
+            const stock = prompt("Enter Stock Quantity:");
+            const price = prompt("Enter Price:");
+
+            if (name && sku && stock && price) {
+                const tableBody = document.getElementById('inventoryTableBody');
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${sku}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${stock > 20 ? 'bg-green-100 text-green-800' : (stock > 5 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800')}">${stock}</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">$${parseFloat(price).toFixed(2)}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.editProduct(this)">Edit</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteProduct(this)">Delete</button>
+                    </td>
+                `;
+                parent.showMessageBox('Product added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Product addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.editProduct = function(button) {
+            const row = button.closest('tr');
+            const cells = row.children;
+            const currentName = cells[0].textContent;
+            const currentSku = cells[1].textContent;
+            const currentStock = cells[2].textContent;
+            const currentPrice = cells[3].textContent.replace('$', '');
+
+            const newName = prompt("Edit Product Name:", currentName);
+            const newSku = prompt("Edit SKU:", currentSku);
+            const newStock = prompt("Edit Stock Quantity:", currentStock);
+            const newPrice = prompt("Edit Price:", currentPrice);
+
+            if (newName !== null && newSku !== null && newStock !== null && newPrice !== null) {
+                cells[0].textContent = newName;
+                cells[1].textContent = newSku;
+                cells[2].innerHTML = `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${newStock > 20 ? 'bg-green-100 text-green-800' : (newStock > 5 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800')}">${newStock}</span>`;
+                cells[3].textContent = `$${parseFloat(newPrice).toFixed(2)}`;
+                parent.showMessageBox('Product updated successfully!', 'success');
+            } else {
+                parent.showMessageBox('Product update cancelled.', 'info');
+            }
+        };
+
+        window.deleteProduct = function(button) {
+            if (confirm("Are you sure you want to delete this product?")) {
+                const row = button.closest('tr');
+                row.remove();
+                parent.showMessageBox('Product deleted!', 'success');
+            } else {
+                parent.showMessageBox('Product deletion cancelled.', 'info');
+            }
+        };
+
+        document.getElementById('productSearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#inventoryTableBody tr');
+            rows.forEach(row => {
+                const productName = row.children[0].textContent.toLowerCase();
+                if (productName.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp2Preview" title="Inventory Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp2')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-app-title="Customer Relationship Management (CRM)">
+                <h2>3. Customer Relationship Management (CRM)</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage customer contacts and interactions.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp3Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .customer-item { border-bottom: 1px solid #e2e8f0; }
+        .customer-item:last-child { border-bottom: none; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-purple-700">CRM Dashboard</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="customerSearch" placeholder="Search customers..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-200" onclick="parent.addCustomer()">Add New Customer</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <ul class="divide-y divide-gray-200" id="customerList">
+                <li class="p-4 flex items-center justify-between customer-item">
+                    <div>
+                        <p class="text-lg font-medium">John Doe</p>
+                        <p class="text-sm text-gray-500">john.doe@example.com</p>
+                    </div>
+                    <div class="text-sm text-gray-600">Last Contact: 2 days ago</div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewCustomer(this)">View</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteCustomer(this)">Delete</button>
+                    </div>
+                </li>
+                <li class="p-4 flex items-center justify-between customer-item">
+                    <div>
+                        <p class="text-lg font-medium">Jane Smith</p>
+                        <p class="text-sm text-gray-500">jane.smith@example.com</p>
+                    </div>
+                    <div class="text-sm text-gray-600">Last Contact: 1 week ago</div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewCustomer(this)">View</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteCustomer(this)">Delete</button>
+                    </div>
+                </li>
+                <li class="p-4 flex items-center justify-between customer-item">
+                    <div>
+                        <p class="text-lg font-medium">Robert Johnson</p>
+                        <p class="text-sm text-gray-500">robert.j@example.com</p>
+                    </div>
+                    <div class="text-sm text-gray-600">Last Contact: 3 hours ago</div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewCustomer(this)">View</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteCustomer(this)">Delete</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        window.addCustomer = function() {
+            const name = prompt("Enter Customer Name:");
+            const email = prompt("Enter Customer Email:");
+            if (name && email) {
+                const customerList = document.getElementById('customerList');
+                const newLi = document.createElement('li');
+                newLi.className = 'p-4 flex items-center justify-between customer-item';
+                newLi.innerHTML = `
+                    <div>
+                        <p class="text-lg font-medium">${name}</p>
+                        <p class="text-sm text-gray-500">${email}</p>
+                    </div>
+                    <div class="text-sm text-gray-600">Last Contact: Just now</div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewCustomer(this)">View</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteCustomer(this)">Delete</button>
+                    </div>
+                `;
+                customerList.appendChild(newLi);
+                parent.showMessageBox('Customer added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Customer addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.viewCustomer = function(button) {
+            const li = button.closest('li');
+            const name = li.querySelector('.font-medium').textContent;
+            const email = li.querySelector('.text-gray-500').textContent;
+            parent.showMessageBox(`Viewing details for ${name} (${email})`, 'info', 'Customer Details');
+        };
+
+        window.deleteCustomer = function(button) {
+            if (confirm("Are you sure you want to delete this customer?")) {
+                button.closest('li').remove();
+                parent.showMessageBox('Customer deleted!', 'success');
+            } else {
+                parent.showMessageBox('Customer deletion cancelled.', 'info');
+            }
+        };
+
+        document.getElementById('customerSearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const items = document.querySelectorAll('#customerList li');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp3Preview" title="CRM System Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp3')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-app-title="Human Resources (HR) Portal">
+                <h2>4. Human Resources (HR) Portal</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage employee information and leave requests.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .table-header { background-color: #e2e8f0; }
+        .dark .table-header { background-color: #334155; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-teal-700">HR Dashboard</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="employeeSearch" placeholder="Search employees..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <button class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition duration-200" onclick="parent.addEmployee()">Add New Employee</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="table-header">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="employeeTableBody">
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Alice Brown</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Software Engineer</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Engineering</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewEmployee(this)">View</button>
+                            <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.requestLeave(this)">Leave</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Bob White</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Marketing Manager</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Marketing</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewEmployee(this)">View</button>
+                            <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.requestLeave(this)">Leave</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        window.addEmployee = function() {
+            const name = prompt("Enter Employee Name:");
+            const position = prompt("Enter Position:");
+            const department = prompt("Enter Department:");
+            if (name && position && department) {
+                const tableBody = document.getElementById('employeeTableBody');
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${position}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${department}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewEmployee(this)">View</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.requestLeave(this)">Leave</button>
+                    </td>
+                `;
+                parent.showMessageBox('Employee added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Employee addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.viewEmployee = function(button) {
+            const row = button.closest('tr');
+            const name = row.children[0].textContent;
+            const position = row.children[1].textContent;
+            parent.showMessageBox(`Viewing details for ${name}, a ${position}.`, 'info', 'Employee Details');
+        };
+
+        window.requestLeave = function(button) {
+            const row = button.closest('tr');
+            const name = row.children[0].textContent;
+            parent.showMessageBox(`Leave request initiated for ${name}.`, 'info', 'Leave Request');
+        };
+
+        document.getElementById('employeeSearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#employeeTableBody tr');
+            rows.forEach(row => {
+                const name = row.children[0].textContent.toLowerCase();
+                const position = row.children[1].textContent.toLowerCase();
+                const department = row.children[2].textContent.toLowerCase();
+                if (name.includes(filter) || position.includes(filter) || department.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp4Preview" title="HR Portal Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp4')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s" data-app-title="Event Management">
+                <h2>5. Event Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Organize and track events, attendees, and venues.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp5Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .event-item { border-bottom: 1px solid #e2e8f0; }
+        .event-item:last-child { border-bottom: none; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-pink-700">Event Dashboard</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="eventSearch" placeholder="Search events..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+            <button class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition duration-200" onclick="parent.createNewEvent()">Create New Event</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <ul class="divide-y divide-gray-200" id="eventList">
+                <li class="p-4 flex items-center justify-between event-item">
+                    <div>
+                        <p class="text-lg font-medium">Annual Tech Conference</p>
+                        <p class="text-sm text-gray-500">Date: July 15, 2025 | Location: Convention Center</p>
+                    </div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewEventDetails(this)">Details</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.cancelEvent(this)">Cancel</button>
+                    </div>
+                </li>
+                <li class="p-4 flex items-center justify-between event-item">
+                    <div>
+                        <p class="text-lg font-medium">Company Holiday Party</p>
+                        <p class="text-sm text-gray-500">Date: December 10, 2025 | Location: Grand Ballroom</p>
+                    </div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewEventDetails(this)">Details</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.cancelEvent(this)">Cancel</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        window.createNewEvent = function() {
+            const name = prompt("Enter Event Name:");
+            const date = prompt("Enter Date (e.g., July 15, 2025):");
+            const location = prompt("Enter Location:");
+            if (name && date && location) {
+                const eventList = document.getElementById('eventList');
+                const newLi = document.createElement('li');
+                newLi.className = 'p-4 flex items-center justify-between event-item';
+                newLi.innerHTML = `
+                    <div>
+                        <p class="text-lg font-medium">${name}</p>
+                        <p class="text-sm text-gray-500">Date: ${date} | Location: ${location}</p>
+                    </div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewEventDetails(this)">Details</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.cancelEvent(this)">Cancel</button>
+                    </div>
+                `;
+                eventList.appendChild(newLi);
+                parent.showMessageBox('Event created successfully!', 'success');
+            } else {
+                parent.showMessageBox('Event creation cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.viewEventDetails = function(button) {
+            const li = button.closest('li');
+            const name = li.querySelector('.font-medium').textContent;
+            const details = li.querySelector('.text-gray-500').textContent;
+            parent.showMessageBox(`Viewing details for "${name}" - ${details}.`, 'info', 'Event Details');
+        };
+
+        window.cancelEvent = function(button) {
+            if (confirm("Are you sure you want to cancel this event?")) {
+                button.closest('li').remove();
+                parent.showMessageBox('Event cancelled!', 'success');
+            } else {
+                parent.showMessageBox('Event cancellation cancelled.', 'info');
+            }
+        };
+
+        document.getElementById('eventSearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const items = document.querySelectorAll('#eventList li');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp5Preview" title="Event Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp5')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s" data-app-title="Learning Management System (LMS)">
+                <h2>6. Learning Management System (LMS)</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage courses, lessons, and student progress.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp6Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .course-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 1.5rem; }
+        .progress-bar-fill { height: 100%; border-radius: inherit; transition: width 0.5s ease-in-out; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-green-700">LMS Dashboard</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="courseSearch" placeholder="Search courses..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+            <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200" onclick="parent.createCourse()">Create New Course</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="courseList">
+            <div class="course-card">
+                <h3 class="text-xl font-semibold mb-2">Introduction to Web Development</h3>
+                <p class="text-gray-600 text-sm mb-3">Learn the basics of HTML, CSS, and JavaScript.</p>
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
+                    <div class="bg-blue-600 h-2.5 rounded-full progress-bar-fill" style="width: 75%"></div>
+                </div>
+                <p class="text-sm text-gray-500">Progress: <span class="course-progress">75</span>%</p>
+                <div class="flex justify-between items-center mt-3">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 action-button" onclick="parent.continueCourse(this)">Continue Course</button>
+                    <button class="text-red-600 hover:text-red-900 text-sm action-button" onclick="parent.deleteCourse(this)"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="course-card">
+                <h3 class="text-xl font-semibold mb-2">Advanced Python Programming</h3>
+                <p class="text-gray-600 text-sm mb-3">Deep dive into data structures and algorithms.</p>
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
+                    <div class="bg-blue-600 h-2.5 rounded-full progress-bar-fill" style="width: 40%"></div>
+                </div>
+                <p class="text-sm text-gray-500">Progress: <span class="course-progress">40</span>%</p>
+                <div class="flex justify-between items-center mt-3">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 action-button" onclick="parent.continueCourse(this)">Continue Course</button>
+                    <button class="text-red-600 hover:text-red-900 text-sm action-button" onclick="parent.deleteCourse(this)"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.createCourse = function() {
+            const title = prompt("Enter Course Title:");
+            const description = prompt("Enter Course Description:");
+            const progress = prompt("Enter initial progress (0-100):", "0");
+            if (title && description && progress !== null) {
+                const courseList = document.getElementById('courseList');
+                const newCourseHtml = `
+                    <div class="course-card">
+                        <h3 class="text-xl font-semibold mb-2">${title}</h3>
+                        <p class="text-gray-600 text-sm mb-3">${description}</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
+                            <div class="bg-blue-600 h-2.5 rounded-full progress-bar-fill" style="width: ${progress}%"></div>
+                        </div>
+                        <p class="text-sm text-gray-500">Progress: <span class="course-progress">${progress}</span>%</p>
+                        <div class="flex justify-between items-center mt-3">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 action-button" onclick="parent.continueCourse(this)">Continue Course</button>
+                            <button class="text-red-600 hover:text-red-900 text-sm action-button" onclick="parent.deleteCourse(this)"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+                courseList.insertAdjacentHTML('beforeend', newCourseHtml);
+                parent.showMessageBox('Course created successfully!', 'success');
+            } else {
+                parent.showMessageBox('Course creation cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.continueCourse = function(button) {
+            const card = button.closest('.course-card');
+            const progressSpan = card.querySelector('.course-progress');
+            const progressBarFill = card.querySelector('.progress-bar-fill');
+            let currentProgress = parseInt(progressSpan.textContent);
+            if (currentProgress < 100) {
+                currentProgress += 10; // Increment by 10%
+                if (currentProgress > 100) currentProgress = 100;
+                progressSpan.textContent = currentProgress;
+                progressBarFill.style.width = `${currentProgress}%`;
+                parent.showMessageBox(`Continuing course. Progress: ${currentProgress}%`, 'info');
+            } else {
+                parent.showMessageBox('Course already completed!', 'info');
+            }
+        };
+
+        window.deleteCourse = function(button) {
+            if (confirm("Are you sure you want to delete this course?")) {
+                button.closest('.course-card').remove();
+                parent.showMessageBox('Course deleted!', 'success');
+            } else {
+                parent.showMessageBox('Course deletion cancelled.', 'info');
+            }
+        };
+
+        document.getElementById('courseSearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const cards = document.querySelectorAll('#courseList .course-card');
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p.text-gray-600').textContent.toLowerCase();
+                if (title.includes(filter) || description.includes(filter)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp6Preview" title="LMS Dashboard Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp6')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s" data-app-title="Financial Dashboard">
+                <h2>7. Financial Dashboard</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Track income, expenses, and budget.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp7Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .transaction-item { border-bottom: 1px dashed #e2e8f0; }
+        .transaction-item:last-child { border-bottom: none; }
+        .add-transaction-btn { background-color: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; transition: background-color 0.2s ease; }
+        .add-transaction-btn:hover { background-color: #2563eb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-blue-700">Financial Overview</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="bg-green-100 p-6 rounded-xl shadow-md">
+                <h3 class="text-xl font-semibold text-green-800 mb-2">Total Income</h3>
+                <p class="text-4xl font-bold text-green-700" id="totalIncome">$5,200.00</p>
+            </div>
+            <div class="bg-red-100 p-6 rounded-xl shadow-md">
+                <h3 class="text-xl font-semibold text-red-800 mb-2">Total Expenses</h3>
+                <p class="text-4xl font-bold text-red-700" id="totalExpenses">$2,100.00</p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4">Recent Transactions</h2>
+            <ul class="divide-y divide-gray-200" id="transactionList">
+                <li class="py-3 flex justify-between items-center transaction-item">
+                    <div>
+                        <p class="font-medium">Groceries</p>
+                        <p class="text-sm text-gray-500">May 26, 2025</p>
+                    </div>
+                    <span class="text-red-600 font-semibold">-$120.50</span>
+                </li>
+                <li class="py-3 flex justify-between items-center transaction-item">
+                    <div>
+                        <p class="font-medium">Freelance Project Payment</p>
+                        <p class="text-sm text-gray-500">May 25, 2025</p>
+                    </div>
+                    <span class="text-green-600 font-semibold">+$800.00</span>
+                </li>
+                <li class="py-3 flex justify-between items-center transaction-item">
+                    <div>
+                        <p class="font-medium">Electricity Bill</p>
+                        <p class="text-sm text-gray-500">May 24, 2025</p>
+                    </div>
+                    <span class="text-red-600 font-semibold">-$75.00</span>
+                </li>
+            </ul>
+            <button class="mt-4 w-full add-transaction-btn" onclick="parent.addTransaction()">Add New Transaction</button>
+            <button class="mt-4 w-full bg-gray-300 text-gray-800 py-2 rounded-lg hover:bg-gray-400 transition duration-200" onclick="parent.showMessageBox('Viewing all transactions...', 'info', 'All Transactions');">View All Transactions</button>
+        </div>
+    </div>
+    <script>
+        let income = 5200.00;
+        let expenses = 2100.00;
+
+        function updateFinancialSummary() {
+            document.getElementById('totalIncome').textContent = `$${income.toFixed(2)}`;
+            document.getElementById('totalExpenses').textContent = `$${expenses.toFixed(2)}`;
+        }
+
+        window.addTransaction = function() {
+            const description = prompt("Enter transaction description:");
+            const amount = parseFloat(prompt("Enter amount (e.g., -50.00 for expense, 100.00 for income):"));
+            const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+            if (description && !isNaN(amount)) {
+                const transactionList = document.getElementById('transactionList');
+                const newLi = document.createElement('li');
+                newLi.className = 'py-3 flex justify-between items-center transaction-item';
+                newLi.innerHTML = `
+                    <div>
+                        <p class="font-medium">${description}</p>
+                        <p class="text-sm text-gray-500">${date}</p>
+                    </div>
+                    <span class="${amount >= 0 ? 'text-green-600' : 'text-red-600'} font-semibold">${amount >= 0 ? '+' : ''}$${amount.toFixed(2)}</span>
+                `;
+                transactionList.prepend(newLi); // Add to top
+
+                if (amount >= 0) {
+                    income += amount;
+                } else {
+                    expenses -= amount; // Subtracting a negative expense
+                }
+                updateFinancialSummary();
+                parent.showMessageBox('Transaction added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Transaction addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        updateFinancialSummary(); // Initial update
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp7Preview" title="Financial Dashboard Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp7')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s" data-app-title="Content Management System (CMS) Editor">
+                <h2>8. Content Management System (CMS) Editor</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Edit and publish articles and web content.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp8Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Editor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .editor-toolbar button { padding: 0.5rem 0.75rem; border-radius: 0.5rem; background-color: #e2e8f0; }
+        .editor-toolbar button:hover { background-color: #cbd5e1; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-indigo-700">CMS Article Editor</h1>
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="mb-4">
+                <label for="articleTitle" class="block text-gray-700 text-sm font-bold mb-2">Article Title:</label>
+                <input type="text" id="articleTitle" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-indigo-500" placeholder="Enter article title">
+            </div>
+            <div class="mb-4">
+                <label for="articleContent" class="block text-gray-700 text-sm font-bold mb-2">Content:</label>
+                <div class="editor-toolbar flex space-x-2 mb-2">
+                    <button onclick="parent.formatText('bold')"><b>B</b></button>
+                    <button onclick="parent.formatText('italic')"><i>I</i></button>
+                    <button onclick="parent.formatText('underline')"><u>U</u></button>
+                    <button onclick="parent.formatText('link')">Link</button>
+                </div>
+                <textarea id="articleContent" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-indigo-500 h-64 resize-y" placeholder="Write your article here..."></textarea>
+            </div>
+            <div class="flex justify-end space-x-3">
+                <button class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-200" onclick="parent.saveDraft()">Save Draft</button>
+                <button class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition duration-200" onclick="parent.publishArticle()">Publish Article</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.saveDraft = function() {
+            const title = document.getElementById('articleTitle').value;
+            const content = document.getElementById('articleContent').value;
+            parent.showMessageBox(`Draft "${title}" saved! Content length: ${content.length}`, 'success', 'Draft Saved');
+        };
+
+        window.publishArticle = function() {
+            const title = document.getElementById('articleTitle').value;
+            const content = document.getElementById('articleContent').value;
+            if (title.trim() === "" || content.trim() === "") {
+                parent.showMessageBox('Title and content cannot be empty!', 'error', 'Publish Error');
+                return;
+            }
+            parent.showMessageBox(`Article "${title}" published!`, 'success', 'Article Published');
+        };
+
+        window.formatText = function(command) {
+            const textarea = document.getElementById('articleContent');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const selectedText = textarea.value.substring(start, end);
+            let newText = selectedText;
+
+            switch (command) {
+                case 'bold':
+                    newText = `<b>${selectedText}</b>`;
+                    break;
+                case 'italic':
+                    newText = `<i>${selectedText}</i>`;
+                    break;
+                case 'underline':
+                    newText = `<u>${selectedText}</u>`;
+                    break;
+                case 'link':
+                    const url = prompt("Enter URL:");
+                    if (url) {
+                        newText = `<a href="${url}">${selectedText || 'Link'}</a>`;
+                    }
+                    break;
+            }
+            textarea.value = textarea.value.substring(0, start) + newText + textarea.value.substring(end);
+            parent.showMessageBox(`Text formatted: ${command}`, 'info');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp8Preview" title="CMS System Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp8')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s" data-app-title="Booking System">
+                <h2>9. Booking System</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage appointments and reservations.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp9Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; }
+        .calendar-day { padding: 0.75rem; border-radius: 0.5rem; background-color: #f0f4f8; text-align: center; cursor: pointer; transition: background-color 0.2s ease; }
+        .calendar-day.has-booking { background-color: #a7f3d0; color: #065f46; font-weight: 600; }
+        .calendar-day:hover:not(.has-booking) { background-color: #dbeafe; }
+        .calendar-day.selected { background-color: #3b82f6 !important; color: white !important; font-weight: 700; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .calendar-header button { background-color: #e2e8f0; padding: 0.5rem 1rem; border-radius: 0.5rem; transition: background-color 0.2s ease; }
+        .calendar-header button:hover { background-color: #cbd5e1; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-blue-700">Appointment Booking</h1>
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="calendar-header">
+                <button onclick="parent.changeMonth(-1)">&lt; Prev</button>
+                <h2 class="text-xl font-semibold" id="currentMonthYear"></h2>
+                <button onclick="parent.changeMonth(1)">Next &gt;</button>
+            </div>
+            <div class="calendar-grid mb-6" id="calendarGrid">
+                <div class="font-bold text-center text-gray-600">Sun</div>
+                <div class="font-bold text-center text-gray-600">Mon</div>
+                <div class="font-bold text-center text-gray-600">Tue</div>
+                <div class="font-bold text-center text-gray-600">Wed</div>
+                <div class="font-bold text-center text-gray-600">Thu</div>
+                <div class="font-bold text-center text-gray-600">Fri</div>
+                <div class="font-bold text-center text-gray-600">Sat</div>
+                </div>
+            <button class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.bookAppointment()">Book New Appointment</button>
+        </div>
+    </div>
+    <script>
+        let currentDate = new Date();
+        let selectedDate = null;
+
+        function renderCalendar() {
+            const calendarGrid = document.getElementById('calendarGrid');
+            const currentMonthYear = document.getElementById('currentMonthYear');
+            calendarGrid.innerHTML = `
+                <div class="font-bold text-center text-gray-600">Sun</div>
+                <div class="font-bold text-center text-gray-600">Mon</div>
+                <div class="font-bold text-center text-gray-600">Tue</div>
+                <div class="font-bold text-center text-gray-600">Wed</div>
+                <div class="font-bold text-center text-gray-600">Thu</div>
+                <div class="font-bold text-center text-gray-600">Fri</div>
+                <div class="font-bold text-center text-gray-600">Sat</div>
+            `; // Clear and re-add headers
+
+            currentMonthYear.textContent = currentDate.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+
+            const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            const daysInMonth = lastDayOfMonth.getDate();
+            const startDay = firstDayOfMonth.getDay(); // 0 for Sunday, 1 for Monday, etc.
+
+            // Add empty divs for days before the 1st of the month
+            for (let i = 0; i < startDay; i++) {
+                calendarGrid.innerHTML += `<div class="calendar-day text-gray-400"></div>`;
+            }
+
+            // Add days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const isBooked = (day % 5 === 0); // Example: every 5th day has a booking
+                const isSelected = selectedDate && selectedDate.getDate() === day && selectedDate.getMonth() === currentDate.getMonth() && selectedDate.getFullYear() === currentDate.getFullYear();
+                calendarGrid.innerHTML += `
+                    <div class="calendar-day ${isBooked ? 'has-booking' : ''} ${isSelected ? 'selected' : ''}" data-day="${day}" onclick="parent.selectDay(this, ${day})">
+                        ${day}
+                    </div>
+                `;
+            }
+        }
+
+        window.changeMonth = function(offset) {
+            currentDate.setMonth(currentDate.getMonth() + offset);
+            selectedDate = null; // Reset selection on month change
+            renderCalendar();
+        };
+
+        window.selectDay = function(element, day) {
+            document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+            parent.showMessageBox(`Selected: ${selectedDate.toDateString()}`, 'info');
+        };
+
+        window.bookAppointment = function() {
+            if (selectedDate) {
+                const time = prompt(`Enter time for appointment on ${selectedDate.toDateString()} (e.g., 10:00 AM):`);
+                if (time) {
+                    parent.showMessageBox(`Appointment booked for ${selectedDate.toDateString()} at ${time}!`, 'success');
+                    // In a real app, you'd save this booking and re-render the calendar
+                } else {
+                    parent.showMessageBox('Booking cancelled.', 'info');
+                }
+            } else {
+                parent.showMessageBox('Please select a date first!', 'error');
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', renderCalendar);
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp9Preview" title="Booking System Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp9')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s" data-app-title="Restaurant Order Management">
+                <h2>10. Restaurant Order Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage kitchen orders and table status.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp10Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant POS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .order-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .status-pending { background-color: #fef08a; color: #a16207; } /* Yellow */
+        .status-ready { background-color: #dcfce7; color: #16a34a; } /* Green */
+        .status-new { background-color: #fee2e2; color: #dc2626; } /* Red */
+        .status-cooking { background-color: #bfdbfe; color: #2563eb; } /* Blue */
+        .status-served { background-color: #e2e8f0; color: #475569; } /* Gray */
+        .order-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-orange-700">Restaurant Order Management</h1>
+        <div class="flex justify-end mb-4">
+            <button class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-200" onclick="parent.addNewOrder()">Add New Order</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="orderList">
+            <div class="order-card p-4" data-order-id="101">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xl font-semibold">Table 5 - Order #101</h3>
+                    <span class="text-xs font-medium px-2.5 py-0.5 rounded-full status-pending" data-status="pending">Pending</span>
+                </div>
+                <ul class="list-disc list-inside text-sm text-gray-700 mb-3">
+                    <li>2x Burger Deluxe</li>
+                    <li>1x Caesar Salad</li>
+                    <li>3x Soda</li>
+                </ul>
+                <div class="flex justify-end space-x-2">
+                    <button class="bg-blue-500 text-white order-button" onclick="parent.updateOrderStatus(this, 'cooking')">Mark Cooking</button>
+                    <button class="bg-green-500 text-white order-button" onclick="parent.updateOrderStatus(this, 'ready')">Mark Ready</button>
+                </div>
+            </div>
+            <div class="order-card p-4" data-order-id="102">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xl font-semibold">Table 2 - Order #102</h3>
+                    <span class="text-xs font-medium px-2.5 py-0.5 rounded-full status-ready" data-status="ready">Ready</span>
+                </div>
+                <ul class="list-disc list-inside text-sm text-gray-700 mb-3">
+                    <li>1x Pizza Margherita</li>
+                    <li>1x Garlic Bread</li>
+                </ul>
+                <div class="flex justify-end space-x-2">
+                    <button class="bg-gray-500 text-white order-button" onclick="parent.updateOrderStatus(this, 'served')">Mark Served</button>
+                </div>
+            </div>
+            <div class="order-card p-4" data-order-id="103">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xl font-semibold">Table 8 - Order #103</h3>
+                    <span class="text-xs font-medium px-2.5 py-0.5 rounded-full status-new" data-status="new">New</span>
+                </div>
+                <ul class="list-disc list-inside text-sm text-gray-700 mb-3">
+                    <li>4x Steak Frites</li>
+                    <li>4x Water</li>
+                </ul>
+                <div class="flex justify-end space-x-2">
+                    <button class="bg-blue-500 text-white order-button" onclick="parent.updateOrderStatus(this, 'cooking')">Mark Cooking</button>
+                    <button class="bg-green-500 text-white order-button" onclick="parent.updateOrderStatus(this, 'ready')">Mark Ready</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addNewOrder = function() {
+            const tableNum = prompt("Enter Table Number:");
+            const orderItems = prompt("Enter Order Items (comma-separated, e.g., 1x Pizza, 2x Soda):");
+            if (tableNum && orderItems) {
+                const orderList = document.getElementById('orderList');
+                const newOrderId = Date.now(); // Simple unique ID
+                const newOrderHtml = `
+                    <div class="order-card p-4" data-order-id="${newOrderId}">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-semibold">Table ${tableNum} - Order #${newOrderId.toString().slice(-3)}</h3>
+                            <span class="text-xs font-medium px-2.5 py-0.5 rounded-full status-new" data-status="new">New</span>
+                        </div>
+                        <ul class="list-disc list-inside text-sm text-gray-700 mb-3">
+                            ${orderItems.split(',').map(item => `<li>${item.trim()}</li>`).join('')}
+                        </ul>
+                        <div class="flex justify-end space-x-2">
+                            <button class="bg-blue-500 text-white order-button" onclick="parent.updateOrderStatus(this, 'cooking')">Mark Cooking</button>
+                            <button class="bg-green-500 text-white order-button" onclick="parent.updateOrderStatus(this, 'ready')">Mark Ready</button>
+                        </div>
+                    </div>
+                `;
+                orderList.insertAdjacentHTML('afterbegin', newOrderHtml); // Add to top
+                parent.showMessageBox(`Order for Table ${tableNum} added!`, 'success');
+            } else {
+                parent.showMessageBox('Order creation cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.updateOrderStatus = function(button, newStatus) {
+            const card = button.closest('.order-card');
+            const statusSpan = card.querySelector('[data-status]');
+            const orderId = card.dataset.orderId;
+
+            statusSpan.className = `text-xs font-medium px-2.5 py-0.5 rounded-full status-${newStatus}`;
+            statusSpan.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1); // Capitalize first letter
+            statusSpan.dataset.status = newStatus;
+
+            // Update buttons based on new status
+            const buttonContainer = button.closest('.flex');
+            buttonContainer.innerHTML = ''; // Clear existing buttons
+
+            if (newStatus === 'new') {
+                buttonContainer.innerHTML = `
+                    <button class="bg-blue-500 text-white order-button" onclick="parent.updateOrderStatus(this, 'cooking')">Mark Cooking</button>
+                    <button class="bg-green-500 text-white order-button" onclick="parent.updateOrderStatus(this, 'ready')">Mark Ready</button>
+                `;
+            } else if (newStatus === 'cooking') {
+                buttonContainer.innerHTML = `
+                    <button class="bg-green-500 text-white order-button" onclick="parent.updateOrderStatus(this, 'ready')">Mark Ready</button>
+                `;
+            } else if (newStatus === 'ready') {
+                buttonContainer.innerHTML = `
+                    <button class="bg-gray-500 text-white order-button" onclick="parent.updateOrderStatus(this, 'served')">Mark Served</button>
+                `;
+            } else if (newStatus === 'served') {
+                buttonContainer.innerHTML = `
+                    <span class="text-sm text-gray-600">Order Completed</span>
+                `;
+            }
+            parent.showMessageBox(`Order #${orderId.toString().slice(-3)} status updated to "${newStatus}"!`, 'info');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp10Preview" title="Restaurant Order Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp10')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.1s" data-app-title="Library Management">
+                <h2>11. Library Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage book inventory, borrowers, and loans.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp11Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .table-header { background-color: #e2e8f0; }
+        .dark .table-header { background-color: #334155; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-orange-700">Library Dashboard</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="bookSearch" placeholder="Search books..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+            <button class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-200" onclick="parent.addNewBook()">Add New Book</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="table-header">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="bookTableBody">
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">The Great Gatsby</td>
+                        <td class="px-6 py-4 whitespace-nowrap">F. Scott Fitzgerald</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800" data-status="available">Available</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.borrowBook(this)">Borrow</button>
+                            <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.removeBook(this)">Remove</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">1984</td>
+                        <td class="px-6 py-4 whitespace-nowrap">George Orwell</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800" data-status="on-loan">On Loan</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.returnBook(this)">Return</button>
+                            <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.removeBook(this)">Remove</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        window.addNewBook = function() {
+            const title = prompt("Enter Book Title:");
+            const author = prompt("Enter Author:");
+            if (title && author) {
+                const tableBody = document.getElementById('bookTableBody');
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${title}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${author}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800" data-status="available">Available</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.borrowBook(this)">Borrow</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.removeBook(this)">Remove</button>
+                    </td>
+                `;
+                parent.showMessageBox('Book added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Book addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.borrowBook = function(button) {
+            const row = button.closest('tr');
+            const statusSpan = row.querySelector('[data-status]');
+            if (statusSpan.dataset.status === 'available') {
+                statusSpan.className = 'px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800';
+                statusSpan.textContent = 'On Loan';
+                statusSpan.dataset.status = 'on-loan';
+                parent.showMessageBox('Book marked as "On Loan"!', 'info');
+            } else {
+                parent.showMessageBox('Book is not available for borrowing.', 'error');
+            }
+        };
+
+        window.returnBook = function(button) {
+            const row = button.closest('tr');
+            const statusSpan = row.querySelector('[data-status]');
+            if (statusSpan.dataset.status === 'on-loan') {
+                statusSpan.className = 'px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800';
+                statusSpan.textContent = 'Available';
+                statusSpan.dataset.status = 'available';
+                parent.showMessageBox('Book marked as "Available"!', 'success');
+            } else {
+                parent.showMessageBox('Book is not currently on loan.', 'error');
+            }
+        };
+
+        window.removeBook = function(button) {
+            if (confirm("Are you sure you want to remove this book?")) {
+                button.closest('tr').remove();
+                parent.showMessageBox('Book removed!', 'success');
+            } else {
+                parent.showMessageBox('Book removal cancelled.', 'info');
+            }
+        };
+
+        document.getElementById('bookSearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#bookTableBody tr');
+            rows.forEach(row => {
+                const title = row.children[0].textContent.toLowerCase();
+                const author = row.children[1].textContent.toLowerCase();
+                if (title.includes(filter) || author.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp11Preview" title="Library Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp11')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.2s" data-app-title="Healthcare Patient Portal">
+                <h2>12. Healthcare Patient Portal</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage patient records and appointments.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp12Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .patient-item { border-bottom: 1px solid #e2e8f0; }
+        .patient-item:last-child { border-bottom: none; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-red-700">Patient Dashboard</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="patientSearch" placeholder="Search patients..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+            <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200" onclick="parent.addNewPatient()">Add New Patient</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <ul class="divide-y divide-gray-200" id="patientList">
+                <li class="p-4 flex items-center justify-between patient-item">
+                    <div>
+                        <p class="text-lg font-medium">Emily White</p>
+                        <p class="text-sm text-gray-500">DOB: 1990-05-15 | Last Visit: 2025-05-20</p>
+                    </div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewPatientRecord(this)">View Record</button>
+                        <button class="text-green-600 hover:text-green-900 action-button" onclick="parent.scheduleAppointment(this)">Schedule</button>
+                    </div>
+                </li>
+                <li class="p-4 flex items-center justify-between patient-item">
+                    <div>
+                        <p class="text-lg font-medium">David Green</p>
+                        <p class="text-sm text-gray-500">DOB: 1985-11-01 | Last Visit: 2025-03-10</p>
+                    </div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewPatientRecord(this)">View Record</button>
+                        <button class="text-green-600 hover:text-green-900 action-button" onclick="parent.scheduleAppointment(this)">Schedule</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        window.addNewPatient = function() {
+            const name = prompt("Enter Patient Name:");
+            const dob = prompt("Enter Date of Birth (YYYY-MM-DD):");
+            if (name && dob) {
+                const patientList = document.getElementById('patientList');
+                const newLi = document.createElement('li');
+                newLi.className = 'p-4 flex items-center justify-between patient-item';
+                newLi.innerHTML = `
+                    <div>
+                        <p class="text-lg font-medium">${name}</p>
+                        <p class="text-sm text-gray-500">DOB: ${dob} | Last Visit: Never</p>
+                    </div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewPatientRecord(this)">View Record</button>
+                        <button class="text-green-600 hover:text-green-900 action-button" onclick="parent.scheduleAppointment(this)">Schedule</button>
+                    </div>
+                `;
+                patientList.appendChild(newLi);
+                parent.showMessageBox('New patient added!', 'success');
+            } else {
+                parent.showMessageBox('Patient addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.viewPatientRecord = function(button) {
+            const li = button.closest('li');
+            const name = li.querySelector('.font-medium').textContent;
+            parent.showMessageBox(`Viewing medical record for ${name}.`, 'info', 'Patient Record');
+        };
+
+        window.scheduleAppointment = function(button) {
+            const li = button.closest('li');
+            const name = li.querySelector('.font-medium').textContent;
+            const apptDate = prompt(`Schedule appointment for ${name} on (YYYY-MM-DD):`);
+            if (apptDate) {
+                parent.showMessageBox(`Appointment scheduled for ${name} on ${apptDate}.`, 'success', 'Appointment Scheduled');
+                // Update last visit date in the list item
+                li.querySelector('.text-gray-500').textContent = li.querySelector('.text-gray-500').textContent.replace(/Last Visit: .*/, `Last Visit: ${apptDate}`);
+            } else {
+                parent.showMessageBox('Appointment scheduling cancelled.', 'info');
+            }
+        };
+
+        document.getElementById('patientSearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const items = document.querySelectorAll('#patientList li');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp12Preview" title="Healthcare Patient Portal Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp12')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.3s" data-app-title="Fitness Tracker Dashboard">
+                <h2>13. Fitness Tracker Dashboard</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Track workouts, steps, and health metrics.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp13Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .workout-item { border-bottom: 1px dashed #e2e8f0; }
+        .workout-item:last-child { border-bottom: none; }
+        .log-workout-btn { background-color: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; transition: background-color 0.2s ease; }
+        .log-workout-btn:hover { background-color: #2563eb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-blue-700">Fitness Dashboard</h1>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-blue-100 p-6 rounded-xl shadow-md text-center">
+                <p class="text-5xl font-bold text-blue-700" id="stepsToday">8,500</p>
+                <p class="text-blue-800 mt-2">Steps Today</p>
+            </div>
+            <div class="bg-green-100 p-6 rounded-xl shadow-md text-center">
+                <p class="text-5xl font-bold text-green-700" id="activeMinutes">60</p>
+                <p class="text-green-800 mt-2">Active Minutes</p>
+            </div>
+            <div class="bg-purple-100 p-6 rounded-xl shadow-md text-center">
+                <p class="text-5xl font-bold text-purple-700" id="hoursSleep">7</p>
+                <p class="text-purple-800 mt-2">Hours Sleep</p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4">Recent Workouts</h2>
+            <ul class="divide-y divide-gray-200" id="workoutList">
+                <li class="py-3 flex justify-between items-center workout-item">
+                    <div>
+                        <p class="font-medium">Running - 5km</p>
+                        <p class="text-sm text-gray-500">May 26, 2025 | 30 mins</p>
+                    </div>
+                    <span class="text-gray-600">350 kcal</span>
+                </li>
+                <li class="py-3 flex justify-between items-center workout-item">
+                    <div>
+                        <p class="font-medium">Weightlifting - Full Body</p>
+                        <p class="text-sm text-gray-500">May 24, 2025 | 45 mins</p>
+                    </div>
+                    <span class="text-gray-600">400 kcal</span>
+                </li>
+            </ul>
+            <button class="mt-4 w-full log-workout-btn" onclick="parent.logNewWorkout()">Log New Workout</button>
+        </div>
+    </div>
+    <script>
+        window.logNewWorkout = function() {
+            const type = prompt("Enter Workout Type (e.g., Running, Weightlifting):");
+            const distanceOrDuration = prompt("Enter Distance (e.g., 5km) or Duration (e.g., 30 mins):");
+            const calories = prompt("Enter Calories Burned (kcal):");
+            const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+            if (type && distanceOrDuration && calories) {
+                const workoutList = document.getElementById('workoutList');
+                const newLi = document.createElement('li');
+                newLi.className = 'py-3 flex justify-between items-center workout-item';
+                newLi.innerHTML = `
+                    <div>
+                        <p class="font-medium">${type} - ${distanceOrDuration}</p>
+                        <p class="text-sm text-gray-500">${date}</p>
+                    </div>
+                    <span class="text-gray-600">${calories} kcal</span>
+                `;
+                workoutList.prepend(newLi); // Add to top
+                parent.showMessageBox('Workout logged successfully!', 'success');
+
+                // Update summary stats (example)
+                let currentActiveMinutes = parseInt(document.getElementById('activeMinutes').textContent);
+                document.getElementById('activeMinutes').textContent = currentActiveMinutes + 30; // Example increment
+            } else {
+                parent.showMessageBox('Workout logging cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp13Preview" title="Fitness Tracker Dashboard Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp13')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.4s" data-app-title="Fleet Management">
+                <h2>14. Fleet Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Monitor vehicles, maintenance, and drivers.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp14Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fleet Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .table-header { background-color: #e2e8f0; }
+        .dark .table-header { background-color: #334155; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-teal-700">Fleet Dashboard</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="vehicleSearch" placeholder="Search vehicles..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <button class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition duration-200" onclick="parent.addNewVehicle()">Add New Vehicle</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="table-header">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vehicle</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">License Plate</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Next Service</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="vehicleTableBody">
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Ford Transit Van</td>
+                        <td class="px-6 py-4 whitespace-nowrap">ABC-123</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800" data-status="active">Active</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">10,000 km</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewVehicleDetails(this)">View</button>
+                            <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.logMaintenance(this)">Log Maint.</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Toyota Hilux</td>
+                        <td class="px-6 py-4 whitespace-nowrap">XYZ-789</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800" data-status="in-service">In Service</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">N/A</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewVehicleDetails(this)">View</button>
+                            <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.logMaintenance(this)">Log Maint.</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        window.addNewVehicle = function() {
+            const vehicle = prompt("Enter Vehicle Type (e.g., Sedan, Van):");
+            const license = prompt("Enter License Plate:");
+            const nextService = prompt("Enter Next Service Due (e.g., 10,000 km):");
+            if (vehicle && license && nextService) {
+                const tableBody = document.getElementById('vehicleTableBody');
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${vehicle}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${license}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800" data-status="active">Active</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">${nextService}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewVehicleDetails(this)">View</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.logMaintenance(this)">Log Maint.</button>
+                    </td>
+                `;
+                parent.showMessageBox('Vehicle added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Vehicle addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.viewVehicleDetails = function(button) {
+            const row = button.closest('tr');
+            const vehicle = row.children[0].textContent;
+            const license = row.children[1].textContent;
+            parent.showMessageBox(`Viewing details for ${vehicle} (${license}).`, 'info', 'Vehicle Details');
+        };
+
+        window.logMaintenance = function(button) {
+            const row = button.closest('tr');
+            const vehicle = row.children[0].textContent;
+            const maintDate = prompt(`Log maintenance for ${vehicle} (e.g., 2025-05-27):`);
+            if (maintDate) {
+                parent.showMessageBox(`Maintenance logged for ${vehicle} on ${maintDate}.`, 'success', 'Maintenance Logged');
+                // In a real app, you'd update the 'Next Service' field
+            } else {
+                parent.showMessageBox('Maintenance logging cancelled.', 'info');
+            }
+        };
+
+        document.getElementById('vehicleSearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#vehicleTableBody tr');
+            rows.forEach(row => {
+                const vehicle = row.children[0].textContent.toLowerCase();
+                const license = row.children[1].textContent.toLowerCase();
+                if (vehicle.includes(filter) || license.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp14Preview" title="Fleet Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp14')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.5s" data-app-title="Property Management">
+                <h2>15. Property Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage rental properties, tenants, and leases.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp15Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .property-item { border-bottom: 1px solid #e2e8f0; }
+        .property-item:last-child { border-bottom: none; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-fuchsia-700">Property Management Dashboard</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="propertySearch" placeholder="Search properties..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-fuchsia-500">
+            <button class="bg-fuchsia-500 text-white px-4 py-2 rounded-lg hover:bg-fuchsia-600 transition duration-200" onclick="parent.addNewProperty()">Add New Property</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <ul class="divide-y divide-gray-200" id="propertyList">
+                <li class="p-4 flex items-center justify-between property-item">
+                    <div>
+                        <p class="text-lg font-medium">Apartment 1A, City Center</p>
+                        <p class="text-sm text-gray-500">Tenant: Sarah Connor | Lease End: 2026-01-31</p>
+                    </div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewPropertyDetails(this)">View</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.evictTenant(this)">Evict</button>
+                    </div>
+                </li>
+                <li class="p-4 flex items-center justify-between property-item">
+                    <div>
+                        <p class="text-lg font-medium">House on Elm Street</p>
+                        <p class="text-sm text-gray-500">Tenant: John Wick | Lease End: 2025-08-15</p>
+                    </div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewPropertyDetails(this)">View</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.evictTenant(this)">Evict</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        window.addNewProperty = function() {
+            const address = prompt("Enter Property Address:");
+            const tenant = prompt("Enter Tenant Name:");
+            const leaseEnd = prompt("Enter Lease End Date (YYYY-MM-DD):");
+            if (address && tenant && leaseEnd) {
+                const propertyList = document.getElementById('propertyList');
+                const newLi = document.createElement('li');
+                newLi.className = 'p-4 flex items-center justify-between property-item';
+                newLi.innerHTML = `
+                    <div>
+                        <p class="text-lg font-medium">${address}</p>
+                        <p class="text-sm text-gray-500">Tenant: ${tenant} | Lease End: ${leaseEnd}</p>
+                    </div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.viewPropertyDetails(this)">View</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.evictTenant(this)">Evict</button>
+                    </div>
+                `;
+                propertyList.appendChild(newLi);
+                parent.showMessageBox('Property added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Property addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.viewPropertyDetails = function(button) {
+            const li = button.closest('li');
+            const address = li.querySelector('.font-medium').textContent;
+            parent.showMessageBox(`Viewing details for "${address}".`, 'info', 'Property Details');
+        };
+
+        window.evictTenant = function(button) {
+            const li = button.closest('li');
+            const address = li.querySelector('.font-medium').textContent;
+            if (confirm(`Are you sure you want to evict the tenant from "${address}"?`)) {
+                li.remove();
+                parent.showMessageBox(`Tenant from "${address}" evicted!`, 'success');
+            } else {
+                parent.showMessageBox('Eviction cancelled.', 'info');
+            }
+        };
+
+        document.getElementById('propertySearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const items = document.querySelectorAll('#propertyList li');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp15Preview" title="Property Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp15')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.6s" data-app-title="Help Desk / Ticketing System">
+                <h2>16. Help Desk / Ticketing System</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage support tickets, assign agents, track status.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp16Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Desk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .ticket-item { border-bottom: 1px solid #e2e8f0; }
+        .ticket-item:last-child { border-bottom: none; }
+        .status-open { background-color: #fef08a; color: #a16207; }
+        .status-in-progress { background-color: #bfdbfe; color: #2563eb; }
+        .status-closed { background-color: #dcfce7; color: #16a34a; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-yellow-700">Help Desk Dashboard</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="ticketSearch" placeholder="Search tickets..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+            <button class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-200" onclick="parent.createNewTicket()">Create New Ticket</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <ul class="divide-y divide-gray-200" id="ticketList">
+                <li class="p-4 flex items-center justify-between ticket-item">
+                    <div>
+                        <p class="text-lg font-medium">Ticket #001: Login Issue</p>
+                        <p class="text-sm text-gray-500">Assigned: John Doe | Priority: High</p>
+                    </div>
+                    <span class="text-xs font-medium px-2.5 py-0.5 rounded-full status-open" data-status="open">Open</span>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.updateTicketStatus(this, 'in-progress')">Progress</button>
+                        <button class="text-green-600 hover:text-green-900 action-button" onclick="parent.updateTicketStatus(this, 'closed')">Close</button>
+                    </div>
+                </li>
+                <li class="p-4 flex items-center justify-between ticket-item">
+                    <div>
+                        <p class="text-lg font-medium">Ticket #002: Feature Request</p>
+                        <p class="text-sm text-gray-500">Assigned: Jane Smith | Priority: Medium</p>
+                    </div>
+                    <span class="text-xs font-medium px-2.5 py-0.5 rounded-full status-in-progress" data-status="in-progress">In Progress</span>
+                    <div>
+                        <button class="text-green-600 hover:text-green-900 action-button" onclick="parent.updateTicketStatus(this, 'closed')">Close</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        window.createNewTicket = function() {
+            const title = prompt("Enter Ticket Title:");
+            const assigned = prompt("Assign to (e.g., John Doe):");
+            const priority = prompt("Priority (High, Medium, Low):");
+            if (title && assigned && priority) {
+                const ticketList = document.getElementById('ticketList');
+                const newTicketId = Math.floor(Math.random() * 1000) + 100; // Simple random ID
+                const newLi = document.createElement('li');
+                newLi.className = 'p-4 flex items-center justify-between ticket-item';
+                newLi.innerHTML = `
+                    <div>
+                        <p class="text-lg font-medium">Ticket #${newTicketId}: ${title}</p>
+                        <p class="text-sm text-gray-500">Assigned: ${assigned} | Priority: ${priority}</p>
+                    </div>
+                    <span class="text-xs font-medium px-2.5 py-0.5 rounded-full status-open" data-status="open">Open</span>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.updateTicketStatus(this, 'in-progress')">Progress</button>
+                        <button class="text-green-600 hover:text-green-900 action-button" onclick="parent.updateTicketStatus(this, 'closed')">Close</button>
+                    </div>
+                `;
+                ticketList.prepend(newLi);
+                parent.showMessageBox('New ticket created!', 'success');
+            } else {
+                parent.showMessageBox('Ticket creation cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.updateTicketStatus = function(button, newStatus) {
+            const li = button.closest('li');
+            const statusSpan = li.querySelector('[data-status]');
+            const ticketTitle = li.querySelector('.font-medium').textContent;
+
+            statusSpan.className = `text-xs font-medium px-2.5 py-0.5 rounded-full status-${newStatus}`;
+            statusSpan.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1).replace('-', ' '); // Capitalize and format
+            statusSpan.dataset.status = newStatus;
+
+            // Update buttons
+            const buttonContainer = button.closest('div');
+            if (newStatus === 'open') {
+                buttonContainer.innerHTML = `
+                    <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.updateTicketStatus(this, 'in-progress')">Progress</button>
+                    <button class="text-green-600 hover:text-green-900 action-button" onclick="parent.updateTicketStatus(this, 'closed')">Close</button>
+                `;
+            } else if (newStatus === 'in-progress') {
+                buttonContainer.innerHTML = `
+                    <button class="text-green-600 hover:text-green-900 action-button" onclick="parent.updateTicketStatus(this, 'closed')">Close</button>
+                `;
+            } else if (newStatus === 'closed') {
+                buttonContainer.innerHTML = `
+                    <span class="text-sm text-gray-600">Ticket Resolved</span>
+                `;
+            }
+
+            parent.showMessageBox(`${ticketTitle} status updated to "${newStatus}"!`, 'info');
+        };
+
+        document.getElementById('ticketSearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const items = document.querySelectorAll('#ticketList li');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp16Preview" title="Help Desk Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp16')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.7s" data-app-title="Asset Management">
+                <h2>17. Asset Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Track company assets (computers, furniture), their location, and condition.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp17Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .table-header { background-color: #e2e8f0; }
+        .dark .table-header { background-color: #334155; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-purple-700">Asset Management Dashboard</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="assetSearch" placeholder="Search assets..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-200" onclick="parent.addNewAsset()">Add New Asset</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="table-header">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asset Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Condition</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="assetTableBody">
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Laptop Dell XPS</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Electronics</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Office A-101</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Good</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.editAsset(this)">Edit</button>
+                            <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteAsset(this)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Office Chair Ergonomic</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Furniture</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Meeting Room</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Fair</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.editAsset(this)">Edit</button>
+                            <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteAsset(this)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        window.addNewAsset = function() {
+            const name = prompt("Enter Asset Name:");
+            const category = prompt("Enter Category (e.g., Electronics, Furniture):");
+            const location = prompt("Enter Location:");
+            const condition = prompt("Enter Condition (Good, Fair, Poor):");
+            if (name && category && location && condition) {
+                const tableBody = document.getElementById('assetTableBody');
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${category}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${location}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${condition.toLowerCase() === 'good' ? 'bg-green-100 text-green-800' : (condition.toLowerCase() === 'fair' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800')}">${condition}</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.editAsset(this)">Edit</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteAsset(this)">Delete</button>
+                        </td>
+                    </tr>
+                `;
+                parent.showMessageBox('Asset added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Asset addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.editAsset = function(button) {
+            const row = button.closest('tr');
+            const cells = row.children;
+            const currentName = cells[0].textContent;
+            const currentCategory = cells[1].textContent;
+            const currentLocation = cells[2].textContent;
+            const currentCondition = cells[3].textContent;
+
+            const newName = prompt("Edit Asset Name:", currentName);
+            const newCategory = prompt("Edit Category:", currentCategory);
+            const newLocation = prompt("Edit Location:", currentLocation);
+            const newCondition = prompt("Edit Condition (Good, Fair, Poor):", currentCondition);
+
+            if (newName !== null && newCategory !== null && newLocation !== null && newCondition !== null) {
+                cells[0].textContent = newName;
+                cells[1].textContent = newCategory;
+                cells[2].textContent = newLocation;
+                cells[3].innerHTML = `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${newCondition.toLowerCase() === 'good' ? 'bg-green-100 text-green-800' : (newCondition.toLowerCase() === 'fair' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800')}">${newCondition}</span>`;
+                parent.showMessageBox('Asset updated successfully!', 'success');
+            } else {
+                parent.showMessageBox('Asset update cancelled.', 'info');
+            }
+        };
+
+        window.deleteAsset = function(button) {
+            if (confirm("Are you sure you want to delete this asset?")) {
+                button.closest('tr').remove();
+                parent.showMessageBox('Asset deleted!', 'success');
+            } else {
+                parent.showMessageBox('Asset deletion cancelled.', 'info');
+            }
+        };
+
+        document.getElementById('assetSearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#assetTableBody tr');
+            rows.forEach(row => {
+                const name = row.children[0].textContent.toLowerCase();
+                const category = row.children[1].textContent.toLowerCase();
+                const location = row.children[2].textContent.toLowerCase();
+                if (name.includes(filter) || category.includes(filter) || location.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp17Preview" title="Asset Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp17')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.8s" data-app-title="Meeting Scheduler">
+                <h2>18. Meeting Scheduler</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Schedule meetings, invite participants, manage rooms.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp18Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Scheduler</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .meeting-item { border-bottom: 1px solid #e2e8f0; }
+        .meeting-item:last-child { border-bottom: none; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-blue-700">Meeting Scheduler</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="meetingSearch" placeholder="Search meetings..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.scheduleNewMeeting()">Schedule New Meeting</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <ul class="divide-y divide-gray-200" id="meetingList">
+                <li class="p-4 flex items-center justify-between meeting-item">
+                    <div>
+                        <p class="text-lg font-medium">Project Sync-up</p>
+                        <p class="text-sm text-gray-500">Date: June 1, 2025 | Time: 10:00 AM | Room: Alpha</p>
+                    </div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.editMeeting(this)">Edit</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.cancelMeeting(this)">Cancel</button>
+                    </div>
+                </li>
+                <li class="p-4 flex items-center justify-between meeting-item">
+                    <div>
+                        <p class="text-lg font-medium">Client Presentation</p>
+                        <p class="text-sm text-gray-500">Date: June 5, 2025 | Time: 2:00 PM | Room: Conference</p>
+                    </div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.editMeeting(this)">Edit</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.cancelMeeting(this)">Cancel</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        window.scheduleNewMeeting = function() {
+            const title = prompt("Enter Meeting Title:");
+            const date = prompt("Enter Date (YYYY-MM-DD):");
+            const time = prompt("Enter Time (e.g., 10:00 AM):");
+            const room = prompt("Enter Room:");
+            if (title && date && time && room) {
+                const meetingList = document.getElementById('meetingList');
+                const newLi = document.createElement('li');
+                newLi.className = 'p-4 flex items-center justify-between meeting-item';
+                newLi.innerHTML = `
+                    <div>
+                        <p class="text-lg font-medium">${title}</p>
+                        <p class="text-sm text-gray-500">Date: ${date} | Time: ${time} | Room: ${room}</p>
+                    </div>
+                    <div>
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.editMeeting(this)">Edit</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.cancelMeeting(this)">Cancel</button>
+                    </div>
+                `;
+                meetingList.prepend(newLi);
+                parent.showMessageBox('Meeting scheduled successfully!', 'success');
+            } else {
+                parent.showMessageBox('Meeting scheduling cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.editMeeting = function(button) {
+            const li = button.closest('li');
+            const currentTitle = li.querySelector('.font-medium').textContent;
+            const currentDetails = li.querySelector('.text-gray-500').textContent;
+
+            const newTitle = prompt("Edit Meeting Title:", currentTitle);
+            const newDate = prompt("Edit Date (YYYY-MM-DD):", currentDetails.match(/Date: (.*?)\s\|/)[1]);
+            const newTime = prompt("Edit Time (e.g., 10:00 AM):", currentDetails.match(/Time: (.*?)\s\|/)[1]);
+            const newRoom = prompt("Edit Room:", currentDetails.match(/Room: (.*)/)[1]);
+
+            if (newTitle !== null && newDate !== null && newTime !== null && newRoom !== null) {
+                li.querySelector('.font-medium').textContent = newTitle;
+                li.querySelector('.text-gray-500').textContent = `Date: ${newDate} | Time: ${newTime} | Room: ${newRoom}`;
+                parent.showMessageBox('Meeting updated successfully!', 'success');
+            } else {
+                parent.showMessageBox('Meeting update cancelled.', 'info');
+            }
+        };
+
+        window.cancelMeeting = function(button) {
+            if (confirm("Are you sure you want to cancel this meeting?")) {
+                button.closest('li').remove();
+                parent.showMessageBox('Meeting cancelled!', 'success');
+            } else {
+                parent.showMessageBox('Meeting cancellation cancelled.', 'info');
+            }
+        };
+
+        document.getElementById('meetingSearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const items = document.querySelectorAll('#meetingList li');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp18Preview" title="Meeting Scheduler Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp18')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.9s" data-app-title="Subscription Management">
+                <h2>19. Subscription Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Track user subscriptions, renewal dates, and payment status.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp19Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .table-header { background-color: #e2e8f0; }
+        .dark .table-header { background-color: #334155; }
+        .status-active { background-color: #dcfce7; color: #16a34a; }
+        .status-inactive { background-color: #fee2e2; color: #dc2626; }
+        .status-pending { background-color: #fef08a; color: #a16207; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-green-700">Subscription Dashboard</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="subscriptionSearch" placeholder="Search subscriptions..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+            <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200" onclick="parent.addNewSubscription()">Add New Subscription</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="table-header">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Plan</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Renewal Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="subscriptionTableBody">
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Alice Johnson</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Premium</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full status-active" data-status="active">Active</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">2026-03-15</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.updateSubscriptionStatus(this, 'inactive')">Deactivate</button>
+                            <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteSubscription(this)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">Bob Williams</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Basic</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full status-inactive" data-status="inactive">Inactive</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">2025-01-20</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.updateSubscriptionStatus(this, 'active')">Activate</button>
+                            <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteSubscription(this)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        window.addNewSubscription = function() {
+            const user = prompt("Enter User Name:");
+            const plan = prompt("Enter Plan (Basic, Premium, Enterprise):");
+            const renewalDate = prompt("Enter Renewal Date (YYYY-MM-DD):");
+            if (user && plan && renewalDate) {
+                const tableBody = document.getElementById('subscriptionTableBody');
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${user}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${plan}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full status-active" data-status="active">Active</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">${renewalDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.updateSubscriptionStatus(this, 'inactive')">Deactivate</button>
+                        <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteSubscription(this)">Delete</button>
+                    </td>
+                `;
+                parent.showMessageBox('Subscription added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Subscription addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.updateSubscriptionStatus = function(button, newStatus) {
+            const row = button.closest('tr');
+            const statusSpan = row.querySelector('[data-status]');
+            const userName = row.children[0].textContent;
+
+            statusSpan.className = `px-2 inline-flex text-xs leading-5 font-semibold rounded-full status-${newStatus}`;
+            statusSpan.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1);
+            statusSpan.dataset.status = newStatus;
+
+            // Update buttons based on new status
+            const buttonContainer = button.closest('td');
+            if (newStatus === 'active') {
+                buttonContainer.innerHTML = `
+                    <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.updateSubscriptionStatus(this, 'inactive')">Deactivate</button>
+                    <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteSubscription(this)">Delete</button>
+                `;
+            } else if (newStatus === 'inactive') {
+                buttonContainer.innerHTML = `
+                    <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.updateSubscriptionStatus(this, 'active')">Activate</button>
+                    <button class="text-red-600 hover:text-red-900 action-button" onclick="parent.deleteSubscription(this)">Delete</button>
+                `;
+            }
+            parent.showMessageBox(`Subscription for ${userName} is now "${newStatus}"!`, 'info');
+        };
+
+        window.deleteSubscription = function(button) {
+            if (confirm("Are you sure you want to delete this subscription?")) {
+                button.closest('tr').remove();
+                parent.showMessageBox('Subscription deleted!', 'success');
+            } else {
+                parent.showMessageBox('Subscription deletion cancelled.', 'info');
+            }
+        };
+
+        document.getElementById('subscriptionSearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#subscriptionTableBody tr');
+            rows.forEach(row => {
+                const user = row.children[0].textContent.toLowerCase();
+                const plan = row.children[1].textContent.toLowerCase();
+                if (user.includes(filter) || plan.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp19Preview" title="Subscription Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp19')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="2.0s" data-app-title="Quality Control (QC) Tracker">
+                <h2>20. Quality Control (QC) Tracker</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Log product defects, assign for review, track resolution.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="managementApp20Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QC Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .table-header { background-color: #e2e8f0; }
+        .dark .table-header { background-color: #334155; }
+        .status-new { background-color: #fee2e2; color: #dc2626; }
+        .status-under-review { background-color: #fef08a; color: #a16207; }
+        .status-resolved { background-color: #dcfce7; color: #16a34a; }
+        .action-button { padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-red-700">Quality Control Tracker</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="defectSearch" placeholder="Search defects..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+            <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200" onclick="parent.logNewDefect()">Log New Defect</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="table-header">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Defect ID</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="defectTableBody">
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">QC-001</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Scratched casing</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Product A</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full status-new" data-status="new">New</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.updateDefectStatus(this, 'under-review')">Review</button>
+                            <button class="text-green-600 hover:text-green-900 action-button" onclick="parent.updateDefectStatus(this, 'resolved')">Resolve</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">QC-002</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Software bug in UI</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Product B</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full status-under-review" data-status="under-review">Under Review</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-green-600 hover:text-green-900 action-button" onclick="parent.updateDefectStatus(this, 'resolved')">Resolve</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        window.logNewDefect = function() {
+            const description = prompt("Enter Defect Description:");
+            const product = prompt("Enter Product Name:");
+            if (description && product) {
+                const tableBody = document.getElementById('defectTableBody');
+                const newDefectId = `QC-${Math.floor(Math.random() * 900) + 100}`; // Random ID
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${newDefectId}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${description}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${product}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full status-new" data-status="new">New</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.updateDefectStatus(this, 'under-review')">Review</button>
+                        <button class="text-green-600 hover:text-green-900 action-button" onclick="parent.updateDefectStatus(this, 'resolved')">Resolve</button>
+                    </td>
+                `;
+                parent.showMessageBox('New defect logged successfully!', 'success');
+            } else {
+                parent.showMessageBox('Defect logging cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.updateDefectStatus = function(button, newStatus) {
+            const row = button.closest('tr');
+            const statusSpan = row.querySelector('[data-status]');
+            const defectId = row.children[0].textContent;
+
+            statusSpan.className = `px-2 inline-flex text-xs leading-5 font-semibold rounded-full status-${newStatus}`;
+            statusSpan.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1).replace('-', ' ');
+            statusSpan.dataset.status = newStatus;
+
+            // Update buttons
+            const buttonContainer = button.closest('td');
+            if (newStatus === 'new') {
+                buttonContainer.innerHTML = `
+                    <button class="text-blue-600 hover:text-blue-900 mr-2 action-button" onclick="parent.updateDefectStatus(this, 'under-review')">Review</button>
+                    <button class="text-green-600 hover:text-green-900 action-button" onclick="parent.updateDefectStatus(this, 'resolved')">Resolve</button>
+                `;
+            } else if (newStatus === 'under-review') {
+                buttonContainer.innerHTML = `
+                    <button class="text-green-600 hover:text-green-900 action-button" onclick="parent.updateDefectStatus(this, 'resolved')">Resolve</button>
+                `;
+            } else if (newStatus === 'resolved') {
+                buttonContainer.innerHTML = `
+                    <span class="text-sm text-gray-600">Defect Resolved</span>
+                `;
+            }
+            parent.showMessageBox(`Defect ${defectId} status updated to "${newStatus}"!`, 'info');
+        };
+
+        document.getElementById('defectSearch').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#defectTableBody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="managementApp20Preview" title="Quality Control Tracker Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadManagementSystem('managementApp20')">Run Example</button>
+                </div>
+            </section>
+
+            </div>
+    </main>
+
+    <div id="messageBoxOverlay" class="message-box-overlay">
+        <div class="message-box-content">
+            <h3 id="messageBoxTitle"></h3>
+            <p id="messageBoxMessage"></p>
+            <button id="messageBoxCloseBtn">OK</button>
+        </div>
+    </div>
+
+    <footer class="bg-gradient-to-r from-blue-600 to-purple-700 dark:from-gray-900 dark:to-indigo-900 text-white py-12 shadow-inner mt-16">
+        <div class="container grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center md:text-left">
+                <h3 class="text-2xl font-bold mb-4">ManagePro</h3>
+                <p class="text-gray-200 text-sm">
+                    Your all-in-one solution for modern management systems.
+                    Streamline your operations with our interactive and powerful tools.
+                </p>
+            </div>
+
+            <div class="text-center md:text-left">
+                <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="footer-link">Home</a></li>
+                    <li><a href="#" class="footer-link">Features</a></li>
+                    <li><a href="#" class="footer-link">Pricing</a></li>
+                    <li><a href="#" class="footer-link">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="text-center md:text-left">
+                <h3 class="text-xl font-semibold mb-4">Support & Contact</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="footer-link">FAQ</a></li>
+                    <li><a href="#" class="footer-link">Support Center</a></li>
+                    <li><a href="#" class="footer-link">Contact Us</a></li>
+                    <li class="flex items-center justify-center md:justify-start space-x-3 mt-4">
+                        <a href="#" class="text-gray-200 hover:text-white transition duration-300"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-gray-200 hover:text-white transition duration-300"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-200 hover:text-white transition duration-300"><i class="fab fa-linkedin-in text-xl"></i></a>
+                        <a href="#" class="text-gray-200 hover:text-white transition duration-300"><i class="fab fa-instagram text-xl"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container text-center text-gray-300 text-sm mt-8 pt-8 border-t border-gray-700 border-opacity-50">
+            <p>&copy; 2025 ManagePro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dark mode toggle functionality
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const htmlElement = document.documentElement;
+
+            // Check for saved theme preference or system preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlElement.classList.add('dark');
+                darkModeToggle.checked = true;
+            }
+
+            darkModeToggle.addEventListener('change', () => {
+                if (darkModeToggle.checked) {
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    htmlElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Message Box functionality
+            const messageBox = document.getElementById('messageBoxOverlay');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxMessage = document.getElementById('messageBoxMessage');
+            const messageBoxCloseBtn = document.getElementById('messageBoxCloseBtn');
+
+            window.showMessageBox = function(message, type = 'info', title = 'Notification') {
+                messageBoxTitle.textContent = title;
+                messageBoxMessage.textContent = message;
+                messageBox.classList.add('open');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when message box is open
+            };
+
+            messageBoxCloseBtn.addEventListener('click', () => {
+                messageBox.classList.remove('open');
+                document.body.style.overflow = ''; // Restore scrolling
+            });
+
+            messageBox.addEventListener('click', (e) => {
+                if (e.target === messageBox) {
+                    messageBox.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Function to load management system code into iframe
+            window.loadManagementSystem = function(appId) {
+                const codeTextarea = document.getElementById(`${appId}Code`);
+                const previewIframe = document.getElementById(`${appId}Preview`);
+
+                if (codeTextarea && previewIframe) {
+                    const htmlContent = codeTextarea.value;
+                    const doc = previewIframe.contentWindow.document;
+
+                    doc.open();
+                    doc.write(htmlContent);
+                    doc.close();
+                } else {
+                    showMessageBox('Error: Management system elements not found.', 'error');
+                }
+            };
+
+            // Automatically load all apps on page load
+            for (let i = 1; i <= 20; i++) { // Updated to load 20 apps
+                loadManagementSystem(`managementApp${i}`);
+            }
+
+            // Search functionality for app cards
+            const mainSearchInput = document.getElementById('mainSearchInput');
+            const appCardsContainer = document.getElementById('appCardsContainer');
+            const appCards = appCardsContainer.querySelectorAll('.app-card');
+
+            mainSearchInput.addEventListener('keyup', () => {
+                const filter = mainSearchInput.value.toLowerCase();
+                appCards.forEach(card => {
+                    const title = card.querySelector('h2').textContent.toLowerCase();
+                    const description = card.querySelector('p.text-gray-600').textContent.toLowerCase();
+                    const appId = card.dataset.appId ? card.dataset.appId.toLowerCase() : ''; // Get data-app-id if available
+
+                    if (title.includes(filter) || description.includes(filter) || appId.includes(filter)) {
+                        card.style.display = ''; // Show the card
+                    } else {
+                        card.style.display = 'none'; // Hide the card
+                    }
+                });
+            });
+
+            // Initialize WOW.js for animations
+            new WOW().init();
+        });
+    </script>
+</body>
+</html>
