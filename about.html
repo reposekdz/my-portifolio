@@ -626,7 +626,10 @@
                 border-width: 10px 10px 10px 0 !important;
                 border-color: transparent #e2e8f0 transparent transparent !important;
             }
-            .dark .timeline-item-content::before {
+            .dark .timeline-item:nth-child(odd) .timeline-item-content::before {
+                border-color: transparent #475569 transparent transparent !important;
+            }
+            .dark .timeline-item:nth-child(even) .timeline-item-content::before {
                 border-color: transparent #475569 transparent transparent !important;
             }
             .timeline-icon-wrapper {
@@ -756,6 +759,66 @@
             background-color: #3730a3;
             color: #c7d2fe;
         }
+
+        /* New styles for Charts */
+        .chart-container {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .dark .chart-container {
+            background-color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #475569;
+        }
+        .chart-container:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .chart-container h4 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+        }
+        .dark .chart-container h4 {
+            color: #f8fafc;
+        }
+        .chart-svg {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin-top: 1rem;
+        }
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .chart-legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+        .dark .chart-legend-item {
+            color: #cbd5e1;
+        }
+        .chart-legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            margin-right: 0.5rem;
+        }
     </style>
     <script>
         // Initialize dark mode preference immediately to prevent FOUC
@@ -771,7 +834,9 @@
 
     <nav id="navbar" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
         <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity">niyonkuru reponse</a>
+            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity flex items-center">
+                NR <i class="ph-robot-fill ml-2 text-3xl text-yellow-400 animate-pulse"></i>
+            </a>
 
             <div class="hidden md:flex items-center relative group">
                 <input type="text" id="desktopSearchInput" placeholder="Search projects, skills..." class="nav-search-input peer">
@@ -819,7 +884,7 @@
             <a href="experience.html" class="mobile-nav-link">Experience</a>
             <a href="blog.html" class="mobile-nav-link">Blog</a>
             <a href="contact.html" class="mobile-nav-link">Contact</a>
-            <a href="test.html" class="nav-link">learning
+            <a href="test.html" class="mobile-nav-link">Learning</a>
         </div>
     </nav>
 
@@ -875,12 +940,12 @@
                 <div class="value-card wow animate__animated animate__flipInY" data-wow-delay="0.1s">
                     <div class="value-card-inner">
                         <div class="value-card-front">
-                            <i class="ph-lightbulb text-indigo-500 dark:text-indigo-400"></i>
+                            <i class="ph-lightbulb-fill text-indigo-500 dark:text-indigo-400"></i>
                             <h4>Innovation</h4>
                             <p class="text-sm text-slate-600 dark:text-slate-400">Tap to learn more</p>
                         </div>
                         <div class="value-card-back">
-                            <i class="ph-sparkle"></i>
+                            <i class="ph-sparkle-fill"></i>
                             <h4>Innovation</h4>
                             <p class="text-sm">I believe in constantly seeking innovative solutions and pushing the boundaries of what's possible with technology, always striving for creative and efficient approaches.</p>
                         </div>
@@ -889,12 +954,12 @@
                 <div class="value-card wow animate__animated animate__flipInY" data-wow-delay="0.2s">
                     <div class="value-card-inner">
                         <div class="value-card-front">
-                            <i class="ph-users text-indigo-500 dark:text-indigo-400"></i>
+                            <i class="ph-users-fill text-indigo-500 dark:text-indigo-400"></i>
                             <h4>Collaboration</h4>
                             <p class="text-sm text-slate-600 dark:text-slate-400">Tap to learn more</p>
                         </div>
                         <div class="value-card-back">
-                            <i class="ph-handshake"></i>
+                            <i class="ph-handshake-fill"></i>
                             <h4>Collaboration</h4>
                             <p class="text-sm">Teamwork makes the dream work. I value open communication, diverse perspectives, and collaborative problem-solving to achieve shared, impactful goals.</p>
                         </div>
@@ -903,12 +968,12 @@
                 <div class="value-card wow animate__animated animate__flipInY" data-wow-delay="0.3s">
                     <div class="value-card-inner">
                         <div class="value-card-front">
-                            <i class="ph-book-open text-indigo-500 dark:text-indigo-400"></i>
+                            <i class="ph-book-open-fill text-indigo-500 dark:text-indigo-400"></i>
                             <h4>Continuous Learning</h4>
                             <p class="text-sm text-slate-600 dark:text-slate-400">Tap to learn more</p>
                         </div>
                         <div class="value-card-back">
-                            <i class="ph-graduation-cap"></i>
+                            <i class="ph-graduation-cap-fill"></i>
                             <h4>Continuous Learning</h4>
                             <p class="text-sm">The tech world is ever-evolving, and I am committed to lifelong learning, constantly updating my skills and knowledge to stay at the forefront of new developments.</p>
                         </div>
@@ -917,12 +982,12 @@
                 <div class="value-card wow animate__animated animate__flipInY" data-wow-delay="0.4s">
                     <div class="value-card-inner">
                         <div class="value-card-front">
-                            <i class="ph-check-circle text-indigo-500 dark:text-indigo-400"></i>
+                            <i class="ph-check-circle-fill text-indigo-500 dark:text-indigo-400"></i>
                             <h4>Quality & Impact</h4>
                             <p class="text-sm text-slate-600 dark:text-slate-400">Tap to learn more</p>
                         </div>
                         <div class="value-card-back">
-                            <i class="ph-medal"></i>
+                            <i class="ph-medal-fill"></i>
                             <h4>Quality & Impact</h4>
                             <p class="text-sm">My mission is to deliver high-quality software that not only meets technical requirements but also makes a tangible, positive impact on users and businesses.</p>
                         </div>
@@ -939,7 +1004,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="expertise-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
-                    <i class="ph-monitor-play icon-large"></i>
+                    <i class="ph-monitor-play-fill icon-large"></i>
                     <h4>Web Application Development</h4>
                     <p>
                         Crafting dynamic, responsive, and user-friendly web applications is my forte. I leverage modern frontend frameworks like React.js and robust backend technologies to build seamless digital experiences.
@@ -953,7 +1018,7 @@
                 </div>
 
                 <div class="expertise-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
-                    <i class="ph-database icon-large"></i>
+                    <i class="ph-database-fill icon-large"></i>
                     <h4>Data Management & Integration</h4>
                     <p>
                         Designing, optimizing, and integrating databases (SQL & NoSQL) to ensure efficient data storage and retrieval. I focus on data integrity, security, and building powerful data-driven applications.
@@ -967,21 +1032,24 @@
                 </div>
 
                 <div class="expertise-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
-                    <i class="ph-robot icon-large"></i>
+                    <i class="ph-robot-fill icon-large"></i>
                     <h4>AI/ML Solution Implementation</h4>
                     <p>
-                        Applying machine learning models and AI techniques to solve complex problems. From data preprocessing to model deployment, I build intelligent features that enhance application capabilities.
+                        Applying machine learning models and AI techniques to solve complex problems. From data preprocessing to model deployment, I build intelligent features that enhance application capabilities, including **Generative AI, Large Language Models (LLMs), Computer Vision, and Natural Language Processing (NLP)**.
                     </p>
                     <div class="tech-badges">
                         <span class="tech-badge">Python</span>
                         <span class="tech-badge">TensorFlow</span>
                         <span class="tech-badge">PyTorch</span>
+                        <span class="tech-badge">Generative AI</span>
+                        <span class="tech-badge">LLMs</span>
+                        <span class="tech-badge">Computer Vision</span>
                         <span class="tech-badge">NLP</span>
                     </div>
                 </div>
 
                 <div class="expertise-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
-                    <i class="ph-cloud-arrow-up icon-large"></i>
+                    <i class="ph-cloud-arrow-up-fill icon-large"></i>
                     <h4>Cloud-Native Architecture</h4>
                     <p>
                         Developing and deploying scalable, resilient applications on cloud platforms like AWS. My expertise includes serverless computing, containerization with Docker and Kubernetes, and CI/CD pipelines.
@@ -995,7 +1063,7 @@
                 </div>
 
                 <div class="expertise-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
-                    <i class="ph-shield-check icon-large"></i>
+                    <i class="ph-shield-check-fill icon-large"></i>
                     <h4>Security Best Practices</h4>
                     <p>
                         Integrating security throughout the development lifecycle. I implement secure coding practices, data encryption, authentication, and authorization mechanisms to protect applications and user data.
@@ -1009,7 +1077,7 @@
                 </div>
 
                 <div class="expertise-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
-                    <i class="ph-chart-line-up icon-large"></i>
+                    <i class="ph-chart-line-up-fill icon-large"></i>
                     <h4>Performance Optimization</h4>
                     <p>
                         Identifying bottlenecks and optimizing application performance across frontend and backend. This includes code refactoring, database tuning, and efficient resource utilization for faster load times and smoother user experiences.
@@ -1032,61 +1100,55 @@
 
             <div class="timeline">
                 <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
-                    <div class="timeline-icon-wrapper"><i class="ph-graduation-cap"></i></div>
+                    <div class="timeline-icon-wrapper"><i class="ph-graduation-cap-fill"></i></div>
                     <div class="timeline-item-content">
                         <h4 class="font-semibold text-lg mb-1 text-indigo-600 dark:text-indigo-400">2020 - 2024</h4>
-                        <h3 class="timeline-title">O'level but i liked computers</h3>
-                        <p class="text-sm text-slate-600 dark:text-slate-400">G.S marie reine rwaza</p>
+                        <h3 class="timeline-title">O'level - Early Programming Interests</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">G.S Marie Reine Rwaza</p>
                         <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
-                            Immersed myself in the fundamentals of computer science, algorithms, and data structures.
-                            Developed a strong foundation in programming paradigms and software design principles.
-                            My capstone project involved building a secure, decentralized e-voting system using blockchain concepts.
+                            During my O'level studies, I developed a strong passion for computers and programming. This period was crucial for understanding the fundamentals of computer science, algorithms, and basic software design principles.
                         </p>
                     </div>
                 </div>
 
                 <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
-                    <div class="timeline-icon-wrapper"><i class="ph-briefcase"></i></div>
+                    <div class="timeline-icon-wrapper"><i class="ph-briefcase-fill"></i></div>
                     <div class="timeline-item-content">
                         <h4 class="font-semibold text-lg mb-1 text-indigo-600 dark:text-indigo-400">2024 - 2025</h4>
-                        <h3 class="timeline-title">A'level started to study software devlopment on garden tss in ngoma</h3>
-                        <p class="text-sm text-slate-600 dark:text-slate-400">WebSolutions Inc.</p>
+                        <h3 class="timeline-title">A'level - Focused Software Development Studies</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Garden TSS (Ngoma)</p>
                         <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
-                            Gained hands-on experience in a fast-paced agency environment.
-                            Contributed to the development of responsive web interfaces for various clients using HTML, CSS, and vanilla JavaScript.
-                            Assisted in integrating frontend components with RESTful APIs and participated in daily stand-ups and code reviews.
+                            Embarked on a specialized path in software development at Garden TSS. Here, I gained practical skills in various programming languages and began building more complex applications, solidifying my career direction.
                         </p>
                     </div>
                 </div>
 
                 <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
-                    <div class="timeline-icon-wrapper"><i class="ph-briefcase"></i></div>
+                    <div class="timeline-icon-wrapper"><i class="ph-code-block-fill"></i></div>
                     <div class="timeline-item-content">
                         <h4 class="font-semibold text-lg mb-1 text-indigo-600 dark:text-indigo-400">2025 - Present</h4>
                         <h3 class="timeline-title">Software Developer</h3>
-                        <p class="text-sm text-slate-600 dark:text-slate-400">Innovatech Ltd.</p>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Independent & Collaborative Projects</p>
                         <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
-                            Currently leading the development of key modules for a large-scale SaaS platform.
-                            Responsible for designing and implementing scalable backend services with Node.js and Python, and building dynamic frontends with React.js.
-                            Actively involved in architectural discussions, mentoring junior developers, and optimizing application performance.
+                            Currently working as an independent software developer and collaborating on various projects. My focus is on delivering high-quality, scalable, and user-centric solutions using modern technologies.
                         </p>
                     </div>
                 </div>
 
                 <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.7s">
-                    <div class="timeline-icon-wrapper"><i class="ph-certificate"></i></div>
+                    <div class="timeline-icon-wrapper"><i class="ph-certificate-fill"></i></div>
                     <div class="timeline-item-content">
-                        <h4 class="font-semibold text-lg mb-1 text-indigo-600 dark:text-indigo-400">2025</h4>
-                        <h3 class="timeline-title">Inedd to be celtified with all programing languages</h3>
-                        <p class="text-sm text-slate-600 dark:text-slate-400">Amazon Web Services</p>
+                        <h4 class="font-semibold text-lg mb-1 text-indigo-600 dark:text-indigo-400">Ongoing</h4>
+                        <h3 class="timeline-title">Pursuing Advanced Certifications</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Global Tech Platforms</p>
                         <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
-                            And be Successfully obtained the AWS Certified Developer in future - Associate certification, validating my expertise in developing, deploying, and debugging cloud-based applications using AWS services.
+                            Actively pursuing certifications in advanced programming languages, cloud platforms (like AWS and Azure), and specialized AI/ML domains to further validate and expand my expertise.
                         </p>
                     </div>
                 </div>
 
                 <div class="timeline-item wow animate__animated animate__fadeInUp" data-wow-delay="0.9s">
-                    <div class="timeline-icon-wrapper"><i class="ph-code-block"></i></div>
+                    <div class="timeline-icon-wrapper"><i class="ph-brain-fill"></i></div>
                     <div class="timeline-item-content">
                         <h4 class="font-semibold text-lg mb-1 text-indigo-600 dark:text-indigo-400">Ongoing</h4>
                         <h3 class="timeline-title">Exploring Generative AI & LLMs</h3>
@@ -1108,42 +1170,42 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
-                    <i class="ph-coffee-cup stat-icon"></i>
+                    <i class="ph-coffee-cup-fill stat-icon"></i>
                     <div class="stat-number" data-target="500">0</div>
                     <p class="stat-label">Cups of Coffee (annually)</p>
                 </div>
                 <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
-                    <i class="ph-code stat-icon"></i>
+                    <i class="ph-code-fill stat-icon"></i>
                     <div class="stat-number" data-target="150000">0</div>
                     <p class="stat-label">Lines of Code (approx.)</p>
                 </div>
                 <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
-                    <i class="ph-mountains stat-icon"></i>
+                    <i class="ph-mountains-fill stat-icon"></i>
                     <div class="stat-number" data-target="25">0</div>
                     <p class="stat-label">Hiking Trails Explored</p>
                 </div>
                 <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
-                    <i class="ph-game-controller stat-icon"></i>
+                    <i class="ph-game-controller-fill stat-icon"></i>
                     <div class="stat-number" data-target="750">0</div>
                     <p class="stat-label">Hours Gaming (lifetime)</p>
                 </div>
                 <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
-                    <i class="ph-book-open stat-icon"></i>
+                    <i class="ph-book-open-fill stat-icon"></i>
                     <div class="stat-number" data-target="10">0</div>
                     <p class="stat-label">Books Read (annually)</p>
                 </div>
                 <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
-                    <i class="ph-pizza stat-icon"></i>
+                    <i class="ph-pizza-fill stat-icon"></i>
                     <div class="stat-number" data-target="100">0</div>
                     <p class="stat-label">Pizzas Consumed (lifetime)</p>
                 </div>
                 <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s">
-                    <i class="ph-globe stat-icon"></i>
+                    <i class="ph-globe-hemisphere-west-fill stat-icon"></i>
                     <div class="stat-number" data-target="3">0</div>
                     <p class="stat-label">Countries Visited</p>
                 </div>
                 <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
-                    <i class="ph-music-notes stat-icon"></i>
+                    <i class="ph-music-notes-fill stat-icon"></i>
                     <div class="stat-number" data-target="2000">0</div>
                     <p class="stat-label">Songs on My Playlist</p>
                 </div>
@@ -1216,6 +1278,120 @@
                         <p>My ultimate goal is to create software that makes a meaningful impact. I strive to understand the broader objectives and deliver solutions that not only function flawlessly but also contribute significantly to business goals and user satisfaction.</p>
                     </div>
                 </div>
+
+                <div class="accordion-item wow animate__animated animate__fadeInUp" data-wow-delay="0.7s">
+                    <div class="accordion-header">
+                        <span>Accessibility First</span>
+                        <i class="fas fa-chevron-right icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>I am committed to building inclusive software that is accessible to all users, regardless of their abilities or assistive technologies. Prioritizing accessibility ensures a wider reach and a more equitable user experience for everyone.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
+                    <div class="accordion-header">
+                        <span>Continuous Integration & Deployment (CI/CD)</span>
+                        <i class="fas fa-chevron-right icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Automating the software delivery pipeline through CI/CD practices is crucial for rapid, reliable, and consistent deployments. This approach minimizes errors, speeds up feedback cycles, and ensures a smooth transition from development to production.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item wow animate__animated animate__fadeInUp" data-wow-delay="0.9s">
+                    <div class="accordion-header">
+                        <span>Empathy in Engineering</span>
+                        <i class="fas fa-chevron-right icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Beyond technical skills, I believe in approaching engineering with empathy – understanding the perspectives of colleagues, stakeholders, and end-users. This fosters better communication, more effective problem-solving, and ultimately, more human-centered solutions.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item wow animate__animated animate__fadeInUp" data-wow-delay="1.0s">
+                    <div class="accordion-header">
+                        <span>Test-Driven Development (TDD)</span>
+                        <i class="fas fa-chevron-right icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>I advocate for Test-Driven Development (TDD) to ensure code quality, reliability, and maintainability. Writing tests before code helps in clearer design, catches bugs early, and provides a safety net for future refactoring.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item wow animate__animated animate__fadeInUp" data-wow-delay="1.1s">
+                    <div class="accordion-header">
+                        <span>Open Source Contribution</span>
+                        <i class="fas fa-chevron-right icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>I believe in the power of community and contribute to open-source projects. This not only enhances my skills but also allows me to give back to the developer ecosystem and collaborate with a global network of talented individuals.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item wow animate__animated animate__fadeInUp" data-wow-delay="1.2s">
+                    <div class="accordion-header">
+                        <span>Ethical AI Development</span>
+                        <i class="fas fa-chevron-right icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>In the realm of AI, I am committed to ethical development practices. This includes focusing on fairness, transparency, accountability, and privacy in AI systems to ensure they benefit all of humanity responsibly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-insights" class="py-20 lg:py-32 bg-slate-100 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">AI & Tech Insights</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Visualizing my focus and impact in the AI/Tech landscape.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                <div class="chart-container wow animate__animated animate__fadeInLeft" data-wow-delay="0.1s">
+                    <h4>AI Project Focus Distribution</h4>
+                    <svg class="chart-svg" viewBox="0 0 200 200">
+                        <g transform="translate(100,100)">
+                            <path fill="#6366f1" d="M0 0 L100 0 A100 100 0 0 1 30.90169943749474 95.10565162951535 Z" data-label="Generative AI (30%)"></path>
+                            <path fill="#a78bfa" d="M30.90169943749474 95.10565162951535 A100 100 0 0 1 -80.90169943749474 58.77852522924731 Z" data-label="Computer Vision (25%)"></path>
+                            <path fill="#8b5cf6" d="M-80.90169943749474 58.77852522924731 A100 100 0 0 1 -80.90169943749474 -58.77852522924731 Z" data-label="NLP (20%)"></path>
+                            <path fill="#c084fc" d="M-80.90169943749474 -58.77852522924731 A100 100 0 0 1 30.90169943749474 -95.10565162951535 Z" data-label="Predictive Analytics (15%)"></path>
+                            <path fill="#e9d5ff" d="M30.90169943749474 -95.10565162951535 A100 100 0 0 1 100 0 Z" data-label="Other ML (10%)"></path>
+                        </g>
+                    </svg>
+                    <div class="chart-legend">
+                        <div class="chart-legend-item"><span class="chart-legend-color bg-indigo-500"></span> Generative AI (30%)</div>
+                        <div class="chart-legend-item"><span class="chart-legend-color bg-purple-400"></span> Computer Vision (25%)</div>
+                        <div class="chart-legend-item"><span class="chart-legend-color bg-purple-500"></span> NLP (20%)</div>
+                        <div class="chart-legend-item"><span class="chart-legend-color bg-purple-300"></span> Predictive Analytics (15%)</div>
+                        <div class="chart-legend-item"><span class="chart-legend-color bg-purple-200"></span> Other ML (10%)</div>
+                    </div>
+                </div>
+
+                <div class="chart-container wow animate__animated animate__fadeInRight" data-wow-delay="0.2s">
+                    <h4>Annual Learning Hours (Last 3 Years)</h4>
+                    <svg class="chart-svg" viewBox="0 0 400 200">
+                        <polyline fill="none" stroke="#6366f1" stroke-width="4" points="
+                            0,180 
+                            100,100 
+                            200,140 
+                            300,60 
+                            400,20
+                        " style="transition: all 1s ease-out;"></polyline>
+                        <circle cx="0" cy="180" r="8" fill="#6366f1" data-label="2022: 200 hours"></circle>
+                        <circle cx="100" cy="100" r="8" fill="#6366f1" data-label="2023: 350 hours"></circle>
+                        <circle cx="200" cy="140" r="8" fill="#6366f1" data-label="2024: 280 hours"></circle>
+                        <circle cx="300" cy="60" r="8" fill="#6366f1" data-label="2025: 450 hours"></circle>
+                        <circle cx="400" cy="20" r="8" fill="#6366f1" data-label="2026 (projected): 500 hours"></circle>
+
+                        <text x="0" y="195" text-anchor="middle" fill="#475569" font-size="12">2022</text>
+                        <text x="100" y="195" text-anchor="middle" fill="#475569" font-size="12">2023</text>
+                        <text x="200" y="195" text-anchor="middle" fill="#475569" font-size="12">2024</text>
+                        <text x="300" y="195" text-anchor="middle" fill="#475569" font-size="12">2025</text>
+                        <text x="400" y="195" text-anchor="middle" fill="#475569" font-size="12">2026</text>
+                    </svg>
+                    <p class="mt-4 text-sm text-slate-600 dark:text-slate-400">Hover over points for details.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1227,28 +1403,52 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="testimonial-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
-                    <img src="https://placehold.co/80x80/6366f1/ffffff?text=JD" alt="John Doe">
+                    <img src="https://placehold.co/80x80/6366f1/ffffff?text=AU" alt="Aline Uwase" onerror="this.src='https://placehold.co/80x80/6366f1/ffffff?text=AU'">
                     <p>"niyonkuru is an exceptional developer. Their ability to tackle complex problems and deliver high-quality solutions is truly impressive. A fantastic team player!"</p>
-                    <div class="author-name">john dusingizimana</div>
-                    <div class="author-title">CTO, TechCorp</div>
+                    <div class="author-name">Aline Uwase</div>
+                    <div class="author-title">CEO, Tech Innovations Rwanda</div>
                 </div>
                 <div class="testimonial-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
-                    <img src="https://placehold.co/80x80/a78bfa/ffffff?text=JS" alt="Jane Smith">
+                    <img src="https://placehold.co/80x80/a78bfa/ffffff?text=EN" alt="Emmanuel Ndayishimiye" onerror="this.src='https://placehold.co/80x80/a78bfa/ffffff?text=EN'">
                     <p>"Working with niyonkuru was a pleasure. Their dedication to clean code and user experience made our project a huge success. Highly recommend!"</p>
-                    <div class="author-name">Jane samia</div>
-                    <div class="author-title">Product Manager, InnovateX</div>
+                    <div class="author-name">Emmanuel Ndayishimiye</div>
+                    <div class="author-title">Product Manager, Digital Solutions Ltd.</div>
                 </div>
                 <div class="testimonial-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
-                    <img src="https://placehold.co/80x80/f97316/ffffff?text=MB" alt="Michael Brown">
+                    <img src="https://placehold.co/80x80/8b5cf6/ffffff?text=SM" alt="Sandrine Mukamisha" onerror="this.src='https://placehold.co/80x80/8b5cf6/ffffff?text=SM'">
                     <p>"niyonkuru consistently brings innovative ideas to the table and executes them flawlessly. Their expertise in cloud technologies was invaluable."</p>
-                    <div class="author-name">munyehirwe obama</div>
-                    <div class="author-title">Senior Engineer, Cloud Solutions</div>
+                    <div class="author-name">Sandrine Mukamisha</div>
+                    <div class="author-title">Lead Architect, CloudVerse</div>
                 </div>
                 <div class="testimonial-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
-                    <img src="https://placehold.co/80x80/22c55e/ffffff?text=AL" alt="Alice Lee">
+                    <img src="https://placehold.co/80x80/c084fc/ffffff?text=JB" alt="Jean-Luc Byiringiro" onerror="this.src='https://placehold.co/80x80/c084fc/ffffff?text=JB'">
                     <p>"A true professional! niyonkuru's problem-solving skills are top-notch, and they always go the extra mile to ensure project success. A joy to collaborate with."</p>
-                    <div class="author-name">Alice Lee</div>
-                    <div class="author-title">UX Designer, Creative Agency</div>
+                    <div class="author-name">Jean-Luc Byiringiro</div>
+                    <div class="author-title">Senior UX Designer, Creative Hub</div>
+                </div>
+                <div class="testimonial-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+                    <img src="https://placehold.co/80x80/e9d5ff/ffffff?text=KU" alt="Keza Umutesi" onerror="this.src='https://placehold.co/80x80/e9d5ff/ffffff?text=KU'">
+                    <p>"I was impressed by niyonkuru's dedication and technical acumen. They delivered our project ahead of schedule with exceptional quality. Highly recommended for complex solutions!"</p>
+                    <div class="author-name">Keza Umutesi</div>
+                    <div class="author-title">Founder, Innovate Rwanda</div>
+                </div>
+                <div class="testimonial-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+                    <img src="https://placehold.co/80x80/d8b4fe/ffffff?text=PM" alt="Patrick Mugisha" onerror="this.src='https://placehold.co/80x80/d8b4fe/ffffff?text=PM'">
+                    <p>"niyonkuru's ability to simplify complex technical concepts and their commitment to continuous improvement are truly inspiring. A valuable asset to any team."</p>
+                    <div class="author-name">Patrick Mugisha</div>
+                    <div class="author-title">Lead Software Engineer, FutureTech</div>
+                </div>
+                <div class="testimonial-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s">
+                    <img src="https://placehold.co/80x80/c4b5fd/ffffff?text=CN" alt="Chantal Nyirabazungu" onerror="this.src='https://placehold.co/80x80/c4b5fd/ffffff?text=CN'">
+                    <p>"Their deep understanding of AI and ability to integrate it into practical applications is truly remarkable. A visionary developer!"</p>
+                    <div class="author-name">Chantal Nyirabazungu</div>
+                    <div class="author-title">AI Research Lead, KLab</div>
+                </div>
+                <div class="testimonial-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
+                    <img src="https://placehold.co/80x80/a78bfa/ffffff?text=DK" alt="David Kwizera" onerror="this.src='https://placehold.co/80x80/a78bfa/ffffff?text=DK'">
+                    <p>"niyonkuru transformed our legacy system into a modern, scalable platform. Their attention to detail and commitment to excellence are unmatched."</p>
+                    <div class="author-name">David Kwizera</div>
+                    <div class="author-title">CTO, Enterprise Solutions Rwanda</div>
                 </div>
             </div>
         </div>
@@ -1274,7 +1474,7 @@
                 <a href="https://github.com/reposekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="https://twitter.com/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
-                <a href="https://www.instagram.com/reponse_kdz/s" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
+                <a href="https://dev.to/reponse_kdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
                 <a href="mailto:reponsekdz06@gmail.com" class="footer-social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
             <div class="mb-6 space-x-4 sm:space-x-6">
@@ -1295,8 +1495,7 @@
         <i class="fas fa-arrow-up text-lg"></i>
     </button>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize WOW.js for scroll animations
@@ -1432,6 +1631,79 @@
                     // Toggle current accordion
                     header.classList.toggle('active');
                     accordionContent.classList.toggle('open');
+                });
+            });
+
+            // Pie Chart Animation (simple SVG animation)
+            function animatePieChart() {
+                const pieChartPaths = document.querySelectorAll('#ai-insights .chart-svg path');
+                let totalAngle = 0;
+
+                pieChartPaths.forEach((path, index) => {
+                    const label = path.dataset.label;
+                    const percentage = parseFloat(label.match(/\(([^%]+)%\)/)[1]);
+                    const angle = (percentage / 100) * 360;
+
+                    // Calculate the start and end points for the arc
+                    const startAngle = totalAngle;
+                    const endAngle = totalAngle + angle;
+
+                    const startX = 100 + 100 * Math.cos((Math.PI / 180) * startAngle);
+                    const startY = 100 + 100 * Math.sin((Math.PI / 180) * startAngle);
+                    const endX = 100 + 100 * Math.cos((Math.PI / 180) * endAngle);
+                    const endY = 100 + 100 * Math.sin((Math.PI / 180) * endAngle);
+
+                    const largeArcFlag = angle > 180 ? 1 : 0;
+
+                    // Set the d attribute for the path
+                    path.setAttribute('d', `M100,100 L${startX},${startY} A100,100 0 ${largeArcFlag} 1 ${endX},${endY} Z`);
+
+                    totalAngle = endAngle;
+                });
+            }
+
+            // Line Chart Animation (simple SVG animation)
+            function animateLineChart() {
+                const polyline = document.querySelector('#ai-insights .chart-svg polyline');
+                const length = polyline.getTotalLength();
+                polyline.style.strokeDasharray = length;
+                polyline.style.strokeDashoffset = length;
+                polyline.getBoundingClientRect(); // Trigger reflow
+                polyline.style.strokeDashoffset = '0';
+            }
+
+            // Call chart animations when section is in view
+            const chartSection = document.getElementById('ai-insights');
+            const chartObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animatePieChart();
+                        animateLineChart();
+                        chartObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            chartObserver.observe(chartSection);
+
+            // Add hover effect for line chart circles
+            document.querySelectorAll('#ai-insights .chart-svg circle').forEach(circle => {
+                const tooltip = document.createElement('div');
+                tooltip.classList.add('absolute', 'bg-slate-700', 'text-white', 'p-2', 'rounded-md', 'text-xs', 'opacity-0', 'transition-opacity', 'duration-200', 'pointer-events-none', 'z-10');
+                tooltip.textContent = circle.dataset.label;
+                document.body.appendChild(tooltip);
+
+                circle.addEventListener('mouseenter', (e) => {
+                    const rect = e.target.getBoundingClientRect();
+                    tooltip.style.left = `${rect.left + window.scrollX + rect.width / 2}px`;
+                    tooltip.style.top = `${rect.top + window.scrollY - tooltip.offsetHeight - 10}px`;
+                    tooltip.style.transform = 'translateX(-50%)';
+                    tooltip.classList.remove('opacity-0');
+                    tooltip.classList.add('opacity-100');
+                });
+
+                circle.addEventListener('mouseleave', () => {
+                    tooltip.classList.remove('opacity-100');
+                    tooltip.classList.add('opacity-0');
                 });
             });
 
@@ -1577,7 +1849,7 @@
                     if (!mobileSearchResults.matches(':hover')) {
                         mobileSearchResults.classList.add('hidden');
                     }
-                }, 100);
+                } , 100);
             });
         });
     </script>

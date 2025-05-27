@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - niyonkuru reponse</title>
+    <title>Blog - Niyonkuru Reponse</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
     <link rel="icon" href="./assets/icons8-ai-48.png" type="image/png">
     <style>
-        /* Custom styles for animations and transitions - copied from index.html */
+        /* Custom styles for animations and transitions */
         .nav-link::after, .mobile-nav-link::after {
             content: '';
             display: block;
@@ -30,7 +30,7 @@
             width: 100%;
         }
 
-        /* Search input styling - copied from index.html */
+        /* Search input styling */
         .nav-search-input {
             padding-left: 2.5rem; /* Space for icon */
             padding-right: 1rem;
@@ -83,7 +83,7 @@
             background-color: #334155;
         }
 
-        /* Social icons with tooltips - copied from index.html */
+        /* Social icons with tooltips */
         .social-icon {
             position: relative;
             display: inline-flex;
@@ -139,7 +139,7 @@
             border-color: #0f172a transparent transparent transparent; /* Slate 900 */
         }
 
-        /* General button styles - copied from index.html */
+        /* General button styles */
         .btn-primary {
             display: inline-flex;
             align-items: center;
@@ -213,7 +213,7 @@
             background-color: #f0f4f8; /* Lighten on hover */
         }
 
-        /* Section titles and subtitles - copied from index.html */
+        /* Section titles and subtitles */
         .section-title {
             font-size: 2.5rem; /* 4xl */
             font-weight: 700; /* Bold */
@@ -253,7 +253,7 @@
             color: #94a3b8; /* Slate 400 */
         }
 
-        /* Footer links - copied from index.html */
+        /* Footer links */
         .footer-link {
             color: #475569; /* Slate 700 */
             transition: color 0.3s ease, transform 0.2s ease;
@@ -315,12 +315,12 @@
             box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
         }
 
-        /* Back to top button - copied from index.html */
+        /* Back to top button */
         #backToTopBtn {
             transition: all 0.3s ease-in-out;
         }
 
-        /* Keyframe for wiggle animation - copied from index.html */
+        /* Keyframe for wiggle animation */
         @keyframes wiggle {
             0%, 100% { transform: rotate(0deg); }
             25% { transform: rotate(5deg); }
@@ -331,7 +331,7 @@
             animation: wiggle 0.5s ease-in-out infinite;
         }
 
-        /* Navbar fade in down animation - copied from index.html */
+        /* Navbar fade in down animation */
         @keyframes fadeInDownNav {
             from {
                 opacity: 0;
@@ -649,6 +649,29 @@
             border-radius: 0.75rem;
             margin-bottom: 1.5rem;
         }
+
+        /* Custom Logo "NR" */
+        .logo-nr {
+            font-family: 'Inter', sans-serif; /* Using a modern font */
+            font-weight: 900; /* Extra bold */
+            font-size: 2.25rem; /* text-3xl */
+            line-height: 1;
+            display: inline-block;
+            background: linear-gradient(45deg, #6366f1, #a78bfa); /* Indigo to Purple gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .logo-nr:hover {
+            transform: scale(1.05) rotate(-3deg);
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.2);
+        }
+        .dark .logo-nr {
+            background: linear-gradient(45deg, #a78bfa, #8b5cf6); /* Lighter purple gradient for dark mode */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     </style>
     <script>
         // Initialize dark mode preference immediately to prevent FOUC
@@ -664,7 +687,7 @@
 
     <nav id="navbar" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
         <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity">niyonkuru reponse</a>
+            <a href="index.html" class="logo-nr">NR</a>
 
             <div class="hidden md:flex items-center relative group">
                 <input type="text" id="desktopSearchInput" placeholder="Search projects, skills..." class="nav-search-input peer">
@@ -712,7 +735,7 @@
             <a href="experience.html" class="mobile-nav-link">Experience</a>
             <a href="blog.html" class="mobile-nav-link active-mobile-nav-link">Blog</a>
             <a href="contact.html" class="mobile-nav-link">Contact</a>
-            <a href="test.html" class="mobile-nav-link">Learning>
+            <a href="test.html" class="mobile-nav-link">Learning</a>
         </div>
     </nav>
 
@@ -751,7 +774,7 @@
                     <img src="https://placehold.co/600x200/818cf8/ffffff?text=AI+in+WebDev&font=Montserrat" alt="AI in Web Development Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+1'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">The Future of AI in Web Development</h3>
-                        <p class="blog-card-meta">By niyonkuru reponse | May 20, 2025 | <i class="ph-tag-fill"></i> AI, WebDev</p>
+                        <p class="blog-card-meta">By Niyonkuru Reponse | May 20, 2025 | <i class="ph-tag-fill"></i> AI, WebDev</p>
                         <p class="blog-card-description">
                             Exploring how artificial intelligence is revolutionizing web development, from automated code generation to personalized user experiences. Discover the tools and techniques shaping the next generation of web applications.
                         </p>
@@ -765,7 +788,7 @@
                     <img src="https://placehold.co/600x200/f472b6/ffffff?text=React+State&font=Montserrat" alt="React State Management Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+2'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">Mastering State Management in React</h3>
-                        <p class="blog-card-meta">By niyonkuru reponse | April 15, 2025 | <i class="ph-tag-fill"></i> React, Frontend</p>
+                        <p class="blog-card-meta">By Niyonkuru Reponse | April 15, 2025 | <i class="ph-tag-fill"></i> React, Frontend</p>
                         <p class="blog-card-description">
                             A deep dive into various state management patterns and libraries in React, helping you build robust and scalable applications. From useState to Redux and Context API, understand when to use each.
                         </p>
@@ -779,7 +802,7 @@
                     <img src="https://placehold.co/600x200/34d399/ffffff?text=Cloud+Native&font=Montserrat" alt="Cloud Native Architectures Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+3'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">Cloud Native Architectures Explained</h3>
-                        <p class="blog-card-meta">By niyonkuru reponse | March 10, 2025 | <i class="ph-tag-fill"></i> Cloud, Architecture</p>
+                        <p class="blog-card-meta">By Niyonkuru Reponse | March 10, 2025 | <i class="ph-tag-fill"></i> Cloud, Architecture</p>
                         <p class="blog-card-description">
                             Understanding the principles and benefits of designing applications for cloud environments. Learn about microservices, containers, and serverless computing.
                         </p>
@@ -793,7 +816,7 @@
                     <img src="https://placehold.co/600x200/a78bfa/ffffff?text=Generative+AI&font=Montserrat" alt="Generative AI Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+4'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">Introduction to Generative AI Models</h3>
-                        <p class="blog-card-meta">By niyonkuru reponse | Feb 28, 2025 | <i class="ph-tag-fill"></i> AI, ML</p>
+                        <p class="blog-card-meta">By Niyonkuru Reponse | Feb 28, 2025 | <i class="ph-tag-fill"></i> AI, ML</p>
                         <p class="blog-card-description">
                             A beginner-friendly guide to generative AI, covering models like GANs and Transformers, and their applications in various fields.
                         </p>
@@ -807,7 +830,7 @@
                     <img src="https://placehold.co/600x200/38bdf8/ffffff?text=PWA+Power&font=Montserrat" alt="PWA Development Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+5'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">Building Progressive Web Apps (PWAs)</h3>
-                        <p class="blog-card-meta">By niyonkuru reponse | Jan 20, 2025 | <i class="ph-tag-fill"></i> WebDev, Mobile</p>
+                        <p class="blog-card-meta">By Niyonkuru Reponse | Jan 20, 2025 | <i class="ph-tag-fill"></i> WebDev, Mobile</p>
                         <p class="blog-card-description">
                             Learn how to create powerful Progressive Web Applications that offer native app experiences directly from the web browser.
                         </p>
@@ -821,7 +844,7 @@
                     <img src="https://placehold.co/600x200/ef4444/ffffff?text=Data+Viz&font=Montserrat" alt="Data Visualization Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+6'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">Effective Data Visualization Techniques</h3>
-                        <p class="blog-card-meta">By niyonkuru reponse | Dec 05, 2024 | <i class="ph-tag-fill"></i> Data, Analytics</p>
+                        <p class="blog-card-meta">By Niyonkuru Reponse | Dec 05, 2024 | <i class="ph-tag-fill"></i> Data, Analytics</p>
                         <p class="blog-card-description">
                             Transforming raw data into compelling visual stories. This post covers best practices and tools for effective data visualization.
                         </p>
@@ -835,7 +858,7 @@
                     <img src="https://placehold.co/600x200/60a5fa/ffffff?text=LLMs+Explained&font=Montserrat" alt="LLMs Explained Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+7'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">Demystifying Large Language Models (LLMs)</h3>
-                        <p class="blog-card-meta">By niyonkuru reponse | Nov 18, 2024 | <i class="ph-tag-fill"></i> AI, Software</p>
+                        <p class="blog-card-meta">By Niyonkuru Reponse | Nov 18, 2024 | <i class="ph-tag-fill"></i> AI, Software</p>
                         <p class="blog-card-description">
                             An in-depth look at how Large Language Models work, their architecture, training, and the exciting applications they enable in modern software.
                         </p>
@@ -849,7 +872,7 @@
                     <img src="https://placehold.co/600x200/c084fc/ffffff?text=NodeJS+APIs&font=Montserrat" alt="Node.js APIs Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+8'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">Building Scalable Backend APIs with Node.js</h3>
-                        <p class="blog-card-meta">By niyonkuru reponse | Oct 25, 2024 | <i class="ph-tag-fill"></i> Software, WebDev</p>
+                        <p class="blog-card-meta">By Niyonkuru Reponse | Oct 25, 2024 | <i class="ph-tag-fill"></i> Software, WebDev</p>
                         <p class="blog-card-description">
                             A comprehensive guide to designing and implementing robust, scalable, and secure RESTful APIs using Node.js and Express.js.
                         </p>
@@ -863,7 +886,7 @@
                     <img src="https://placehold.co/600x200/facc15/ffffff?text=React+Native&font=Montserrat" alt="React Native Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+9'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">Cross-Platform Mobile Dev with React Native</h3>
-                        <p class="blog-card-meta">By niyonkuru reponse | Sep 12, 2024 | <i class="ph-tag-fill"></i> Mobile, App, Software</p>
+                        <p class="blog-card-meta">By Niyonkuru Reponse | Sep 12, 2024 | <i class="ph-tag-fill"></i> Mobile, App, Software</p>
                         <p class="blog-card-description">
                             Explore the benefits and challenges of building mobile applications for both iOS and Android from a single codebase using React Native.
                         </p>
@@ -877,7 +900,7 @@
                     <img src="https://placehold.co/600x200/4ade80/ffffff?text=MLOps&font=Montserrat" alt="MLOps Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+10'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">The Role of MLOps in Production AI Systems</h3>
-                        <p class="blog-card-meta">By niyonkuru reponse | Aug 01, 2024 | <i class="ph-tag-fill"></i> AI, Software, Cloud</p>
+                        <p class="blog-card-meta">By Niyonkuru Reponse | Aug 01, 2024 | <i class="ph-tag-fill"></i> AI, Software, Cloud</p>
                         <p class="blog-card-description">
                             Understand how MLOps practices streamline the machine learning lifecycle, from experimentation to deployment and monitoring in production.
                         </p>
@@ -891,7 +914,7 @@
                     <img src="https://placehold.co/600x200/f87171/ffffff?text=Mobile+UI&font=Montserrat" alt="Mobile UI Design Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+11'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">Designing User-Friendly Mobile Interfaces</h3>
-                        <p class="blog-card-meta">By niyonkuru reponse | July 10, 2024 | <i class="ph-tag-fill"></i> App, UI/UX</p>
+                        <p class="blog-card-meta">By Niyonkuru Reponse | July 10, 2024 | <i class="ph-tag-fill"></i> App, UI/UX</p>
                         <p class="blog-card-description">
                             Key principles and best practices for creating intuitive, engaging, and accessible user interfaces for mobile applications.
                         </p>
@@ -905,7 +928,7 @@
                     <img src="https://placehold.co/600x200/3b82f6/ffffff?text=Docker+K8s&font=Montserrat" alt="Docker Kubernetes Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+12'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">Containerization with Docker and Kubernetes</h3>
-                        <p class="blog-card-meta">By niyonkuru reponse | June 25, 2024 | <i class="ph-tag-fill"></i> Software, Cloud</p>
+                        <p class="blog-card-meta">By Niyonkuru Reponse | June 25, 2024 | <i class="ph-tag-fill"></i> Software, Cloud</p>
                         <p class="blog-card-description">
                             A practical guide to containerizing your applications with Docker and orchestrating them efficiently with Kubernetes for scalable deployments.
                         </p>
@@ -1010,7 +1033,7 @@
         <div class="container mx-auto px-6">
             <div class="mb-8 flex justify-center space-x-6">
                 <a href="https://github.com/reposekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/reponsekdz06 target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://linkedin.com/in/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="https://twitter.com/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
                 <a href="https://www.instagram.com/reponse_kdz/s" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
                 <a href="mailto:reponsekdz06@gmail.com" class="footer-social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
@@ -1023,8 +1046,8 @@
                 <a href="contact.html" class="footer-link">Contact</a>
                 <a href="#privacy-policy" class="footer-link">Privacy Policy</a>
             </div>
-            <p class="text-sm">© <span id="currentYear"></span> niyonkuru reponse. All rights reserved.</p>
-            <p class="text-xs mt-2">Designed with <i class="fas fa-heart text-red-500"></i>Reponse Niyonkuru</p>
+            <p class="text-sm">© <span id="currentYear"></span> Niyonkuru Reponse. All rights reserved.</p>
+            <p class="text-xs mt-2">Designed with <i class="fas fa-heart text-red-500"></i> Niyonkuru Reponse.</p>
             <p class="text-xs mt-1">Located in Kigali-Kicukiro.</p>
         </div>
     </footer>
@@ -1217,7 +1240,7 @@
             const blogPostsData = {
                 "post-1": {
                     title: "The Future of AI in Web Development",
-                    meta: "By niyonkuru reponse | May 20, 2025 | AI, WebDev",
+                    meta: "By Niyonkuru Reponse | May 20, 2025 | AI, WebDev",
                     image: "https://placehold.co/800x450/818cf8/ffffff?text=AI+in+WebDev+Full&font=Montserrat",
                     content: `
                         <p>Artificial Intelligence is rapidly transforming the landscape of web development, offering unprecedented opportunities for automation, personalization, and enhanced user experiences. From intelligent chatbots and content recommendation systems to AI-powered design tools and automated testing, the integration of AI is making web development more efficient and dynamic.</p>
@@ -1232,7 +1255,7 @@
                 },
                 "post-2": {
                     title: "Mastering State Management in React",
-                    meta: "By niyonkuru reponse | April 15, 2025 | React, Frontend",
+                    meta: "By Niyonkuru Reponse | April 15, 2025 | React, Frontend",
                     image: "https://placehold.co/800x450/f472b6/ffffff?text=React+State+Full&font=Montserrat",
                     content: `
                         <p>State management is a critical aspect of building robust and scalable React applications. As applications grow in complexity, managing data flow and component interactions can become challenging without a well-defined strategy. This post explores popular state management patterns and libraries in the React ecosystem.</p>
@@ -1248,7 +1271,7 @@
                 },
                 "post-3": {
                     title: "Cloud Native Architectures Explained",
-                    meta: "By niyonkuru reponse | March 10, 2025 | Cloud, Architecture",
+                    meta: "By Niyonkuru Reponse | March 10, 2025 | Cloud, Architecture",
                     image: "https://placehold.co/800x450/34d399/ffffff?text=Cloud+Native+Full&font=Montserrat",
                     content: `
                         <p>Cloud-native architectures are designed to leverage the scalability, flexibility, and resilience of cloud computing environments. Unlike traditional monolithic applications, cloud-native applications are built as collections of small, independent, and loosely coupled services.</p>
@@ -1263,7 +1286,7 @@
                 },
                 "post-4": {
                     title: "Introduction to Generative AI Models",
-                    meta: "By niyonkuru reponse | Feb 28, 2025 | AI, ML",
+                    meta: "By Niyonkuru Reponse | Feb 28, 2025 | AI, ML",
                     image: "https://placehold.co/800x450/a78bfa/ffffff?text=Generative+AI+Full&font=Montserrat",
                     content: `
                         <p>Generative Artificial Intelligence refers to AI models capable of producing new, original content, rather than just classifying or predicting based on existing data. This revolutionary field has given rise to technologies that can create realistic images, compose music, write compelling text, and even generate code.</p>
@@ -1277,7 +1300,7 @@
                 },
                 "post-5": {
                     title: "Building Progressive Web Apps (PWAs)",
-                    meta: "By niyonkuru reponse | Jan 20, 2025 | WebDev, Mobile",
+                    meta: "By Niyonkuru Reponse | Jan 20, 2025 | WebDev, Mobile",
                     image: "https://placehold.co/800x450/38bdf8/ffffff?text=PWA+Power+Full&font=Montserrat",
                     content: `
                         <p>Progressive Web Applications (PWAs) are web applications that offer a user experience similar to native mobile apps. They combine the best features of web and mobile apps, providing reliability, speed, and engagement without requiring an app store download.</p>
@@ -1299,7 +1322,7 @@
                 },
                 "post-6": {
                     title: "Effective Data Visualization Techniques",
-                    meta: "By niyonkuru reponse | Dec 05, 2024 | Data, Analytics",
+                    meta: "By Niyonkuru Reponse | Dec 05, 2024 | Data, Analytics",
                     image: "https://placehold.co/800x450/ef4444/ffffff?text=Data+Viz+Full&font=Montserrat",
                     content: `
                         <p>Data visualization is the graphical representation of information and data. By using visual elements like charts, graphs, and maps, data visualization tools provide an accessible way to see and understand trends, outliers, and patterns in data.</p>
@@ -1316,7 +1339,7 @@
                 },
                 "post-7": {
                     title: "Demystifying Large Language Models (LLMs)",
-                    meta: "By niyonkuru reponse | Nov 18, 2024 | AI, Software",
+                    meta: "By Niyonkuru Reponse | Nov 18, 2024 | AI, Software",
                     image: "https://placehold.co/800x450/60a5fa/ffffff?text=LLMs+Explained+Full&font=Montserrat",
                     content: `
                         <p>Large Language Models (LLMs) have taken the world by storm, demonstrating incredible capabilities in understanding, generating, and manipulating human language. These models are a type of artificial intelligence that uses deep learning techniques and vast amounts of text data to perform a wide range of natural language processing (NLP) tasks.</p>
@@ -1337,7 +1360,7 @@
                 },
                 "post-8": {
                     title: "Building Scalable Backend APIs with Node.js",
-                    meta: "By niyonkuru reponse | Oct 25, 2024 | Software, WebDev",
+                    meta: "By Niyonkuru Reponse | Oct 25, 2024 | Software, WebDev",
                     image: "https://placehold.co/800x450/c084fc/ffffff?text=NodeJS+APIs+Full&font=Montserrat",
                     content: `
                         <p>Node.js has become a popular choice for building scalable and high-performance backend APIs due to its non-blocking, event-driven architecture. Its single-threaded nature, combined with the event loop, makes it efficient for handling concurrent requests without the overhead of multi-threading.</p>
@@ -1355,7 +1378,7 @@
                 },
                 "post-9": {
                     title: "Cross-Platform Mobile Dev with React Native",
-                    meta: "By niyonkuru reponse | Sep 12, 2024 | Mobile, App, Software",
+                    meta: "By Niyonkuru Reponse | Sep 12, 2024 | Mobile, App, Software",
                     image: "https://placehold.co/800x450/facc15/ffffff?text=React+Native+Full&font=Montserrat",
                     content: `
                         <p>React Native allows developers to build native mobile applications using JavaScript and React. This means you can write a single codebase and deploy it to both iOS and Android platforms, significantly reducing development time and cost compared to building separate native apps.</p>
@@ -1373,7 +1396,7 @@
                 },
                 "post-10": {
                     title: "The Role of MLOps in Production AI Systems",
-                    meta: "By niyonkuru reponse | Aug 01, 2024 | AI, Software, Cloud",
+                    meta: "By Niyonkuru Reponse | Aug 01, 2024 | AI, Software, Cloud",
                     image: "https://placehold.co/800x450/4ade80/ffffff?text=MLOps+Full&font=Montserrat",
                     content: `
                         <p>MLOps (Machine Learning Operations) is a set of practices that aims to deploy and maintain machine learning models in production reliably and efficiently. It extends the DevOps principles to the machine learning lifecycle, addressing the unique challenges of managing ML models, data, and code.</p>
@@ -1392,7 +1415,7 @@
                 },
                 "post-11": {
                     title: "Designing User-Friendly Mobile Interfaces",
-                    meta: "By niyonkuru reponse | July 10, 2024 | App, UI/UX",
+                    meta: "By Niyonkuru Reponse | July 10, 2024 | App, UI/UX",
                     image: "https://placehold.co/800x450/f87171/ffffff?text=Mobile+UI+Full&font=Montserrat",
                     content: `
                         <p>Designing effective user interfaces for mobile applications is crucial for user engagement and satisfaction. A well-designed mobile UI is intuitive, efficient, and aesthetically pleasing, guiding users seamlessly through their tasks.</p>
@@ -1411,11 +1434,10 @@
                 },
                 "post-12": {
                     title: "Containerization with Docker and Kubernetes",
-                    meta: "By niyonkuru reponse | June 25, 2024 | Software, Cloud",
+                    meta: "By Niyonkuru Reponse | June 25, 2024 | Software, Cloud",
                     image: "https://placehold.co/800x450/3b82f6/ffffff?text=Docker+K8s+Full&font=Montserrat",
                     content: `
                         <p>Containerization has revolutionized software development and deployment by providing a lightweight, portable, and consistent environment for applications. Docker is the leading platform for containerization, while Kubernetes is the de facto standard for orchestrating these containers at scale.</p>
-                        <h3>Docker: Packaging Your Application</h3>
                         <p>Docker allows you to package an application and all its dependencies (libraries, system tools, code, runtime) into a single, isolated unit called a container. This ensures that your application runs consistently across different environments, from your local development machine to production servers.</p>
                         <p>Key benefits of Docker include:</p>
                         <ul>
@@ -1477,18 +1499,18 @@
 
             // Desktop and Mobile Search Functionality (from index.html, adapted for blog)
             const searchData = [
-                { title: "The Future of AI in Web Development", url: "#single-post-1", tags: ["AI", "WebDev", "Future", "Automation", "Personalization"] },
-                { title: "Mastering State Management in React", url: "#single-post-2", tags: ["React", "Frontend", "State", "Redux", "Context API", "Zustand"] },
-                { title: "Cloud Native Architectures Explained", url: "#single-post-3", tags: ["Cloud", "Architecture", "Microservices", "Containers", "Kubernetes", "DevOps"] },
-                { title: "Introduction to Generative AI Models", url: "#single-post-4", tags: ["AI", "ML", "Generative AI", "GANs", "Transformers", "GPT"] },
-                { title: "Building Progressive Web Apps (PWAs)", url: "#single-post-5", tags: ["WebDev", "Mobile", "PWA", "Service Workers", "Offline"] },
-                { title: "Effective Data Visualization Techniques", url: "#single-post-6", tags: ["Data", "Analytics", "Visualization", "Charts", "Graphs"] },
-                { title: "Demystifying Large Language Models (LLMs)", url: "#single-post-7", tags: ["AI", "Software", "LLM", "NLP", "Generative AI"] },
-                { title: "Building Scalable Backend APIs with Node.js", url: "#single-post-8", tags: ["Software", "WebDev", "Backend", "Node.js", "APIs", "Express.js"] },
-                { title: "Cross-Platform Mobile Dev with React Native", url: "#single-post-9", tags: ["Mobile", "App", "Software", "React Native", "iOS", "Android"] },
-                { title: "The Role of MLOps in Production AI Systems", url: "#single-post-10", tags: ["AI", "Software", "Cloud", "MLOps", "Deployment", "Monitoring"] },
-                { title: "Designing User-Friendly Mobile Interfaces", url: "#single-post-11", tags: ["App", "UI/UX", "Mobile Design", "User Experience"] },
-                { title: "Containerization with Docker and Kubernetes", url: "#single-post-12", tags: ["Software", "Cloud", "Docker", "Kubernetes", "Containerization"] },
+                { title: "The Future of AI in Web Development", url: "blog.html#single-post-1", tags: ["AI", "WebDev", "Future", "Automation", "Personalization"] },
+                { title: "Mastering State Management in React", url: "blog.html#single-post-2", tags: ["React", "Frontend", "State", "Redux", "Context API", "Zustand"] },
+                { title: "Cloud Native Architectures Explained", url: "blog.html#single-post-3", tags: ["Cloud", "Architecture", "Microservices", "Containers", "Kubernetes", "DevOps"] },
+                { title: "Introduction to Generative AI Models", url: "blog.html#single-post-4", tags: ["AI", "ML", "Generative AI", "GANs", "Transformers", "GPT"] },
+                { title: "Building Progressive Web Apps (PWAs)", url: "blog.html#single-post-5", tags: ["WebDev", "Mobile", "PWA", "Service Workers", "Offline"] },
+                { title: "Effective Data Visualization Techniques", url: "blog.html#single-post-6", tags: ["Data", "Analytics", "Visualization", "Charts", "Graphs"] },
+                { title: "Demystifying Large Language Models (LLMs)", url: "blog.html#single-post-7", tags: ["AI", "Software", "LLM", "NLP", "Generative AI"] },
+                { title: "Building Scalable Backend APIs with Node.js", url: "blog.html#single-post-8", tags: ["Software", "WebDev", "Backend", "Node.js", "APIs", "Express.js"] },
+                { title: "Cross-Platform Mobile Dev with React Native", url: "blog.html#single-post-9", tags: ["Mobile", "App", "Software", "React Native", "iOS", "Android"] },
+                { title: "The Role of MLOps in Production AI Systems", url: "blog.html#single-post-10", tags: ["AI", "Software", "Cloud", "MLOps", "Deployment", "Monitoring"] },
+                { title: "Designing User-Friendly Mobile Interfaces", url: "blog.html#single-post-11", tags: ["App", "UI/UX", "Mobile Design", "User Experience"] },
+                { title: "Containerization with Docker and Kubernetes", url: "blog.html#single-post-12", tags: ["Software", "Cloud", "Docker", "Kubernetes", "Containerization"] },
                 { title: "My Skills Overview", url: "skills.html", tags: ["Frontend", "Backend", "Cloud", "AI", "Machine Learning", "Deep Learning", "Generative AI", "Data Visualization", "Cloud AI Services"] },
                 { title: "About Me", url: "about.html", tags: ["Biography", "Journey", "Passion", "Values", "Mission"] },
                 { title: "Contact Me", url: "contact.html", tags: ["Email", "LinkedIn", "Inquiry", "Collaboration", "Map", "AI Assistant"] },
@@ -1518,10 +1540,11 @@
                         const div = document.createElement('div');
                         div.classList.add('search-results-item', 'text-slate-700', 'dark:text-slate-200');
                         div.innerHTML = `<a href="${item.url}" class="block">${item.title} <span class="text-xs text-slate-500 dark:text-slate-400">(${item.tags.join(', ')})</span></a>`;
-                        div.addEventListener('click', () => {
+                        div.addEventListener('click', (e) => {
                             // If it's a blog post URL, open the modal instead of navigating
-                            if (item.url.startsWith('#single-post-')) {
-                                const postId = item.url.replace('#', '');
+                            if (item.url.startsWith('blog.html#single-post-')) {
+                                e.preventDefault(); // Prevent default navigation
+                                const postId = item.url.split('#')[1];
                                 const postData = blogPostsData[postId];
                                 if (postData) {
                                     modalPostTitle.textContent = postData.title;

@@ -1,0 +1,2898 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Interactive Website Templates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light slate background */
+            color: #1e293b; /* Dark slate text */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark body {
+            background-color: #0f172a; /* Darker slate background */
+            color: #e2e8f0; /* Light slate text */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem; /* 4xl */
+            font-weight: 800; /* Extra bold */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #6366f1, #a78bfa); /* Indigo to Purple gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #6366f1, #a78bfa);
+            border-radius: 2px;
+        }
+
+        .template-card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .template-card {
+            background-color: #1e293b;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #334155;
+        }
+        .template-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+        }
+        .dark .template-card:hover {
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .template-card h2 {
+            font-size: 2.25rem; /* 3xl */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #334155;
+            text-align: center;
+        }
+        .dark .template-card h2 {
+            color: #f8fafc;
+        }
+
+        .code-preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) { /* Large screens */
+            .code-preview-container {
+                flex-direction: row;
+            }
+        }
+
+        .code-editor, .live-preview {
+            flex: 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid #cbd5e1; /* Slate 300 */
+            transition: border-color 0.3s ease;
+        }
+        .dark .code-editor, .dark .live-preview {
+            border-color: #475569; /* Slate 700 */
+        }
+
+        .code-editor textarea {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            padding: 1rem;
+            background-color: #2d3748; /* Dark code background */
+            color: #f8fafc; /* Light text */
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: none;
+            outline: none;
+            resize: vertical; /* Allow vertical resizing */
+            border-radius: 1rem;
+        }
+
+        .live-preview iframe {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            background-color: #ffffff;
+            border: none;
+            border-radius: 1rem;
+        }
+        .dark .live-preview iframe {
+            background-color: #0f172a;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .button-group button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .dark .button-group button {
+            background: linear-gradient(45deg, #a78bfa, #8b5cf6);
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+        .button-group button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+        .dark .button-group button:hover {
+            box-shadow: 0 8px 20px rgba(167, 139, 250, 0.4);
+        }
+
+        /* Message Box styles (copied for consistency) */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001; /* Higher than modals */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .message-box-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .dark .message-box-content {
+            background-color: #1e293b;
+        }
+        .message-box-overlay.open .message-box-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .message-box-button {
+            background-color: #6366f1;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .dark .message-box-button {
+            background-color: #a78bfa;
+        }
+        .message-box-button:hover {
+            background-color: #4f46e5;
+        }
+        .dark .message-box-button:hover {
+            background-color: #8b5cf6;
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="transition-colors duration-300">
+
+    <header class="py-12 bg-gradient-to-r from-blue-600 to-indigo-700 dark:from-blue-800 dark:to-indigo-900 text-white text-center shadow-lg">
+        <h1 class="text-5xl font-extrabold mb-3 animate__animated animate__fadeInDown">Website Templates</h1>
+        <p class="text-xl font-light animate__animated animate__fadeInUp animate__delay-1s">Explore 10 interactive and modern UI examples.</p>
+    </header>
+
+    <main class="container py-16">
+        <h2 class="section-title mb-16 wow animate__animated animate__fadeIn">Interactive UI Showcase</h2>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+            <h2>1. Modern Landing Page</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template1Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Landing Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .hero-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            animation: gradientShift 10s ease infinite alternate;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .btn-gradient {
+            background: linear-gradient(90deg, #a78bfa, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+        .btn-gradient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(167, 139, 250, 0.4);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <header class="hero-bg text-white py-20 text-center rounded-xl m-4">
+        <div class="container mx-auto px-4">
+            <h1 class="text-5xl font-bold mb-4 animate__animated animate__fadeInDown">Welcome to Our Awesome Service</h1>
+            <p class="text-xl mb-8 animate__animated animate__fadeInUp animate__delay-1s">
+                Revolutionize your workflow with our cutting-edge solutions.
+            </p>
+            <button class="btn-gradient text-white px-8 py-3 rounded-full text-lg font-semibold animate__animated animate__zoomIn" onclick="alert('Get Started clicked!')">Get Started</button>
+        </div>
+    </header>
+
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Key Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center card-hover transition-transform duration-300">
+                    <i class="fas fa-rocket text-5xl text-purple-600 mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2">Blazing Fast</h3>
+                    <p class="text-gray-600">Experience unparalleled speed and efficiency with our optimized platform.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center card-hover transition-transform duration-300">
+                    <i class="fas fa-shield-alt text-5xl text-blue-600 mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2">Highly Secure</h3>
+                    <p class="text-gray-600">Your data is protected with industry-leading encryption and security measures.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center card-hover transition-transform duration-300">
+                    <i class="fas fa-headset text-5xl text-pink-600 mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2">24/7 Support</h3>
+                    <p class="text-gray-600">Our dedicated support team is always ready to assist you, day or night.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template1Preview" title="Modern Landing Page Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template1')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+            <h2>2. Simple Dashboard UI</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        .sidebar {
+            background: linear-gradient(to bottom, #1a202c, #2d3748);
+        }
+        .card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .stat-icon {
+            background: linear-gradient(45deg, #4299e1, #805ad5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex min-h-screen">
+    <aside class="sidebar w-64 p-6 text-white shadow-lg">
+        <h1 class="text-3xl font-bold mb-8 text-center">Dashboard</h1>
+        <nav>
+            <ul>
+                <li class="mb-4">
+                    <a href="#" class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+                        <i class="fas fa-home mr-3"></i> Home
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="#" class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+                        <i class="fas fa-chart-line mr-3"></i> Analytics
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="#" class="flex items-center p-3 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                        <i class="fas fa-users mr-3"></i> Users
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="#" class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+                        <i class="fas fa-cog mr-3"></i> Settings
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="flex-1 p-8">
+        <header class="flex justify-between items-center mb-8">
+            <h2 class="text-3xl font-semibold text-gray-800">Overview</h2>
+            <div class="relative">
+                <input type="text" placeholder="Search..." class="p-2 pl-10 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-md card-hover transition-transform duration-300">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-dollar-sign text-4xl stat-icon mr-4"></i>
+                    <div>
+                        <p class="text-gray-500 text-sm">Revenue</p>
+                        <p class="text-2xl font-bold text-gray-800">$12,450</p>
+                    </div>
+                </div>
+                <p class="text-green-500 text-sm"><i class="fas fa-arrow-up"></i> 12% from last month</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md card-hover transition-transform duration-300">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-users text-4xl stat-icon mr-4"></i>
+                    <div>
+                        <p class="text-gray-500 text-sm">New Users</p>
+                        <p class="text-2xl font-bold text-gray-800">1,890</p>
+                    </div>
+                </div>
+                <p class="text-red-500 text-sm"><i class="fas fa-arrow-down"></i> 5% from last month</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md card-hover transition-transform duration-300">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-shopping-cart text-4xl stat-icon mr-4"></i>
+                    <div>
+                        <p class="text-gray-500 text-sm">Sales</p>
+                        <p class="text-2xl font-bold text-gray-800">7,230</p>
+                    </div>
+                </div>
+                <p class="text-green-500 text-sm"><i class="fas fa-arrow-up"></i> 8% from last month</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-md mt-8">
+            <h3 class="text-xl font-semibold mb-4 text-gray-800">Recent Activity</h3>
+            <ul class="divide-y divide-gray-200">
+                <li class="py-3 flex justify-between items-center">
+                    <span class="text-gray-700">User John Doe registered.</span>
+                    <span class="text-gray-500 text-sm">2 hours ago</span>
+                </li>
+                <li class="py-3 flex justify-between items-center">
+                    <span class="text-gray-700">New product 'Gadget X' added.</span>
+                    <span class="text-gray-500 text-sm">1 day ago</span>
+                </li>
+                <li class="py-3 flex justify-between items-center">
+                    <span class="text-gray-700">Server maintenance completed.</span>
+                    <span class="text-gray-500 text-sm">3 days ago</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template2Preview" title="Simple Dashboard Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template2')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+            <h2>3. Interactive Contact Form</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template3Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Open Sans', sans-serif; background: linear-gradient(to right, #fbc2eb, #a6c1ee); }
+        .form-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+        .input-field {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            outline: none;
+        }
+        .submit-btn {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            transition: all 0.3s ease;
+        }
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(99, 102, 241, 0.4);
+        }
+        .message-box {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .message-box.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .message-box.success { background-color: #d1fae5; color: #065f46; }
+        .message-box.error { background-color: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="form-container">
+        <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">Get In Touch</h1>
+        <form id="contactForm" class="space-y-5">
+            <div>
+                <label for="name" class="block text-gray-700 text-sm font-medium mb-2">Name</label>
+                <input type="text" id="name" name="name" class="input-field" placeholder="Your Name" required>
+            </div>
+            <div>
+                <label for="email" class="block text-gray-700 text-sm font-medium mb-2">Email</label>
+                <input type="email" id="email" name="email" class="input-field" placeholder="your@example.com" required>
+            </div>
+            <div>
+                <label for="message" class="block text-gray-700 text-sm font-medium mb-2">Message</label>
+                <textarea id="message" name="message" rows="5" class="input-field" placeholder="Your message..." required></textarea>
+            </div>
+            <button type="submit" class="submit-btn w-full text-white py-3 rounded-lg text-lg">Send Message</button>
+        </form>
+        <div id="formMessage" class="message-box"></div>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            const formMessage = document.getElementById('formMessage');
+            formMessage.classList.remove('show', 'success', 'error');
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (name === '' || email === '' || message === '') {
+                formMessage.textContent = 'Please fill in all fields.';
+                formMessage.classList.add('show', 'error');
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                formMessage.textContent = 'Please enter a valid email address.';
+                formMessage.classList.add('show', 'error');
+            } else {
+                formMessage.textContent = 'Message sent successfully!';
+                formMessage.classList.add('show', 'success');
+                // In a real application, you would send this data to a server
+                console.log('Form Submitted:', { name, email, message });
+                document.getElementById('contactForm').reset(); // Clear form
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template3Preview" title="Interactive Contact Form Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template3')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+            <h2>4. Product Card</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Card</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Nunito', sans-serif; background-color: #e0f2f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .product-card {
+            background-color: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width: 320px;
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(45deg, #a6c1ee, #fbc2eb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+        }
+        .add-to-cart-btn {
+            background: linear-gradient(90deg, #10b981, #059669); /* Green gradient */
+            transition: all 0.3s ease;
+        }
+        .add-to-cart-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="product-card">
+        <div class="product-image">
+            <i class="fas fa-camera"></i> </div>
+        <div class="p-6">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Super Gadget X</h3>
+            <p class="text-gray-600 text-sm mb-4">
+                The ultimate gadget for your everyday needs. High performance, sleek design.
+            </p>
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-3xl font-extrabold text-indigo-600">$199.99</span>
+                <span class="text-sm text-gray-500 line-through">$249.99</span>
+            </div>
+            <button id="addToCartBtn" class="add-to-cart-btn w-full text-white py-3 rounded-xl font-semibold">
+                Add to Cart <i class="fas fa-shopping-cart ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('addToCartBtn').addEventListener('click', function() {
+            // Simulate adding to cart
+            const cartCountElement = parent.document.getElementById('cartCount'); // Accessing a global element if exists
+            let currentCount = parseInt(cartCountElement ? cartCountElement.textContent : '0');
+            currentCount++;
+            if (cartCountElement) cartCountElement.textContent = currentCount;
+            parent.showMessageBox('Super Gadget X added to cart!', 'success', 'Added to Cart');
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template4Preview" title="Product Card Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template4')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+            <h2>5. Image Gallery</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template5Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #f7fafc; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        .gallery-item {
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            transition: filter 0.3s ease;
+        }
+        .gallery-item:hover img {
+            filter: brightness(0.8);
+        }
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .lightbox.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 1rem;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .lightbox.open img {
+            transform: scale(1);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .lightbox-close:hover {
+            color: #ccc;
+        }
+    </style>
+</head>
+<body class="p-6">
+    <div class="container mx-auto">
+        <h1 class="text-4xl font-bold text-center mb-8 text-gray-800">My Awesome Gallery</h1>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-src="https://placehold.co/800x600/FF5733/ffffff?text=Image+1">
+                <img src="https://placehold.co/150x120/FF5733/ffffff?text=Thumb1" alt="Gallery Image 1">
+            </div>
+            <div class="gallery-item" data-src="https://placehold.co/800x600/33FF57/ffffff?text=Image+2">
+                <img src="https://placehold.co/150x120/33FF57/ffffff?text=Thumb2" alt="Gallery Image 2">
+            </div>
+            <div class="gallery-item" data-src="https://placehold.co/800x600/5733FF/ffffff?text=Image+3">
+                <img src="https://placehold.co/150x120/5733FF/ffffff?text=Thumb3" alt="Gallery Image 3">
+            </div>
+            <div class="gallery-item" data-src="https://placehold.co/800x600/FFC300/ffffff?text=Image+4">
+                <img src="https://placehold.co/150x120/FFC300/ffffff?text=Thumb4" alt="Gallery Image 4">
+            </div>
+            <div class="gallery-item" data-src="https://placehold.co/800x600/DAF7A6/333333?text=Image+5">
+                <img src="https://placehold.co/150x120/DAF7A6/333333?text=Thumb5" alt="Gallery Image 5">
+            </div>
+            <div class="gallery-item" data-src="https://placehold.co/800x600/C70039/ffffff?text=Image+6">
+                <img src="https://placehold.co/150x120/C70039/ffffff?text=Thumb6" alt="Gallery Image 6">
+            </div>
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightboxImage" src="" alt="Full Image">
+    </div>
+
+    <script>
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const imgSrc = this.dataset.src;
+                document.getElementById('lightboxImage').src = imgSrc;
+                document.getElementById('lightbox').classList.add('open');
+            });
+        });
+
+        document.querySelector('.lightbox-close').addEventListener('click', function() {
+            document.getElementById('lightbox').classList.remove('open');
+        });
+
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template5Preview" title="Image Gallery Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template5')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+            <h2>6. Simple Calculator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template6Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Orbitron', sans-serif; background: linear-gradient(135deg, #2c3e50, #34495e); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .calculator {
+            background-color: #1a202c;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            width: 320px;
+            border: 2px solid #4a5568;
+        }
+        .display {
+            background-color: #4a5568;
+            color: #e2e8f0;
+            font-size: 2.5rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: right;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+        .calc-btn {
+            background-color: #4a5568;
+            color: white;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            border: none;
+            outline: none;
+        }
+        .calc-btn:hover {
+            background-color: #6366f1; /* Indigo 500 */
+            transform: scale(1.02);
+        }
+        .calc-btn.operator {
+            background-color: #a78bfa; /* Purple 400 */
+        }
+        .calc-btn.operator:hover {
+            background-color: #8b5cf6; /* Purple 500 */
+        }
+        .calc-btn.equals {
+            background-color: #10b981; /* Emerald 500 */
+            grid-column: span 2;
+        }
+        .calc-btn.equals:hover {
+            background-color: #059669; /* Emerald 700 */
+        }
+        .calc-btn.clear {
+            background-color: #ef4444; /* Red 500 */
+        }
+        .calc-btn.clear:hover {
+            background-color: #dc2626; /* Red 600 */
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div id="display" class="display">0</div>
+        <div class="buttons-grid">
+            <button class="calc-btn clear" onclick="clearDisplay()">C</button>
+            <button class="calc-btn operator" onclick="appendToDisplay('/')">/</button>
+            <button class="calc-btn operator" onclick="appendToDisplay('*')">*</button>
+            <button class="calc-btn" onclick="appendToDisplay('7')">7</button>
+            <button class="calc-btn" onclick="appendToDisplay('8')">8</button>
+            <button class="calc-btn" onclick="appendToDisplay('9')">9</button>
+            <button class="calc-btn operator" onclick="appendToDisplay('-')">-</button>
+            <button class="calc-btn" onclick="appendToDisplay('4')">4</button>
+            <button class="calc-btn" onclick="appendToDisplay('5')">5</button>
+            <button class="calc-btn" onclick="appendToDisplay('6')">6</button>
+            <button class="calc-btn operator" onclick="appendToDisplay('+')">+</button>
+            <button class="calc-btn" onclick="appendToDisplay('1')">1</button>
+            <button class="calc-btn" onclick="appendToDisplay('2')">2</button>
+            <button class="calc-btn" onclick="appendToDisplay('3')">3</button>
+            <button class="calc-btn" onclick="appendToDisplay('0')">0</button>
+            <button class="calc-btn" onclick="appendToDisplay('.')">.</button>
+            <button class="calc-btn equals" onclick="calculateResult()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let currentInput = '0';
+        let operator = null;
+        let previousInput = '';
+        let resetDisplay = false;
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+
+        function appendToDisplay(num) {
+            if (resetDisplay) {
+                currentInput = num;
+                resetDisplay = false;
+            } else {
+                if (currentInput === '0' && num !== '.') {
+                    currentInput = num;
+                } else {
+                    currentInput += num;
+                }
+            }
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentInput = '0';
+            operator = null;
+            previousInput = '';
+            resetDisplay = false;
+            updateDisplay();
+        }
+
+        function calculateResult() {
+            try {
+                let result = eval(currentInput); // WARNING: eval() can be dangerous in real apps
+                currentInput = result.toString();
+                resetDisplay = true;
+            } catch (e) {
+                currentInput = 'Error';
+                resetDisplay = true;
+            }
+            updateDisplay();
+        }
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template6Preview" title="Simple Calculator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template6')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s">
+            <h2>7. Weather App</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template7Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Nunito', sans-serif; background: linear-gradient(to top right, #87CEEB, #ADD8E6); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .weather-card {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            text-align: center;
+            width: 350px;
+            animation: fadeInScale 0.8s ease-out;
+        }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .weather-icon {
+            font-size: 5rem;
+            color: #3b82f6; /* Blue 500 */
+            margin-bottom: 1rem;
+            animation: bounceIn 1s ease-out;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+        .temp-display {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        .city-display {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 1rem;
+        }
+        .condition-display {
+            font-size: 1.25rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+        .search-input {
+            width: calc(100% - 80px);
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem 0 0 0.5rem;
+            outline: none;
+        }
+        .search-btn {
+            background: linear-gradient(90deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .search-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="weather-card">
+        <i id="weatherIcon" class="fas fa-cloud sun-icon weather-icon"></i>
+        <div id="temperature" class="temp-display">25°C</div>
+        <div id="city" class="city-display">London</div>
+        <div id="condition" class="condition-display">Partly Cloudy</div>
+        <div class="flex mt-4">
+            <input type="text" id="cityInput" class="search-input" placeholder="Enter city name">
+            <button id="getWeatherBtn" class="search-btn">Get</button>
+        </div>
+    </div>
+
+    <script>
+        const weatherData = {
+            "london": { temp: "15°C", condition: "Cloudy", icon: "cloud" },
+            "new york": { temp: "22°C", condition: "Sunny", icon: "sun" },
+            "tokyo": { temp: "28°C", condition: "Clear Sky", icon: "sun" },
+            "paris": { temp: "18°C", condition: "Rainy", icon: "cloud-showers-heavy" },
+            "kigali": { temp: "24°C", condition: "Sunny", icon: "sun" },
+            "sydney": { temp: "20°C", condition: "Windy", icon: "wind" }
+        };
+
+        function updateWeatherDisplay(city) {
+            const cityKey = city.toLowerCase();
+            const data = weatherData[cityKey];
+            const weatherIcon = document.getElementById('weatherIcon');
+
+            if (data) {
+                document.getElementById('temperature').textContent = data.temp;
+                document.getElementById('city').textContent = city;
+                document.getElementById('condition').textContent = data.condition;
+                weatherIcon.className = `fas fa-${data.icon} weather-icon`;
+            } else {
+                document.getElementById('temperature').textContent = "N/A";
+                document.getElementById('city').textContent = "City Not Found";
+                document.getElementById('condition').textContent = "Unknown";
+                weatherIcon.className = `fas fa-question-circle weather-icon`;
+            }
+        }
+
+        document.getElementById('getWeatherBtn').addEventListener('click', function() {
+            const cityInput = document.getElementById('cityInput').value.trim();
+            if (cityInput) {
+                updateWeatherDisplay(cityInput);
+            } else {
+                parent.showMessageBox('Please enter a city name.', 'error', 'Input Required');
+            }
+        });
+
+        // Initial load
+        updateWeatherDisplay("London");
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template7Preview" title="Weather App Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template7')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
+            <h2>8. Blog Post Layout</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template8Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog Post</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Lato', sans-serif; background-color: #fcfcfc; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Merriweather', serif; }
+        .blog-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            padding: 2.5rem;
+            line-height: 1.7;
+            color: #334155;
+        }
+        .blog-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .blog-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(45deg, #ef4444, #f97316); /* Red to Orange */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .blog-meta {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        .blog-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .blog-content p {
+            margin-bottom: 1.25rem;
+        }
+        .blog-content h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        .blog-content ul {
+            list-style: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .read-more-btn {
+            background: linear-gradient(90deg, #6366f1, #a78bfa);
+            transition: all 0.3s ease;
+        }
+        .read-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="blog-container">
+        <header class="blog-header">
+            <h1>The Art of Modern Web Design</h1>
+            <p class="blog-meta">By Jane Doe | May 20, 2024 | 10 min read</p>
+        </header>
+
+        <article class="blog-content">
+            <p>
+                In today's digital landscape, a website is often the first impression a business makes. Modern web design goes beyond aesthetics; it's about creating intuitive, engaging, and performant experiences that resonate with users. This article explores the core principles and emerging trends shaping the future of the web.
+            </p>
+            <img src="https://placehold.co/750x400/6366f1/ffffff?text=Modern+Web+Design" alt="Modern Web Design Illustration">
+
+            <h2>The Rise of Minimalism and Clean Layouts</h2>
+            <p>
+                Gone are the days of cluttered interfaces. Minimalism, characterized by ample white space, clean typography, and a focus on essential elements, has become paramount. This approach not only enhances visual appeal but also improves readability and user focus.
+            </p>
+            <p>Key aspects include:</p>
+            <ul>
+                <li>Strategic use of negative space</li>
+                <li>Limited color palettes with accent colors</li>
+                <li>High-quality, relevant imagery</li>
+                <li>Clear and concise messaging</li>
+            </ul>
+
+            <h2>Interactive Elements and Micro-interactions</h2>
+            <p>
+                To truly engage users, modern websites incorporate subtle animations and interactive elements. These micro-interactions, like button hover effects, loading animations, or form field feedback, provide visual cues and make the user experience more delightful and intuitive.
+            </p>
+            <img src="https://placehold.co/750x400/a78bfa/ffffff?text=Interactive+Elements" alt="Interactive Elements Illustration">
+
+            <h2>Performance and Responsiveness</h2>
+            <p>
+                A beautiful design is only as good as its performance. Users expect fast-loading websites that adapt seamlessly to any device. Responsive design principles, optimized images, and efficient code are crucial for retaining visitors and improving search engine rankings.
+            </p>
+            <p>
+                As technology evolves, so too does the art of web design. Staying abreast of these trends and continuously iterating on user feedback is key to building successful digital products.
+            </p>
+        </article>
+
+        <div class="text-center mt-8">
+            <button class="read-more-btn text-white px-6 py-3 rounded-lg font-semibold">
+                Read More Articles
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template8Preview" title="Blog Post Layout Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template8')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s">
+            <h2>9. Pricing Table</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template9Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Table</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(to bottom, #dbeafe, #bfdbfe); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .pricing-card {
+            background-color: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            text-align: center;
+            width: 320px;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .pricing-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #6366f1;
+        }
+        .plan-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 1rem;
+        }
+        .plan-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #6366f1;
+            margin-bottom: 1rem;
+        }
+        .plan-price span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #64748b;
+        }
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.75rem;
+            color: #475569;
+        }
+        .feature-list li i {
+            color: #10b981;
+            margin-right: 0.5rem;
+        }
+        .cta-button {
+            background: linear-gradient(90deg, #6366f1, #a78bfa);
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .popular-badge {
+            background: linear-gradient(90deg, #f97316, #ef4444);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
+        <div class="pricing-card relative">
+            <h3 class="plan-title">Basic</h3>
+            <div class="plan-price">$29<span>/month</span></div>
+            <p class="text-gray-600 mb-6">Perfect for small teams.</p>
+            <ul class="feature-list mb-8">
+                <li><i class="fas fa-check-circle"></i> 5 Projects</li>
+                <li><i class="fas fa-check-circle"></i> 10GB Storage</li>
+                <li><i class="fas fa-check-circle"></i> Basic Analytics</li>
+                <li><i class="fas fa-check-circle"></i> Email Support</li>
+            </ul>
+            <button class="cta-button w-full text-white py-3 rounded-lg font-semibold" onclick="parent.showMessageBox('Basic plan selected!', 'info')">Choose Plan</button>
+        </div>
+
+        <div class="pricing-card relative border-2 border-indigo-500 shadow-xl">
+            <span class="popular-badge">Most Popular</span>
+            <h3 class="plan-title">Pro</h3>
+            <div class="plan-price">$59<span>/month</span></div>
+            <p class="text-gray-600 mb-6">Ideal for growing businesses.</p>
+            <ul class="feature-list mb-8">
+                <li><i class="fas fa-check-circle"></i> Unlimited Projects</li>
+                <li><i class="fas fa-check-circle"></i> 100GB Storage</li>
+                <li><i class="fas fa-check-circle"></i> Advanced Analytics</li>
+                <li><i class="fas fa-check-circle"></i> Priority Support</li>
+                <li><i class="fas fa-check-circle"></i> Custom Integrations</li>
+            </ul>
+            <button class="cta-button w-full text-white py-3 rounded-lg font-semibold" onclick="parent.showMessageBox('Pro plan selected!', 'success')">Choose Plan</button>
+        </div>
+
+        <div class="pricing-card relative">
+            <h3 class="plan-title">Enterprise</h3>
+            <div class="plan-price">$99<span>/month</span></div>
+            <p class="text-gray-600 mb-6">For large scale operations.</p>
+            <ul class="feature-list mb-8">
+                <li><i class="fas fa-check-circle"></i> All Pro Features</li>
+                <li><i class="fas fa-check-circle"></i> Unlimited Storage</li>
+                <li><i class="fas fa-check-circle"></i> Dedicated Account Manager</li>
+                <li><i class="fas fa-check-circle"></i> 24/7 Phone Support</li>
+                <li><i class="fas fa-check-circle"></i> On-premise Options</li>
+            </ul>
+            <button class="cta-button w-full text-white py-3 rounded-lg font-semibold" onclick="parent.showMessageBox('Enterprise plan selected!', 'info')">Choose Plan</button>
+        </div>
+    </div>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template9Preview" title="Pricing Table Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template9')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s">
+            <h2>10. To-Do List</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template10Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Nunito', sans-serif; background: linear-gradient(135deg, #c3a3f1, #a78bfa); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .todo-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            width: 450px;
+            transition: all 0.3s ease;
+        }
+        .todo-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .input-group {
+            display: flex;
+            margin-bottom: 1.5rem;
+            animation: slideInLeft 0.5s ease-out;
+        }
+        @keyframes slideInLeft {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .input-group input {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.75rem 0 0 0.75rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        .input-group input:focus {
+            border-color: #8b5cf6;
+        }
+        .input-group button {
+            background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0 0.75rem 0.75rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .input-group button:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+        .todo-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f8fafc;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .todo-list li:hover {
+            transform: translateX(5px);
+            background-color: #eff6ff;
+        }
+        .todo-list li.completed {
+            text-decoration: line-through;
+            color: #6b7280;
+            background-color: #e2e8f0;
+        }
+        .todo-list li span {
+            flex-grow: 1;
+        }
+        .todo-list button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-left: 0.5rem;
+            transition: color 0.2s ease;
+        }
+        .todo-list .complete-btn { color: #10b981; }
+        .todo-list .complete-btn:hover { color: #059669; }
+        .todo-list .delete-btn { color: #ef4444; }
+        .todo-list .delete-btn:hover { color: #dc2626; }
+    </style>
+</head>
+<body>
+    <div class="todo-container">
+        <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">My To-Do List</h1>
+        <div class="input-group">
+            <input type="text" id="newTodoInput" placeholder="Add a new task...">
+            <button id="addTodoBtn">Add</button>
+        </div>
+        <ul id="todoList" class="todo-list">
+            </ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const newTodoInput = document.getElementById('newTodoInput');
+            const addTodoBtn = document.getElementById('addTodoBtn');
+            const todoList = document.getElementById('todoList');
+
+            function createTodoElement(taskText, isCompleted = false) {
+                const listItem = document.createElement('li');
+                if (isCompleted) {
+                    listItem.classList.add('completed');
+                }
+
+                const taskSpan = document.createElement('span');
+                taskSpan.textContent = taskText;
+
+                const actionsDiv = document.createElement('div');
+
+                const completeBtn = document.createElement('button');
+                completeBtn.classList.add('complete-btn');
+                completeBtn.innerHTML = '<i class="fas fa-check"></i>';
+                completeBtn.title = 'Mark as Complete';
+                completeBtn.addEventListener('click', () => {
+                    listItem.classList.toggle('completed');
+                });
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.classList.add('delete-btn');
+                deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+                deleteBtn.title = 'Delete Task';
+                deleteBtn.addEventListener('click', () => {
+                    listItem.remove();
+                });
+
+                actionsDiv.appendChild(completeBtn);
+                actionsDiv.appendChild(deleteBtn);
+                listItem.appendChild(taskSpan);
+                listItem.appendChild(actionsDiv);
+                todoList.prepend(listItem); // Add new tasks to the top
+            }
+
+            addTodoBtn.addEventListener('click', () => {
+                const taskText = newTodoInput.value.trim();
+                if (taskText !== '') {
+                    createTodoElement(taskText);
+                    newTodoInput.value = '';
+                } else {
+                    parent.showMessageBox('Please enter a task!', 'error', 'Empty Task');
+                }
+            });
+
+            newTodoInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    addTodoBtn.click();
+                }
+            });
+
+            // Add some initial tasks
+            createTodoElement('Learn HTML & CSS', true);
+            createTodoElement('Master JavaScript');
+            createTodoElement('Build a portfolio project');
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template10Preview" title="To-Do List Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template10')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+            <h2>11. Gradient Hero Section</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template11Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Hero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            background: linear-gradient(135deg, #4c51bf, #6b46c1); /* Indigo to Purple */
+            animation: backgroundPan 10s ease infinite alternate;
+            overflow: hidden;
+            position: relative;
+        }
+        @keyframes backgroundPan {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+        .hero-content {
+            z-index: 10;
+            padding: 1rem;
+            animation: fadeInZoom 1.5s ease-out;
+        }
+        @keyframes fadeInZoom {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .hero-button {
+            background: linear-gradient(90deg, #f6e05e, #fbd38d); /* Yellow to Orange */
+            color: #333;
+            font-weight: 700;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .hero-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .animated-shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
+        }
+        .shape-1 { width: 150px; height: 150px; top: 10%; left: 15%; animation-delay: 0s; }
+        .shape-2 { width: 80px; height: 80px; bottom: 20%; right: 25%; animation-delay: 2s; }
+        .shape-3 { width: 200px; height: 200px; top: 50%; left: 5%; animation-delay: 4s; }
+        .shape-4 { width: 100px; height: 100px; bottom: 5%; left: 40%; animation-delay: 6s; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(0) translateX(0); }
+            75% { transform: translateY(20px) translateX(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="animated-shape shape-1"></div>
+        <div class="animated-shape shape-2"></div>
+        <div class="animated-shape shape-3"></div>
+        <div class="animated-shape shape-4"></div>
+        <div class="hero-content">
+            <h1 class="text-6xl font-black mb-4">Innovate. Create. Inspire.</h1>
+            <p class="text-2xl font-light mb-8">
+                Your vision, our expertise. Let's build something extraordinary.
+            </p>
+            <button class="hero-button" onclick="alert('Learn More clicked!')">Learn More</button>
+        </div>
+    </section>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template11Preview" title="Gradient Hero Section Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template11')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+            <h2>12. Animated Progress Bars</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template12Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Progress Bars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .progress-container {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            width: 500px;
+        }
+        .progress-bar-wrapper {
+            width: 100%;
+            background-color: #e2e8f0;
+            border-radius: 0.5rem;
+            height: 1.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%; /* Initial width */
+            background: linear-gradient(90deg, #3b82f6, #6366f1); /* Blue to Indigo */
+            border-radius: 0.5rem;
+            transition: width 1.5s ease-out; /* Smooth transition */
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 0.5rem;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        .progress-label {
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.5rem;
+        }
+        .reset-btn {
+            background: linear-gradient(90deg, #ef4444, #dc2626);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <h1 class="text-2xl font-bold text-center mb-6 text-gray-800">Skill Progress</h1>
+
+        <div>
+            <div class="progress-label">HTML/CSS <span id="htmlProgressText">0%</span></div>
+            <div class="progress-bar-wrapper">
+                <div id="htmlProgressBar" class="progress-bar"></div>
+            </div>
+        </div>
+
+        <div>
+            <div class="progress-label">JavaScript <span id="jsProgressText">0%</span></div>
+            <div class="progress-bar-wrapper">
+                <div id="jsProgressBar" class="progress-bar"></div>
+            </div>
+        </div>
+
+        <div>
+            <div class="progress-label">Python <span id="pythonProgressText">0%</span></div>
+            <div class="progress-bar-wrapper">
+                <div id="pythonProgressBar" class="progress-bar"></div>
+            </div>
+        </div>
+
+        <div class="text-center mt-6">
+            <button id="resetProgressBtn" class="reset-btn">Reset Progress</button>
+        </div>
+    </div>
+
+    <script>
+        const skills = [
+            { id: 'html', target: 90 },
+            { id: 'js', target: 75 },
+            { id: 'python', target: 85 }
+        ];
+
+        function animateProgress() {
+            skills.forEach(skill => {
+                const progressBar = document.getElementById(`${skill.id}ProgressBar`);
+                const progressText = document.getElementById(`${skill.id}ProgressText`);
+                progressBar.style.width = '0%'; // Reset for animation
+                progressText.textContent = '0%';
+
+                setTimeout(() => {
+                    progressBar.style.width = `${skill.target}%`;
+                    let current = 0;
+                    const interval = setInterval(() => {
+                        if (current >= skill.target) {
+                            clearInterval(interval);
+                        } else {
+                            current++;
+                            progressText.textContent = `${current}%`;
+                        }
+                    }, 15); // Adjust speed
+                }, 100); // Small delay to allow reset to render
+            });
+        }
+
+        document.getElementById('resetProgressBtn').addEventListener('click', animateProgress);
+
+        // Initial animation on load
+        animateProgress();
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template12Preview" title="Animated Progress Bars Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template12')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+            <h2>13. Testimonial Carousel</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template13Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonial Carousel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background: linear-gradient(to right, #e0e7ff, #c7d2fe); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .carousel-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            width: 600px;
+            max-width: 90%;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .carousel-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .testimonial-slide {
+            display: none; /* Hidden by default */
+            text-align: center;
+            padding: 1.5rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+        .testimonial-slide.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .quote-icon {
+            font-size: 3rem;
+            color: #6366f1;
+            margin-bottom: 1rem;
+        }
+        .testimonial-text {
+            font-size: 1.25rem;
+            font-style: italic;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+        .author-name {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        .author-title {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        .carousel-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            z-index: 10;
+        }
+        .carousel-nav-btn:hover {
+            background-color: rgba(0,0,0,0.7);
+        }
+        .prev-btn { left: 1rem; }
+        .next-btn { right: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="carousel-container">
+        <button class="carousel-nav-btn prev-btn" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-nav-btn next-btn" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+
+        <div class="testimonial-slide active">
+            <i class="fas fa-quote-left quote-icon"></i>
+            <p class="testimonial-text">"This service transformed our business. The team was incredibly responsive and delivered beyond expectations. Highly recommend!"</p>
+            <p class="author-name">- Sarah Johnson</p>
+            <p class="author-title">CEO, Tech Innovators</p>
+        </div>
+        <div class="testimonial-slide">
+            <i class="fas fa-quote-left quote-icon"></i>
+            <p class="testimonial-text">"An absolute game-changer! The intuitive design and powerful features made our daily tasks so much easier."</p>
+            <p class="author-name">- David Lee</p>
+            <p class="author-title">Lead Developer, Creative Solutions</p>
+        </div>
+        <div class="testimonial-slide">
+            <i class="fas fa-quote-left quote-icon"></i>
+            <p class="testimonial-text">"Exceptional support and a truly robust platform. Our investment paid off immediately. Fantastic work!"</p>
+            <p class="author-name">- Emily Chen</p>
+            <p class="author-title">Marketing Director, Global Brands</p>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+            }
+            showSlide(currentSlide);
+        }
+
+        // Auto-advance carousel
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000); // Change slide every 5 seconds
+
+        // Initial display
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template13Preview" title="Testimonial Carousel Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template13')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+            <h2>14. Animated Navigation Bar</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template14Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Navbar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #f0f4f8; }
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        .nav-link {
+            position: relative;
+            padding: 0.75rem 1rem;
+            color: #334155;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0.25rem;
+            transform: translateX(-50%);
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #a78bfa);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #6366f1;
+        }
+        .nav-link:hover::after {
+            width: 80%;
+        }
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: #334155;
+            cursor: pointer;
+        }
+        .mobile-menu {
+            display: none;
+            background-color: white;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            padding: 1rem 0;
+            animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .mobile-menu a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: #334155;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+        .mobile-menu a:hover {
+            background-color: #e0e7ff;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .mobile-menu.open { display: block; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar py-4 px-6 flex justify-between items-center">
+        <div class="text-2xl font-bold text-indigo-600">MyLogo</div>
+        <div class="nav-links flex space-x-6">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Services</a>
+            <a href="#" class="nav-link">Portfolio</a>
+            <a href="#" class="nav-link">About Us</a>
+            <a href="#" class="nav-link">Contact</a>
+        </div>
+        <button id="mobileMenuToggle" class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+        <a href="#">Home</a>
+        <a href="#">Services</a>
+        <a href="#">Portfolio</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <div style="height: 1000px; background-color: #f0f4f8; padding: 2rem; text-align: center;">
+        <h1 class="text-4xl font-bold text-gray-800 mt-20">Scroll Down to see Sticky Navbar</h1>
+        <p class="text-gray-600 mt-4">This content is just for demonstrating the sticky navbar.</p>
+        <div class="mt-20 p-8 bg-white rounded-lg shadow-md">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p class="mt-4">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus auctor iaculis. Mauris vel nisl.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('open');
+            this.querySelector('i').classList.toggle('fa-bars');
+            this.querySelector('i').classList.toggle('fa-times');
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template14Preview" title="Animated Navigation Bar Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template14')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+            <h2>15. FAQ Accordion</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template15Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Accordion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .faq-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            width: 700px;
+            max-width: 90%;
+        }
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #334155;
+            padding: 0.75rem 0;
+        }
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            color: #475569;
+            padding-left: 0.5rem;
+        }
+        .faq-answer.open {
+            max-height: 200px; /* Adjust based on expected content height */
+            padding-top: 0.5rem;
+            padding-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="faq-container">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Frequently Asked Questions</h1>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAccordion(this)">
+                <span>What services do you offer?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>We offer a wide range of services including web development, mobile app development, UI/UX design, and cloud consulting. Our expertise covers both frontend and backend technologies.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAccordion(this)">
+                <span>How can I get a quote for my project?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>You can request a quote by visiting our 'Contact Us' page and filling out the inquiry form. Please provide as much detail as possible about your project requirements, and we'll get back to you within 24-48 hours.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAccordion(this)">
+                <span>Do you provide ongoing support after project completion?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Yes, we offer various support and maintenance packages to ensure your application runs smoothly post-launch. These can be customized to fit your specific needs, including bug fixes, updates, and performance monitoring.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAccordion(this)">
+                <span>What technologies do you specialize in?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Our team specializes in modern web technologies like React, Vue.js, Node.js, Python (Django/Flask), and various cloud platforms such as AWS, Azure, and Google Cloud. We also have expertise in database management (SQL and NoSQL).</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAccordion(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+
+            element.classList.toggle('active');
+            icon.classList.toggle('active');
+            answer.classList.toggle('open');
+
+            if (answer.classList.contains('open')) {
+                answer.style.maxHeight = answer.scrollHeight + "px"; // Set max-height to scrollHeight
+            } else {
+                answer.style.maxHeight = "0";
+            }
+        }
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template15Preview" title="FAQ Accordion Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template15')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+            <h2>16. Dynamic Content Loader</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template16Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Content</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #f0f9ff; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .content-loader-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            width: 600px;
+            max-width: 90%;
+            text-align: center;
+        }
+        .content-display {
+            min-height: 150px;
+            background-color: #e0f2f7;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            color: #334155;
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .content-display.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .load-btn {
+            background: linear-gradient(90deg, #3b82f6, #6366f1);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+        .load-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+        .loading-indicator {
+            margin-top: 1rem;
+            color: #64748b;
+            font-style: italic;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .loading-indicator.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-loader-container">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Dynamic Content Loader</h1>
+        <button id="loadContentBtn" class="load-btn">Load New Content</button>
+        <p id="loadingIndicator" class="loading-indicator">Loading...</p>
+        <div id="contentDisplay" class="content-display">
+            Click the button to load some dynamic content!
+        </div>
+    </div>
+
+    <script>
+        const contents = [
+            { title: "Article 1: The Future of AI", text: "Artificial intelligence is rapidly transforming industries, from healthcare to finance. Its potential to automate tasks and provide insights is immense." },
+            { title: "Fact 2: About the Ocean", text: "The ocean covers 71% of the Earth's surface and contains 97% of the Earth's water. Less than 5% of the Earth's oceans have been explored." },
+            { title: "Quote 3: Steve Jobs", text: "Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do." },
+            { title: "Tip 4: Learning to Code", text: "Consistency is key when learning to code. Practice daily, even if it's just for 30 minutes, and don't be afraid to make mistakes." }
+        ];
+        let contentIndex = 0;
+
+        document.getElementById('loadContentBtn').addEventListener('click', function() {
+            const contentDisplay = document.getElementById('contentDisplay');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+
+            contentDisplay.classList.remove('loaded');
+            loadingIndicator.classList.add('show');
+            contentDisplay.textContent = ''; // Clear current content
+
+            setTimeout(() => {
+                const currentContent = contents[contentIndex];
+                contentDisplay.innerHTML = `<h3 class="text-xl font-semibold mb-2">${currentContent.title}</h3><p>${currentContent.text}</p>`;
+                contentDisplay.classList.add('loaded');
+                loadingIndicator.classList.remove('show');
+                contentIndex = (contentIndex + 1) % contents.length; // Cycle through contents
+            }, 1500); // Simulate network delay
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template16Preview" title="Dynamic Content Loader Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template16')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s">
+            <h2>17. Interactive Card Flip</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template17Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Flip</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #fefce8, #fef3c7); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .flip-card {
+            background-color: transparent;
+            width: 300px;
+            height: 200px;
+            perspective: 1000px; /* 3D effect */
+            cursor: pointer;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            box-sizing: border-box;
+        }
+        .flip-card-front {
+            background: linear-gradient(45deg, #a78bfa, #8b5cf6); /* Purple gradient */
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .flip-card-back {
+            background-color: white;
+            color: #334155;
+            transform: rotateY(180deg);
+            font-size: 1rem;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div id="myFlipCard" class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                Click to Reveal!
+            </div>
+            <div class="flip-card-back">
+                <h3 class="font-bold text-lg mb-2">Card Back Content</h3>
+                <p>This is some information hidden on the back of the card. You can put details, answers, or anything you want to reveal!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('myFlipCard').addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template17Preview" title="Interactive Card Flip Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template17')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
+            <h2>18. Responsive Grid</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template18Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #f8fafc; }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+        .grid-item {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+            border-color: #6366f1;
+        }
+        .item-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .item-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 0.5rem;
+        }
+        .item-description {
+            color: #475569;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-item">
+            <i class="fas fa-code item-icon"></i>
+            <h3 class="item-title">Clean Code</h3>
+            <p class="item-description">Writing maintainable and efficient code is our priority.</p>
+        </div>
+        <div class="grid-item">
+            <i class="fas fa-mobile-alt item-icon"></i>
+            <h3 class="item-title">Responsive Design</h3>
+            <p class="item-description">Websites that look great on any device, big or small.</p>
+        </div>
+        <div class="grid-item">
+            <i class="fas fa-cloud item-icon"></i>
+            <h3 class="item-title">Cloud Solutions</h3>
+            <p class="item-description">Scalable and secure cloud infrastructure for your apps.</p>
+        </div>
+        <div class="grid-item">
+            <i class="fas fa-lightbulb item-icon"></i>
+            <h3 class="item-title">Innovative Ideas</h3>
+            <p class="item-description">Bringing fresh and creative solutions to the table.</p>
+        </div>
+        <div class="grid-item">
+            <i class="fas fa-cogs item-icon"></i>
+            <h3 class="item-title">Custom Development</h3>
+            <p class="item-description">Tailored software to meet your unique business needs.</p>
+        </div>
+        <div class="grid-item">
+            <i class="fas fa-rocket item-icon"></i>
+            <h3 class="item-title">Fast Deployment</h3>
+            <p class="item-description">Quick and efficient deployment pipelines to get you live faster.</p>
+        </div>
+    </div>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template18Preview" title="Responsive Grid Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template18')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s">
+            <h2>19. Animated Loading Spinner</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template19Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Spinner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .spinner-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 300px;
+        }
+        .spinner {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #6366f1; /* Blue */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1.5s linear infinite;
+            margin: 0 auto 1.5rem auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #334155;
+        }
+        .toggle-btn {
+            background: linear-gradient(90deg, #10b981, #059669);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            margin-top: 1.5rem;
+        }
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="spinner-container">
+        <div id="spinner" class="spinner"></div>
+        <p id="loadingText" class="loading-text">Loading content...</p>
+        <button id="toggleSpinnerBtn" class="toggle-btn">Toggle Spinner</button>
+    </div>
+
+    <script>
+        document.getElementById('toggleSpinnerBtn').addEventListener('click', function() {
+            const spinner = document.getElementById('spinner');
+            const loadingText = document.getElementById('loadingText');
+
+            if (spinner.style.display === 'none') {
+                spinner.style.display = 'block';
+                loadingText.textContent = 'Loading content...';
+                loadingText.style.color = '#334155';
+            } else {
+                spinner.style.display = 'none';
+                loadingText.textContent = 'Content Loaded!';
+                loadingText.style.color = '#10b981';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template19Preview" title="Animated Loading Spinner Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template19')">Run Code</button>
+            </div>
+        </section>
+
+        <section class="template-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s">
+            <h2>20. Simple Chat UI</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="template20Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chat UI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #d1f7e0, #a8e6cf); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .chat-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            width: 400px;
+            height: 550px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .chat-header {
+            background: linear-gradient(90deg, #3b82f6, #6366f1);
+            color: white;
+            padding: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .chat-messages {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background-color: #f8fafc;
+        }
+        .message-bubble {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            margin-bottom: 0.75rem;
+            animation: fadeInMessage 0.3s ease-out;
+        }
+        @keyframes fadeInMessage {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message-bubble.sent {
+            background-color: #dbeafe;
+            color: #1e293b;
+            margin-left: auto;
+            border-bottom-right-radius: 0.25rem;
+        }
+        .message-bubble.received {
+            background-color: #e2e8f0;
+            color: #334155;
+            margin-right: auto;
+            border-bottom-left-radius: 0.25rem;
+        }
+        .chat-input-area {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #e2e8f0;
+            background-color: white;
+        }
+        .chat-input {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            outline: none;
+            margin-right: 0.75rem;
+        }
+        .send-btn {
+            background: linear-gradient(90deg, #3b82f6, #6366f1);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        .send-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">Simple Chat</div>
+        <div id="chatMessages" class="chat-messages">
+            <div class="message-bubble received">Hi there! How can I help you today?</div>
+            <div class="message-bubble sent">Hello! I have a question about your services.</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Type your message...">
+            <button id="sendBtn" class="send-btn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('sendBtn').addEventListener('click', sendMessage);
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const messageText = chatInput.value.trim();
+            if (messageText === '') return;
+
+            const chatMessages = document.getElementById('chatMessages');
+
+            // Add sent message
+            const sentBubble = document.createElement('div');
+            sentBubble.classList.add('message-bubble', 'sent');
+            sentBubble.textContent = messageText;
+            chatMessages.appendChild(sentBubble);
+
+            chatInput.value = ''; // Clear input
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+
+            // Simulate a response after a short delay
+            setTimeout(() => {
+                const receivedBubble = document.createElement('div');
+                receivedBubble.classList.add('message-bubble', 'received');
+                receivedBubble.textContent = "Thanks for your message! I'll get back to you shortly.";
+                chatMessages.appendChild(receivedBubble);
+                chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="template20Preview" title="Simple Chat UI Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadTemplate('template20')">Run Code</button>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="messageBox" class="message-box-overlay">
+        <div class="message-box-content">
+            <h3 id="messageBoxTitle" class="text-xl font-semibold mb-3 text-slate-800 dark:text-slate-200"></h3>
+            <p id="messageBoxText" class="text-slate-700 dark:text-slate-300"></p>
+            <button id="messageBoxCloseBtn" class="message-box-button">OK</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new WOW().init();
+
+            // Message Box Functionality
+            const messageBox = document.getElementById('messageBox');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxText = document.getElementById('messageBoxText');
+            const messageBoxCloseBtn = document.getElementById('messageBoxCloseBtn');
+
+            window.showMessageBox = function(message, type = 'info', title = 'Notification') {
+                messageBoxTitle.textContent = title;
+                messageBoxText.textContent = message;
+                if (type === 'success') {
+                    messageBoxTitle.style.color = '#10b981';
+                } else if (type === 'error') {
+                    messageBoxTitle.style.color = '#ef4444';
+                } else {
+                    messageBoxTitle.style.color = '';
+                }
+                messageBox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            messageBoxCloseBtn.addEventListener('click', () => {
+                messageBox.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+
+            messageBox.addEventListener('click', (e) => {
+                if (e.target === messageBox) {
+                    messageBox.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Function to load template code into iframe
+            window.loadTemplate = function(templateId) {
+                const codeTextarea = document.getElementById(`${templateId}Code`);
+                const previewIframe = document.getElementById(`${templateId}Preview`);
+
+                if (codeTextarea && previewIframe) {
+                    const htmlContent = codeTextarea.value;
+                    const doc = previewIframe.contentWindow.document;
+
+                    doc.open();
+                    doc.write(htmlContent);
+                    doc.close();
+                } else {
+                    showMessageBox('Error: Template elements not found.', 'error');
+                }
+            };
+
+            // Automatically load the first template on page load
+            loadTemplate('template1');
+            loadTemplate('template2');
+            loadTemplate('template3');
+            loadTemplate('template4');
+            loadTemplate('template5');
+            loadTemplate('template6');
+            loadTemplate('template7');
+            loadTemplate('template8');
+            loadTemplate('template9');
+            loadTemplate('template10');
+            loadTemplate('template11');
+            loadTemplate('template12');
+            loadTemplate('template13');
+            loadTemplate('template14');
+            loadTemplate('template15');
+            loadTemplate('template16');
+            loadTemplate('template17');
+            loadTemplate('template18');
+            loadTemplate('template19');
+            loadTemplate('template20');
+        });
+    </script>
+</body>
+</html>

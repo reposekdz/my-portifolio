@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Experience - niyonkuru reponse</title>
+    <title>My Experience - Niyonkuru Reponse</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -544,6 +544,83 @@
             margin-top: 0.5rem;
             margin-right: 0.5rem;
         }
+
+        /* Custom Logo "NR" */
+        .logo-nr {
+            font-family: 'Inter', sans-serif; /* Using a modern font */
+            font-weight: 900; /* Extra bold */
+            font-size: 2.25rem; /* text-3xl */
+            line-height: 1;
+            display: inline-block;
+            background: linear-gradient(45deg, #6366f1, #a78bfa); /* Indigo to Purple gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .logo-nr:hover {
+            transform: scale(1.05) rotate(-3deg);
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.2);
+        }
+        .dark .logo-nr {
+            background: linear-gradient(45deg, #a78bfa, #8b5cf6); /* Lighter purple gradient for dark mode */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* AI Feature Card Styles */
+        .ai-feature-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .ai-feature-card {
+            background-color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #475569;
+        }
+        .ai-feature-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            border-color: #6366f1;
+        }
+        .dark .ai-feature-card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            border-color: #a78bfa;
+        }
+        .ai-feature-card .icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: #6366f1; /* Indigo 500 */
+            transition: transform 0.3s ease;
+        }
+        .dark .ai-feature-card .icon {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .ai-feature-card:hover .icon {
+            transform: rotateY(180deg) scale(1.1);
+        }
+        .ai-feature-card h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+        }
+        .dark .ai-feature-card h4 {
+            color: #f8fafc;
+        }
+        .ai-feature-card p {
+            font-size: 1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+        .dark .ai-feature-card p {
+            color: #cbd5e1;
+        }
     </style>
     <script>
         // Initialize dark mode preference immediately to prevent FOUC
@@ -559,7 +636,7 @@
 
     <nav id="navbar" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
         <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity">niyonkuru reponse</a>
+            <a href="index.html" class="logo-nr">NR</a>
 
             <div class="hidden md:flex items-center relative group">
                 <input type="text" id="desktopSearchInput" placeholder="Search projects, skills..." class="nav-search-input peer">
@@ -613,7 +690,7 @@
 
     <section id="experience-hero" class="py-28 lg:py-32 bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 dark:from-purple-800 dark:via-indigo-800 dark:to-blue-800 text-white relative overflow-hidden flex items-center justify-center">
         <div class="container mx-auto px-6 text-center z-10 wow animate__animated animate__fadeInDown">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-4">My Journey</h1>
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-4">My Professional Journey</h1>
             <p class="text-xl md:text-2xl font-light max-w-2xl mx-auto">
                 A detailed look into my professional roles, education, and key achievements.
             </p>
@@ -751,12 +828,54 @@
         </div>
     </section>
 
-    <section id="education-certifications" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+    <section id="ai-capabilities" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">My AI Expertise</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">
+                Exploring my specialized skills and contributions in Artificial Intelligence.
+            </p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="ai-feature-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <i class="ph-robot text-5xl icon"></i>
+                    <h4>Generative AI & LLMs</h4>
+                    <p>Proficient in developing and fine-tuning large language models for text generation, summarization, and conversational AI applications.</p>
+                </div>
+                <div class="ai-feature-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <i class="ph-eye text-5xl icon"></i>
+                    <h4>Computer Vision</h4>
+                    <p>Expertise in building robust computer vision systems for object detection, image classification, facial recognition, and video analytics.</p>
+                </div>
+                <div class="ai-feature-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <i class="ph-brain text-5xl icon"></i>
+                    <h4>Natural Language Processing (NLP)</h4>
+                    <p>Skilled in advanced NLP techniques including sentiment analysis, entity recognition, machine translation, and text embedding for various applications.</p>
+                </div>
+                <div class="ai-feature-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <i class="ph-chart-line text-5xl icon"></i>
+                    <h4>Predictive Modeling</h4>
+                    <p>Experienced in developing and deploying predictive models for forecasting, anomaly detection, and data-driven decision-making across industries.</p>
+                </div>
+                <div class="ai-feature-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+                    <i class="ph-waveform text-5xl icon"></i>
+                    <h4>Reinforcement Learning</h4>
+                    <p>Knowledgeable in designing and implementing reinforcement learning agents for complex decision-making tasks in robotics, gaming, and optimization.</p>
+                </div>
+                <div class="ai-feature-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+                    <i class="ph-cloud-arrow-up text-5xl icon"></i>
+                    <h4>MLOps & Deployment</h4>
+                    <p>Practical experience in MLOps practices, including model versioning, continuous integration/deployment, and monitoring of AI models in production environments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education-certifications" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
         <div class="container mx-auto px-6">
             <h2 class="section-title text-center">Education & Certifications</h2>
             <p class="section-subtitle text-center mb-12 lg:mb-16">My academic background and professional qualifications.</p>
             <div class="max-w-3xl mx-auto space-y-8">
-                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-lg flex items-start space-x-4 wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg flex items-start space-x-4 wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
                     <div class="text-indigo-500 dark:text-indigo-400 text-3xl mt-1">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
@@ -768,7 +887,7 @@
                         <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline text-sm mt-2 block" data-education-id="edu-1">View Coursework & Thesis <i class="fas fa-external-link-alt ml-1"></i></a>
                     </div>
                 </div>
-                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-lg flex items-start space-x-4 wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg flex items-start space-x-4 wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
                     <div class="text-indigo-500 dark:text-indigo-400 text-3xl mt-1">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
@@ -780,7 +899,7 @@
                         <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline text-sm mt-2 block" data-education-id="edu-2">View Coursework <i class="fas fa-external-link-alt ml-1"></i></a>
                     </div>
                 </div>
-                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-lg flex items-start space-x-4 wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg flex items-start space-x-4 wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
                     <div class="text-indigo-500 dark:text-indigo-400 text-3xl mt-1">
                         <i class="fas fa-certificate"></i>
                     </div>
@@ -792,7 +911,7 @@
                         <a href="https://www.credly.com/badges/your-cka-badge-id" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline text-sm mt-2 block">Verify Credential <i class="fas fa-external-link-alt ml-1"></i></a>
                     </div>
                 </div>
-                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-lg flex items-start space-x-4 wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg flex items-start space-x-4 wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
                     <div class="text-indigo-500 dark:text-indigo-400 text-3xl mt-1">
                         <i class="fas fa-certificate"></i>
                     </div>
@@ -808,33 +927,33 @@
         </div>
     </section>
 
-    <section id="testimonials" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+    <section id="testimonials" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
         <div class="container mx-auto px-6">
             <h2 class="section-title text-center">What People Say</h2>
             <p class="section-subtitle text-center mb-12 lg:mb-16">Kind words from colleagues and mentors.</p>
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-xl italic relative wow animate__animated animate__fadeInLeft" data-wow-delay="0.1s">
+                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-xl italic relative wow animate__animated animate__fadeInLeft" data-wow-delay="0.1s">
                     <i class="fas fa-quote-left text-indigo-300 dark:text-indigo-600 text-3xl absolute top-4 left-4 opacity-50"></i>
                     <p class="mb-4 z-10 relative text-slate-700 dark:text-slate-300">"Niyonkuru is an exceptional software engineer. Their ability to quickly grasp complex challenges and deliver elegant, efficient solutions is truly impressive. A valuable asset to any team."</p>
                     <div class="text-right font-semibold text-slate-800 dark:text-slate-200">
                         <p>- Jane Doe, Project Manager at Tech Solutions Inc.</p>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-xl italic relative wow animate__animated animate__fadeInRight" data-wow-delay="0.2s">
+                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-xl italic relative wow animate__animated animate__fadeInRight" data-wow-delay="0.2s">
                      <i class="fas fa-quote-left text-indigo-300 dark:text-indigo-600 text-3xl absolute top-4 left-4 opacity-50"></i>
                     <p class="mb-4 z-10 relative text-slate-700 dark:text-slate-300">"Working with Niyonkuru was a pleasure. Their technical skills, particularly in backend development, coupled with a strong collaborative spirit, significantly contributed to our team's success. Highly recommended!"</p>
                     <div class="text-right font-semibold text-slate-800 dark:text-slate-200">
                         <p>- John Smith, Lead Engineer at Innovatech Ltd.</p>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-xl italic relative wow animate__animated animate__fadeInLeft" data-wow-delay="0.3s">
+                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-xl italic relative wow animate__animated animate__fadeInLeft" data-wow-delay="0.3s">
                     <i class="fas fa-quote-left text-indigo-300 dark:text-indigo-600 text-3xl absolute top-4 left-4 opacity-50"></i>
                     <p class="mb-4 z-10 relative text-slate-700 dark:text-slate-300">"Niyonkuru demonstrates a remarkable dedication to learning and innovation. Their contributions to our AI research project were insightful and impactful, showing great promise in the field of machine learning."</p>
                     <div class="text-right font-semibold text-slate-800 dark:text-slate-200">
                         <p>- Dr. Emily White, Research Lead at AI Innovations Lab</p>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-xl italic relative wow animate__animated animate__fadeInRight" data-wow-delay="0.4s">
+                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-xl italic relative wow animate__animated animate__fadeInRight" data-wow-delay="0.4s">
                     <i class="fas fa-quote-left text-indigo-300 dark:text-indigo-600 text-3xl absolute top-4 left-4 opacity-50"></i>
                     <p class="mb-4 z-10 relative text-slate-700 dark:text-slate-300">"Even as a junior developer, Niyonkuru showed immense potential. Their eagerness to learn and ability to quickly adapt to new technologies made them an invaluable part of our front-end team."</p>
                     <div class="text-right font-semibold text-slate-800 dark:text-slate-200">
@@ -868,8 +987,8 @@
         <div class="container mx-auto px-6">
             <div class="mb-8 flex justify-center space-x-6">
                 <a href="https://github.com/reposekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/reponsekdz06 target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://twitter.com/reponsekdz06 target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://linkedin.com/in/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
                 <a href="https://www.instagram.com/reponse_kdz/s" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
                 <a href="mailto:reponsekdz06@gmail.com" class="footer-social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
@@ -881,8 +1000,8 @@
                 <a href="contact.html" class="footer-link">Contact</a>
                 <a href="#privacy-policy" class="footer-link">Privacy Policy</a>
             </div>
-            <p class="text-sm">© <span id="currentYear"></span> niyonkuru reponse. All rights reserved.</p>
-            <p class="text-xs mt-2">Designed with <i class="fas fa-heart text-red-500"></i> Reponse Niyonkuru/p>
+            <p class="text-sm">© <span id="currentYear"></span> Niyonkuru Reponse. All rights reserved.</p>
+            <p class="text-xs mt-2">Designed with <i class="fas fa-heart text-red-500"></i> Niyonkuru Reponse.</p>
             <p class="text-xs mt-1">Located in Kigali-Kicukiro.</p>
         </div>
     </footer>

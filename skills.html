@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
     <link rel="icon" href="./assets/icons8-ai-48.png" type="image/png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.min.js"></script>
     <style>
         /* Custom styles for animations and transitions - copied from blog.html */
         .nav-link::after, .mobile-nav-link::after {
@@ -780,6 +782,201 @@
                 transform: translateX(-50%);
             }
         }
+
+        /* New styles for Charts */
+        .chart-container {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative; /* For canvas positioning */
+            height: 450px; /* Fixed height for 3D charts to ensure consistent rendering */
+        }
+        .dark .chart-container {
+            background-color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #475569;
+        }
+        .chart-container:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .chart-container h4 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+        }
+        .dark .chart-container h4 {
+            color: #f8fafc;
+        }
+        .chart-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            margin-top: 1rem;
+            flex-grow: 1; /* Make canvas take available space */
+        }
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .chart-legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+        .dark .chart-legend-item {
+            color: #cbd5e1;
+        }
+        .chart-legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            margin-right: 0.5rem;
+        }
+
+        /* Tooltip for 3D charts */
+        .chart-tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+            z-index: 100;
+        }
+        .dark .chart-tooltip {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #1e293b;
+        }
+
+        /* Skill Network Visualization */
+        .network-node {
+            fill: #6366f1;
+            stroke: #ffffff;
+            stroke-width: 2;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .dark .network-node {
+            fill: #a78bfa;
+            stroke: #1e293b;
+        }
+        .network-node:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.7));
+        }
+        .dark .network-node:hover {
+            filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.7));
+        }
+        .network-node-label {
+            font-size: 10px;
+            fill: #1e293b;
+            pointer-events: none;
+            text-anchor: middle;
+            transition: fill 0.3s ease, opacity 0.3s ease;
+        }
+        .dark .network-node-label {
+            fill: #f8fafc;
+        }
+        .network-node-icon {
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .network-link {
+            stroke: #cbd5e1;
+            stroke-width: 1;
+            transition: stroke-width 0.3s ease, stroke 0.3s ease, opacity 0.3s ease;
+        }
+        .dark .network-link {
+            stroke: #475569;
+        }
+        /* Highlighted link */
+        .network-link.highlighted {
+            stroke: #6366f1;
+            stroke-width: 3;
+            opacity: 1;
+        }
+        .dark .network-link.highlighted {
+            stroke: #a78bfa;
+        }
+
+        /* Stat Card for Skill Impact Metrics */
+        .stat-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        .dark .stat-card {
+            background-color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #475569;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .stat-card .stat-icon {
+            font-size: 3rem;
+            color: #6366f1;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .dark .stat-card .stat-icon {
+            color: #a78bfa;
+        }
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .stat-card .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .dark .stat-card .stat-number {
+            color: #f8fafc;
+        }
+        .stat-card .stat-label {
+            font-size: 1.125rem;
+            color: #475569;
+        }
+        .dark .stat-card .stat-label {
+            color: #cbd5e1;
+        }
+
+        /* Glow effect for animated numbers */
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px rgba(99, 102, 241, 0.5); }
+            50% { text-shadow: 0 0 15px rgba(99, 102, 241, 0.9); }
+            100% { text-shadow: 0 0 5px rgba(99, 102, 241, 0.5); }
+        }
+        .stat-number.glowing {
+            animation: glow 1.5s infinite alternate;
+        }
+
     </style>
     <script>
         // Initialize dark mode preference immediately to prevent FOUC
@@ -795,7 +992,9 @@
 
     <nav id="navbar" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
         <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity">niyonkuru reponse</a>
+            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity flex items-center">
+                NR <i class="ph-robot-fill ml-2 text-3xl text-yellow-400 animate-pulse"></i>
+            </a>
 
             <div class="hidden md:flex items-center relative group">
                 <input type="text" id="desktopSearchInput" placeholder="Search projects, skills..." class="nav-search-input peer">
@@ -930,7 +1129,7 @@
                         <i class="ph-server category-icon"></i>Backend Development
                     </h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-skill-level="80" data-tooltip="Skilled in building scalable RESTful APIs and microservices.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-tooltip="Skilled in building scalable RESTful APIs and microservices.">
                             <i class="fab fa-node-js skill-icon text-green-600"></i>
                             <p class="font-medium">Node.js</p>
                             <div class="skill-progress-bar">
@@ -939,7 +1138,7 @@
                             <span class="skill-level-text">Proficient</span>
                             <span class="skill-tooltip">Skilled in building scalable RESTful APIs and microservices.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-skill-level="78" data-tooltip="Experienced in Python for web development (Django, Flask) and scripting.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-tooltip="Experienced in Python for web development (Django, Flask) and scripting.">
                             <i class="fab fa-python skill-icon text-blue-600"></i>
                             <p class="font-medium">Python</p>
                             <div class="skill-progress-bar">
@@ -948,7 +1147,7 @@
                             <span class="skill-level-text">Proficient</span>
                             <span class="skill-tooltip">Experienced in Python for web development (Django, Flask) and scripting.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-skill-level="70" data-tooltip="Familiar with building APIs using Ruby on Rails.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-tooltip="Familiar with building APIs using Ruby on Rails.">
                             <i class="ph-file-html skill-icon text-red-500"></i> <p class="font-medium">Ruby on Rails</p>
                             <div class="skill-progress-bar">
                                 <div class="skill-progress-fill bg-green-500" style="width: 70%;"></div>
@@ -956,7 +1155,7 @@
                             <span class="skill-level-text">Competent</span>
                             <span class="skill-tooltip">Familiar with building APIs using Ruby on Rails.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-skill-level="65" data-tooltip="Basic understanding of Java for enterprise applications.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-tooltip="Basic understanding of Java for enterprise applications.">
                             <i class="fab fa-java skill-icon text-red-700"></i>
                             <p class="font-medium">Java (Spring Boot)</p>
                             <div class="skill-progress-bar">
@@ -973,7 +1172,7 @@
                         <i class="ph-database category-icon"></i>Databases
                     </h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-skill-level="80" data-tooltip="Proficient in SQL for relational database management and querying.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-tooltip="Proficient in SQL for relational database management and querying.">
                             <i class="fas fa-database skill-icon text-blue-700"></i>
                             <p class="font-medium">SQL (PostgreSQL)</p>
                             <div class="skill-progress-bar">
@@ -982,7 +1181,7 @@
                             <span class="skill-level-text">Proficient</span>
                             <span class="skill-tooltip">Proficient in SQL for relational database management and querying.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-skill-level="75" data-tooltip="Experienced with NoSQL databases for flexible data modeling.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-tooltip="Experienced with NoSQL databases for flexible data modeling.">
                             <i class="ph-leaf skill-icon text-green-700"></i> <p class="font-medium">MongoDB</p>
                             <div class="skill-progress-bar">
                                 <div class="skill-progress-fill bg-blue-500" style="width: 75%;"></div>
@@ -990,7 +1189,7 @@
                             <span class="skill-level-text">Proficient</span>
                             <span class="skill-tooltip">Experienced with NoSQL databases for flexible data modeling.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-skill-level="60" data-tooltip="Familiar with real-time data storage solutions.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-tooltip="Familiar with real-time data storage solutions.">
                             <i class="fab fa-google skill-icon text-yellow-600"></i> <p class="font-medium">Firebase</p>
                             <div class="skill-progress-bar">
                                 <div class="skill-progress-fill bg-blue-500" style="width: 60%;"></div>
@@ -1006,7 +1205,7 @@
                         <i class="ph-cloud category-icon"></i>Cloud & DevOps
                     </h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-skill-level="70" data-tooltip="Hands-on experience with core AWS services.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-tooltip="Hands-on experience with core AWS services.">
                             <i class="fab fa-aws skill-icon text-orange-400"></i>
                             <p class="font-medium">AWS</p>
                             <div class="skill-progress-bar">
@@ -1015,7 +1214,7 @@
                             <span class="skill-level-text">Competent</span>
                             <span class="skill-tooltip">Hands-on experience with core AWS services.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-skill-level="65" data-tooltip="Familiar with containerization and orchestration.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-tooltip="Familiar with containerization and orchestration.">
                             <i class="fab fa-docker skill-icon text-blue-500"></i>
                             <p class="font-medium">Docker</p>
                             <div class="skill-progress-bar">
@@ -1024,7 +1223,7 @@
                             <span class="skill-level-text">Intermediate</span>
                             <span class="skill-tooltip">Familiar with containerization and orchestration.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-skill-level="60" data-tooltip="Basic understanding of Kubernetes for container orchestration.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-tooltip="Basic understanding of Kubernetes for container orchestration.">
                             <i class="ph-kubernetes-logo skill-icon text-blue-700"></i>
                             <p class="font-medium">Kubernetes</p>
                             <div class="skill-progress-bar">
@@ -1033,7 +1232,7 @@
                             <span class="skill-level-text">Familiar</span>
                             <span class="skill-tooltip">Basic understanding of Kubernetes for container orchestration.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-skill-level="55" data-tooltip="Exposure to CI/CD pipelines and automated deployments.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-tooltip="Exposure to CI/CD pipelines and automated deployments.">
                             <i class="ph-arrows-clockwise skill-icon text-gray-600"></i> <p class="font-medium">CI/CD</p>
                             <div class="skill-progress-bar">
                                 <div class="skill-progress-fill bg-orange-500" style="width: 55%;"></div>
@@ -1049,7 +1248,7 @@
                         <i class="ph-brain category-icon"></i>Artificial Intelligence & ML
                     </h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-skill-level="70" data-tooltip="Experience with TensorFlow for building and training neural networks.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-tooltip="Experience with TensorFlow for building and training neural networks.">
                             <i class="ph-infinity skill-icon text-orange-600"></i> <p class="font-medium">TensorFlow</p>
                             <div class="skill-progress-bar">
                                 <div class="skill-progress-fill bg-red-500" style="width: 70%;"></div>
@@ -1057,7 +1256,7 @@
                             <span class="skill-level-text">Competent</span>
                             <span class="skill-tooltip">Experience with TensorFlow for building and training neural networks.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-skill-level="65" data-tooltip="Familiar with PyTorch for deep learning research and development.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-tooltip="Familiar with PyTorch for deep learning research and development.">
                             <i class="ph-fire skill-icon text-orange-500"></i> <p class="font-medium">PyTorch</p>
                             <div class="skill-progress-bar">
                                 <div class="skill-progress-fill bg-red-500" style="width: 65%;"></div>
@@ -1065,7 +1264,7 @@
                             <span class="skill-level-text">Intermediate</span>
                             <span class="skill-tooltip">Familiar with PyTorch for deep learning research and development.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-skill-level="75" data-tooltip="Strong understanding of Natural Language Processing techniques.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-tooltip="Strong understanding of Natural Language Processing techniques.">
                             <i class="ph-chat-text skill-icon text-purple-500"></i>
                             <p class="font-medium">NLP</p>
                             <div class="skill-progress-bar">
@@ -1074,7 +1273,7 @@
                             <span class="skill-level-text">Proficient</span>
                             <span class="skill-tooltip">Strong understanding of Natural Language Processing techniques.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-skill-level="60" data-tooltip="Basic knowledge of computer vision algorithms and applications.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-tooltip="Basic knowledge of computer vision algorithms and applications.">
                             <i class="ph-eye skill-icon text-indigo-500"></i>
                             <p class="font-medium">Computer Vision</p>
                             <div class="skill-progress-bar">
@@ -1091,7 +1290,7 @@
                         <i class="ph-wrench category-icon"></i>Tools & Others
                     </h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-skill-level="95" data-tooltip="Expert in version control with Git and collaborating on GitHub.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-tooltip="Expert in version control with Git and collaborating on GitHub.">
                             <i class="fab fa-git-alt skill-icon text-red-600"></i>
                             <p class="font-medium">Git & GitHub</p>
                             <div class="skill-progress-bar">
@@ -1100,7 +1299,7 @@
                             <span class="skill-level-text">Expert</span>
                             <span class="skill-tooltip">Expert in version control with Git and collaborating on GitHub.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-skill-level="80" data-tooltip="Proficient with various IDEs and code editors.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-tooltip="Proficient with various IDEs and code editors.">
                             <i class="ph-code-block skill-icon text-blue-500"></i>
                             <p class="font-medium">VS Code</p>
                             <div class="skill-progress-bar">
@@ -1109,7 +1308,7 @@
                             <span class="skill-level-text">Proficient</span>
                             <span class="skill-tooltip">Proficient with various IDEs and code editors.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-skill-level="70" data-tooltip="Familiar with Agile methodologies for project management.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-tooltip="Familiar with Agile methodologies for project management.">
                             <i class="ph-arrows-counter-clockwise skill-icon text-green-500"></i>
                             <p class="font-medium">Agile Methodologies</p>
                             <div class="skill-progress-bar">
@@ -1118,7 +1317,7 @@
                             <span class="skill-level-text">Competent</span>
                             <span class="skill-tooltip">Familiar with Agile methodologies for project management.</span>
                         </div>
-                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-skill-level="65" data-tooltip="Experience with JIRA for issue tracking and project workflows.">
+                        <div class="skill-item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-tooltip="Experience with JIRA for issue tracking and project workflows.">
                             <i class="fab fa-jira skill-icon text-blue-700"></i>
                             <p class="font-medium">Jira</p>
                             <div class="skill-progress-bar">
@@ -1143,161 +1342,117 @@
         </div>
     </section>
 
-    <section id="skill-showcase-details" class="py-20 lg:py-32 bg-slate-100 dark:bg-slate-800/50">
+    <section id="skill-analytics-growth" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
         <div class="container mx-auto px-6">
-            <h2 class="section-title text-center">In-Depth Skill Showcase</h2>
-            <p class="section-subtitle text-center mb-12 lg:mb-16">Highlighting key areas of expertise and practical application.</p>
+            <h2 class="section-title text-center">Skill Analytics & Growth</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Data-driven insights into my development journey.</p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                <div class="skill-detail-card wow animate__animated animate__fadeInLeft" data-wow-delay="0.1s">
-                    <i class="ph-react-logo icon-large"></i>
-                    <h4>React.js & Modern Frontend</h4>
-                    <p>
-                        With extensive experience in React, I build highly interactive and performant single-page applications. My expertise covers component-based architecture, state management (Context API, Redux/Zustand), hooks, and integrating with RESTful APIs. I prioritize clean code, reusability, and optimal user experience.
-                    </p>
-                    <div class="tech-stack-badges">
-                        <span class="tech-badge">React</span>
-                        <span class="tech-badge">Redux</span>
-                        <span class="tech-badge">Zustand</span>
-                        <span class="tech-badge">Tailwind CSS</span>
-                        <span class="tech-badge">JavaScript</span>
-                        <span class="tech-badge">HTML5</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="chart-container wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <h4>Core Skill Distribution (3D Pie Chart)</h4>
+                    <canvas id="pieChart3DCanvas" class="chart-canvas"></canvas>
+                    <div class="chart-legend">
+                        <div class="chart-legend-item"><span class="chart-legend-color bg-indigo-500"></span> Frontend</div>
+                        <div class="chart-legend-item"><span class="chart-legend-color bg-purple-400"></span> Backend</div>
+                        <div class="chart-legend-item"><span class="chart-legend-color bg-purple-500"></span> AI/ML</div>
+                        <div class="chart-legend-item"><span class="chart-legend-color bg-purple-300"></span> DevOps</div>
                     </div>
                 </div>
 
-                <div class="skill-detail-card wow animate__animated animate__fadeInRight" data-wow-delay="0.2s">
-                    <i class="ph-cloud-arrow-up icon-large"></i>
-                    <h4>Cloud Infrastructure & DevOps</h4>
-                    <p>
-                        I design and implement robust, scalable cloud solutions primarily on AWS. My skills include deploying applications using Docker and Kubernetes, managing serverless functions (Lambda), and setting up CI/CD pipelines for automated deployments. I focus on cost-efficiency, security, and high availability.
-                    </p>
-                    <div class="tech-stack-badges">
-                        <span class="tech-badge">AWS</span>
-                        <span class="tech-badge">Docker</span>
-                        <span class="tech-badge">Kubernetes</span>
-                        <span class="tech-badge">Lambda</span>
-                        <span class="tech-badge">CI/CD</span>
-                        <span class="tech-badge">Terraform</span>
-                    </div>
+                <div class="chart-container wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <h4>Annual Learning Hours (Line Chart)</h4>
+                    <svg class="chart-svg" viewBox="0 0 400 250">
+                        <defs>
+                            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.6" />
+                                <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:0" />
+                            </linearGradient>
+                        </defs>
+                        <g transform="translate(40, 20)">
+                            <path fill="url(#areaGradient)" stroke="none" class="line-chart-area"></path>
+                            <polyline fill="none" stroke="url(#lineGradient)" stroke-width="4" class="line-chart-line"></polyline>
+                            <circle cx="0" cy="180" r="6" fill="url(#lineGradient)" class="line-chart-point" data-label="2022: 200 hours"></circle>
+                            <circle cx="80" cy="100" r="6" fill="url(#lineGradient)" class="line-chart-point" data-label="2023: 350 hours"></circle>
+                            <circle cx="160" cy="140" r="6" fill="url(#lineGradient)" class="line-chart-point" data-label="2024: 280 hours"></circle>
+                            <circle cx="240" cy="60" r="6" fill="url(#lineGradient)" class="line-chart-point" data-label="2025: 450 hours"></circle>
+                            <circle cx="320" cy="20" r="6" fill="url(#lineGradient)" class="line-chart-point" data-label="2026 (projected): 500 hours"></circle>
+                        </g>
+                        <g class="x-axis" transform="translate(40, 220)">
+                            <text x="0" y="20" text-anchor="middle" class="bar-chart-label">2022</text>
+                            <text x="80" y="20" text-anchor="middle" class="bar-chart-label">2023</text>
+                            <text x="160" y="20" text-anchor="middle" class="bar-chart-label">2024</text>
+                            <text x="240" y="20" text-anchor="middle" class="bar-chart-label">2025</text>
+                            <text x="320" y="20" text-anchor="middle" class="bar-chart-label">2026</text>
+                        </g>
+                        <line x1="40" y1="220" x2="40" y2="20" stroke="#cbd5e1" stroke-width="1"></line>
+                    </svg>
+                    <p class="mt-4 text-sm text-slate-600 dark:text-slate-400">Tracks my commitment to continuous learning over time.</p>
                 </div>
 
-                <div class="skill-detail-card wow animate__animated animate__fadeInLeft" data-wow-delay="0.3s">
-                    <i class="ph-brain icon-large"></i>
-                    <h4>Artificial Intelligence & Machine Learning</h4>
-                    <p>
-                        My passion for AI drives me to develop intelligent systems. I have practical experience with machine learning algorithms, deep learning frameworks (TensorFlow, PyTorch), and natural language processing (NLP). I can build, train, and deploy models for various applications, from predictive analytics to content generation.
-                    </p>
-                    <div class="tech-stack-badges">
-                        <span class="tech-badge">Python</span>
-                        <span class="tech-badge">TensorFlow</span>
-                        <span class="tech-badge">PyTorch</span>
-                        <span class="tech-badge">NLP</span>
-                        <span class="tech-badge">Scikit-learn</span>
-                        <span class="tech-badge">Jupyter</span>
-                    </div>
-                </div>
-
-                <div class="skill-detail-card wow animate__animated animate__fadeInRight" data-wow-delay="0.4s">
-                    <i class="ph-database icon-large"></i>
-                    <h4>Database Management & Optimization</h4>
-                    <p>
-                        I excel in designing and managing both SQL (PostgreSQL, MySQL) and NoSQL (MongoDB, Firebase) databases. My expertise includes schema design, query optimization, data migration, and ensuring data integrity and security. I understand the nuances of choosing the right database for specific application needs.
-                    </p>
-                    <div class="tech-stack-badges">
-                        <span class="tech-badge">PostgreSQL</span>
-                        <span class="tech-badge">MongoDB</span>
-                        <span class="tech-badge">Firebase</span>
-                        <span class="tech-badge">SQL</span>
-                        <span class="tech-badge">Mongoose</span>
-                        <span class="tech-badge">ORM</span>
-                    </div>
+                <div class="chart-container wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <h4>Technology Adoption Rate (3D Bar Chart)</h4>
+                    <canvas id="barChart3DCanvas" class="chart-canvas"></canvas>
+                    <p class="mt-4 text-sm text-slate-600 dark:text-slate-400">Visualizing my progress in adopting new technologies.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="proficiency-dashboard" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+    <section id="skill-network-visualization" class="py-20 lg:py-32 bg-slate-100 dark:bg-slate-800/50">
         <div class="container mx-auto px-6">
-            <h2 class="section-title text-center">Proficiency at a Glance</h2>
-            <p class="section-subtitle text-center mb-12 lg:mb-16">Visual representation of my core competencies.</p>
+            <h2 class="section-title text-center">My Skill Network</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">An interactive visualization of how my skills interconnect and reinforce each other.</p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="dashboard-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
-                    <i class="ph-code-simple text-5xl text-indigo-500 dark:text-indigo-400 mb-4"></i>
-                    <h4>Frontend Mastery</h4>
-                    <div class="progress-circle-container">
-                        <svg class="progress-circle-svg" width="120" height="120" viewBox="0 0 120 120">
-                            <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
-                            <circle class="progress-circle-fill text-indigo-500" cx="60" cy="60" r="50" data-progress="90"></circle>
-                        </svg>
-                        <span class="progress-circle-text">90%</span>
-                    </div>
-                    <p class="dashboard-description">Strong command over modern web UI/UX development, responsive design, and component-based architectures.</p>
+            <div class="chart-container max-w-2xl mx-auto wow animate__animated animate__zoomIn" data-wow-delay="0.1s">
+                <h4>Interconnected Expertise</h4>
+                <svg class="chart-svg" viewBox="0 0 600 400">
+                    <defs>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <g class="network-links"></g>
+                    <g class="network-nodes"></g>
+                </svg>
+                <p class="mt-4 text-sm text-slate-600 dark:text-slate-400">Hover over nodes to see related skills. Click for more details (concept).</p>
+                <div id="networkTooltip" class="chart-tooltip hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skill-impact-metrics" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">Skill Impact Metrics</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Quantifying the real-world impact of my technical skills.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <i class="ph-check-circle-fill stat-icon"></i>
+                    <div class="stat-number" data-target="35">0</div>
+                    <p class="stat-label">Projects Completed</p>
                 </div>
-
-                <div class="dashboard-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
-                    <i class="ph-server text-5xl text-green-500 dark:text-green-400 mb-4"></i>
-                    <h4>Backend Engineering</h4>
-                    <div class="progress-circle-container">
-                        <svg class="progress-circle-svg" width="120" height="120" viewBox="0 0 120 120">
-                            <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
-                            <circle class="progress-circle-fill text-green-500" cx="60" cy="60" r="50" data-progress="75"></circle>
-                        </svg>
-                        <span class="progress-circle-text">75%</span>
-                    </div>
-                    <p class="dashboard-description">Proficient in building scalable APIs, managing databases, and developing robust server-side logic.</p>
+                <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <i class="ph-bug-fill stat-icon"></i>
+                    <div class="stat-number" data-target="120">0</div>
+                    <p class="stat-label">Bugs Fixed</p>
                 </div>
-
-                <div class="dashboard-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
-                    <i class="ph-cloud text-5xl text-orange-500 dark:text-orange-400 mb-4"></i>
-                    <h4>Cloud & DevOps</h4>
-                    <div class="progress-circle-container">
-                        <svg class="progress-circle-svg" width="120" height="120" viewBox="0 0 120 120">
-                            <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
-                            <circle class="progress-circle-fill text-orange-500" cx="60" cy="60" r="50" data-progress="68"></circle>
-                        </svg>
-                        <span class="progress-circle-text">68%</span>
-                    </div>
-                    <p class="dashboard-description">Familiar with cloud infrastructure management, containerization, and continuous integration/delivery.</p>
+                <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <i class="ph-rocket-launch-fill stat-icon"></i>
+                    <div class="stat-number" data-target="50">0</div>
+                    <p class="stat-label">Features Shipped</p>
                 </div>
-
-                <div class="dashboard-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
-                    <i class="ph-brain text-5xl text-red-500 dark:text-red-400 mb-4"></i>
-                    <h4>AI/ML Foundations</h4>
-                    <div class="progress-circle-container">
-                        <svg class="progress-circle-svg" width="120" height="120" viewBox="0 0 120 120">
-                            <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
-                            <circle class="progress-circle-fill text-red-500" cx="60" cy="60" r="50" data-progress="70"></circle>
-                        </svg>
-                        <span class="progress-circle-text">70%</span>
-                    </div>
-                    <p class="dashboard-description">Solid understanding of machine learning concepts, deep learning frameworks, and data analysis.</p>
-                </div>
-
-                 <div class="dashboard-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
-                    <i class="ph-lightbulb text-5xl text-yellow-500 dark:text-yellow-400 mb-4"></i>
-                    <h4>Problem Solving</h4>
-                    <div class="progress-circle-container">
-                        <svg class="progress-circle-svg" width="120" height="120" viewBox="0 0 120 120">
-                            <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
-                            <circle class="progress-circle-fill text-yellow-500" cx="60" cy="60" r="50" data-progress="92"></circle>
-                        </svg>
-                        <span class="progress-circle-text">92%</span>
-                    </div>
-                    <p class="dashboard-description">A strong analytical mind, adept at breaking down complex problems and devising effective solutions.</p>
-                </div>
-
-                <div class="dashboard-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
-                    <i class="ph-arrows-clockwise text-5xl text-purple-500 dark:text-purple-400 mb-4"></i>
-                    <h4>Adaptability</h4>
-                    <div class="progress-circle-container">
-                        <svg class="progress-circle-svg" width="120" height="120" viewBox="0 0 120 120">
-                            <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
-                            <circle class="progress-circle-fill text-purple-500" cx="60" cy="60" r="50" data-progress="85"></circle>
-                        </svg>
-                        <span class="progress-circle-text">85%</span>
-                    </div>
-                    <p class="dashboard-description">Quick learner, able to rapidly acquire new technologies and adjust to evolving project requirements.</p>
+                <div class="stat-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <i class="ph-users-three-fill stat-icon"></i>
+                    <div class="stat-number" data-target="10">0</div>
+                    <p class="stat-label">Team Collaborations</p>
                 </div>
             </div>
         </div>
@@ -1398,9 +1553,9 @@
         <div class="container mx-auto px-6">
             <div class="mb-8 flex justify-center space-x-6">
                 <a href="https://github.com/reposekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/reponsekdz06 target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://twitter.com/reponsekdz06 target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
-                <a href="https://www.instagram.com/reponse_kdz/s" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
+                <a href="https://linkedin.com/in/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://dev.to/reponse_kdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
                 <a href="mailto:reponsekdz06@gmail.com" class="footer-social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
             <div class="mb-6 space-x-4 sm:space-x-6">
@@ -1546,6 +1701,570 @@
             // Update current year in footer
             document.getElementById('currentYear').textContent = new Date().getFullYear();
 
+            // Animated Stats Counter for Skill Impact Metrics
+            const animateNumbers = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.dataset.target);
+                        let current = 0;
+                        const duration = 2000; // 2 seconds
+                        const increment = target / (duration / 10); // Update every 10ms
+
+                        const updateCounter = () => {
+                            if (current < target) {
+                                current += increment;
+                                entry.target.textContent = Math.ceil(current).toLocaleString();
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                entry.target.textContent = target.toLocaleString();
+                                entry.target.classList.add('glowing'); // Add glow when finished
+                            }
+                        };
+                        updateCounter();
+                        observer.unobserve(entry.target); // Stop observing once animated
+                    }
+                });
+            };
+
+            const statNumbers = document.querySelectorAll('#skill-impact-metrics .stat-number');
+            const observerOptions = {
+                root: null, // viewport
+                rootMargin: '0px',
+                threshold: 0.5 // Trigger when 50% of element is visible
+            };
+            const numberObserver = new IntersectionObserver(animateNumbers, observerOptions);
+            statNumbers.forEach(number => {
+                numberObserver.observe(number);
+            });
+
+            // Chart Data for 3D Bar Chart (Technology Adoption Rate)
+            const barChart3DData = [
+                { skill: 'Next.js', proficiency: 70, color: 0x6366f1 }, // Hex color for Three.js
+                { skill: 'GraphQL', proficiency: 65, color: 0xa78bfa },
+                { skill: 'K8s', proficiency: 60, color: 0x8b5cf6 },
+                { skill: 'Web3', proficiency: 55, color: 0xc084fc },
+                { skill: 'GenAI', proficiency: 75, color: 0xe9d5ff }
+            ];
+
+            // Function to initialize and animate 3D Bar Chart
+            function initBarChart3D() {
+                const container = document.getElementById('barChart3DCanvas').parentElement;
+                const canvas = document.getElementById('barChart3DCanvas');
+                const width = container.clientWidth;
+                const height = container.clientHeight - 80; // Adjust for title/padding
+
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+                renderer.setSize(width, height);
+                renderer.setClearColor(0x000000, 0); // Transparent background
+
+                // Add lights
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+                scene.add(ambientLight);
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                directionalLight.position.set(5, 10, 7);
+                scene.add(directionalLight);
+
+                // Add OrbitControls
+                const controls = new THREE.OrbitControls(camera, renderer.domElement);
+                controls.enableDamping = true; // smooth camera movement
+                controls.dampingFactor = 0.05;
+                controls.screenSpacePanning = false;
+                controls.minDistance = 50;
+                controls.maxDistance = 200;
+                controls.maxPolarAngle = Math.PI / 2; // Prevent camera from going below the ground
+
+                camera.position.set(0, 70, 100); // Adjust camera position
+                camera.lookAt(0, 0, 0);
+
+                const bars = [];
+                const barWidth = 15;
+                const barDepth = 10;
+                const spacing = 25;
+                const maxChartHeight = 150; // Max height for bars in 3D scene
+
+                // Calculate total width of bars + spacing to center them
+                const totalBarsWidth = barChart3DData.length * barWidth + (barChart3DData.length - 1) * spacing;
+                const startX = -totalBarsWidth / 2 + barWidth / 2;
+
+                barChart3DData.forEach((data, index) => {
+                    const barHeight = (data.proficiency / 100) * maxChartHeight;
+                    const geometry = new THREE.BoxGeometry(barWidth, barHeight, barDepth);
+                    const material = new THREE.MeshLambertMaterial({ color: data.color });
+                    const bar = new THREE.Mesh(geometry, material);
+
+                    // Position the bar
+                    bar.position.x = startX + index * (barWidth + spacing);
+                    bar.position.y = barHeight / 2; // Center pivot at base for animation
+                    bar.position.z = 0;
+
+                    // Store original position and scale for animation
+                    bar.originalScaleY = bar.scale.y;
+                    bar.scale.y = 0.001; // Start with almost zero height for animation
+                    bar.userData = { label: data.skill, value: data.proficiency }; // Store data for tooltip
+                    bars.push(bar);
+                    scene.add(bar);
+
+                    // Add text label for the bar (using HTML overlay for better text rendering)
+                    const labelDiv = document.createElement('div');
+                    labelDiv.className = 'bar-chart-label absolute text-xs text-slate-700 dark:text-slate-300';
+                    labelDiv.textContent = data.skill;
+                    container.appendChild(labelDiv);
+
+                    // Position labels relative to the 3D bars (approximate)
+                    const projector = new THREE.Vector3(bar.position.x, 0, bar.position.z);
+                    projector.project(camera);
+                    const x = (projector.x * 0.5 + 0.5) * width;
+                    const y = (-projector.y * 0.5 + 0.5) * height + 20; // Offset below bar
+                    labelDiv.style.left = `${x}px`;
+                    labelDiv.style.top = `${y}px`;
+                    labelDiv.style.transform = 'translateX(-50%)';
+                });
+
+                // Animate bars growing
+                bars.forEach((bar, index) => {
+                    new TWEEN.Tween(bar.scale)
+                        .to({ y: bar.originalScaleY }, 1000)
+                        .delay(index * 150)
+                        .easing(TWEEN.Easing.Elastic.Out)
+                        .start();
+                });
+
+                // Raycasting for interactivity
+                const raycaster = new THREE.Raycaster();
+                const mouse = new THREE.Vector2();
+                let intersectedObject = null;
+                const chartTooltip = document.createElement('div');
+                chartTooltip.id = 'barChartTooltip';
+                chartTooltip.classList.add('chart-tooltip', 'hidden');
+                document.body.appendChild(chartTooltip);
+
+                function onMouseMove(event) {
+                    // Calculate mouse position in normalized device coordinates (-1 to +1)
+                    const rect = renderer.domElement.getBoundingClientRect();
+                    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+                    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+                    raycaster.setFromCamera(mouse, camera);
+                    const intersects = raycaster.intersectObjects(bars);
+
+                    if (intersects.length > 0) {
+                        if (intersectedObject !== intersects[0].object) {
+                            if (intersectedObject) {
+                                // Reset previous object's material
+                                intersectedObject.material.emissive.setHex(0x000000);
+                            }
+                            intersectedObject = intersects[0].object;
+                            // Highlight new object
+                            intersectedObject.material.emissive.setHex(0x222222); // Add a subtle glow
+
+                            // Show tooltip
+                            chartTooltip.textContent = `${intersectedObject.userData.label}: ${intersectedObject.userData.value}%`;
+                            chartTooltip.style.left = `${event.clientX + 10}px`;
+                            chartTooltip.style.top = `${event.clientY + 10}px`;
+                            chartTooltip.classList.remove('hidden');
+                            chartTooltip.style.opacity = 1;
+                        }
+                    } else {
+                        if (intersectedObject) {
+                            intersectedObject.material.emissive.setHex(0x000000);
+                        }
+                        intersectedObject = null;
+                        chartTooltip.classList.add('hidden');
+                        chartTooltip.style.opacity = 0;
+                    }
+                }
+                canvas.addEventListener('mousemove', onMouseMove);
+
+                // Handle window resize
+                function onWindowResize() {
+                    const newWidth = container.clientWidth;
+                    const newHeight = container.clientHeight - 80;
+                    camera.aspect = newWidth / newHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(newWidth, newHeight);
+                }
+                window.addEventListener('resize', onWindowResize, false);
+
+                // Animation loop
+                function animate() {
+                    requestAnimationFrame(animate);
+                    controls.update(); // only required if controls.enableDamping or controls.autoRotate are set to true
+                    TWEEN.update(); // Update animations
+                    renderer.render(scene, camera);
+                }
+                animate();
+            }
+
+            // 3D Donut Chart Data
+            const donutChart3DData = [
+                { label: 'Frontend', value: 40, color: 0x6366f1 },
+                { label: 'Backend', value: 30, color: 0xa78bfa },
+                { label: 'AI/ML', value: 20, color: 0x8b5cf6 },
+                { label: 'DevOps', value: 10, color: 0xc084fc }
+            ];
+
+            // Function to initialize and animate 3D Donut Chart
+            function initPieChart3D() {
+                const container = document.getElementById('pieChart3DCanvas').parentElement;
+                const canvas = document.getElementById('pieChart3DCanvas');
+                const width = container.clientWidth;
+                const height = container.clientHeight - 80;
+
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+                renderer.setSize(width, height);
+                renderer.setClearColor(0x000000, 0);
+
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+                scene.add(ambientLight);
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                directionalLight.position.set(5, 10, 7);
+                scene.add(directionalLight);
+
+                const controls = new THREE.OrbitControls(camera, renderer.domElement);
+                controls.enableDamping = true;
+                controls.dampingFactor = 0.05;
+                controls.screenSpacePanning = false;
+                controls.minDistance = 50;
+                controls.maxDistance = 200;
+                controls.maxPolarAngle = Math.PI / 2;
+
+                camera.position.set(0, 0, 100);
+
+                const totalValue = donutChart3DData.reduce((sum, d) => sum + d.value, 0);
+                const outerRadius = 40;
+                const innerRadius = 20;
+                const depth = 15; // Thickness of the donut
+
+                let startAngle = 0;
+                const slices = [];
+
+                donutChart3DData.forEach((data, index) => {
+                    const endAngle = startAngle + (data.value / totalValue) * (2 * Math.PI);
+
+                    const geometry = new THREE.RingGeometry(innerRadius, outerRadius, 32, 1, startAngle, endAngle - startAngle);
+                    const material = new THREE.MeshLambertMaterial({ color: data.color, side: THREE.DoubleSide });
+                    const slice = new THREE.Mesh(geometry, material);
+
+                    // Create a small extrusion for 3D effect
+                    const extrudeSettings = {
+                        steps: 1,
+                        depth: depth,
+                        bevelEnabled: false
+                    };
+                    const shape = new THREE.Shape();
+                    const outerPoints = [];
+                    const innerPoints = [];
+                    const segments = 32; // Number of segments to approximate the arc
+                    for (let i = 0; i <= segments; i++) {
+                        const angle = startAngle + (endAngle - startAngle) * (i / segments);
+                        outerPoints.push(new THREE.Vector2(outerRadius * Math.cos(angle), outerRadius * Math.sin(angle)));
+                        innerPoints.push(new THREE.Vector2(innerRadius * Math.cos(angle), innerRadius * Math.sin(angle)));
+                    }
+                    shape.absarc(0, 0, outerRadius, startAngle, endAngle, false);
+                    const hole = new THREE.Path();
+                    hole.absarc(0, 0, innerRadius, endAngle, startAngle, true);
+                    shape.holes.push(hole);
+
+                    const extrudedGeometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+                    const extrudedMesh = new THREE.Mesh(extrudedGeometry, material);
+                    extrudedMesh.position.z = -depth / 2; // Center the extrusion
+                    extrudedMesh.userData = { label: data.label, value: data.value, originalZ: extrudedMesh.position.z }; // Store data for tooltip and reset
+                    slices.push(extrudedMesh);
+                    scene.add(extrudedMesh);
+
+                    // Initial animation: scale up from zero
+                    extrudedMesh.scale.set(0.001, 0.001, 0.001);
+                    new TWEEN.Tween(extrudedMesh.scale)
+                        .to({ x: 1, y: 1, z: 1 }, 1000)
+                        .delay(index * 100)
+                        .easing(TWEEN.Easing.Elastic.Out)
+                        .start();
+
+                    startAngle = endAngle;
+                });
+
+                // Raycasting for interactivity
+                const raycaster = new THREE.Raycaster();
+                const mouse = new THREE.Vector2();
+                let intersectedSlice = null;
+                const chartTooltip = document.createElement('div');
+                chartTooltip.id = 'pieChartTooltip';
+                chartTooltip.classList.add('chart-tooltip', 'hidden');
+                document.body.appendChild(chartTooltip);
+
+                function onMouseMove(event) {
+                    const rect = renderer.domElement.getBoundingClientRect();
+                    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+                    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+                    raycaster.setFromCamera(mouse, camera);
+                    const intersects = raycaster.intersectObjects(slices);
+
+                    if (intersects.length > 0) {
+                        if (intersectedSlice !== intersects[0].object) {
+                            if (intersectedSlice) {
+                                // Reset previous slice
+                                new TWEEN.Tween(intersectedSlice.position)
+                                    .to({ z: intersectedSlice.userData.originalZ }, 200)
+                                    .easing(TWEEN.Easing.Quadratic.Out)
+                                    .start();
+                                intersectedSlice.material.emissive.setHex(0x000000);
+                            }
+                            intersectedSlice = intersects[0].object;
+                            // Highlight new slice
+                            new TWEEN.Tween(intersectedSlice.position)
+                                .to({ z: intersectedSlice.userData.originalZ + 5 }, 200) // Pop out slightly
+                                .easing(TWEEN.Easing.Quadratic.Out)
+                                .start();
+                            intersectedSlice.material.emissive.setHex(0x222222);
+
+                            // Show tooltip
+                            chartTooltip.textContent = `${intersectedSlice.userData.label}: ${intersectedSlice.userData.value}%`;
+                            chartTooltip.style.left = `${event.clientX + 10}px`;
+                            chartTooltip.style.top = `${event.clientY + 10}px`;
+                            chartTooltip.classList.remove('hidden');
+                            chartTooltip.style.opacity = 1;
+                        }
+                    } else {
+                        if (intersectedSlice) {
+                            new TWEEN.Tween(intersectedSlice.position)
+                                .to({ z: intersectedSlice.userData.originalZ }, 200)
+                                .easing(TWEEN.Easing.Quadratic.Out)
+                                .start();
+                            intersectedSlice.material.emissive.setHex(0x000000);
+                        }
+                        intersectedSlice = null;
+                        chartTooltip.classList.add('hidden');
+                        chartTooltip.style.opacity = 0;
+                    }
+                }
+                canvas.addEventListener('mousemove', onMouseMove);
+
+                // Handle window resize
+                function onWindowResize() {
+                    const newWidth = container.clientWidth;
+                    const newHeight = container.clientHeight - 80;
+                    camera.aspect = newWidth / newHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(newWidth, newHeight);
+                }
+                window.addEventListener('resize', onWindowResize, false);
+
+                // Animation loop
+                function animate() {
+                    requestAnimationFrame(animate);
+                    controls.update();
+                    TWEEN.update();
+                    renderer.render(scene, camera);
+                }
+                animate();
+            }
+
+            // Function to animate Line Chart (existing SVG chart)
+            function animateLineChart() {
+                const polyline = document.querySelector('#skill-analytics-growth .line-chart-line');
+                const areaPath = document.querySelector('#skill-analytics-growth .line-chart-area');
+                const pointsData = [
+                    { x: 0, y: 180 }, { x: 80, y: 100 }, { x: 160, y: 140 }, { x: 240, y: 60 }, { x: 320, y: 20 }
+                ];
+
+                const points = pointsData.map(p => `${p.x},${p.y}`).join(' ');
+                polyline.setAttribute('points', points);
+
+                // Animate line drawing
+                const length = polyline.getTotalLength();
+                polyline.style.strokeDasharray = length;
+                polyline.style.strokeDashoffset = length;
+                polyline.getBoundingClientRect(); // Trigger reflow
+                polyline.style.strokeDashoffset = '0';
+
+                // Animate area fill
+                const areaPoints = `M${pointsData[0].x},200 L${points} L${pointsData[pointsData.length - 1].x},200 Z`;
+                areaPath.setAttribute('d', areaPoints);
+                areaPath.style.opacity = 0; // Start hidden
+                setTimeout(() => {
+                    areaPath.style.transition = 'opacity 1s ease-out';
+                    areaPath.style.opacity = 1;
+                }, 500); // Delay area fill slightly after line starts
+
+                // Add hover effect for line chart circles
+                document.querySelectorAll('#skill-analytics-growth .line-chart-point').forEach(circle => {
+                    const tooltip = document.createElement('div');
+                    tooltip.classList.add('absolute', 'bg-slate-700', 'text-white', 'p-2', 'rounded-md', 'text-xs', 'opacity-0', 'transition-opacity', 'duration-200', 'pointer-events-none', 'z-10');
+                    tooltip.textContent = circle.dataset.label;
+                    document.body.appendChild(tooltip);
+
+                    circle.addEventListener('mouseenter', (e) => {
+                        const rect = e.target.getBoundingClientRect();
+                        tooltip.style.left = `${rect.left + window.scrollX + rect.width / 2}px`;
+                        tooltip.style.top = `${rect.top + window.scrollY - tooltip.offsetHeight - 10}px`;
+                        tooltip.style.transform = 'translateX(-50%)';
+                        tooltip.classList.remove('opacity-0');
+                        tooltip.classList.add('opacity-100');
+                    });
+
+                    circle.addEventListener('mouseleave', () => {
+                        tooltip.classList.remove('opacity-100');
+                        tooltip.classList.add('opacity-0');
+                    });
+                });
+            }
+
+            // Skill Network Visualization Data
+            const skillNodes = [
+                { id: 'React', x: 150, y: 100, category: 'frontend', icon: 'ph-react-logo', description: 'Building dynamic and performant user interfaces.' },
+                { id: 'Node.js', x: 450, y: 100, category: 'backend', icon: 'ph-node-js', description: 'Developing scalable RESTful APIs and microservices.' },
+                { id: 'Python', x: 300, y: 250, category: 'backend', icon: 'ph-python', description: 'Scripting, web development (Django, Flask), and data science.' },
+                { id: 'AWS', x: 100, y: 300, category: 'cloud', icon: 'ph-amazon-logo', description: 'Deploying and managing cloud infrastructure and services.' },
+                { id: 'AI/ML', x: 500, y: 300, category: 'ai', icon: 'ph-brain', description: 'Implementing machine learning models and AI solutions.' },
+                { id: 'MongoDB', x: 300, y: 50, category: 'database', icon: 'ph-leaf', description: 'Working with NoSQL databases for flexible data storage.' },
+                { id: 'Git', x: 50, y: 200, category: 'tools', icon: 'ph-git-branch', description: 'Version control and collaborative development.' },
+                { id: 'Generative AI', x: 400, y: 200, category: 'ai', icon: 'ph-robot', description: 'Exploring and building with large language models and generative models.' }
+            ];
+
+            const skillLinks = [
+                { source: 'React', target: 'Node.js', strength: 0.8 },
+                { source: 'React', target: 'MongoDB', strength: 0.7 },
+                { source: 'Node.js', target: 'MongoDB', strength: 0.9 },
+                { source: 'Python', target: 'AI/ML', strength: 0.95 },
+                { source: 'Python', target: 'Generative AI', strength: 0.9 },
+                { source: 'AWS', target: 'Node.js', strength: 0.75 },
+                { source: 'AWS', target: 'AI/ML', strength: 0.7 },
+                { source: 'Git', target: 'React', strength: 0.9 },
+                { source: 'Git', target: 'Python', strength: 0.85 },
+                { source: 'AI/ML', target: 'Generative AI', strength: 0.98 }
+            ];
+
+            function animateSkillNetwork() {
+                const svg = document.querySelector('#skill-network-visualization .chart-svg');
+                const nodesGroup = svg.querySelector('.network-nodes');
+                const linksGroup = svg.querySelector('.network-links');
+                const networkTooltip = document.getElementById('networkTooltip');
+                nodesGroup.innerHTML = '';
+                linksGroup.innerHTML = '';
+
+                // Create links first
+                skillLinks.forEach(link => {
+                    const sourceNode = skillNodes.find(node => node.id === link.source);
+                    const targetNode = skillNodes.find(node => node.id === link.target);
+
+                    if (sourceNode && targetNode) {
+                        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                        line.setAttribute('x1', sourceNode.x);
+                        line.setAttribute('y1', sourceNode.y);
+                        line.setAttribute('x2', targetNode.x);
+                        line.setAttribute('y2', targetNode.y);
+                        line.classList.add('network-link');
+                        line.dataset.source = link.source;
+                        line.dataset.target = link.target;
+                        linksGroup.appendChild(line);
+                    }
+                });
+
+                // Create nodes
+                skillNodes.forEach(node => {
+                    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    circle.setAttribute('cx', node.x);
+                    circle.setAttribute('cy', node.y);
+                    circle.setAttribute('r', 20); // Radius of the node
+                    circle.classList.add('network-node');
+                    circle.dataset.id = node.id;
+                    nodesGroup.appendChild(circle);
+
+                    // Add text label for the node
+                    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                    text.setAttribute('x', node.x);
+                    text.setAttribute('y', node.y + 30); // Position below circle
+                    text.classList.add('network-node-label');
+                    text.textContent = node.id;
+                    nodesGroup.appendChild(text);
+
+                    // Add icon (using Phosphor Icons for SVG)
+                    const iconForeignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+                    iconForeignObject.setAttribute('x', node.x - 12); // Adjust position to center icon
+                    iconForeignObject.setAttribute('y', node.y - 12);
+                    iconForeignObject.setAttribute('width', 24);
+                    iconForeignObject.setAttribute('height', 24);
+                    iconForeignObject.classList.add('network-node-icon');
+                    
+                    const iconElement = document.createElement('i');
+                    iconElement.classList.add(node.icon.split(' ')[0], node.icon.split(' ')[1], 'text-xl', 'text-white', 'dark:text-slate-900'); // Phosphor icon classes
+                    iconForeignObject.appendChild(iconElement);
+                    nodesGroup.appendChild(iconForeignObject);
+
+
+                    // Hover effects for nodes
+                    circle.addEventListener('mouseenter', (e) => {
+                        // Dim other nodes and their labels/icons
+                        nodesGroup.querySelectorAll('.network-node').forEach(n => {
+                            if (n.dataset.id !== node.id) {
+                                n.style.opacity = 0.3;
+                                n.nextElementSibling.style.opacity = 0.3; // Label
+                                n.nextElementSibling.nextElementSibling.style.opacity = 0.3; // Icon
+                            }
+                        });
+                        // Highlight links connected to the hovered node
+                        linksGroup.querySelectorAll('.network-link').forEach(link => {
+                            if (link.dataset.source === node.id || link.dataset.target === node.id) {
+                                link.classList.add('highlighted');
+                            } else {
+                                link.style.opacity = 0.1;
+                            }
+                        });
+
+                        // Show tooltip
+                        networkTooltip.textContent = `${node.id}: ${node.description}`;
+                        networkTooltip.style.left = `${e.clientX + 10}px`;
+                        networkTooltip.style.top = `${e.clientY + 10}px`;
+                        networkTooltip.classList.remove('hidden');
+                        networkTooltip.style.opacity = 1;
+                    });
+
+                    circle.addEventListener('mouseleave', () => {
+                        // Reset all nodes, labels, icons, and links
+                        nodesGroup.querySelectorAll('.network-node').forEach(n => {
+                            n.style.opacity = 1;
+                            n.nextElementSibling.style.opacity = 1;
+                            n.nextElementSibling.nextElementSibling.style.opacity = 1;
+                        });
+                        linksGroup.querySelectorAll('.network-link').forEach(link => {
+                            link.classList.remove('highlighted');
+                            link.style.opacity = 1;
+                        });
+                        networkTooltip.classList.add('hidden');
+                        networkTooltip.style.opacity = 0;
+                    });
+                });
+            }
+
+
+            // Call chart animations when their respective sections are in view
+            const skillAnalyticsGrowthSection = document.getElementById('skill-analytics-growth');
+            const skillNetworkVisualizationSection = document.getElementById('skill-network-visualization');
+
+            const chartObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.id === 'skill-analytics-growth') {
+                            initPieChart3D(); // Initialize 3D Pie Chart
+                            animateLineChart(); // Animate existing Line Chart
+                            initBarChart3D(); // Initialize 3D Bar Chart
+                        } else if (entry.target.id === 'skill-network-visualization') {
+                            animateSkillNetwork(); // Animate existing Skill Network
+                        }
+                        chartObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
+
+            chartObserver.observe(skillAnalyticsGrowthSection);
+            chartObserver.observe(skillNetworkVisualizationSection);
+
+
             // Desktop and Mobile Search Functionality
             const searchData = [
                 // Blog posts (from blog.html)
@@ -1688,9 +2407,10 @@
                     if (!mobileSearchResults.matches(':hover')) {
                         mobileSearchResults.classList.add('hidden');
                     }
-                }, 100);
+                } , 100);
             });
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.min.js"></script>
 </body>
 </html>

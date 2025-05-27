@@ -1,0 +1,3510 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 Digital Tools</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light slate background */
+            color: #1e293b; /* Dark slate text */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark body {
+            background-color: #0f172a; /* Darker slate background */
+            color: #e2e8f0; /* Light slate text */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem; /* 4xl */
+            font-weight: 800; /* Extra bold */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #3b82f6, #60a5fa); /* Blue to Light Blue gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border-radius: 2px;
+        }
+
+        .digital-app-card { /* Renamed from template-card for semantic clarity */
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .digital-app-card {
+            background-color: #1e293b;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #334155;
+        }
+        .digital-app-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+        }
+        .dark .digital-app-card:hover {
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .digital-app-card h2 {
+            font-size: 2.25rem; /* 3xl */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #334155;
+            text-align: center;
+        }
+        .dark .digital-app-card h2 {
+            color: #f8fafc;
+        }
+
+        .code-preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) { /* Large screens */
+            .code-preview-container {
+                flex-direction: row;
+            }
+        }
+
+        .code-editor, .live-preview {
+            flex: 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid #cbd5e1; /* Slate 300 */
+            transition: border-color 0.3s ease;
+        }
+        .dark .code-editor, .dark .live-preview {
+            border-color: #475569; /* Slate 700 */
+        }
+
+        .code-editor textarea {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            padding: 1rem;
+            background-color: #2d3748; /* Dark code background */
+            color: #f8fafc; /* Light text */
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: none;
+            outline: none;
+            resize: vertical; /* Allow vertical resizing */
+            border-radius: 1rem;
+        }
+
+        .live-preview iframe {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            background-color: #ffffff;
+            border: none;
+            border-radius: 1rem;
+        }
+        .dark .live-preview iframe {
+            background-color: #0f172a;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .button-group button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #3b82f6, #60a5fa); /* Blue gradient */
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .dark .button-group button {
+            background: linear-gradient(45deg, #60a5fa, #2563eb);
+            box-shadow: 0 5px 15px rgba(96, 165, 250, 0.3);
+        }
+        .button-group button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+        .dark .button-group button:hover {
+            box-shadow: 0 8px 20px rgba(96, 165, 250, 0.4);
+        }
+
+        /* Message Box styles (copied for consistency) */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001; /* Higher than modals */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .message-box-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .dark .message-box-content {
+            background-color: #1e293b;
+        }
+        .message-box-overlay.open .message-box-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .message-box-button {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .dark .message-box-button {
+            background-color: #60a5fa;
+        }
+        .message-box-button:hover {
+            background-color: #2563eb;
+        }
+        .dark .message-box-button:hover {
+            background-color: #2563eb;
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="transition-colors duration-300">
+
+    <header class="py-12 bg-gradient-to-r from-blue-600 to-cyan-700 dark:from-blue-800 dark:to-cyan-900 text-white text-center shadow-lg">
+        <h1 class="text-5xl font-extrabold mb-3 animate__animated animate__fadeInDown">Digital Tools</h1>
+        <p class="text-xl font-light animate__animated animate__fadeInUp animate__delay-1s">Clocks and Calculators for your convenience.</p>
+    </header>
+
+    <main class="container py-16">
+        <h2 class="section-title mb-16 wow animate__animated animate__fadeIn">Clocks Showcase</h2>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+            <h2>1. Simple Digital Clock</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="clock1Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Digital Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Orbitron', sans-serif; background-color: #1e293b; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .clock-container {
+            background-color: #0f172a;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+            color: #38bdf8; /* Sky 400 */
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            border: 3px solid #0ea5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 400px;
+            height: 200px;
+        }
+        @media (max-width: 600px) {
+            .clock-container {
+                font-size: 2.5rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="digitalClock" class="clock-container"></div>
+
+    <script>
+        function updateDigitalClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            document.getElementById('digitalClock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateDigitalClock, 1000);
+        updateDigitalClock(); // Initial call
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="clock1Preview" title="Simple Digital Clock Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('clock1')">Run Clock</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+            <h2>2. Analog Clock</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="clock2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .analog-clock {
+            width: 250px;
+            height: 250px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            border: 8px solid #334155;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .center-dot {
+            width: 15px;
+            height: 15px;
+            background-color: #ef4444; /* Red */
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        .hand {
+            position: absolute;
+            left: 50%;
+            transform-origin: bottom;
+            background-color: #1e293b;
+            border-radius: 5px;
+        }
+        .hour-hand {
+            width: 6px;
+            height: 60px;
+            top: calc(50% - 60px);
+            margin-left: -3px;
+        }
+        .minute-hand {
+            width: 4px;
+            height: 90px;
+            top: calc(50% - 90px);
+            margin-left: -2px;
+        }
+        .second-hand {
+            width: 2px;
+            height: 100px;
+            top: calc(50% - 100px);
+            margin-left: -1px;
+            background-color: #ef4444; /* Red */
+        }
+        .number {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #334155;
+        }
+        .number-12 { top: 5%; left: 0; }
+        .number-3 { top: 45%; right: 5%; transform: translateX(50%); }
+        .number-6 { bottom: 5%; left: 0; }
+        .number-9 { top: 45%; left: 5%; transform: translateX(-50%); }
+    </style>
+</head>
+<body>
+    <div class="analog-clock">
+        <div class="center-dot"></div>
+        <div class="hand hour-hand" id="hourHand"></div>
+        <div class="hand minute-hand" id="minuteHand"></div>
+        <div class="hand second-hand" id="secondHand"></div>
+        <div class="number number-12">12</div>
+        <div class="number number-3">3</div>
+        <div class="number number-6">6</div>
+        <div class="number number-9">9</div>
+    </div>
+
+    <script>
+        function updateAnalogClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const hourDeg = (hours % 12 + minutes / 60) * 30;
+            const minuteDeg = (minutes + seconds / 60) * 6;
+            const secondDeg = seconds * 6;
+
+            document.getElementById('hourHand').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+            document.getElementById('minuteHand').style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+            document.getElementById('secondHand').style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+        }
+
+        setInterval(updateAnalogClock, 1000);
+        updateAnalogClock(); // Initial call
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="clock2Preview" title="Analog Clock Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('clock2')">Run Clock</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+            <h2>3. Flip Clock</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="clock3Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto Mono', monospace; background-color: #2d3748; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .flip-clock {
+            display: flex;
+            gap: 0.5rem;
+            background-color: #1a202c;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .flip-card {
+            position: relative;
+            width: 80px;
+            height: 100px;
+            background-color: #4a5568;
+            border-radius: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fbd38d;
+            overflow: hidden;
+        }
+        .flip-card-top, .flip-card-bottom {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background-color: inherit;
+            overflow: hidden;
+        }
+        .flip-card-top {
+            top: 0;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+            border-radius: 0.5rem 0.5rem 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 2px;
+        }
+        .flip-card-bottom {
+            bottom: 0;
+            border-top: 1px solid rgba(0,0,0,0.2);
+            border-radius: 0 0 0.5rem 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 2px;
+        }
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #6366f1; /* Indigo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            transform-origin: top;
+            transform: rotateX(90deg);
+            transition: transform 0.3s ease-in-out;
+            z-index: 5;
+            border-radius: 0.5rem;
+        }
+        .flip-card.animate .flip-card-back {
+            transform: rotateX(0deg);
+        }
+        .flip-card.animate .flip-card-top {
+            transform: rotateX(-90deg);
+            transition: transform 0.3s ease-in-out;
+            transform-origin: bottom;
+        }
+        .colon {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+        }
+        @media (max-width: 600px) {
+            .flip-card { width: 60px; height: 80px; font-size: 2rem; }
+            .colon { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="flip-clock">
+        <div class="flip-card" id="hours">
+            <div class="flip-card-top" id="hoursTop">00</div>
+            <div class="flip-card-bottom" id="hoursBottom">00</div>
+            <div class="flip-card-back" id="hoursBack">00</div>
+        </div>
+        <div class="colon">:</div>
+        <div class="flip-card" id="minutes">
+            <div class="flip-card-top" id="minutesTop">00</div>
+            <div class="flip-card-bottom" id="minutesBottom">00</div>
+            <div class="flip-card-back" id="minutesBack">00</div>
+        </div>
+        <div class="colon">:</div>
+        <div class="flip-card" id="seconds">
+            <div class="flip-card-top" id="secondsTop">00</div>
+            <div class="flip-card-bottom" id="secondsBottom">00</div>
+            <div class="flip-card-back" id="secondsBack">00</div>
+        </div>
+    </div>
+
+    <script>
+        function updateFlipClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            updateCard('hours', hours);
+            updateCard('minutes', minutes);
+            updateCard('seconds', seconds);
+        }
+
+        function updateCard(id, newValue) {
+            const card = document.getElementById(id);
+            const top = document.getElementById(id + 'Top');
+            const bottom = document.getElementById(id + 'Bottom');
+            const back = document.getElementById(id + 'Back');
+
+            const currentValue = top.textContent;
+
+            if (currentValue === newValue) {
+                return;
+            }
+
+            card.classList.remove('animate');
+            top.textContent = currentValue;
+            bottom.textContent = currentValue;
+            back.textContent = newValue;
+
+            void card.offsetWidth; // Trigger reflow to restart animation
+
+            card.classList.add('animate');
+
+            setTimeout(() => {
+                top.textContent = newValue;
+                bottom.textContent = newValue;
+            }, 300); // Half of the animation duration
+        }
+
+        setInterval(updateFlipClock, 1000);
+        updateFlipClock(); // Initial call
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="clock3Preview" title="Flip Clock Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('clock3')">Run Clock</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+            <h2>4. World Clock</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="clock4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .world-clock-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        .timezone-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 0.5rem;
+        }
+        .timezone-item:last-child {
+            border-bottom: none;
+        }
+        .timezone-item .city {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #334155;
+        }
+        .timezone-item .time {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3b82f6; /* Blue 500 */
+        }
+        @media (max-width: 600px) {
+            .timezone-item { padding: 0.75rem; }
+            .timezone-item .city { font-size: 1rem; }
+            .timezone-item .time { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="world-clock-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-gray-800">World Clocks</h1>
+        <div id="londonTime" class="timezone-item">
+            <span class="city">London (GMT)</span>
+            <span class="time"></span>
+        </div>
+        <div id="newYorkTime" class="timezone-item">
+            <span class="city">New York (EST)</span>
+            <span class="time"></span>
+        </div>
+        <div id="tokyoTime" class="timezone-item">
+            <span class="city">Tokyo (JST)</span>
+            <span class="time"></span>
+        </div>
+        <div id="sydneyTime" class="timezone-item">
+            <span class="city">Sydney (AEST)</span>
+            <span class="time"></span>
+        </div>
+        <div id="kigaliTime" class="timezone-item">
+            <span class="city">Kigali (CAT)</span>
+            <span class="time"></span>
+        </div>
+    </div>
+
+    <script>
+        function updateWorldClocks() {
+            const options = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+
+            document.getElementById('londonTime').querySelector('.time').textContent =
+                new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/London', ...options });
+            document.getElementById('newYorkTime').querySelector('.time').textContent =
+                new Date().toLocaleTimeString('en-US', { timeZone: 'America/New_York', ...options });
+            document.getElementById('tokyoTime').querySelector('.time').textContent =
+                new Date().toLocaleTimeString('en-JP', { timeZone: 'Asia/Tokyo', ...options });
+            document.getElementById('sydneyTime').querySelector('.time').textContent =
+                new Date().toLocaleTimeString('en-AU', { timeZone: 'Australia/Sydney', ...options });
+            document.getElementById('kigaliTime').querySelector('.time').textContent =
+                new Date().toLocaleTimeString('en-RW', { timeZone: 'Africa/Kigali', ...options });
+        }
+
+        setInterval(updateWorldClocks, 1000);
+        updateWorldClocks(); // Initial call
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="clock4Preview" title="World Clock Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('clock4')">Run Clock</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+            <h2>5. Binary Clock</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="clock5Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto Mono', monospace; background-color: #1e293b; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .binary-clock-container {
+            background-color: #0f172a;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border: 3px solid #6366f1;
+        }
+        .binary-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .binary-digit {
+            width: 30px;
+            height: 30px;
+            background-color: #475569;
+            border-radius: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+        .binary-digit.on {
+            background-color: #34d399; /* Green */
+        }
+        .label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 600px) {
+            .binary-row { font-size: 0.9rem; }
+            .binary-digit { width: 25px; height: 25px; }
+            .label { font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="binary-clock-container">
+        <div class="label">Hours</div>
+        <div class="binary-row" id="hoursBinary"></div>
+        <div class="label">Minutes</div>
+        <div class="binary-row" id="minutesBinary"></div>
+        <div class="label">Seconds</div>
+        <div class="binary-row" id="secondsBinary"></div>
+    </div>
+
+    <script>
+        function decToBinary(dec, padding) {
+            return (dec >>> 0).toString(2).padStart(padding, '0');
+        }
+
+        function updateBinaryClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const hoursBinary = decToBinary(hours, 6); // Max 23 (10111) -> 5 bits, pad to 6
+            const minutesBinary = decToBinary(minutes, 6); // Max 59 (111011) -> 6 bits
+            const secondsBinary = decToBinary(seconds, 6); // Max 59 (111011) -> 6 bits
+
+            renderBinaryRow('hoursBinary', hoursBinary);
+            renderBinaryRow('minutesBinary', minutesBinary);
+            renderBinaryRow('secondsBinary', secondsBinary);
+        }
+
+        function renderBinaryRow(id, binaryString) {
+            const rowElement = document.getElementById(id);
+            rowElement.innerHTML = ''; // Clear previous digits
+            for (let i = 0; i < binaryString.length; i++) {
+                const digit = binaryString[i];
+                const digitElement = document.createElement('div');
+                digitElement.classList.add('binary-digit');
+                if (digit === '1') {
+                    digitElement.classList.add('on');
+                }
+                digitElement.textContent = digit;
+                rowElement.appendChild(digitElement);
+            }
+        }
+
+        setInterval(updateBinaryClock, 1000);
+        updateBinaryClock(); // Initial call
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="clock5Preview" title="Binary Clock Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('clock5')">Run Clock</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+            <h2>6. Typing Clock</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="clock6Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'VT323', monospace; background-color: #0f172a; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .typing-clock-container {
+            background-color: #1a202c;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+            color: #10b981; /* Emerald 500 */
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            border: 3px solid #059669;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            max-width: 450px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .typing-text {
+            display: inline-block;
+            overflow: hidden;
+            border-right: 0.15em solid #34d399; /* Typing cursor */
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 0.1em;
+            animation: typing 0.8s steps(20, end), blink-caret 0.75s step-end infinite;
+        }
+
+        /* Typing animation */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* Blinking cursor animation */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #34d399; }
+        }
+        @media (max-width: 600px) {
+            .typing-clock-container { font-size: 2rem; padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="typing-clock-container">
+        <span id="typingClock" class="typing-text"></span>
+    </div>
+
+    <script>
+        let currentTypedText = '';
+        let targetText = '';
+        let charIndex = 0;
+        let typingInterval;
+
+        function typeWriter() {
+            if (charIndex < targetText.length) {
+                currentTypedText += targetText.charAt(charIndex);
+                document.getElementById('typingClock').textContent = currentTypedText;
+                charIndex++;
+            } else {
+                clearInterval(typingInterval);
+                // Reset for next minute
+                setTimeout(() => {
+                    currentTypedText = '';
+                    charIndex = 0;
+                    updateTypingClock();
+                }, 500); // Short pause before next update
+            }
+        }
+
+        function updateTypingClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            targetText = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('typingClock').style.animation = 'none'; // Reset animation
+            void document.getElementById('typingClock').offsetWidth; // Trigger reflow
+            document.getElementById('typingClock').style.animation = 'typing 0.8s steps(20, end), blink-caret 0.75s step-end infinite';
+
+            clearInterval(typingInterval);
+            currentTypedText = '';
+            charIndex = 0;
+            typingInterval = setInterval(typeWriter, 40); // Adjust typing speed
+        }
+
+        // Update every second, but the typing animation will make it appear to "retype"
+        setInterval(updateTypingClock, 1000);
+        updateTypingClock(); // Initial call
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="clock6Preview" title="Typing Clock Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('clock6')">Run Clock</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s">
+            <h2>7. Minimalist Digital Clock</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="clock7Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Digital Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .minimal-clock-container {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #1e293b;
+            font-size: 3.5rem;
+            font-weight: 300; /* Light font weight */
+            letter-spacing: 0.05em;
+            border: 1px solid #e2e8f0;
+            width: 100%;
+            max-width: 350px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .date-display {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #64748b;
+            margin-top: 0.5rem;
+        }
+        @media (max-width: 600px) {
+            .minimal-clock-container { font-size: 2.5rem; padding: 1rem; }
+            .date-display { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="minimal-clock-container">
+        <div class="flex flex-col items-center">
+            <div id="minimalTime"></div>
+            <div id="minimalDate" class="date-display"></div>
+        </div>
+    </div>
+
+    <script>
+        function updateMinimalClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            document.getElementById('minimalTime').textContent = `${hours}:${minutes}:${seconds}`;
+
+            const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+            document.getElementById('minimalDate').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        setInterval(updateMinimalClock, 1000);
+        updateMinimalClock(); // Initial call
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="clock7Preview" title="Minimalist Digital Clock Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('clock7')">Run Clock</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
+            <h2>8. Circular Progress Clock</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="clock8Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circular Progress Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1a202c; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .circular-clock-container {
+            background-color: #2d3748;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+            color: #f8fafc;
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #a78bfa;
+        }
+        .time-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            z-index: 1;
+        }
+        .date-display {
+            font-size: 1rem;
+            color: #cbd5e1;
+            z-index: 1;
+        }
+        .progress-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #3b82f6 0% var(--seconds-progress),
+                #60a5fa var(--seconds-progress) var(--minutes-progress),
+                #93c5fd var(--minutes-progress) var(--hours-progress),
+                transparent var(--hours-progress) 100%
+            );
+            transition: background 0.5s linear;
+        }
+        @media (max-width: 600px) {
+            .circular-clock-container { width: 250px; height: 250px; padding: 1.5rem; }
+            .time-display { font-size: 2rem; }
+            .date-display { font-size: 0.9rem; }
+            .progress-circle { width: 230px; height: 230px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="circular-clock-container">
+        <div class="progress-circle" id="progressCircle"></div>
+        <div id="timeDisplay" class="time-display"></div>
+        <div id="dateDisplay" class="date-display"></div>
+    </div>
+
+    <script>
+        function updateCircularClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const totalSecondsInMinute = 60;
+            const totalMinutesInHour = 60;
+            const totalHoursInDay = 24;
+
+            const secondsProgress = (seconds / totalSecondsInMinute) * 100;
+            const minutesProgress = ((minutes + seconds / totalSecondsInMinute) / totalMinutesInHour) * 100;
+            const hoursProgress = ((hours + minutes / totalMinutesInHour) / totalHoursInDay) * 100;
+
+            const progressCircle = document.getElementById('progressCircle');
+            progressCircle.style.setProperty('--seconds-progress', `${secondsProgress}%`);
+            progressCircle.style.setProperty('--minutes-progress', `${minutesProgress}%`);
+            progressCircle.style.setProperty('--hours-progress', `${hoursProgress}%`);
+
+            let displayHours = hours < 10 ? '0' + hours : hours;
+            let displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+            let displaySeconds = seconds < 10 ? '0' + seconds : seconds;
+
+            document.getElementById('timeDisplay').textContent = `${displayHours}:${displayMinutes}:${displaySeconds}`;
+
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('dateDisplay').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        setInterval(updateCircularClock, 1000);
+        updateCircularClock(); // Initial call
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="clock8Preview" title="Circular Progress Clock Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('clock8')">Run Clock</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s">
+            <h2>9. Date & Time Clock</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="clock9Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date & Time Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .datetime-clock-container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #1e293b;
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e2e8f0;
+        }
+        .time-large {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #3b82f6; /* Blue 500 */
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+        .date-full {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #475569;
+            margin-bottom: 1rem;
+        }
+        .day-of-week {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+        @media (max-width: 600px) {
+            .datetime-clock-container { padding: 1.5rem; }
+            .time-large { font-size: 3rem; }
+            .date-full { font-size: 1.2rem; }
+            .day-of-week { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="datetime-clock-container">
+        <div id="currentTime" class="time-large"></div>
+        <div id="currentDate" class="date-full"></div>
+        <div id="currentDay" class="day-of-week"></div>
+    </div>
+
+    <script>
+        function updateDateTimeClock() {
+            const now = new Date();
+
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            document.getElementById('currentTime').textContent = `${hours}:${minutes}:${seconds}`;
+
+            const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', dateOptions);
+
+            const dayOptions = { weekday: 'long' };
+            document.getElementById('currentDay').textContent = now.toLocaleDateString('en-US', dayOptions);
+        }
+
+        setInterval(updateDateTimeClock, 1000);
+        updateDateTimeClock(); // Initial call
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="clock9Preview" title="Date & Time Clock Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('clock9')">Run Clock</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s">
+            <h2>10. Gradient Digital Clock</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="clock10Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Digital Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Digital-7&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Digital-7';
+            src: url('https://fonts.cdnfonts.com/s/17234/digital-7.woff') format('woff'); /* Fallback if Google Font isn't available */
+        }
+        body { background-color: #0f172a; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .gradient-clock-container {
+            background: linear-gradient(45deg, #6366f1, #a78bfa, #8b5cf6); /* Indigo to Purple gradient */
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            text-align: center;
+            color: white;
+            font-family: 'Digital-7', monospace; /* Use Digital-7 or fallback */
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            width: 100%;
+            max-width: 550px;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            animation: gradient-shift 10s ease infinite alternate;
+            background-size: 200% 200%;
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @media (max-width: 600px) {
+            .gradient-clock-container { font-size: 3rem; padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="gradientClock" class="gradient-clock-container"></div>
+
+    <script>
+        function updateGradientClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            document.getElementById('gradientClock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateGradientClock, 1000);
+        updateGradientClock(); // Initial call
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="clock10Preview" title="Gradient Digital Clock Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('clock10')">Run Clock</button>
+            </div>
+        </section>
+
+        <h2 class="section-title mb-16 mt-24 wow animate__animated animate__fadeIn">Calculators Showcase</h2>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.1s">
+            <h2>1. Basic Calculator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="calc1Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .calculator-container {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 320px;
+            border: 1px solid #e2e8f0;
+        }
+        .display {
+            background-color: #e2e8f0;
+            color: #1e293b;
+            font-size: 2.5rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: right;
+            margin-bottom: 1rem;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            word-break: break-all;
+            overflow: hidden;
+        }
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+        .button {
+            padding: 1.25rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            background-color: #cbd5e1;
+            color: #1e293b;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            border: none;
+            outline: none;
+        }
+        .button:hover {
+            background-color: #94a3b8;
+            transform: translateY(-1px);
+        }
+        .button.operator {
+            background-color: #3b82f6; /* Blue */
+            color: white;
+        }
+        .button.operator:hover {
+            background-color: #2563eb;
+        }
+        .button.equals {
+            background-color: #10b981; /* Emerald */
+            color: white;
+            grid-column: span 2;
+        }
+        .button.equals:hover {
+            background-color: #059669;
+        }
+        .button.clear {
+            background-color: #ef4444; /* Red */
+            color: white;
+        }
+        .button.clear:hover {
+            background-color: #dc2626;
+        }
+        @media (max-width: 600px) {
+            .calculator-container { padding: 1rem; max-width: 280px; }
+            .display { font-size: 2rem; padding: 0.75rem; min-height: 60px; }
+            .button { padding: 1rem; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div id="display" class="display">0</div>
+        <div class="buttons-grid">
+            <button class="button clear" onclick="clearDisplay()">AC</button>
+            <button class="button operator" onclick="appendOperator('/')">÷</button>
+            <button class="button operator" onclick="appendOperator('*')">×</button>
+            <button class="button" onclick="appendNumber('7')">7</button>
+            <button class="button" onclick="appendNumber('8')">8</button>
+            <button class="button" onclick="appendNumber('9')">9</button>
+            <button class="button operator" onclick="appendOperator('-')">-</button>
+            <button class="button" onclick="appendNumber('4')">4</button>
+            <button class="button" onclick="appendNumber('5')">5</button>
+            <button class="button" onclick="appendNumber('6')">6</button>
+            <button class="button operator" onclick="appendOperator('+')">+</button>
+            <button class="button" onclick="appendNumber('1')">1</button>
+            <button class="button" onclick="appendNumber('2')">2</button>
+            <button class="button" onclick="appendNumber('3')">3</button>
+            <button class="button equals" onclick="calculateResult()">=</button>
+            <button class="button" onclick="appendNumber('0')">0</button>
+            <button class="button" onclick="appendNumber('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        let currentInput = '0';
+        let operator = null;
+        let previousInput = '';
+        let resetDisplay = false;
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+
+        function appendNumber(number) {
+            if (resetDisplay) {
+                currentInput = number;
+                resetDisplay = false;
+            } else {
+                if (currentInput === '0' && number !== '.') {
+                    currentInput = number;
+                } else if (number === '.' && currentInput.includes('.')) {
+                    return; // Prevent multiple decimals
+                } else {
+                    currentInput += number;
+                }
+            }
+            updateDisplay();
+        }
+
+        function appendOperator(op) {
+            if (operator !== null && !resetDisplay) {
+                calculateResult();
+            }
+            operator = op;
+            previousInput = currentInput;
+            resetDisplay = true;
+        }
+
+        function calculateResult() {
+            if (operator === null || previousInput === '') {
+                return;
+            }
+
+            let result;
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+
+            if (isNaN(prev) || isNaN(current)) {
+                parent.showMessageBox('Invalid input.', 'error', 'Error');
+                clearDisplay();
+                return;
+            }
+
+            switch (operator) {
+                case '+':
+                    result = prev + current;
+                    break;
+                case '-':
+                    result = prev - current;
+                    break;
+                case '*':
+                    result = prev * current;
+                    break;
+                case '/':
+                    if (current === 0) {
+                        parent.showMessageBox('Cannot divide by zero!', 'error', 'Error');
+                        clearDisplay();
+                        return;
+                    }
+                    result = prev / current;
+                    break;
+                default:
+                    return;
+            }
+
+            currentInput = result.toString();
+            operator = null;
+            previousInput = '';
+            resetDisplay = true;
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentInput = '0';
+            operator = null;
+            previousInput = '';
+            resetDisplay = false;
+            updateDisplay();
+        }
+
+        updateDisplay(); // Initialize display
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="calc1Preview" title="Basic Calculator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('calc1')">Run Calculator</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.2s">
+            <h2>2. Scientific Calculator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="calc2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .calculator-container {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 360px;
+            border: 1px solid #e2e8f0;
+        }
+        .display {
+            background-color: #e2e8f0;
+            color: #1e293b;
+            font-size: 2.2rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: right;
+            margin-bottom: 1rem;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            word-break: break-all;
+            overflow: hidden;
+        }
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.75rem;
+        }
+        .button {
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            background-color: #cbd5e1;
+            color: #1e293b;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            border: none;
+            outline: none;
+        }
+        .button:hover {
+            background-color: #94a3b8;
+            transform: translateY(-1px);
+        }
+        .button.operator, .button.function {
+            background-color: #3b82f6; /* Blue */
+            color: white;
+        }
+        .button.operator:hover, .button.function:hover {
+            background-color: #2563eb;
+        }
+        .button.equals {
+            background-color: #10b981; /* Emerald */
+            color: white;
+            grid-column: span 2;
+        }
+        .button.equals:hover {
+            background-color: #059669;
+        }
+        .button.clear {
+            background-color: #ef4444; /* Red */
+            color: white;
+        }
+        .button.clear:hover {
+            background-color: #dc2626;
+        }
+        @media (max-width: 600px) {
+            .calculator-container { padding: 1rem; max-width: 300px; }
+            .display { font-size: 1.8rem; padding: 0.75rem; min-height: 60px; }
+            .button { padding: 0.8rem; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div id="display" class="display">0</div>
+        <div class="buttons-grid">
+            <button class="button clear" onclick="clearDisplay()">AC</button>
+            <button class="button function" onclick="performFunction('sqrt')">√</button>
+            <button class="button function" onclick="performFunction('pow2')">x²</button>
+            <button class="button operator" onclick="appendOperator('/')">÷</button>
+            <button class="button operator" onclick="appendOperator('*')">×</button>
+
+            <button class="button" onclick="appendNumber('7')">7</button>
+            <button class="button" onclick="appendNumber('8')">8</button>
+            <button class="button" onclick="appendNumber('9')">9</button>
+            <button class="button operator" onclick="appendOperator('-')">-</button>
+            <button class="button operator" onclick="appendOperator('+')">+</button>
+
+            <button class="button" onclick="appendNumber('4')">4</button>
+            <button class="button" onclick="appendNumber('5')">5</button>
+            <button class="button" onclick="appendNumber('6')">6</button>
+            <button class="button function" onclick="performFunction('sin')">sin</button>
+            <button class="button function" onclick="performFunction('cos')">cos</button>
+
+            <button class="button" onclick="appendNumber('1')">1</button>
+            <button class="button" onclick="appendNumber('2')">2</button>
+            <button class="button" onclick="appendNumber('3')">3</button>
+            <button class="button function" onclick="performFunction('tan')">tan</button>
+            <button class="button function" onclick="appendNumber('PI')">π</button>
+
+            <button class="button" onclick="appendNumber('0')">0</button>
+            <button class="button" onclick="appendNumber('.')">.</button>
+            <button class="button equals" onclick="calculateResult()">=</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        let currentInput = '0';
+        let operator = null;
+        let previousInput = '';
+        let resetDisplay = false;
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+
+        function appendNumber(number) {
+            if (resetDisplay) {
+                currentInput = number;
+                resetDisplay = false;
+            } else {
+                if (currentInput === '0' && number !== '.') {
+                    currentInput = number;
+                } else if (number === '.' && currentInput.includes('.')) {
+                    return;
+                } else if (number === 'PI') {
+                    currentInput = Math.PI.toString();
+                } else {
+                    currentInput += number;
+                }
+            }
+            updateDisplay();
+        }
+
+        function appendOperator(op) {
+            if (operator !== null && !resetDisplay) {
+                calculateResult();
+            }
+            operator = op;
+            previousInput = currentInput;
+            resetDisplay = true;
+        }
+
+        function performFunction(func) {
+            let value = parseFloat(currentInput);
+            if (isNaN(value)) {
+                parent.showMessageBox('Invalid input for function.', 'error', 'Error');
+                return;
+            }
+            let result;
+            switch (func) {
+                case 'sqrt':
+                    result = Math.sqrt(value);
+                    break;
+                case 'pow2':
+                    result = value * value;
+                    break;
+                case 'sin':
+                    result = Math.sin(value * Math.PI / 180); // Convert degrees to radians
+                    break;
+                case 'cos':
+                    result = Math.cos(value * Math.PI / 180);
+                    break;
+                case 'tan':
+                    result = Math.tan(value * Math.PI / 180);
+                    break;
+                default:
+                    return;
+            }
+            currentInput = result.toString();
+            resetDisplay = true;
+            updateDisplay();
+        }
+
+        function calculateResult() {
+            if (operator === null || previousInput === '') {
+                return;
+            }
+
+            let result;
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+
+            if (isNaN(prev) || isNaN(current)) {
+                parent.showMessageBox('Invalid input.', 'error', 'Error');
+                clearDisplay();
+                return;
+            }
+
+            switch (operator) {
+                case '+':
+                    result = prev + current;
+                    break;
+                case '-':
+                    result = prev - current;
+                    break;
+                case '*':
+                    result = prev * current;
+                    break;
+                case '/':
+                    if (current === 0) {
+                        parent.showMessageBox('Cannot divide by zero!', 'error', 'Error');
+                        clearDisplay();
+                        return;
+                    }
+                    result = prev / current;
+                    break;
+                default:
+                    return;
+            }
+
+            currentInput = result.toString();
+            operator = null;
+            previousInput = '';
+            resetDisplay = true;
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentInput = '0';
+            operator = null;
+            previousInput = '';
+            resetDisplay = false;
+            updateDisplay();
+        }
+
+        updateDisplay(); // Initialize display
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="calc2Preview" title="Scientific Calculator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('calc2')">Run Calculator</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.3s">
+            <h2>3. History Calculator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="calc3Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .calculator-container {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 320px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+        }
+        .history-display {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-align: right;
+            min-height: 40px;
+            max-height: 100px;
+            overflow-y: auto;
+            margin-bottom: 0.5rem;
+            word-break: break-all;
+        }
+        .display {
+            background-color: #e2e8f0;
+            color: #1e293b;
+            font-size: 2.5rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: right;
+            margin-bottom: 1rem;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            word-break: break-all;
+            overflow: hidden;
+        }
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+        .button {
+            padding: 1.25rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            background-color: #cbd5e1;
+            color: #1e293b;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            border: none;
+            outline: none;
+        }
+        .button:hover {
+            background-color: #94a3b8;
+            transform: translateY(-1px);
+        }
+        .button.operator {
+            background-color: #3b82f6; /* Blue */
+            color: white;
+        }
+        .button.operator:hover {
+            background-color: #2563eb;
+        }
+        .button.equals {
+            background-color: #10b981; /* Emerald */
+            color: white;
+            grid-column: span 2;
+        }
+        .button.equals:hover {
+            background-color: #059669;
+        }
+        .button.clear {
+            background-color: #ef4444; /* Red */
+            color: white;
+        }
+        .button.clear:hover {
+            background-color: #dc2626;
+        }
+        @media (max-width: 600px) {
+            .calculator-container { padding: 1rem; max-width: 280px; }
+            .history-display { font-size: 0.8rem; padding: 0.4rem 0.8rem; min-height: 30px; }
+            .display { font-size: 2rem; padding: 0.75rem; min-height: 60px; }
+            .button { padding: 1rem; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div id="historyDisplay" class="history-display"></div>
+        <div id="display" class="display">0</div>
+        <div class="buttons-grid">
+            <button class="button clear" onclick="clearDisplay()">AC</button>
+            <button class="button operator" onclick="appendOperator('/')">÷</button>
+            <button class="button operator" onclick="appendOperator('*')">×</button>
+            <button class="button" onclick="appendNumber('7')">7</button>
+            <button class="button" onclick="appendNumber('8')">8</button>
+            <button class="button" onclick="appendNumber('9')">9</button>
+            <button class="button operator" onclick="appendOperator('-')">-</button>
+            <button class="button" onclick="appendNumber('4')">4</button>
+            <button class="button" onclick="appendNumber('5')">5</button>
+            <button class="button" onclick="appendNumber('6')">6</button>
+            <button class="button operator" onclick="appendOperator('+')">+</button>
+            <button class="button" onclick="appendNumber('1')">1</button>
+            <button class="button" onclick="appendNumber('2')">2</button>
+            <button class="button" onclick="appendNumber('3')">3</button>
+            <button class="button equals" onclick="calculateResult()">=</button>
+            <button class="button" onclick="appendNumber('0')">0</button>
+            <button class="button" onclick="appendNumber('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        const historyDisplay = document.getElementById('historyDisplay');
+        let currentInput = '0';
+        let operator = null;
+        let previousInput = '';
+        let resetDisplay = false;
+        let calculationHistory = [];
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+
+        function updateHistory(entry) {
+            calculationHistory.push(entry);
+            historyDisplay.textContent = calculationHistory.join('\n');
+            historyDisplay.scrollTop = historyDisplay.scrollHeight; // Scroll to bottom
+        }
+
+        function appendNumber(number) {
+            if (resetDisplay) {
+                currentInput = number;
+                resetDisplay = false;
+            } else {
+                if (currentInput === '0' && number !== '.') {
+                    currentInput = number;
+                } else if (number === '.' && currentInput.includes('.')) {
+                    return;
+                } else {
+                    currentInput += number;
+                }
+            }
+            updateDisplay();
+        }
+
+        function appendOperator(op) {
+            if (operator !== null && !resetDisplay) {
+                calculateResult();
+            }
+            operator = op;
+            previousInput = currentInput;
+            resetDisplay = true;
+            updateHistory(`${previousInput} ${operator}`);
+        }
+
+        function calculateResult() {
+            if (operator === null || previousInput === '') {
+                return;
+            }
+
+            let result;
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+
+            if (isNaN(prev) || isNaN(current)) {
+                parent.showMessageBox('Invalid input.', 'error', 'Error');
+                clearDisplay();
+                return;
+            }
+
+            switch (operator) {
+                case '+':
+                    result = prev + current;
+                    break;
+                case '-':
+                    result = prev - current;
+                    break;
+                case '*':
+                    result = prev * current;
+                    break;
+                case '/':
+                    if (current === 0) {
+                        parent.showMessageBox('Cannot divide by zero!', 'error', 'Error');
+                        clearDisplay();
+                        return;
+                    }
+                    result = prev / current;
+                    break;
+                default:
+                    return;
+            }
+
+            const historyEntry = `${previousInput} ${operator} ${currentInput} = ${result}`;
+            updateHistory(historyEntry);
+
+            currentInput = result.toString();
+            operator = null;
+            previousInput = '';
+            resetDisplay = true;
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentInput = '0';
+            operator = null;
+            previousInput = '';
+            resetDisplay = false;
+            calculationHistory = [];
+            historyDisplay.textContent = '';
+            updateDisplay();
+        }
+
+        updateDisplay(); // Initialize display
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="calc3Preview" title="History Calculator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('calc3')">Run Calculator</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.4s">
+            <h2>4. Percentage Calculator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="calc4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .calculator-container {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 320px;
+            border: 1px solid #e2e8f0;
+        }
+        .display {
+            background-color: #e2e8f0;
+            color: #1e293b;
+            font-size: 2.5rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: right;
+            margin-bottom: 1rem;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            word-break: break-all;
+            overflow: hidden;
+        }
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+        .button {
+            padding: 1.25rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            background-color: #cbd5e1;
+            color: #1e293b;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            border: none;
+            outline: none;
+        }
+        .button:hover {
+            background-color: #94a3b8;
+            transform: translateY(-1px);
+        }
+        .button.operator {
+            background-color: #3b82f6; /* Blue */
+            color: white;
+        }
+        .button.operator:hover {
+            background-color: #2563eb;
+        }
+        .button.percent {
+            background-color: #f97316; /* Orange */
+            color: white;
+        }
+        .button.percent:hover {
+            background-color: #ea580c;
+        }
+        .button.equals {
+            background-color: #10b981; /* Emerald */
+            color: white;
+            grid-column: span 2;
+        }
+        .button.equals:hover {
+            background-color: #059669;
+        }
+        .button.clear {
+            background-color: #ef4444; /* Red */
+            color: white;
+        }
+        .button.clear:hover {
+            background-color: #dc2626;
+        }
+        @media (max-width: 600px) {
+            .calculator-container { padding: 1rem; max-width: 280px; }
+            .display { font-size: 2rem; padding: 0.75rem; min-height: 60px; }
+            .button { padding: 1rem; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div id="display" class="display">0</div>
+        <div class="buttons-grid">
+            <button class="button clear" onclick="clearDisplay()">AC</button>
+            <button class="button percent" onclick="calculatePercentage()">%</button>
+            <button class="button operator" onclick="appendOperator('/')">÷</button>
+            <button class="button operator" onclick="appendOperator('*')">×</button>
+            <button class="button" onclick="appendNumber('7')">7</button>
+            <button class="button" onclick="appendNumber('8')">8</button>
+            <button class="button" onclick="appendNumber('9')">9</button>
+            <button class="button operator" onclick="appendOperator('-')">-</button>
+            <button class="button" onclick="appendNumber('4')">4</button>
+            <button class="button" onclick="appendNumber('5')">5</button>
+            <button class="button" onclick="appendNumber('6')">6</button>
+            <button class="button operator" onclick="appendOperator('+')">+</button>
+            <button class="button" onclick="appendNumber('1')">1</button>
+            <button class="button" onclick="appendNumber('2')">2</button>
+            <button class="button" onclick="appendNumber('3')">3</button>
+            <button class="button equals" onclick="calculateResult()">=</button>
+            <button class="button" onclick="appendNumber('0')">0</button>
+            <button class="button" onclick="appendNumber('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        let currentInput = '0';
+        let operator = null;
+        let previousInput = '';
+        let resetDisplay = false;
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+
+        function appendNumber(number) {
+            if (resetDisplay) {
+                currentInput = number;
+                resetDisplay = false;
+            } else {
+                if (currentInput === '0' && number !== '.') {
+                    currentInput = number;
+                } else if (number === '.' && currentInput.includes('.')) {
+                    return;
+                } else {
+                    currentInput += number;
+                }
+            }
+            updateDisplay();
+        }
+
+        function appendOperator(op) {
+            if (operator !== null && !resetDisplay) {
+                calculateResult();
+            }
+            operator = op;
+            previousInput = currentInput;
+            resetDisplay = true;
+        }
+
+        function calculatePercentage() {
+            let value = parseFloat(currentInput);
+            if (isNaN(value)) {
+                parent.showMessageBox('Invalid input for percentage.', 'error', 'Error');
+                return;
+            }
+            currentInput = (value / 100).toString();
+            resetDisplay = true;
+            updateDisplay();
+        }
+
+        function calculateResult() {
+            if (operator === null || previousInput === '') {
+                return;
+            }
+
+            let result;
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+
+            if (isNaN(prev) || isNaN(current)) {
+                parent.showMessageBox('Invalid input.', 'error', 'Error');
+                clearDisplay();
+                return;
+            }
+
+            switch (operator) {
+                case '+':
+                    result = prev + current;
+                    break;
+                case '-':
+                    result = prev - current;
+                    break;
+                case '*':
+                    result = prev * current;
+                    break;
+                case '/':
+                    if (current === 0) {
+                        parent.showMessageBox('Cannot divide by zero!', 'error', 'Error');
+                        clearDisplay();
+                        return;
+                    }
+                    result = prev / current;
+                    break;
+                default:
+                    return;
+            }
+
+            currentInput = result.toString();
+            operator = null;
+            previousInput = '';
+            resetDisplay = true;
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentInput = '0';
+            operator = null;
+            previousInput = '';
+            resetDisplay = false;
+            updateDisplay();
+        }
+
+        updateDisplay(); // Initialize display
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="calc4Preview" title="Percentage Calculator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('calc4')">Run Calculator</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.5s">
+            <h2>5. Dark Mode Calculator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="calc5Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .calculator-container {
+            background-color: #1e293b;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 320px;
+            border: 1px solid #334155;
+        }
+        .display {
+            background-color: #2d3748;
+            color: #f8fafc;
+            font-size: 2.5rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: right;
+            margin-bottom: 1rem;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            word-break: break-all;
+            overflow: hidden;
+        }
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+        .button {
+            padding: 1.25rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            background-color: #475569;
+            color: #f8fafc;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            border: none;
+            outline: none;
+        }
+        .button:hover {
+            background-color: #64748b;
+            transform: translateY(-1px);
+        }
+        .button.operator {
+            background-color: #3b82f6; /* Blue */
+            color: white;
+        }
+        .button.operator:hover {
+            background-color: #2563eb;
+        }
+        .button.equals {
+            background-color: #10b981; /* Emerald */
+            color: white;
+            grid-column: span 2;
+        }
+        .button.equals:hover {
+            background-color: #059669;
+        }
+        .button.clear {
+            background-color: #ef4444; /* Red */
+            color: white;
+        }
+        .button.clear:hover {
+            background-color: #dc2626;
+        }
+        @media (max-width: 600px) {
+            .calculator-container { padding: 1rem; max-width: 280px; }
+            .display { font-size: 2rem; padding: 0.75rem; min-height: 60px; }
+            .button { padding: 1rem; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div id="display" class="display">0</div>
+        <div class="buttons-grid">
+            <button class="button clear" onclick="clearDisplay()">AC</button>
+            <button class="button operator" onclick="appendOperator('/')">÷</button>
+            <button class="button operator" onclick="appendOperator('*')">×</button>
+            <button class="button" onclick="appendNumber('7')">7</button>
+            <button class="button" onclick="appendNumber('8')">8</button>
+            <button class="button" onclick="appendNumber('9')">9</button>
+            <button class="button operator" onclick="appendOperator('-')">-</button>
+            <button class="button" onclick="appendNumber('4')">4</button>
+            <button class="button" onclick="appendNumber('5')">5</button>
+            <button class="button" onclick="appendNumber('6')">6</button>
+            <button class="button operator" onclick="appendOperator('+')">+</button>
+            <button class="button" onclick="appendNumber('1')">1</button>
+            <button class="button" onclick="appendNumber('2')">2</button>
+            <button class="button" onclick="appendNumber('3')">3</button>
+            <button class="button equals" onclick="calculateResult()">=</button>
+            <button class="button" onclick="appendNumber('0')">0</button>
+            <button class="button" onclick="appendNumber('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        let currentInput = '0';
+        let operator = null;
+        let previousInput = '';
+        let resetDisplay = false;
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+
+        function appendNumber(number) {
+            if (resetDisplay) {
+                currentInput = number;
+                resetDisplay = false;
+            } else {
+                if (currentInput === '0' && number !== '.') {
+                    currentInput = number;
+                } else if (number === '.' && currentInput.includes('.')) {
+                    return;
+                } else {
+                    currentInput += number;
+                }
+            }
+            updateDisplay();
+        }
+
+        function appendOperator(op) {
+            if (operator !== null && !resetDisplay) {
+                calculateResult();
+            }
+            operator = op;
+            previousInput = currentInput;
+            resetDisplay = true;
+        }
+
+        function calculateResult() {
+            if (operator === null || previousInput === '') {
+                return;
+            }
+
+            let result;
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+
+            if (isNaN(prev) || isNaN(current)) {
+                parent.showMessageBox('Invalid input.', 'error', 'Error');
+                clearDisplay();
+                return;
+            }
+
+            switch (operator) {
+                case '+':
+                    result = prev + current;
+                    break;
+                case '-':
+                    result = prev - current;
+                    break;
+                case '*':
+                    result = prev * current;
+                    break;
+                case '/':
+                    if (current === 0) {
+                        parent.showMessageBox('Cannot divide by zero!', 'error', 'Error');
+                        clearDisplay();
+                        return;
+                    }
+                    result = prev / current;
+                    break;
+                default:
+                    return;
+            }
+
+            currentInput = result.toString();
+            operator = null;
+            previousInput = '';
+            resetDisplay = true;
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentInput = '0';
+            operator = null;
+            previousInput = '';
+            resetDisplay = false;
+            updateDisplay();
+        }
+
+        updateDisplay(); // Initialize display
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="calc5Preview" title="Dark Mode Calculator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('calc5')">Run Calculator</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.6s">
+            <h2>6. Colorful Calculator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="calc6Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .calculator-container {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 320px;
+            border: 1px solid #e2e8f0;
+        }
+        .display {
+            background-color: #e2e8f0;
+            color: #1e293b;
+            font-size: 2.5rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: right;
+            margin-bottom: 1rem;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            word-break: break-all;
+            overflow: hidden;
+        }
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+        .button {
+            padding: 1.25rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            background-color: #cbd5e1;
+            color: #1e293b;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            border: none;
+            outline: none;
+        }
+        .button:hover {
+            transform: translateY(-1px);
+        }
+        .button.number { background-color: #dbeafe; color: #2563eb; } /* Blue 100 */
+        .button.number:hover { background-color: #bfdbfe; } /* Blue 200 */
+        .button.operator { background-color: #fecaca; color: #dc2626; } /* Red 200 */
+        .button.operator:hover { background-color: #fca5a5; } /* Red 300 */
+        .button.equals { background-color: #a7f3d0; color: #059669; grid-column: span 2; } /* Green 200 */
+        .button.equals:hover { background-color: #6ee7b7; } /* Green 300 */
+        .button.clear { background-color: #fbcfe8; color: #c026d3; } /* Pink 200 */
+        .button.clear:hover { background-color: #f0abfc; } /* Pink 300 */
+        .button.decimal { background-color: #ffedd5; color: #f97316; } /* Orange 100 */
+        .button.decimal:hover { background-color: #fed7aa; } /* Orange 200 */
+
+        @media (max-width: 600px) {
+            .calculator-container { padding: 1rem; max-width: 280px; }
+            .display { font-size: 2rem; padding: 0.75rem; min-height: 60px; }
+            .button { padding: 1rem; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div id="display" class="display">0</div>
+        <div class="buttons-grid">
+            <button class="button clear" onclick="clearDisplay()">AC</button>
+            <button class="button operator" onclick="appendOperator('/')">÷</button>
+            <button class="button operator" onclick="appendOperator('*')">×</button>
+            <button class="button number" onclick="appendNumber('7')">7</button>
+            <button class="button number" onclick="appendNumber('8')">8</button>
+            <button class="button number" onclick="appendNumber('9')">9</button>
+            <button class="button operator" onclick="appendOperator('-')">-</button>
+            <button class="button number" onclick="appendNumber('4')">4</button>
+            <button class="button number" onclick="appendNumber('5')">5</button>
+            <button class="button number" onclick="appendNumber('6')">6</button>
+            <button class="button operator" onclick="appendOperator('+')">+</button>
+            <button class="button number" onclick="appendNumber('1')">1</button>
+            <button class="button number" onclick="appendNumber('2')">2</button>
+            <button class="button number" onclick="appendNumber('3')">3</button>
+            <button class="button equals" onclick="calculateResult()">=</button>
+            <button class="button number" onclick="appendNumber('0')">0</button>
+            <button class="button decimal" onclick="appendNumber('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        let currentInput = '0';
+        let operator = null;
+        let previousInput = '';
+        let resetDisplay = false;
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+
+        function appendNumber(number) {
+            if (resetDisplay) {
+                currentInput = number;
+                resetDisplay = false;
+            } else {
+                if (currentInput === '0' && number !== '.') {
+                    currentInput = number;
+                } else if (number === '.' && currentInput.includes('.')) {
+                    return;
+                } else {
+                    currentInput += number;
+                }
+            }
+            updateDisplay();
+        }
+
+        function appendOperator(op) {
+            if (operator !== null && !resetDisplay) {
+                calculateResult();
+            }
+            operator = op;
+            previousInput = currentInput;
+            resetDisplay = true;
+        }
+
+        function calculateResult() {
+            if (operator === null || previousInput === '') {
+                return;
+            }
+
+            let result;
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+
+            if (isNaN(prev) || isNaN(current)) {
+                parent.showMessageBox('Invalid input.', 'error', 'Error');
+                clearDisplay();
+                return;
+            }
+
+            switch (operator) {
+                case '+':
+                    result = prev + current;
+                    break;
+                case '-':
+                    result = prev - current;
+                    break;
+                case '*':
+                    result = prev * current;
+                    break;
+                case '/':
+                    if (current === 0) {
+                        parent.showMessageBox('Cannot divide by zero!', 'error', 'Error');
+                        clearDisplay();
+                        return;
+                    }
+                    result = prev / current;
+                    break;
+                default:
+                    return;
+            }
+
+            currentInput = result.toString();
+            operator = null;
+            previousInput = '';
+            resetDisplay = true;
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentInput = '0';
+            operator = null;
+            previousInput = '';
+            resetDisplay = false;
+            updateDisplay();
+        }
+
+        updateDisplay(); // Initialize display
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="calc6Preview" title="Colorful Calculator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('calc6')">Run Calculator</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.7s">
+            <h2>7. Unit Converter (Length)</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="calc7Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .converter-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #e2e8f0;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .input-group label {
+            font-weight: 600;
+            color: #334155;
+            flex-shrink: 0;
+        }
+        .input-group input, .input-group select {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            background-color: #f8fafc;
+        }
+        .result-display {
+            background-color: #e2e8f0;
+            color: #1e293b;
+            font-size: 1.5rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            .converter-container { padding: 1.5rem; max-width: 350px; }
+            .input-group { flex-direction: column; align-items: flex-start; }
+            .input-group label { margin-bottom: 0.25rem; }
+            .result-display { font-size: 1.2rem; padding: 0.75rem; min-height: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="converter-container">
+        <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Length Converter</h1>
+
+        <div class="input-group">
+            <label for="inputValue">Value:</label>
+            <input type="number" id="inputValue" value="1" oninput="convertUnits()">
+        </div>
+
+        <div class="input-group">
+            <label for="fromUnit">From:</label>
+            <select id="fromUnit" onchange="convertUnits()">
+                <option value="cm">Centimeters (cm)</option>
+                <option value="m">Meters (m)</option>
+                <option value="km">Kilometers (km)</option>
+                <option value="inch">Inches (in)</option>
+                <option value="ft">Feet (ft)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="toUnit">To:</label>
+            <select id="toUnit" onchange="convertUnits()">
+                <option value="m">Meters (m)</option>
+                <option value="cm">Centimeters (cm)</option>
+                <option value="km">Kilometers (km)</option>
+                <option value="inch">Inches (in)</option>
+                <option value="ft">Feet (ft)</option>
+            </select>
+        </div>
+
+        <div id="result" class="result-display"></div>
+    </div>
+
+    <script>
+        const conversionFactors = {
+            cm: {
+                m: 0.01,
+                km: 0.00001,
+                inch: 0.393701,
+                ft: 0.0328084,
+                cm: 1
+            },
+            m: {
+                cm: 100,
+                km: 0.001,
+                inch: 39.3701,
+                ft: 3.28084,
+                m: 1
+            },
+            km: {
+                cm: 100000,
+                m: 1000,
+                inch: 39370.1,
+                ft: 3280.84,
+                km: 1
+            },
+            inch: {
+                cm: 2.54,
+                m: 0.0254,
+                km: 0.0000254,
+                ft: 0.0833333,
+                inch: 1
+            },
+            ft: {
+                cm: 30.48,
+                m: 0.3048,
+                km: 0.0003048,
+                inch: 12,
+                ft: 1
+            }
+        };
+
+        function convertUnits() {
+            const inputValue = parseFloat(document.getElementById('inputValue').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+            const resultDisplay = document.getElementById('result');
+
+            if (isNaN(inputValue)) {
+                resultDisplay.textContent = 'Please enter a valid number.';
+                parent.showMessageBox('Please enter a valid number.', 'error', 'Invalid Input');
+                return;
+            }
+
+            if (!conversionFactors[fromUnit] || !conversionFactors[fromUnit][toUnit]) {
+                resultDisplay.textContent = 'Conversion not available.';
+                parent.showMessageBox('Selected conversion is not available.', 'error', 'Conversion Error');
+                return;
+            }
+
+            const result = inputValue * conversionFactors[fromUnit][toUnit];
+            resultDisplay.textContent = `${inputValue} ${fromUnit} = ${result.toFixed(4)} ${toUnit}`;
+        }
+
+        convertUnits(); // Initial conversion on load
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="calc7Preview" title="Unit Converter Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('calc7')">Run Calculator</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.8s">
+            <h2>8. Tip Calculator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="calc8Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .tip-calculator-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 350px;
+            border: 1px solid #e2e8f0;
+        }
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.5rem;
+        }
+        .input-group input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            background-color: #f8fafc;
+        }
+        .tip-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .tip-button {
+            flex: 1 1 calc(33% - 0.5rem); /* 3 buttons per row */
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background-color: #dbeafe; /* Blue 100 */
+            color: #2563eb; /* Blue 600 */
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid #bfdbfe;
+        }
+        .tip-button:hover, .tip-button.active {
+            background-color: #2563eb;
+            color: white;
+            border-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
+        }
+        .results-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed #cbd5e1;
+            text-align: center;
+        }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            color: #475569;
+        }
+        .result-item .label {
+            font-weight: 600;
+        }
+        .result-item .value {
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .total-bill {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #10b981; /* Emerald 500 */
+            margin-top: 1rem;
+        }
+        @media (max-width: 600px) {
+            .tip-calculator-container { padding: 1.5rem; max-width: 300px; }
+            .input-group input[type="number"] { font-size: 1rem; padding: 0.6rem; }
+            .tip-button { padding: 0.6rem; font-size: 0.9rem; }
+            .result-item { font-size: 1rem; }
+            .total-bill { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="tip-calculator-container">
+        <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Tip Calculator</h1>
+
+        <div class="input-group">
+            <label for="billAmount">Bill Amount ($)</label>
+            <input type="number" id="billAmount" placeholder="e.g., 50.00" value="0" min="0">
+        </div>
+
+        <div class="input-group">
+            <label>Tip Percentage</label>
+            <div class="tip-buttons">
+                <button class="tip-button" data-percent="10">10%</button>
+                <button class="tip-button" data-percent="15">15%</button>
+                <button class="tip-button" data-percent="20">20%</button>
+                <button class="tip-button" data-percent="25">25%</button>
+                <button class="tip-button" data-percent="0">Custom</button>
+                <input type="number" id="customTip" placeholder="%" class="tip-button" min="0" max="100">
+            </div>
+        </div>
+
+        <div class="results-section">
+            <div class="result-item">
+                <span class="label">Tip Amount:</span>
+                <span id="tipAmount" class="value">$0.00</span>
+            </div>
+            <div class="result-item">
+                <span class="label">Total Bill:</span>
+                <span id="totalBill" class="total-bill">$0.00</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const billAmountInput = document.getElementById('billAmount');
+        const tipButtons = document.querySelectorAll('.tip-button[data-percent]');
+        const customTipInput = document.getElementById('customTip');
+        const tipAmountDisplay = document.getElementById('tipAmount');
+        const totalBillDisplay = document.getElementById('totalBill');
+
+        let selectedTipPercentage = 0;
+
+        function calculateTip() {
+            const bill = parseFloat(billAmountInput.value);
+            if (isNaN(bill) || bill < 0) {
+                tipAmountDisplay.textContent = '$0.00';
+                totalBillDisplay.textContent = '$0.00';
+                return;
+            }
+
+            let tipPercentage = selectedTipPercentage;
+            if (selectedTipPercentage === 0) { // Custom tip
+                tipPercentage = parseFloat(customTipInput.value) || 0;
+            }
+
+            const tip = bill * (tipPercentage / 100);
+            const total = bill + tip;
+
+            tipAmountDisplay.textContent = `$${tip.toFixed(2)}`;
+            totalBillDisplay.textContent = `$${total.toFixed(2)}`;
+        }
+
+        billAmountInput.addEventListener('input', calculateTip);
+        customTipInput.addEventListener('input', () => {
+            tipButtons.forEach(btn => btn.classList.remove('active'));
+            selectedTipPercentage = 0; // Indicate custom is active
+            calculateTip();
+        });
+
+        tipButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tipButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                selectedTipPercentage = parseFloat(button.dataset.percent);
+                customTipInput.value = ''; // Clear custom input
+                calculateTip();
+            });
+        });
+
+        // Initialize with default values
+        billAmountInput.value = '50.00'; // Example initial value
+        tipButtons[1].click(); // Activate 15% by default
+        calculateTip();
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="calc8Preview" title="Tip Calculator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('calc8')">Run Calculator</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.9s">
+            <h2>9. BMI Calculator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="calc9Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .bmi-calculator-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 380px;
+            border: 1px solid #e2e8f0;
+        }
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.5rem;
+        }
+        .input-group input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            background-color: #f8fafc;
+        }
+        .calculate-button {
+            background: linear-gradient(45deg, #3b82f6, #60a5fa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .calculate-button:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+        .result-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed #cbd5e1;
+            text-align: center;
+        }
+        .bmi-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        .bmi-category {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+        .category-underweight { color: #f97316; } /* Orange */
+        .category-normal { color: #10b981; } /* Emerald */
+        .category-overweight { color: #facc15; } /* Yellow */
+        .category-obese { color: #ef4444; } /* Red */
+
+        @media (max-width: 600px) {
+            .bmi-calculator-container { padding: 1.5rem; max-width: 320px; }
+            .input-group input[type="number"] { font-size: 1rem; padding: 0.6rem; }
+            .bmi-value { font-size: 2rem; }
+            .bmi-category { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bmi-calculator-container">
+        <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">BMI Calculator</h1>
+
+        <div class="input-group">
+            <label for="weight">Weight (kg)</label>
+            <input type="number" id="weight" placeholder="e.g., 70" min="0">
+        </div>
+
+        <div class="input-group">
+            <label for="height">Height (cm)</label>
+            <input type="number" id="height" placeholder="e.g., 175" min="0">
+        </div>
+
+        <button class="calculate-button" onclick="calculateBMI()">Calculate BMI</button>
+
+        <div class="result-section">
+            <div class="bmi-value" id="bmiValue">--</div>
+            <div class="bmi-category" id="bmiCategory">Enter values to calculate</div>
+        </div>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const bmiValueDisplay = document.getElementById('bmiValue');
+            const bmiCategoryDisplay = document.getElementById('bmiCategory');
+
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                parent.showMessageBox('Please enter valid positive numbers for weight and height.', 'error', 'Invalid Input');
+                bmiValueDisplay.textContent = '--';
+                bmiCategoryDisplay.textContent = 'Enter values to calculate';
+                bmiCategoryDisplay.className = 'bmi-category'; // Reset class
+                return;
+            }
+
+            const heightInMeters = height / 100; // Convert cm to meters
+            const bmi = weight / (heightInMeters * heightInMeters);
+            bmiValueDisplay.textContent = bmi.toFixed(2);
+
+            let category = '';
+            let categoryClass = 'bmi-category ';
+
+            if (bmi < 18.5) {
+                category = 'Underweight';
+                categoryClass += 'category-underweight';
+            } else if (bmi >= 18.5 && bmi < 24.9) {
+                category = 'Normal weight';
+                categoryClass += 'category-normal';
+            } else if (bmi >= 25 && bmi < 29.9) {
+                category = 'Overweight';
+                categoryClass += 'category-overweight';
+            } else {
+                category = 'Obese';
+                categoryClass += 'category-obese';
+            }
+
+            bmiCategoryDisplay.textContent = category;
+            bmiCategoryDisplay.className = categoryClass;
+        }
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="calc9Preview" title="BMI Calculator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('calc9')">Run Calculator</button>
+            </div>
+        </section>
+
+        <section class="digital-app-card wow animate__animated animate__fadeInUp" data-wow-delay="2.0s">
+            <h2>10. Currency Converter</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="calc10Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .currency-converter-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #e2e8f0;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .input-group label {
+            font-weight: 600;
+            color: #334155;
+            flex-shrink: 0;
+        }
+        .input-group input, .input-group select {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            background-color: #f8fafc;
+        }
+        .convert-button {
+            background: linear-gradient(45deg, #10b981, #34d399);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .convert-button:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+        }
+        .result-display {
+            background-color: #e2e8f0;
+            color: #1e293b;
+            font-size: 1.5rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-top: 2rem;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 1.5rem;
+        }
+        @media (max-width: 600px) {
+            .currency-converter-container { padding: 1.5rem; max-width: 350px; }
+            .input-group { flex-direction: column; align-items: flex-start; }
+            .input-group label { margin-bottom: 0.25rem; }
+            .result-display { font-size: 1.2rem; padding: 0.75rem; min-height: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="currency-converter-container">
+        <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Currency Converter</h1>
+
+        <div class="input-group">
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" value="1" min="0">
+        </div>
+
+        <div class="input-group">
+            <label for="fromCurrency">From:</label>
+            <select id="fromCurrency">
+                <option value="USD">USD - United States Dollar</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - British Pound</option>
+                <option value="JPY">JPY - Japanese Yen</option>
+                <option value="RWF">RWF - Rwandan Franc</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="toCurrency">To:</label>
+            <select id="toCurrency">
+                <option value="EUR">EUR - Euro</option>
+                <option value="USD">USD - United States Dollar</option>
+                <option value="GBP">GBP - British Pound</option>
+                <option value="JPY">JPY - Japanese Yen</option>
+                <option value="RWF">RWF - Rwandan Franc</option>
+            </select>
+        </div>
+
+        <button class="convert-button" onclick="convertCurrency()">Convert</button>
+
+        <div id="convertedResult" class="result-display">
+            Result will appear here.
+        </div>
+    </div>
+
+    <script>
+        // Placeholder for exchange rates (real API calls would be needed for live data)
+        const exchangeRates = {
+            USD: { EUR: 0.92, GBP: 0.79, JPY: 156.70, RWF: 1300, USD: 1 },
+            EUR: { USD: 1.09, GBP: 0.86, JPY: 170.80, RWF: 1415, EUR: 1 },
+            GBP: { USD: 1.27, EUR: 1.16, JPY: 196.90, RWF: 1630, GBP: 1 },
+            JPY: { USD: 0.0064, EUR: 0.0058, GBP: 0.0051, RWF: 8.30, JPY: 1 },
+            RWF: { USD: 0.00077, EUR: 0.00071, GBP: 0.00061, JPY: 0.12, RWF: 1 }
+        };
+
+        function convertCurrency() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+            const resultDisplay = document.getElementById('convertedResult');
+
+            if (isNaN(amount) || amount < 0) {
+                resultDisplay.textContent = 'Please enter a valid positive amount.';
+                parent.showMessageBox('Please enter a valid positive amount.', 'error', 'Invalid Input');
+                return;
+            }
+
+            if (!exchangeRates[fromCurrency] || !exchangeRates[fromCurrency][toCurrency]) {
+                resultDisplay.textContent = 'Conversion not available for these currencies.';
+                parent.showMessageBox('Conversion not available for these currencies.', 'error', 'Conversion Error');
+                return;
+            }
+
+            const rate = exchangeRates[fromCurrency][toCurrency];
+            const convertedAmount = amount * rate;
+
+            resultDisplay.textContent = `${amount.toFixed(2)} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
+        }
+
+        convertCurrency(); // Initial conversion on load
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="calc10Preview" title="Currency Converter Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadDigitalApp('calc10')">Run Calculator</button>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="messageBoxOverlay" class="message-box-overlay">
+        <div class="message-box-content">
+            <h3 id="messageBoxTitle" class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100"></h3>
+            <p id="messageBoxText" class="text-gray-600 dark:text-gray-300"></p>
+            <button id="messageBoxCloseBtn" class="message-box-button">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // Message box functions
+        const messageBox = document.getElementById('messageBoxOverlay');
+        const messageBoxTitle = document.getElementById('messageBoxTitle');
+        const messageBoxText = document.getElementById('messageBoxText');
+        const messageBoxCloseBtn = document.getElementById('messageBoxCloseBtn');
+
+        window.showMessageBox = function(message, type = 'info', title = 'Notification') {
+            messageBoxTitle.textContent = title;
+            messageBoxText.textContent = message;
+            messageBox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        };
+
+        messageBoxCloseBtn.addEventListener('click', () => {
+            messageBox.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+
+        messageBox.addEventListener('click', (e) => {
+            if (e.target === messageBox) {
+                messageBox.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Function to load app code into iframe
+        window.loadDigitalApp = function(appId) {
+            const codeTextarea = document.getElementById(`${appId}Code`);
+            const previewIframe = document.getElementById(`${appId}Preview`);
+
+            if (codeTextarea && previewIframe) {
+                const htmlContent = codeTextarea.value;
+                const doc = previewIframe.contentWindow.document;
+
+                doc.open();
+                doc.write(htmlContent);
+                doc.close();
+            } else {
+                showMessageBox('Error: App elements not found.', 'error');
+            }
+        };
+
+        // Automatically load all apps on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            for (let i = 1; i <= 10; i++) {
+                loadDigitalApp(`clock${i}`);
+            }
+            for (let i = 1; i <= 10; i++) {
+                loadDigitalApp(`calc${i}`);
+            }
+        });
+    </script>
+</body>
+</html>

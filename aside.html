@@ -1,0 +1,2597 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30 Interactive Asides</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light slate background */
+            color: #1e293b; /* Dark slate text */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark body {
+            background-color: #0f172a; /* Darker slate background */
+            color: #e2e8f0; /* Light slate text */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem; /* 4xl */
+            font-weight: 800; /* Extra bold */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #6366f1, #a78bfa); /* Indigo to Purple gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #6366f1, #a78bfa);
+            border-radius: 2px;
+        }
+
+        .example-card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .example-card {
+            background-color: #1e293b;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #334155;
+        }
+        .example-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+        }
+        .dark .example-card:hover {
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .example-card h2 {
+            font-size: 2.25rem; /* 3xl */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #334155;
+            text-align: center;
+        }
+        .dark .example-card h2 {
+            color: #f8fafc;
+        }
+
+        .code-preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) { /* Large screens */
+            .code-preview-container {
+                flex-direction: row;
+            }
+        }
+
+        .code-editor, .live-preview {
+            flex: 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid #cbd5e1; /* Slate 300 */
+            transition: border-color 0.3s ease;
+        }
+        .dark .code-editor, .dark .live-preview {
+            border-color: #475569; /* Slate 700 */
+        }
+
+        .code-editor textarea {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            padding: 1rem;
+            background-color: #2d3748; /* Dark code background */
+            color: #f8fafc; /* Light text */
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: none;
+            outline: none;
+            resize: vertical; /* Allow vertical resizing */
+            border-radius: 1rem;
+        }
+
+        .live-preview iframe {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            background-color: #ffffff;
+            border: none;
+            border-radius: 1rem;
+        }
+        .dark .live-preview iframe {
+            background-color: #0f172a;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .button-group button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .dark .button-group button {
+            background: linear-gradient(45deg, #a78bfa, #8b5cf6);
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+        .button-group button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+        .dark .button-group button:hover {
+            box-shadow: 0 8px 20px rgba(167, 139, 250, 0.4);
+        }
+
+        /* Message Box styles (copied for consistency) */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .message-box-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .dark .message-box-content {
+            background-color: #1e293b;
+        }
+        .message-box-overlay.open .message-box-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .message-box-button {
+            background-color: #6366f1;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .dark .message-box-button {
+            background-color: #a78bfa;
+        }
+        .message-box-button:hover {
+            background-color: #4f46e5;
+        }
+        .dark .message-box-button:hover {
+            background-color: #8b5cf6;
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="transition-colors duration-300">
+
+    <header class="py-12 bg-gradient-to-r from-green-500 to-teal-600 dark:from-green-700 dark:to-teal-800 text-white text-center shadow-lg">
+        <h1 class="text-5xl font-extrabold mb-3 animate__animated animate__fadeInDown">Interactive Asides</h1>
+        <p class="text-xl font-light animate__animated animate__fadeInUp animate__delay-1s">Dynamic side content for your web pages.</p>
+    </header>
+
+    <main class="container py-16">
+        <h2 class="section-title mb-16 wow animate__animated animate__fadeIn">Aside Showcase</h2>
+
+        <h3 class="text-3xl font-bold text-center text-gray-800 mb-10 dark:text-gray-200">Informational Asides</h3>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+            <h2>1. Simple Info Box</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside1Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Info Box</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: #e0f2f7; /* Light blue */
+            border-left: 5px solid #0ea5e9; /* Sky 500 */
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            color: #0c4a6e; /* Dark blue text */
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; }
+        aside h3 i { margin-right: 0.75rem; color: #0ea5e9; }
+        aside p { font-size: 0.95rem; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-info-circle"></i> Important Notice</h3>
+        <p>This is a crucial piece of information that you should be aware of. Please read carefully.</p>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside1Preview" title="Simple Info Box Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside1')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+            <h2>2. Quote Box</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Box</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: #fff7ed; /* Light orange */
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 350px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            position: relative;
+            text-align: center;
+            color: #7c2d12; /* Dark orange text */
+        }
+        aside i.quote-icon {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 2.5rem;
+            color: #f97316; /* Orange 500 */
+            opacity: 0.3;
+        }
+        aside p.quote-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        aside p.quote-author {
+            font-weight: 600;
+            color: #f97316;
+        }
+    </style>
+</head>
+<body>
+    <aside>
+        <i class="fas fa-quote-left quote-icon"></i>
+        <p class="quote-text">"The only way to do great work is to love what you do."</p>
+        <p class="quote-author">- Steve Jobs</p>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside2Preview" title="Quote Box Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside2')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+            <h2>3. Tip/Hint Box</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside3Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip/Hint Box</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background: linear-gradient(135deg, #dcfce7, #a7f3d0); /* Light green gradient */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            color: #065f46; /* Dark green text */
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        aside .icon-wrapper {
+            background-color: #10b981; /* Emerald 500 */
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+        aside .content { flex-grow: 1; }
+        aside h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        aside p { font-size: 0.9rem; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <aside>
+        <div class="icon-wrapper">
+            <i class="fas fa-lightbulb"></i>
+        </div>
+        <div class="content">
+            <h3>Pro Tip!</h3>
+            <p>Remember to save your work frequently to avoid losing any progress.</p>
+        </div>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside3Preview" title="Tip/Hint Box Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside3')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+            <h2>4. Author Bio</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author Bio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 320px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        aside img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid #6366f1; /* Indigo 500 */
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem; }
+        aside p { font-size: 0.9rem; color: #475569; line-height: 1.5; margin-bottom: 1rem; }
+        aside .social-links a {
+            color: #6366f1;
+            margin: 0 0.75rem;
+            font-size: 1.2rem;
+            transition: transform 0.2s ease;
+        }
+        aside .social-links a:hover { transform: translateY(-3px); }
+    </style>
+</head>
+<body>
+    <aside>
+        <img src="https://placehold.co/80x80/6366f1/ffffff?text=AV" alt="Author Avatar">
+        <h3>Jane Doe</h3>
+        <p>Jane is a passionate writer and tech enthusiast, sharing insights on web development and design trends.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside4Preview" title="Author Bio Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside4')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+            <h2>5. Related Posts</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside5Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Related Posts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 350px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 1rem; }
+        aside ul { list-style: none; padding: 0; }
+        aside ul li { margin-bottom: 0.75rem; }
+        aside ul li a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #475569;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        aside ul li a:hover { color: #14b8a6; transform: translateX(5px); } /* Teal 500 */
+        aside ul li a i { color: #14b8a6; }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-newspaper mr-2"></i> Related Articles</h3>
+        <ul>
+            <li><a href="#"><i class="fas fa-angle-right"></i> Building Responsive Layouts</a></li>
+            <li><a href="#"><i class="fas fa-angle-right"></i> CSS Grid vs Flexbox</a></li>
+            <li><a href="#"><i class="fas fa-angle-right"></i> JavaScript Best Practices</a></li>
+            <li><a href="#"><i class="fas fa-angle-right"></i> The Future of Web Design</a></li>
+        </ul>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside5Preview" title="Related Posts Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside5')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+            <h2>6. Ad/Sponsor Box</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside6Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad/Sponsor Box</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: #1e293b; /* Dark slate */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            text-align: center;
+            color: white;
+        }
+        aside h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: #cbd5e1; }
+        aside img {
+            width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            border: 2px solid #475569;
+        }
+        aside p { font-size: 0.9rem; margin-bottom: 1rem; color: #94a3b8; }
+        aside a {
+            display: inline-block;
+            background: linear-gradient(45deg, #a78bfa, #8b5cf6); /* Purple gradient */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        aside a:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(167, 139, 250, 0.4); }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3>Sponsored Content</h3>
+        <img src="https://placehold.co/300x200/1e293b/a78bfa?text=Your+Ad+Here" alt="Ad Placeholder">
+        <p>Discover our new premium service. Click to learn more!</p>
+        <a href="#">Learn More</a>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside6Preview" title="Ad/Sponsor Box Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside6')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s">
+            <h2>7. Event Reminder</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside7Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Reminder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: #fef2f2; /* Light red */
+            border-right: 5px solid #ef4444; /* Red 500 */
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            color: #7f1d1d; /* Dark red text */
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; }
+        aside h3 i { margin-right: 0.75rem; color: #ef4444; }
+        aside p { font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.5rem; }
+        aside a { color: #ef4444; text-decoration: none; font-weight: 600; transition: color 0.2s ease; }
+        aside a:hover { color: #dc2626; }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-calendar-alt"></i> Upcoming Event</h3>
+        <p><strong>Webinar:</strong> Advanced CSS Techniques</p>
+        <p><strong>Date:</strong> June 15, 2024</p>
+        <p><strong>Time:</strong> 10:00 AM PST</p>
+        <a href="#">Register Now!</a>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside7Preview" title="Event Reminder Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside7')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
+            <h2>8. Social Media Feed</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside8Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Feed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 320px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 1rem; }
+        .tweet-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        .tweet-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .tweet-item i { font-size: 1.5rem; color: #1da1f2; /* Twitter blue */ flex-shrink: 0; }
+        .tweet-item .content { font-size: 0.9rem; color: #475569; }
+        .tweet-item .content span { font-weight: 600; color: #1e293b; }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fab fa-twitter mr-2"></i> Latest Tweets</h3>
+        <div class="tweet-item">
+            <i class="fab fa-twitter"></i>
+            <div class="content">
+                <p><span>@YourBrand:</span> Check out our new blog post on interactive web design! #webdev #design</p>
+            </div>
+        </div>
+        <div class="tweet-item">
+            <i class="fab fa-twitter"></i>
+            <div class="content">
+                <p><span>@YourBrand:</span> We're hiring! Join our innovative team. Visit our careers page for more info.</p>
+            </div>
+        </div>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside8Preview" title="Social Media Feed Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside8')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s">
+            <h2>9. Weather Widget</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside9Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Widget</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background: linear-gradient(135deg, #bfdbfe, #93c5fd); /* Light blue gradient */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 280px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #1e40af; /* Dark blue text */
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        aside .weather-icon { font-size: 3rem; color: #2563eb; /* Blue 600 */ margin-bottom: 0.5rem; }
+        aside .temperature { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        aside .description { font-size: 1rem; margin-bottom: 1rem; }
+        aside .details { display: flex; justify-content: space-around; font-size: 0.9rem; }
+        aside .details div { text-align: center; }
+        aside .details div i { display: block; margin-bottom: 0.25rem; color: #2563eb; }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3>Current Weather</h3>
+        <p class="text-xl font-semibold mb-2">New York City</p>
+        <i class="fas fa-cloud-sun weather-icon"></i>
+        <p class="temperature">22&deg;C</p>
+        <p class="description">Partly Cloudy</p>
+        <div class="details">
+            <div><i class="fas fa-wind"></i> 10 km/h</div>
+            <div><i class="fas fa-tint"></i> 65%</div>
+        </div>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside9Preview" title="Weather Widget Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside9')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s">
+            <h2>10. Quick Facts Box</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside10Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Facts Box</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: #f0f9ff; /* Light sky blue */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            color: #0c4a6e;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; }
+        aside h3 i { margin-right: 0.75rem; color: #0ea5e9; }
+        aside ul { list-style: none; padding: 0; }
+        aside ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #e0f2f7;
+            font-size: 0.95rem;
+        }
+        aside ul li:last-child { border-bottom: none; }
+        aside ul li strong { color: #1e293b; }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-lightbulb mr-2"></i> Quick Facts</h3>
+        <ul>
+            <li><span>Population:</span> <strong>8 Million</strong></li>
+            <li><span>Area:</span> <strong>789 km&sup2;</strong></li>
+            <li><span>Founded:</span> <strong>1789</strong></li>
+            <li><span>Main Industry:</span> <strong>Technology</strong></li>
+        </ul>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside10Preview" title="Quick Facts Box Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside10')">Run Example</button>
+            </div>
+        </section>
+
+        <h3 class="text-3xl font-bold text-center text-gray-800 mb-10 mt-16 dark:text-gray-200">Navigation & Utility Asides</h3>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="1.1s">
+            <h2>11. Table of Contents</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside11Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table of Contents</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; margin: 0; min-height: 500px; /* To show sticky */ }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 280px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            position: sticky;
+            top: 20px; /* Adjust as needed */
+            margin: 20px auto; /* Center for preview */
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 1rem; }
+        aside ul { list-style: none; padding: 0; }
+        aside ul li { margin-bottom: 0.5rem; }
+        aside ul li a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            color: #475569;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        aside ul li a:hover { background-color: #eff6ff; color: #3b82f6; } /* Blue 100, Blue 500 */
+        aside ul li a.active { background-color: #dbeafe; color: #2563eb; font-weight: 600; } /* Blue 200, Blue 600 */
+    </style>
+</head>
+<body>
+    <main style="display: flex; justify-content: center; align-items: flex-start; padding: 20px;">
+        <div style="width: 60%; padding-right: 30px;">
+            <h2 id="section1" class="text-2xl font-bold mb-4">Section 1: Introduction</h2>
+            <p class="mb-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <h2 id="section2" class="text-2xl font-bold mb-4">Section 2: Key Concepts</h2>
+            <p class="mb-8">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <h2 id="section3" class="text-2xl font-bold mb-4">Section 3: Conclusion</h2>
+            <p class="mb-8">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+            <div style="height: 400px;"></div> </div>
+        <aside>
+            <h3><i class="fas fa-list-alt mr-2"></i> Table of Contents</h3>
+            <ul>
+                <li><a href="#section1">Introduction</a></li>
+                <li><a href="#section2">Key Concepts</a></li>
+                <li><a href="#section3">Conclusion</a></li>
+            </ul>
+        </aside>
+    </main>
+    <script>
+        // Simple active link highlighting (conceptual for iframe)
+        const links = document.querySelectorAll('aside ul li a');
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                links.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside11Preview" title="Table of Contents Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside11')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="1.2s">
+            <h2>12. Toggleable Sidebar Menu</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside12Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggleable Sidebar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; margin: 0; display: flex; }
+        .sidebar {
+            width: 250px;
+            background-color: #1e293b; /* Dark slate */
+            color: white;
+            padding: 1.5rem 1rem;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(0); /* Default visible */
+            flex-shrink: 0;
+            position: relative;
+        }
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+        .sidebar h3 { font-size: 1.5rem; font-weight: 700; text-align: center; margin-bottom: 2rem; color: #f8fafc; }
+        .sidebar ul { list-style: none; padding: 0; }
+        .sidebar ul li { margin-bottom: 0.75rem; }
+        .sidebar ul li a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .sidebar ul li a:hover { background-color: #334155; color: #f8fafc; }
+        .sidebar ul li a i { font-size: 1.1rem; }
+        .toggle-button {
+            position: absolute;
+            top: 1.5rem;
+            right: -40px; /* Position outside sidebar */
+            background-color: #1e293b;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar.hidden + .main-content .toggle-button {
+            transform: translateX(0);
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar" id="mySidebar">
+        <h3>Dashboard</h3>
+        <ul>
+            <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-chart-line"></i> Analytics</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Users</a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </aside>
+    <main class="main-content">
+        <button class="toggle-button" onclick="toggleSidebar()">
+            <i class="fas fa-bars" id="toggleIcon"></i>
+        </button>
+        <p class="text-gray-600">Main content area. Click the toggle button to hide/show the sidebar.</p>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mySidebar');
+            const toggleIcon = document.getElementById('toggleIcon');
+            sidebar.classList.toggle('hidden');
+            if (sidebar.classList.contains('hidden')) {
+                toggleIcon.classList.remove('fa-bars');
+                toggleIcon.classList.add('fa-arrow-right');
+            } else {
+                toggleIcon.classList.remove('fa-arrow-right');
+                toggleIcon.classList.add('fa-bars');
+            }
+        }
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside12Preview" title="Toggleable Sidebar Menu Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside12')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="1.3s">
+            <h2>13. Filter/Sort Options</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside13Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter/Sort Options</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 1rem; display: flex; align-items: center; }
+        aside h3 i { margin-right: 0.75rem; color: #10b981; } /* Emerald 500 */
+        aside .filter-group { margin-bottom: 1.25rem; }
+        aside .filter-group label { display: block; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem; font-size: 0.95rem; }
+        aside .filter-group select, aside .filter-group input[type="range"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            background-color: #f8fafc;
+            font-size: 0.9rem;
+        }
+        aside button {
+            background: linear-gradient(45deg, #10b981, #34d399); /* Emerald gradient */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        aside button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4); }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-filter"></i> Filter Options</h3>
+        <div class="filter-group">
+            <label for="category">Category:</label>
+            <select id="category" onchange="parent.showMessageBox('Category changed to ' + this.value, 'info', 'Filter Applied');">
+                <option value="all">All</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing</option>
+                <option value="books">Books</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="priceRange">Price Range:</label>
+            <input type="range" id="priceRange" min="0" max="1000" value="500" oninput="parent.showMessageBox('Price range: $' + this.value, 'info', 'Filter Applied');">
+            <span class="text-xs text-gray-500 mt-1 block">$0 - $<span id="currentPrice">500</span></span>
+        </div>
+        <button onclick="parent.showMessageBox('Filters applied!', 'success');">Apply Filters</button>
+    </aside>
+    <script>
+        document.getElementById('priceRange').addEventListener('input', function() {
+            document.getElementById('currentPrice').textContent = this.value;
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside13Preview" title="Filter/Sort Options Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside13')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="1.4s">
+            <h2>14. User Dashboard Summary</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside14Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard Summary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 320px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        aside .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: #dbeafe; /* Light blue */
+            color: #2563eb; /* Blue 600 */
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1rem;
+        }
+        aside h3 { font-size: 1.5rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem; }
+        aside p.email { font-size: 0.9rem; color: #64748b; margin-bottom: 1.5rem; }
+        aside .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        aside .stat-item {
+            background-color: #eff6ff; /* Blue 50 */
+            border-radius: 0.75rem;
+            padding: 1rem;
+            text-align: center;
+        }
+        aside .stat-item .value { font-size: 1.25rem; font-weight: 700; color: #2563eb; }
+        aside .stat-item .label { font-size: 0.8rem; color: #475569; }
+        aside a.view-profile-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #3b82f6, #60a5fa); /* Blue gradient */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        aside a.view-profile-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4); }
+    </style>
+</head>
+<body>
+    <aside>
+        <div class="avatar">JD</div>
+        <h3>John Doe</h3>
+        <p class="email">john.doe@example.com</p>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="value">12</div>
+                <div class="label">Orders</div>
+            </div>
+            <div class="stat-item">
+                <div class="value">$500</div>
+                <div class="label">Spend</div>
+            </div>
+            <div class="stat-item">
+                <div class="value">3</div>
+                <div class="label">Wishlist</div>
+            </div>
+            <div class="stat-item">
+                <div class="value">Gold</div>
+                <div class="label">Tier</div>
+            </div>
+        </div>
+        <a href="#" class="view-profile-btn" onclick="parent.showMessageBox('Viewing John Doe\'s profile!', 'info', 'Profile');">View Profile</a>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside14Preview" title="User Dashboard Summary Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside14')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="1.5s">
+            <h2>15. Shopping Cart Summary</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside15Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart Summary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 350px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 1rem; display: flex; align-items: center; }
+        aside h3 i { margin-right: 0.75rem; color: #f97316; } /* Orange 500 */
+        .cart-items { margin-bottom: 1.5rem; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; font-size: 0.95rem; color: #475569; }
+        .cart-item .name { font-weight: 600; color: #1e293b; }
+        .cart-summary { border-top: 1px dashed #e2e8f0; padding-top: 1rem; }
+        .cart-summary div { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 1rem; }
+        .cart-summary .total { font-weight: 700; font-size: 1.2rem; color: #1e293b; }
+        aside button {
+            background: linear-gradient(45deg, #f97316, #f59e0b); /* Orange gradient */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        aside button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4); }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+        <div class="cart-items">
+            <div class="cart-item">
+                <span class="name">Product A</span>
+                <span>$25.00</span>
+            </div>
+            <div class="cart-item">
+                <span class="name">Product B</span>
+                <span>$15.50</span>
+            </div>
+            <div class="cart-item">
+                <span class="name">Product C</span>
+                <span>$10.00</span>
+            </div>
+        </div>
+        <div class="cart-summary">
+            <div><span>Subtotal:</span> <span>$50.50</span></div>
+            <div><span>Shipping:</span> <span>$5.00</span></div>
+            <div class="total"><span>Total:</span> <span>$55.50</span></div>
+        </div>
+        <button onclick="parent.showMessageBox('Proceeding to checkout!', 'success', 'Checkout');">Proceed to Checkout</button>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside15Preview" title="Shopping Cart Summary Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside15')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="1.6s">
+            <h2>16. Progress Indicator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside16Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Indicator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 1rem; display: flex; align-items: center; }
+        aside h3 i { margin-right: 0.75rem; color: #8b5cf6; } /* Violet 500 */
+        .progress-steps { display: flex; flex-direction: column; gap: 0.75rem; }
+        .progress-step { display: flex; align-items: center; gap: 0.75rem; font-size: 0.95rem; color: #64748b; }
+        .progress-step .icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+            color: #64748b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .progress-step.completed .icon { background-color: #8b5cf6; color: white; }
+        .progress-step.active .icon { background-color: #a78bfa; color: white; }
+        .progress-step.active .text { font-weight: 600; color: #1e293b; }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-tasks"></i> Your Progress</h3>
+        <div class="progress-steps">
+            <div class="progress-step completed">
+                <div class="icon"><i class="fas fa-check"></i></div>
+                <span class="text">Step 1: Account Setup</span>
+            </div>
+            <div class="progress-step active">
+                <div class="icon">2</div>
+                <span class="text">Step 2: Profile Details</span>
+            </div>
+            <div class="progress-step">
+                <div class="icon">3</div>
+                <span class="text">Step 3: Payment Info</span>
+            </div>
+            <div class="progress-step">
+                <div class="icon">4</div>
+                <span class="text">Step 4: Confirmation</span>
+            </div>
+        </div>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside16Preview" title="Progress Indicator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside16')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="1.7s">
+            <h2>17. Recent Activity Feed</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside17Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recent Activity Feed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 350px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 1rem; display: flex; align-items: center; }
+        aside h3 i { margin-right: 0.75rem; color: #ef4444; } /* Red 500 */
+        .activity-list { list-style: none; padding: 0; }
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #e2e8f0;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+        .activity-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .activity-item .icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #fee2e2; /* Red 100 */
+            color: #ef4444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .activity-item .content strong { color: #1e293b; }
+        .activity-item .timestamp { font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem; }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-history"></i> Recent Activity</h3>
+        <ul class="activity-list">
+            <li class="activity-item">
+                <div class="icon"><i class="fas fa-file-alt"></i></div>
+                <div class="content">
+                    <p><strong>John D.</strong> uploaded a new document.</p>
+                    <span class="timestamp">5 minutes ago</span>
+                </div>
+            </li>
+            <li class="activity-item">
+                <div class="icon"><i class="fas fa-comment-dots"></i></div>
+                <div class="content">
+                    <p><strong>Jane S.</strong> commented on your post.</p>
+                    <span class="timestamp">1 hour ago</span>
+                </div>
+            </li>
+            <li class="activity-item">
+                <div class="icon"><i class="fas fa-user-plus"></i></div>
+                <div class="content">
+                    <p><strong>New user</strong> signed up!</p>
+                    <span class="timestamp">Yesterday</span>
+                </div>
+            </li>
+        </ul>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside17Preview" title="Recent Activity Feed Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside17')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="1.8s">
+            <h2>18. Quick Contact Form</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside18Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Contact Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 320px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 1rem; display: flex; align-items: center; }
+        aside h3 i { margin-right: 0.75rem; color: #6366f1; } /* Indigo 500 */
+        aside input[type="text"], aside input[type="email"], aside textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        aside textarea { min-height: 80px; resize: vertical; }
+        aside button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa); /* Indigo to Purple */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+        aside button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4); }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-envelope"></i> Quick Contact</h3>
+        <form onsubmit="parent.showMessageBox('Message sent!', 'success'); return false;">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside18Preview" title="Quick Contact Form Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside18')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="1.9s">
+            <h2>19. Language Switcher</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside19Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Switcher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 250px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 1rem; display: flex; align-items: center; }
+        aside h3 i { margin-right: 0.75rem; color: #0ea5e9; } /* Sky 500 */
+        aside ul { list-style: none; padding: 0; }
+        aside ul li { margin-bottom: 0.75rem; }
+        aside ul li button {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: #475569;
+            width: 100%;
+            text-align: left;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        aside ul li button:hover { background-color: #eff6ff; color: #0ea5e9; }
+        aside ul li button.active { background-color: #dbeafe; color: #2563eb; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-language"></i> Language</h3>
+        <ul>
+            <li><button class="active" onclick="selectLanguage(this, 'English')"><i class="fas fa-check"></i> English</button></li>
+            <li><button onclick="selectLanguage(this, 'Spanish')"><i class="fas fa-globe"></i> Español</button></li>
+            <li><button onclick="selectLanguage(this, 'French')"><i class="fas fa-globe"></i> Français</button></li>
+            <li><button onclick="selectLanguage(this, 'Kinyarwanda')"><i class="fas fa-globe"></i> Kinyarwanda</button></li>
+        </ul>
+    </aside>
+    <script>
+        function selectLanguage(button, lang) {
+            const buttons = document.querySelectorAll('aside ul li button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            parent.showMessageBox('Language set to ' + lang, 'info', 'Language Changed');
+        }
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside19Preview" title="Language Switcher Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside19')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="2.0s">
+            <h2>20. Search Filter</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside20Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Filter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 1rem; display: flex; align-items: center; }
+        aside h3 i { margin-right: 0.75rem; color: #64748b; }
+        aside .search-input-group {
+            display: flex;
+            align-items: center;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            margin-bottom: 1rem;
+        }
+        aside .search-input-group input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            font-size: 0.9rem;
+            padding-left: 0.5rem;
+        }
+        aside .search-input-group i { color: #64748b; }
+        aside .filter-options label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+        aside .filter-options input[type="checkbox"] { margin-right: 0.5rem; }
+        aside button {
+            background: linear-gradient(45deg, #64748b, #94a3b8); /* Slate gradient */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        aside button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(100, 116, 139, 0.4); }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-search"></i> Search & Filter</h3>
+        <div class="search-input-group">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search...">
+        </div>
+        <div class="filter-options">
+            <label><input type="checkbox" onchange="parent.showMessageBox('Filter: ' + (this.checked ? 'Active' : 'Inactive') + ' Items', 'info', 'Filter');"> Active Items</label>
+            <label><input type="checkbox" onchange="parent.showMessageBox('Filter: ' + (this.checked ? 'Featured' : 'Not Featured') + ' Items', 'info', 'Filter');"> Featured Items</label>
+            <label><input type="checkbox" onchange="parent.showMessageBox('Filter: ' + (this.checked ? 'New' : 'Not New') + ' Arrivals', 'info', 'Filter');"> New Arrivals</label>
+        </div>
+        <button onclick="parent.showMessageBox('Search and filters applied!', 'success');">Apply</button>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside20Preview" title="Search Filter Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside20')">Run Example</button>
+            </div>
+        </section>
+
+        <h3 class="text-3xl font-bold text-center text-gray-800 mb-10 mt-16 dark:text-gray-200">Call-to-Action & Promotional Asides</h3>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="2.1s">
+            <h2>21. Newsletter Signup</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside21Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Signup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: #dbeafe; /* Light blue */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 320px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #1e40af; /* Dark blue text */
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: center; }
+        aside h3 i { margin-right: 0.75rem; color: #2563eb; }
+        aside p { font-size: 0.95rem; margin-bottom: 1rem; }
+        aside input[type="email"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #93c5fd;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        aside button {
+            background: linear-gradient(45deg, #2563eb, #3b82f6); /* Blue gradient */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+        aside button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4); }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-envelope-open-text"></i> Join Our Newsletter</h3>
+        <p>Get the latest updates and exclusive offers directly to your inbox!</p>
+        <form onsubmit="parent.showMessageBox('Subscribed to newsletter!', 'success'); return false;">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit">Subscribe Now</button>
+        </form>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside21Preview" title="Newsletter Signup Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside21')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="2.2s">
+            <h2>22. Download Button</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside22Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Button</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 280px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem; }
+        aside p { font-size: 0.95rem; margin-bottom: 1.5rem; color: #475569; }
+        aside a.download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(45deg, #22c55e, #4ade80); /* Green gradient */
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);
+        }
+        aside a.download-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(34, 197, 94, 0.4); }
+        aside a.download-btn i { font-size: 1.25rem; }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3>Download Our E-book!</h3>
+        <p>Get your free copy of "Mastering Modern Web Development".</p>
+        <a href="#" class="download-btn" onclick="parent.showMessageBox('E-book download started!', 'success', 'Download'); return false;">
+            <i class="fas fa-download"></i> Download Now
+        </a>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside22Preview" title="Download Button Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside22')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="2.3s">
+            <h2>23. Upgrade to Pro Banner</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside23Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade to Pro Banner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background: linear-gradient(135deg, #fcd34d, #f59e0b); /* Amber gradient */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            text-align: center;
+            color: #78350f; /* Dark amber text */
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: center; }
+        aside h3 i { margin-right: 0.75rem; color: #b45309; }
+        aside p { font-size: 0.95rem; margin-bottom: 1.5rem; }
+        aside a.upgrade-btn {
+            display: inline-block;
+            background-color: white;
+            color: #f59e0b;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        aside a.upgrade-btn:hover { background-color: #fefce8; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-star"></i> Unlock Premium Features!</h3>
+        <p>Upgrade to Pro and get access to exclusive tools and support.</p>
+        <a href="#" class="upgrade-btn" onclick="parent.showMessageBox('Navigating to upgrade page!', 'info', 'Upgrade');">Upgrade Now</a>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside23Preview" title="Upgrade to Pro Banner Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside23')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="2.4s">
+            <h2>24. Share Buttons</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside24Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Buttons</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 250px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; }
+        aside h3 i { margin-right: 0.75rem; color: #64748b; }
+        .share-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .share-buttons a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.25rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .share-buttons a:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .share-buttons .facebook { background-color: #3b5998; }
+        .share-buttons .twitter { background-color: #1da1f2; }
+        .share-buttons .linkedin { background-color: #0077b5; }
+        .share-buttons .whatsapp { background-color: #25d366; }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-share-alt"></i> Share This Page</h3>
+        <div class="share-buttons">
+            <a href="#" class="facebook" onclick="parent.showMessageBox('Shared on Facebook!', 'info'); return false;"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="twitter" onclick="parent.showMessageBox('Shared on Twitter!', 'info'); return false;"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="linkedin" onclick="parent.showMessageBox('Shared on LinkedIn!', 'info'); return false;"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="whatsapp" onclick="parent.showMessageBox('Shared on WhatsApp!', 'info'); return false;"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside24Preview" title="Share Buttons Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside24')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="2.5s">
+            <h2>25. Feedback Prompt</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside25Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Prompt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: #fefce8; /* Light yellow */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #78350f; /* Dark amber text */
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: center; }
+        aside h3 i { margin-right: 0.75rem; color: #fcd34d; }
+        aside p { font-size: 0.95rem; margin-bottom: 1.5rem; }
+        aside button {
+            background: linear-gradient(45deg, #fcd34d, #f59e0b); /* Amber gradient */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+        aside button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(252, 211, 77, 0.4); }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-comment-alt"></i> We Value Your Feedback!</h3>
+        <p>Help us improve by taking a quick survey about your experience.</p>
+        <button onclick="parent.showMessageBox('Opening survey!', 'info', 'Feedback');">Take Survey</button>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside25Preview" title="Feedback/Survey Prompt Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside25')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="2.6s">
+            <h2>26. Countdown Timer</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside26Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: #ffe4e6; /* Light pink */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #be123c; /* Dark rose text */
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: center; }
+        aside h3 i { margin-right: 0.75rem; color: #f43f5e; }
+        .countdown-display {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #dc2626; /* Red 600 */
+        }
+        .countdown-label { font-size: 0.8rem; color: #be123c; }
+        aside p { font-size: 0.95rem; margin-bottom: 1.5rem; }
+        aside button {
+            background: linear-gradient(45deg, #f43f5e, #fb7185); /* Rose gradient */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+        aside button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(244, 63, 94, 0.4); }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-hourglass-half"></i> Flash Sale Ends In:</h3>
+        <div class="countdown-display" id="countdown"></div>
+        <p>Don't miss out on incredible savings!</p>
+        <button onclick="parent.showMessageBox('Shop now clicked!', 'info', 'Sale');">Shop Now</button>
+    </aside>
+    <script>
+        // Set the date we're counting down to (e.g., 3 days from now)
+        const countDownDate = new Date();
+        countDownDate.setDate(countDownDate.getDate() + 3); // 3 days from today
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate.getTime() - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "EXPIRED";
+                parent.showMessageBox('Flash Sale Has Ended!', 'error', 'Sale Ended');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside26Preview" title="Countdown Timer Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside26')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="2.7s">
+            <h2>27. Featured Product</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside27Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Featured Product</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 1rem; }
+        aside img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            border: 2px solid #cbd5e1;
+        }
+        aside .product-title { font-size: 1.1rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem; }
+        aside .product-price { font-size: 1.25rem; font-weight: 700; color: #10b981; /* Emerald 500 */ margin-bottom: 1rem; }
+        aside a.view-product-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #10b981, #34d399); /* Emerald gradient */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+        }
+        aside a.view-product-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4); }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3>Featured Product</h3>
+        <img src="https://placehold.co/300x180/10b981/ffffff?text=Awesome+Gadget" alt="Featured Product">
+        <p class="product-title">Awesome Gadget Pro</p>
+        <p class="product-price">$99.99</p>
+        <a href="#" class="view-product-btn" onclick="parent.showMessageBox('Viewing product details!', 'info', 'Product');">View Details</a>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside27Preview" title="Featured Product/Service Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside27')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="2.8s">
+            <h2>28. Testimonial Carousel</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside28Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonial Carousel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: #eff6ff; /* Light blue */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 350px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #1e40af;
+            position: relative;
+            overflow: hidden; /* Hide overflowing testimonials */
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; }
+        aside h3 i { margin-right: 0.75rem; color: #2563eb; }
+        .testimonial-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .testimonial-item {
+            flex-shrink: 0;
+            width: 100%;
+            padding: 0 1rem; /* Padding for content within item */
+        }
+        .testimonial-item p.quote { font-style: italic; margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.5; }
+        .testimonial-item p.author { font-weight: 600; color: #2563eb; }
+        .carousel-nav { margin-top: 1.5rem; display: flex; justify-content: center; gap: 0.75rem; }
+        .carousel-nav button {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #bfdbfe; /* Light blue */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .carousel-nav button.active { background-color: #2563eb; }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-quote-right"></i> What Our Clients Say</h3>
+        <div class="testimonial-wrapper">
+            <div class="testimonial-container" id="testimonialContainer">
+                <div class="testimonial-item">
+                    <p class="quote">"This product has transformed our workflow. Highly recommended!"</p>
+                    <p class="author">- Sarah J.</p>
+                </div>
+                <div class="testimonial-item">
+                    <p class="quote">"Exceptional service and an intuitive platform. A game-changer for our business."</p>
+                    <p class="author">- Mark T.</p>
+                </div>
+                <div class="testimonial-item">
+                    <p class="quote">"The support team is amazing! Always quick to respond and incredibly helpful."</p>
+                    <p class="author">- Emily R.</p>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-nav" id="carouselNav">
+            <button class="active" data-index="0"></button>
+            <button data-index="1"></button>
+            <button data-index="2"></button>
+        </div>
+    </aside>
+    <script>
+        const testimonialContainer = document.getElementById('testimonialContainer');
+        const carouselNav = document.getElementById('carouselNav');
+        const testimonialItems = document.querySelectorAll('.testimonial-item');
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            const offset = -currentIndex * testimonialItems[0].offsetWidth;
+            testimonialContainer.style.transform = `translateX(${offset}px)`;
+
+            document.querySelectorAll('.carousel-nav button').forEach((btn, index) => {
+                if (index === currentIndex) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        carouselNav.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                currentIndex = parseInt(e.target.dataset.index);
+                updateCarousel();
+            }
+        });
+
+        // Auto-advance carousel
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % testimonialItems.length;
+            updateCarousel();
+        }, 5000); // Change testimonial every 5 seconds
+
+        updateCarousel(); // Initial load
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside28Preview" title="Testimonial Carousel Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside28')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="2.9s">
+            <h2>29. Event Registration</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside29Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 320px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; }
+        aside h3 i { margin-right: 0.75rem; color: #f97316; } /* Orange 500 */
+        aside p { font-size: 0.95rem; margin-bottom: 1rem; color: #475569; }
+        aside input[type="text"], aside input[type="email"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        aside button {
+            background: linear-gradient(45deg, #f97316, #f59e0b); /* Orange gradient */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+        aside button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4); }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-ticket-alt"></i> Register for Event</h3>
+        <p>Join our annual tech conference!</p>
+        <form onsubmit="parent.showMessageBox('Registered for event!', 'success'); return false;">
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email Address" required>
+            <button type="submit">Register Now</button>
+        </form>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside29Preview" title="Event Registration Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside29')">Run Example</button>
+            </div>
+        </section>
+
+        <section class="example-card wow animate__animated animate__fadeInUp" data-wow-delay="3.0s">
+            <h2>30. Get a Quote Form</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aside30Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get a Quote Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        aside {
+            background-color: #ecfdf5; /* Light green */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 320px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #065f46; /* Dark green text */
+        }
+        aside h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: center; }
+        aside h3 i { margin-right: 0.75rem; color: #10b981; }
+        aside p { font-size: 0.95rem; margin-bottom: 1rem; }
+        aside input[type="text"], aside input[type="email"], aside select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #a7f3d0;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        aside button {
+            background: linear-gradient(45deg, #10b981, #34d399); /* Emerald gradient */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+        aside button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4); }
+    </style>
+</head>
+<body>
+    <aside>
+        <h3><i class="fas fa-dollar-sign"></i> Get a Free Quote</h3>
+        <p>Tell us about your project and get a custom quote today!</p>
+        <form onsubmit="parent.showMessageBox('Quote request sent!', 'success'); return false;">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <select required>
+                <option value="">Select Service</option>
+                <option value="web-design">Web Design</option>
+                <option value="seo">SEO Optimization</option>
+                <option value="marketing">Digital Marketing</option>
+            </select>
+            <button type="submit">Request Quote</button>
+        </form>
+    </aside>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aside30Preview" title="Get a Quote Form Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadExample('aside30')">Run Example</button>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="messageBox" class="message-box-overlay">
+        <div class="message-box-content">
+            <h3 id="messageBoxTitle" class="text-xl font-semibold mb-3 text-slate-800 dark:text-slate-200"></h3>
+            <p id="messageBoxText" class="text-slate-700 dark:text-slate-300"></p>
+            <button id="messageBoxCloseBtn" class="message-box-button">OK</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new WOW().init();
+
+            // Message Box Functionality (copied for consistency)
+            const messageBox = document.getElementById('messageBox');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxText = document.getElementById('messageBoxText');
+            const messageBoxCloseBtn = document.getElementById('messageBoxCloseBtn');
+
+            window.showMessageBox = function(message, type = 'info', title = 'Notification') {
+                messageBoxTitle.textContent = title;
+                messageBoxText.textContent = message;
+                if (type === 'success') {
+                    messageBoxTitle.style.color = '#10b981';
+                } else if (type === 'error') {
+                    messageBoxTitle.style.color = '#ef4444';
+                } else {
+                    messageBoxTitle.style.color = '';
+                }
+                messageBox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            messageBoxCloseBtn.addEventListener('click', () => {
+                messageBox.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+
+            messageBox.addEventListener('click', (e) => {
+                if (e.target === messageBox) {
+                    messageBox.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Function to load example code into iframe
+            window.loadExample = function(exampleId) {
+                const codeTextarea = document.getElementById(`${exampleId}Code`);
+                const previewIframe = document.getElementById(`${exampleId}Preview`);
+
+                if (codeTextarea && previewIframe) {
+                    const htmlContent = codeTextarea.value;
+                    const doc = previewIframe.contentWindow.document;
+
+                    doc.open();
+                    doc.write(htmlContent);
+                    doc.close();
+                } else {
+                    showMessageBox('Error: Example elements not found.', 'error');
+                }
+            };
+
+            // Automatically load all examples on page load
+            for (let i = 1; i <= 30; i++) {
+                loadExample(`aside${i}`);
+            }
+        });
+    </script>
+</body>
+</html>

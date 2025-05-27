@@ -1,0 +1,2605 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15 AI Applications</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light slate background */
+            color: #1e293b; /* Dark slate text */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark body {
+            background-color: #0f172a; /* Darker slate background */
+            color: #e2e8f0; /* Light slate text */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem; /* 4xl */
+            font-weight: 800; /* Extra bold */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #6366f1, #a78bfa); /* Indigo to Purple gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #6366f1, #a78bfa);
+            border-radius: 2px;
+        }
+
+        .ai-app-card { /* Renamed from template-card for semantic clarity */
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .ai-app-card {
+            background-color: #1e293b;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #334155;
+        }
+        .ai-app-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+        }
+        .dark .ai-app-card:hover {
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .ai-app-card h2 {
+            font-size: 2.25rem; /* 3xl */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #334155;
+            text-align: center;
+        }
+        .dark .ai-app-card h2 {
+            color: #f8fafc;
+        }
+
+        .code-preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) { /* Large screens */
+            .code-preview-container {
+                flex-direction: row;
+            }
+        }
+
+        .code-editor, .live-preview {
+            flex: 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid #cbd5e1; /* Slate 300 */
+            transition: border-color 0.3s ease;
+        }
+        .dark .code-editor, .dark .live-preview {
+            border-color: #475569; /* Slate 700 */
+        }
+
+        .code-editor textarea {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            padding: 1rem;
+            background-color: #2d3748; /* Dark code background */
+            color: #f8fafc; /* Light text */
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: none;
+            outline: none;
+            resize: vertical; /* Allow vertical resizing */
+            border-radius: 1rem;
+        }
+
+        .live-preview iframe {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            background-color: #ffffff;
+            border: none;
+            border-radius: 1rem;
+        }
+        .dark .live-preview iframe {
+            background-color: #0f172a;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .button-group button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .dark .button-group button {
+            background: linear-gradient(45deg, #a78bfa, #8b5cf6);
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+        }
+        .button-group button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+        .dark .button-group button:hover {
+            box-shadow: 0 8px 20px rgba(167, 139, 250, 0.4);
+        }
+
+        /* Message Box styles (copied for consistency) */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001; /* Higher than modals */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .message-box-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .dark .message-box-content {
+            background-color: #1e293b;
+        }
+        .message-box-overlay.open .message-box-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .message-box-button {
+            background-color: #6366f1;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .dark .message-box-button {
+            background-color: #a78bfa;
+        }
+        .message-box-button:hover {
+            background-color: #4f46e5;
+        }
+        .dark .message-box-button:hover {
+            background-color: #8b5cf6;
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="transition-colors duration-300">
+
+    <header class="py-12 bg-gradient-to-r from-purple-600 to-pink-700 dark:from-purple-800 dark:to-pink-900 text-white text-center shadow-lg">
+        <h1 class="text-5xl font-extrabold mb-3 animate__animated animate__fadeInDown">AI Applications</h1>
+        <p class="text-xl font-light animate__animated animate__fadeInUp animate__delay-1s">Intelligent tools for your daily life.</p>
+    </header>
+
+    <main class="container py-16">
+        <h2 class="section-title mb-16 wow animate__animated animate__fadeIn">AI Tool Showcase</h2>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+            <h2>1. Text Summarizer</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp1Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            resize: vertical;
+            min-height: 150px;
+            font-size: 1rem;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .result-box {
+            background-color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: #475569;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none; /* Hidden by default */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Summarize Text</h1>
+        <textarea id="inputText" placeholder="Paste your text here to get a summary..."></textarea>
+        <button id="summarizeBtn">Summarize</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <div id="summaryOutput" class="result-box">Your summary will appear here.</div>
+    </div>
+
+    <script>
+        document.getElementById('summarizeBtn').addEventListener('click', async () => {
+            const inputText = document.getElementById('inputText').value;
+            const summaryOutput = document.getElementById('summaryOutput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (inputText.trim() === '') {
+                parent.showMessageBox('Please enter some text to summarize.', 'error', 'Input Required');
+                return;
+            }
+
+            summaryOutput.textContent = ''; // Clear previous summary
+            loadingSpinner.style.display = 'block'; // Show spinner
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Summarize the following text concisely: ${inputText}` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Canvas will provide this at runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    summaryOutput.textContent = text;
+                } else {
+                    summaryOutput.textContent = 'Could not generate summary. Please try again.';
+                    parent.showMessageBox('Failed to get summary from AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                summaryOutput.textContent = 'An error occurred while summarizing. Please check console.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none'; // Hide spinner
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp1Preview" title="Text Summarizer Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp1')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+            <h2>2. Sentiment Analyzer</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            font-size: 1rem;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .result-box {
+            background-color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            text-align: center;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #475569;
+        }
+        .result-box.positive { color: #10b981; }
+        .result-box.negative { color: #ef4444; }
+        .result-box.neutral { color: #f97316; }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Analyze Sentiment</h1>
+        <textarea id="inputText" placeholder="Enter text to analyze sentiment (e.g., a review, a comment)..."></textarea>
+        <button id="analyzeBtn">Analyze Sentiment</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <div id="sentimentOutput" class="result-box">Sentiment: N/A</div>
+    </div>
+
+    <script>
+        document.getElementById('analyzeBtn').addEventListener('click', async () => {
+            const inputText = document.getElementById('inputText').value;
+            const sentimentOutput = document.getElementById('sentimentOutput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (inputText.trim() === '') {
+                parent.showMessageBox('Please enter some text to analyze.', 'error', 'Input Required');
+                return;
+            }
+
+            sentimentOutput.textContent = 'Sentiment: Analyzing...';
+            sentimentOutput.classList.remove('positive', 'negative', 'neutral');
+            loadingSpinner.style.display = 'block';
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Analyze the sentiment of the following text as either 'Positive', 'Negative', or 'Neutral'. Provide only the sentiment word. Text: "${inputText}"` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    let sentiment = result.candidates[0].content.parts[0].text.trim().toLowerCase();
+                    if (sentiment.includes('positive')) {
+                        sentiment = 'Positive';
+                        sentimentOutput.classList.add('positive');
+                    } else if (sentiment.includes('negative')) {
+                        sentiment = 'Negative';
+                        sentimentOutput.classList.add('negative');
+                    } else {
+                        sentiment = 'Neutral';
+                        sentimentOutput.classList.add('neutral');
+                    }
+                    sentimentOutput.textContent = `Sentiment: ${sentiment}`;
+                } else {
+                    sentimentOutput.textContent = 'Sentiment: Could not analyze.';
+                    parent.showMessageBox('Failed to get sentiment from AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                sentimentOutput.textContent = 'Sentiment: An error occurred.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp2Preview" title="Sentiment Analyzer Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp2')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+            <h2>3. Image Caption Generator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp3Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Caption Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        input[type="file"] {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            width: calc(100% - 1rem);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            margin-top: 1rem;
+            border: 1px solid #e2e8f0;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            margin-top: 1rem;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .caption-output {
+            background-color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: #475569;
+            word-break: break-word; /* Ensure long captions wrap */
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Generate Image Caption</h1>
+        <input type="file" id="imageUpload" accept="image/*">
+        <img id="previewImage" src="https://placehold.co/400x300/a78bfa/ffffff?text=Upload+Image" alt="Image Preview">
+        <button id="generateCaptionBtn">Generate Caption</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <div id="captionOutput" class="caption-output">Your image caption will appear here.</div>
+    </div>
+
+    <script>
+        const imageUpload = document.getElementById('imageUpload');
+        const previewImage = document.getElementById('previewImage');
+        const generateCaptionBtn = document.getElementById('generateCaptionBtn');
+        const captionOutput = document.getElementById('captionOutput');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        let base64ImageData = '';
+
+        imageUpload.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    // Extract base64 part for API call
+                    base64ImageData = e.target.result.split(',')[1];
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewImage.src = "https://placehold.co/400x300/a78bfa/ffffff?text=Upload+Image";
+                base64ImageData = '';
+            }
+        });
+
+        generateCaptionBtn.addEventListener('click', async () => {
+            if (!base64ImageData) {
+                parent.showMessageBox('Please upload an image first.', 'error', 'Image Required');
+                return;
+            }
+
+            captionOutput.textContent = '';
+            loadingSpinner.style.display = 'block';
+
+            try {
+                let chatHistory = [];
+                const prompt = "Describe this image in a concise caption.";
+                const payload = {
+                    contents: [
+                        {
+                            role: "user",
+                            parts: [
+                                { text: prompt },
+                                {
+                                    inlineData: {
+                                        mimeType: "image/png", // Assuming PNG, adjust if needed
+                                        data: base64ImageData
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const caption = result.candidates[0].content.parts[0].text;
+                    captionOutput.textContent = caption;
+                } else {
+                    captionOutput.textContent = 'Could not generate caption. Please try again.';
+                    parent.showMessageBox('Failed to get caption from AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                captionOutput.textContent = 'An error occurred while generating caption. Please check console.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp3Preview" title="Image Caption Generator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp3')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+            <h2>4. Language Translator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Translator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            resize: vertical;
+            min-height: 100px;
+            font-size: 1rem;
+        }
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            background-color: white;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .translation-output {
+            background-color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: #475569;
+            word-break: break-word;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Translate Text</h1>
+        <textarea id="inputText" placeholder="Enter text to translate..."></textarea>
+        <select id="targetLanguage">
+            <option value="French">French</option>
+            <option value="Spanish">Spanish</option>
+            <option value="German">German</option>
+            <option value="Japanese">Japanese</option>
+            <option value="Kinyarwanda">Kinyarwanda</option>
+            <option value="English">English</option>
+        </select>
+        <button id="translateBtn">Translate</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <div id="translatedOutput" class="translation-output">Your translation will appear here.</div>
+    </div>
+
+    <script>
+        document.getElementById('translateBtn').addEventListener('click', async () => {
+            const inputText = document.getElementById('inputText').value;
+            const targetLanguage = document.getElementById('targetLanguage').value;
+            const translatedOutput = document.getElementById('translatedOutput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (inputText.trim() === '') {
+                parent.showMessageBox('Please enter some text to translate.', 'error', 'Input Required');
+                return;
+            }
+
+            translatedOutput.textContent = '';
+            loadingSpinner.style.display = 'block';
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Translate the following text into ${targetLanguage}: "${inputText}"` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const translation = result.candidates[0].content.parts[0].text;
+                    translatedOutput.textContent = translation;
+                } else {
+                    translatedOutput.textContent = 'Could not translate. Please try again.';
+                    parent.showMessageBox('Failed to get translation from AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                translatedOutput.textContent = 'An error occurred while translating. Please check console.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp4Preview" title="Language Translator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp4')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+            <h2>5. Idea Generator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp5Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idea Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .idea-output {
+            background-color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: #475569;
+            word-break: break-word;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Generate Ideas</h1>
+        <input type="text" id="topicInput" placeholder="Enter a topic (e.g., 'sustainable energy', 'new app features')...">
+        <button id="generateIdeaBtn">Generate Ideas</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <div id="ideaOutput" class="idea-output">Your ideas will appear here.</div>
+    </div>
+
+    <script>
+        document.getElementById('generateIdeaBtn').addEventListener('click', async () => {
+            const topicInput = document.getElementById('topicInput').value;
+            const ideaOutput = document.getElementById('ideaOutput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (topicInput.trim() === '') {
+                parent.showMessageBox('Please enter a topic to generate ideas.', 'error', 'Input Required');
+                return;
+            }
+
+            ideaOutput.textContent = '';
+            loadingSpinner.style.display = 'block';
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Generate 5 innovative ideas for the topic: "${topicInput}". Present them as a bulleted list.` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const ideas = result.candidates[0].content.parts[0].text;
+                    ideaOutput.innerHTML = ideas.split('\n').map(item => item.trim() !== '' ? `<li>${item.trim()}</li>` : '').join('');
+                    ideaOutput.style.textAlign = 'left'; // Align list items
+                } else {
+                    ideaOutput.textContent = 'Could not generate ideas. Please try again.';
+                    parent.showMessageBox('Failed to get ideas from AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                ideaOutput.textContent = 'An error occurred while generating ideas. Please check console.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp5Preview" title="Idea Generator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp5')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+            <h2>6. Recipe Generator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp6Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .recipe-output {
+            background-color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            min-height: 150px;
+            color: #475569;
+            word-break: break-word;
+        }
+        .recipe-output h3 {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: #334155;
+        }
+        .recipe-output ul {
+            list-style: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Generate a Recipe</h1>
+        <input type="text" id="ingredientsInput" placeholder="Enter ingredients (comma-separated)...">
+        <button id="generateRecipeBtn">Get Recipe</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <div id="recipeOutput" class="recipe-output">Your recipe will appear here.</div>
+    </div>
+
+    <script>
+        document.getElementById('generateRecipeBtn').addEventListener('click', async () => {
+            const ingredientsInput = document.getElementById('ingredientsInput').value;
+            const recipeOutput = document.getElementById('recipeOutput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (ingredientsInput.trim() === '') {
+                parent.showMessageBox('Please enter some ingredients.', 'error', 'Input Required');
+                return;
+            }
+
+            recipeOutput.innerHTML = '';
+            loadingSpinner.style.display = 'block';
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Generate a simple recipe using these ingredients: ${ingredientsInput}. Provide the recipe name, a list of ingredients, and simple instructions.` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const recipeText = result.candidates[0].content.parts[0].text;
+                    // Basic parsing for display
+                    let formattedRecipe = recipeText.replace(/\*\*(.*?)\*\*/g, '<h3>$1</h3>') // Bold to H3
+                                                    .replace(/^- (.*)/gm, '<li>$1</li>') // Bullet points to list items
+                                                    .replace(/(\d+\.) (.*)/gm, '<p class="mb-2"><strong>$1</strong> $2</p>'); // Numbered instructions
+                    recipeOutput.innerHTML = formattedRecipe;
+                } else {
+                    recipeOutput.textContent = 'Could not generate recipe. Please try again.';
+                    parent.showMessageBox('Failed to get recipe from AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                recipeOutput.textContent = 'An error occurred while generating recipe. Please check console.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp6Preview" title="Recipe Generator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp6')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s">
+            <h2>7. Email Draft Assistant</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp7Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Draft Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        textarea.draft-output {
+            min-height: 200px;
+            background-color: #e2e8f0;
+            color: #475569;
+            resize: vertical;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Email Draft Assistant</h1>
+        <input type="text" id="emailRecipient" placeholder="Recipient (e.g., 'Hiring Manager', 'Customer Support')...">
+        <input type="text" id="emailSubject" placeholder="Subject (e.g., 'Job Application', 'Inquiry about order')...">
+        <textarea id="emailPurpose" placeholder="Briefly describe the email's purpose and key points..."></textarea>
+        <button id="draftEmailBtn">Draft Email</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <textarea id="emailOutput" class="draft-output" placeholder="Your drafted email will appear here." readonly></textarea>
+    </div>
+
+    <script>
+        document.getElementById('draftEmailBtn').addEventListener('click', async () => {
+            const emailRecipient = document.getElementById('emailRecipient').value;
+            const emailSubject = document.getElementById('emailSubject').value;
+            const emailPurpose = document.getElementById('emailPurpose').value;
+            const emailOutput = document.getElementById('emailOutput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (emailPurpose.trim() === '') {
+                parent.showMessageBox('Please describe the email\'s purpose.', 'error', 'Input Required');
+                return;
+            }
+
+            emailOutput.value = '';
+            loadingSpinner.style.display = 'block';
+
+            try {
+                let prompt = `Draft an email to "${emailRecipient}" with the subject "${emailSubject}". The purpose of the email is: "${emailPurpose}". Make it professional and concise.`;
+                if (!emailRecipient.trim()) {
+                    prompt = `Draft an email with the subject "${emailSubject}". The purpose of the email is: "${emailPurpose}". Make it professional and concise.`;
+                }
+                if (!emailSubject.trim()) {
+                    prompt = `Draft an email to "${emailRecipient}". The purpose of the email is: "${emailPurpose}". Make it professional and concise.`;
+                }
+                if (!emailRecipient.trim() && !emailSubject.trim()) {
+                     prompt = `Draft an email. The purpose of the email is: "${emailPurpose}". Make it professional and concise.`;
+                }
+                
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const draft = result.candidates[0].content.parts[0].text;
+                    emailOutput.value = draft;
+                } else {
+                    emailOutput.value = 'Could not draft email. Please try again.';
+                    parent.showMessageBox('Failed to get email draft from AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                emailOutput.value = 'An error occurred while drafting email. Please check console.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp7Preview" title="Email Draft Assistant Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp7')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s">
+            <h2>8. Study Buddy / Q&A</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp8Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Buddy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .answer-output {
+            background-color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: #475569;
+            word-break: break-word;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Your AI Study Buddy</h1>
+        <input type="text" id="questionInput" placeholder="Ask me anything (e.g., 'Explain photosynthesis')...">
+        <button id="askBtn">Get Answer</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <div id="answerOutput" class="answer-output">Your answer will appear here.</div>
+    </div>
+
+    <script>
+        document.getElementById('askBtn').addEventListener('click', async () => {
+            const questionInput = document.getElementById('questionInput').value;
+            const answerOutput = document.getElementById('answerOutput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (questionInput.trim() === '') {
+                parent.showMessageBox('Please ask a question.', 'error', 'Input Required');
+                return;
+            }
+
+            answerOutput.textContent = '';
+            loadingSpinner.style.display = 'block';
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Answer the following question clearly and concisely: "${questionInput}"` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const answer = result.candidates[0].content.parts[0].text;
+                    answerOutput.textContent = answer;
+                } else {
+                    answerOutput.textContent = 'Could not find an answer. Please try again.';
+                    parent.showMessageBox('Failed to get answer from AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                answerOutput.textContent = 'An error occurred while getting the answer. Please check console.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp8Preview" title="Study Buddy / Q&A Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp8')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s">
+            <h2>9. Product Description Generator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp9Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Description Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        textarea.description-output {
+            min-height: 180px;
+            background-color: #e2e8f0;
+            color: #475569;
+            resize: vertical;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Product Description Generator</h1>
+        <input type="text" id="productName" placeholder="Product Name (e.g., 'Smartwatch X1')...">
+        <textarea id="productFeatures" placeholder="Key features (e.g., 'GPS, Heart Rate Monitor, 7-day Battery')..."></textarea>
+        <button id="generateDescriptionBtn">Generate Description</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <textarea id="descriptionOutput" class="description-output" placeholder="Your product description will appear here." readonly></textarea>
+    </div>
+
+    <script>
+        document.getElementById('generateDescriptionBtn').addEventListener('click', async () => {
+            const productName = document.getElementById('productName').value;
+            const productFeatures = document.getElementById('productFeatures').value;
+            const descriptionOutput = document.getElementById('descriptionOutput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (productName.trim() === '' || productFeatures.trim() === '') {
+                parent.showMessageBox('Please enter product name and features.', 'error', 'Input Required');
+                return;
+            }
+
+            descriptionOutput.value = '';
+            loadingSpinner.style.display = 'block';
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Write a compelling product description for "${productName}" with these key features: "${productFeatures}". Highlight benefits and call to action.` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const description = result.candidates[0].content.parts[0].text;
+                    descriptionOutput.value = description;
+                } else {
+                    descriptionOutput.value = 'Could not generate description. Please try again.';
+                    parent.showMessageBox('Failed to get description from AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                descriptionOutput.value = 'An error occurred while generating description. Please check console.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp9Preview" title="Product Description Generator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp9')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s">
+            <h2>10. Fitness Plan Generator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp10Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Plan Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            background-color: white;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .plan-output {
+            background-color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            min-height: 180px;
+            color: #475569;
+            word-break: break-word;
+        }
+        .plan-output h3 {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: #334155;
+        }
+        .plan-output ul {
+            list-style: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Generate Fitness Plan</h1>
+        <input type="text" id="goalInput" placeholder="Your fitness goal (e.g., 'lose weight', 'build muscle')...">
+        <select id="levelSelect">
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+        </select>
+        <button id="generatePlanBtn">Generate Plan</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <div id="planOutput" class="plan-output">Your fitness plan will appear here.</div>
+    </div>
+
+    <script>
+        document.getElementById('generatePlanBtn').addEventListener('click', async () => {
+            const goal = document.getElementById('goalInput').value;
+            const level = document.getElementById('levelSelect').value;
+            const planOutput = document.getElementById('planOutput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (goal.trim() === '') {
+                parent.showMessageBox('Please enter your fitness goal.', 'error', 'Input Required');
+                return;
+            }
+
+            planOutput.innerHTML = '';
+            loadingSpinner.style.display = 'block';
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Generate a simple ${level} fitness plan for someone who wants to "${goal}". Include a few exercises per day for 3 days a week.` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const planText = result.candidates[0].content.parts[0].text;
+                    // Basic formatting for display
+                    let formattedPlan = planText.replace(/\*\*(.*?)\*\*/g, '<h3>$1</h3>') // Bold to H3
+                                                .replace(/^- (.*)/gm, '<li>$1</li>'); // Bullet points to list items
+                    planOutput.innerHTML = formattedPlan;
+                } else {
+                    planOutput.textContent = 'Could not generate plan. Please try again.';
+                    parent.showMessageBox('Failed to get fitness plan from AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                planOutput.textContent = 'An error occurred while generating plan. Please check console.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp10Preview" title="Fitness Plan Generator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp10')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+            <h2>11. Travel Itinerary Planner</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp11Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Itinerary Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .itinerary-output {
+            background-color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            min-height: 180px;
+            color: #475569;
+            word-break: break-word;
+        }
+        .itinerary-output h3 {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: #334155;
+        }
+        .itinerary-output ul {
+            list-style: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Travel Itinerary Planner</h1>
+        <input type="text" id="destinationInput" placeholder="Destination (e.g., 'Paris, France')...">
+        <input type="number" id="durationInput" placeholder="Duration in days (e.g., '5')..." min="1">
+        <button id="generateItineraryBtn">Generate Itinerary</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <div id="itineraryOutput" class="itinerary-output">Your travel itinerary will appear here.</div>
+    </div>
+
+    <script>
+        document.getElementById('generateItineraryBtn').addEventListener('click', async () => {
+            const destination = document.getElementById('destinationInput').value;
+            const duration = document.getElementById('durationInput').value;
+            const itineraryOutput = document.getElementById('itineraryOutput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (destination.trim() === '' || !duration || parseInt(duration) < 1) {
+                parent.showMessageBox('Please enter a valid destination and duration.', 'error', 'Input Required');
+                return;
+            }
+
+            itineraryOutput.innerHTML = '';
+            loadingSpinner.style.display = 'block';
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Generate a ${duration}-day travel itinerary for "${destination}". Include main attractions and activity suggestions for each day.` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const itineraryText = result.candidates[0].content.parts[0].text;
+                    // Basic formatting for display
+                    let formattedItinerary = itineraryText.replace(/\*\*(.*?)\*\*/g, '<h3>$1</h3>')
+                                                        .replace(/^- (.*)/gm, '<li>$1</li>');
+                    itineraryOutput.innerHTML = formattedItinerary;
+                } else {
+                    itineraryOutput.textContent = 'Could not generate itinerary. Please try again.';
+                    parent.showMessageBox('Failed to get itinerary from AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                itineraryOutput.textContent = 'An error occurred while generating itinerary. Please check console.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp11Preview" title="Travel Itinerary Planner Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp11')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+            <h2>12. Code Explainer</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp12Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Explainer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto Mono', monospace; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 700px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            resize: vertical;
+            min-height: 150px;
+            font-size: 0.9rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .explanation-output {
+            background-color: #2d3748; /* Dark code background */
+            color: #f8fafc; /* Light text */
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            min-height: 150px;
+            font-size: 0.9rem;
+            white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            word-break: break-word;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Code Explainer</h1>
+        <textarea id="codeInput" placeholder="Paste your code snippet here (e.g., JavaScript, Python)..."></textarea>
+        <button id="explainCodeBtn">Explain Code</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <pre id="explanationOutput" class="explanation-output">Your code explanation will appear here.</pre>
+    </div>
+
+    <script>
+        document.getElementById('explainCodeBtn').addEventListener('click', async () => {
+            const codeInput = document.getElementById('codeInput').value;
+            const explanationOutput = document.getElementById('explanationOutput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (codeInput.trim() === '') {
+                parent.showMessageBox('Please paste some code to explain.', 'error', 'Input Required');
+                return;
+            }
+
+            explanationOutput.textContent = '';
+            loadingSpinner.style.display = 'block';
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Explain the following code snippet in simple terms, line by line if necessary. Identify the programming language if possible. Code: \`\`\`${codeInput}\`\`\`` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const explanation = result.candidates[0].content.parts[0].text;
+                    explanationOutput.textContent = explanation;
+                } else {
+                    explanationOutput.textContent = 'Could not explain code. Please try again.';
+                    parent.showMessageBox('Failed to get explanation from AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                explanationOutput.textContent = 'An error occurred while explaining code. Please check console.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp12Preview" title="Code Explainer Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp12')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+            <h2>13. Personalized Story Generator</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp13Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Story Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        textarea.story-output {
+            min-height: 200px;
+            background-color: #e2e8f0;
+            color: #475569;
+            resize: vertical;
+            text-align: left;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Personalized Story Generator</h1>
+        <input type="text" id="genreInput" placeholder="Genre (e.g., 'fantasy', 'sci-fi', 'mystery')...">
+        <input type="text" id="keywordsInput" placeholder="Keywords (e.g., 'dragon, brave knight', 'space exploration')...">
+        <button id="generateStoryBtn">Generate Story</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <textarea id="storyOutput" class="story-output" placeholder="Your personalized story will appear here." readonly></textarea>
+    </div>
+
+    <script>
+        document.getElementById('generateStoryBtn').addEventListener('click', async () => {
+            const genre = document.getElementById('genreInput').value;
+            const keywords = document.getElementById('keywordsInput').value;
+            const storyOutput = document.getElementById('storyOutput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (genre.trim() === '' || keywords.trim() === '') {
+                parent.showMessageBox('Please enter a genre and some keywords.', 'error', 'Input Required');
+                return;
+            }
+
+            storyOutput.value = '';
+            loadingSpinner.style.display = 'block';
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Write a short story in the "${genre}" genre, incorporating these keywords: "${keywords}". Make it engaging and around 200 words.` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const story = result.candidates[0].content.parts[0].text;
+                    storyOutput.value = story;
+                } else {
+                    storyOutput.value = 'Could not generate story. Please try again.';
+                    parent.showMessageBox('Failed to get story from AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                storyOutput.value = 'An error occurred while generating story. Please check console.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp13Preview" title="Personalized Story Generator Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp13')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+            <h2>14. Image Style Transfer (Prompt)</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp14Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Style Transfer (Prompt)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            margin-top: 1rem;
+            border: 1px solid #e2e8f0;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            margin-top: 1rem;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Image Style Transfer (Prompt-based)</h1>
+        <p class="text-sm text-gray-600 mb-4">Describe an image and a style, and AI will generate a new image.</p>
+        <input type="text" id="imageContent" placeholder="Describe the image content (e.g., 'a cat playing')...">
+        <input type="text" id="imageStyle" placeholder="Describe the desired style (e.g., 'oil painting', 'cyberpunk', 'watercolor')...">
+        <button id="generateImageBtn">Generate Styled Image</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <img id="generatedImage" src="https://placehold.co/400x300/e2e8f0/475569?text=Generated+Image" alt="Generated Image">
+    </div>
+
+    <script>
+        document.getElementById('generateImageBtn').addEventListener('click', async () => {
+            const imageContent = document.getElementById('imageContent').value;
+            const imageStyle = document.getElementById('imageStyle').value;
+            const generatedImage = document.getElementById('generatedImage');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (imageContent.trim() === '' || imageStyle.trim() === '') {
+                parent.showMessageBox('Please describe both image content and style.', 'error', 'Input Required');
+                return;
+            }
+
+            generatedImage.src = "https://placehold.co/400x300/e2e8f0/475569?text=Generating..."; // Placeholder while loading
+            loadingSpinner.style.display = 'block';
+
+            try {
+                const prompt = `${imageContent} in the style of ${imageStyle}`;
+                const payload = { instances: { prompt: prompt }, parameters: { "sampleCount": 1} };
+                const apiKey = ""; // Canvas will provide this at runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+                    const imageUrl = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                    generatedImage.src = imageUrl;
+                } else {
+                    generatedImage.src = "https://placehold.co/400x300/e2e8f0/ef4444?text=Error";
+                    parent.showMessageBox('Could not generate image. Please try again.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                generatedImage.src = "https://placehold.co/400x300/e2e8f0/ef4444?text=Error";
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp14Preview" title="Image Style Transfer (Prompt) Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp14')">Run App</button>
+            </div>
+        </section>
+
+        <section class="ai-app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+            <h2>15. Content Rewriter/Paraphraser</h2>
+            <div class="code-preview-container">
+                <div class="code-editor">
+                    <textarea id="aiApp15Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Rewriter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .app-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            resize: vertical;
+            min-height: 150px;
+            font-size: 1rem;
+        }
+        textarea.rewritten-output {
+            background-color: #e2e8f0;
+            color: #475569;
+            resize: vertical;
+        }
+        button {
+            background: linear-gradient(45deg, #6366f1, #a78bfa);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Content Rewriter / Paraphraser</h1>
+        <textarea id="originalText" placeholder="Paste text to rewrite or paraphrase..."></textarea>
+        <button id="rewriteBtn">Rewrite Text</button>
+        <div id="loadingSpinner" class="loading-spinner"></div>
+        <textarea id="rewrittenOutput" class="rewritten-output" placeholder="Your rewritten text will appear here." readonly></textarea>
+    </div>
+
+    <script>
+        document.getElementById('rewriteBtn').addEventListener('click', async () => {
+            const originalText = document.getElementById('originalText').value;
+            const rewrittenOutput = document.getElementById('rewrittenOutput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (originalText.trim() === '') {
+                parent.showMessageBox('Please enter some text to rewrite.', 'error', 'Input Required');
+                return;
+            }
+
+            rewrittenOutput.value = '';
+            loadingSpinner.style.display = 'block';
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Rewrite or paraphrase the following text to make it sound different but retain the original meaning: "${originalText}"` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const rewrittenText = result.candidates[0].content.parts[0].text;
+                    rewrittenOutput.value = rewrittenText;
+                } else {
+                    rewrittenOutput.value = 'Could not rewrite text. Please try again.';
+                    parent.showMessageBox('Failed to rewrite text with AI.', 'error', 'API Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                rewrittenOutput.value = 'An error occurred while rewriting text. Please check console.';
+                parent.showMessageBox('An unexpected error occurred.', 'error', 'Application Error');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+                    </textarea>
+                </div>
+                <div class="live-preview">
+                    <iframe id="aiApp15Preview" title="Content Rewriter/Paraphraser Preview"></iframe>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="loadApp('aiApp15')">Run App</button>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="messageBox" class="message-box-overlay">
+        <div class="message-box-content">
+            <h3 id="messageBoxTitle" class="text-xl font-semibold mb-3 text-slate-800 dark:text-slate-200"></h3>
+            <p id="messageBoxText" class="text-slate-700 dark:text-slate-300"></p>
+            <button id="messageBoxCloseBtn" class="message-box-button">OK</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new WOW().init();
+
+            // Message Box Functionality (copied for consistency)
+            const messageBox = document.getElementById('messageBox');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxText = document.getElementById('messageBoxText');
+            const messageBoxCloseBtn = document.getElementById('messageBoxCloseBtn');
+
+            window.showMessageBox = function(message, type = 'info', title = 'Notification') {
+                messageBoxTitle.textContent = title;
+                messageBoxText.textContent = message;
+                if (type === 'success') {
+                    messageBoxTitle.style.color = '#10b981';
+                } else if (type === 'error') {
+                    messageBoxTitle.style.color = '#ef4444';
+                } else {
+                    messageBoxTitle.style.color = '';
+                }
+                messageBox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            messageBoxCloseBtn.addEventListener('click', () => {
+                messageBox.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+
+            messageBox.addEventListener('click', (e) => {
+                if (e.target === messageBox) {
+                    messageBox.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Function to load AI app code into iframe
+            window.loadApp = function(appId) {
+                const codeTextarea = document.getElementById(`${appId}Code`);
+                const previewIframe = document.getElementById(`${appId}Preview`);
+
+                if (codeTextarea && previewIframe) {
+                    const htmlContent = codeTextarea.value;
+                    const doc = previewIframe.contentWindow.document;
+
+                    doc.open();
+                    doc.write(htmlContent);
+                    doc.close();
+                } else {
+                    showMessageBox('Error: App elements not found.', 'error');
+                }
+            };
+
+            // Automatically load all apps on page load
+            loadApp('aiApp1');
+            loadApp('aiApp2');
+            loadApp('aiApp3');
+            loadApp('aiApp4');
+            loadApp('aiApp5');
+            loadApp('aiApp6');
+            loadApp('aiApp7');
+            loadApp('aiApp8');
+            loadApp('aiApp9');
+            loadApp('aiApp10');
+            loadApp('aiApp11');
+            loadApp('aiApp12');
+            loadApp('aiApp13');
+            loadApp('aiApp14');
+            loadApp('aiApp15');
+        });
+    </script>
+</body>
+</html>

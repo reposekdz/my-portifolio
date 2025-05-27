@@ -170,7 +170,6 @@
         .dark .project-card-interactive:hover {
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
-
         .project-image-container {
             position: relative;
             width: 100%;
@@ -627,7 +626,7 @@
         }
 
         /* My Approach / Why Choose Me cards */
-        .approach-card {
+        .approach-card, .feature-card {
             background-color: #ffffff;
             border-radius: 1rem;
             padding: 2rem;
@@ -635,29 +634,33 @@
             transition: all 0.3s ease;
             border-left: 5px solid transparent;
         }
-        .dark .approach-card {
+        .dark .approach-card, .dark .feature-card {
             background-color: #1e293b;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
-        .approach-card:hover {
+        .approach-card:hover, .feature-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
             border-left-color: #6366f1; /* Indigo 500 */
         }
-        .dark .approach-card:hover {
+        .dark .approach-card:hover, .dark .feature-card:hover {
             border-left-color: #a78bfa; /* Purple 400 */
         }
-        .approach-card i, .approach-card .ph-fill {
+        .approach-card i, .approach-card .ph-fill,
+        .feature-card i, .feature-card .ph-fill {
             color: #6366f1; /* Indigo 500 */
             transition: color 0.3s ease;
         }
-        .dark .approach-card i, .dark .approach-card .ph-fill {
+        .dark .approach-card i, .dark .approach-card .ph-fill,
+        .dark .feature-card i, .dark .feature-card .ph-fill {
             color: #a78bfa; /* Purple 400 */
         }
-        .approach-card:hover i, .approach-card:hover .ph-fill {
+        .approach-card:hover i, .approach-card:hover .ph-fill,
+        .feature-card:hover i, .feature-card:hover .ph-fill {
             color: #4f46e5; /* Indigo 600 */
         }
-        .dark .approach-card:hover i, .dark .approach-card:hover .ph-fill {
+        .dark .approach-card:hover i, .dark .approach-card:hover .ph-fill,
+        .dark .feature-card:hover i, .dark .feature-card:hover .ph-fill {
             color: #8b5cf6; /* Purple 500 */
         }
 
@@ -842,6 +845,79 @@
         .dark .message-box-button:hover {
             background-color: #8b5cf6;
         }
+
+        /* Achievements Counter styles */
+        .counter-box {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .dark .counter-box {
+            background-color: #1e293b;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        .counter-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .counter-number {
+            font-size: 3.5rem; /* 5xl */
+            font-weight: 800;
+            color: #6366f1; /* Indigo 500 */
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        .dark .counter-number {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .counter-label {
+            font-size: 1.25rem; /* Lg */
+            font-weight: 600;
+            color: #1e293b; /* Slate 900 */
+        }
+        .dark .counter-label {
+            color: #f8fafc; /* Slate 50 */
+        }
+
+        /* Newsletter Section Styles */
+        #newsletter {
+            background-color: #6366f1; /* Indigo 500 */
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            border-radius: 1rem;
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+        }
+        .dark #newsletter {
+            background-color: #a78bfa; /* Purple 400 */
+            color: #1e293b;
+        }
+        #newsletter .newsletter-input {
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px;
+            border: none;
+            width: 100%;
+            max-width: 400px;
+            margin-right: 1rem;
+            color: #1e293b;
+        }
+        #newsletter .newsletter-btn {
+            background-color: #fcd34d; /* Yellow 300 */
+            color: #4338ca; /* Indigo 700 */
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        #newsletter .newsletter-btn:hover {
+            background-color: #fbbf24; /* Yellow 400 */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
     </style>
     <script>
         // Initialize dark mode preference immediately to prevent FOUC
@@ -857,7 +933,9 @@
 
     <nav id="navbar" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
         <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity">niyonkuru reponse</a>
+            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity flex items-center">
+                NR <i class="ph-robot-fill ml-2 text-3xl text-yellow-400 animate-pulse"></i>
+            </a>
 
             <div class="hidden md:flex items-center relative group">
                 <input type="text" id="desktopSearchInput" placeholder="Search projects, skills..." class="nav-search-input peer">
@@ -943,7 +1021,7 @@
                     <i class="fab fa-x-twitter"></i>
                     <span class="social-tooltip group-hover:opacity-100 group-hover:visible">Twitter / X</span>
                 </a>
-                <a href="https://www.instagram.com/reponse_kdz/s"_blank" rel="noopener noreferrer" class="social-icon group" aria-label="Dev.to Community">
+                <a href="https://dev.to/reponse_kdz" target="_blank" rel="noopener noreferrer" class="social-icon group" aria-label="Dev.to Community">
                     <i class="fab fa-dev"></i>
                     <span class="social-tooltip group-hover:opacity-100 group-hover:visible">DEV Community</span>
                 </a>
@@ -964,7 +1042,7 @@
         <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                 <div class="wow animate__animated animate__fadeInLeft" data-wow-duration="1s">
-                    <img src="./assets/ChatGPT Image May 25, 2025, 04_25_42 PM.png"
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                          alt="niyonkuru reponse - Professional"
                          class="rounded-xl shadow-2xl w-full max-w-md mx-auto lg:max-w-none object-cover aspect-square"
                          onerror="this.src='https://placehold.co/500x500/e2e8f0/4a5568?text=Your+Image'">
@@ -1057,16 +1135,16 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="project-card-interactive wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
                     <div class="project-image-container">
-                        <img src="https://placehold.co/600x400/818cf8/ffffff?text=Project+Showcase+1&font=Montserrat" alt="Project Alpha" class="project-image" onerror="this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Project+1'">
+                        <img src="https://images.unsplash.com/photo-1556740738-b676f4e3c9b7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="E-commerce Platform" class="project-image" onerror="this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Project+1'">
                         <div class="project-overlay">
-                            <h3 class="text-xl font-bold mb-1">Project Alpha</h3>
-                            <p class="text-sm mb-3">E-commerce Platform</p>
+                            <h3 class="text-xl font-bold mb-1">E-commerce Platform</h3>
+                            <p class="text-sm mb-3">Seamless online shopping experience.</p>
                             <a href="projects.html#project-alpha-detail" class="overlay-btn">View Details</a>
                         </div>
                     </div>
                     <div class="p-5">
-                        <h4 class="text-lg font-semibold mb-1">Project Alpha</h4>
-                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">A cutting-edge e-commerce solution with a focus on user experience and performance.</p>
+                        <h4 class="text-lg font-semibold mb-1">E-commerce Platform</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">A robust e-commerce solution with secure payment gateways and intuitive product management.</p>
                         <div class="flex flex-wrap gap-2 mb-3">
                             <span class="tech-badge-sm">React</span>
                             <span class="tech-badge-sm">Node.js</span>
@@ -1076,16 +1154,16 @@
                 </div>
                 <div class="project-card-interactive wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
                      <div class="project-image-container">
-                        <img src="https://placehold.co/600x400/f472b6/ffffff?text=Project+Showcase+2&font=Montserrat" alt="Project Beta" class="project-image" onerror="this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Project+2'">
+                        <img src="https://images.unsplash.com/photo-1551288259-cd725553017e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Data Analytics Dashboard" class="project-image" onerror="this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Project+2'">
                         <div class="project-overlay">
-                            <h3 class="text-xl font-bold mb-1">Project Beta</h3>
-                            <p class="text-sm mb-3">Data Analytics Dashboard</p>
+                            <h3 class="text-xl font-bold mb-1">Data Analytics Dashboard</h3>
+                            <p class="text-sm mb-3">Visualize complex data with ease.</p>
                             <a href="projects.html#project-beta-detail" class="overlay-btn">View Details</a>
                         </div>
                     </div>
                     <div class="p-5">
-                        <h4 class="text-lg font-semibold mb-1">Project Beta</h4>
-                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">Interactive dashboard for visualizing complex datasets and deriving insights.</p>
+                        <h4 class="text-lg font-semibold mb-1">Data Analytics Dashboard</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">Interactive dashboard for visualizing complex datasets and deriving actionable insights.</p>
                          <div class="flex flex-wrap gap-2 mb-3">
                             <span class="tech-badge-sm">Python (Flask)</span>
                             <span class="tech-badge-sm">D3.js</span>
@@ -1095,15 +1173,15 @@
                 </div>
                 <div class="project-card-interactive wow animate__animated animate__fadeInUp md:col-span-2 lg:col-span-1" data-wow-delay="0.3s">
                      <div class="project-image-container">
-                        <img src="https://placehold.co/600x400/34d399/ffffff?text=Project+Showcase+3&font=Montserrat" alt="Project Gamma" class="project-image" onerror="this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Project+3'">
+                        <img src="https://images.unsplash.com/photo-1550009158-9ebf6974753c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Mobile Productivity App" class="project-image" onerror="this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Project+3'">
                         <div class="project-overlay">
-                            <h3 class="text-xl font-bold mb-1">Project Gamma</h3>
-                            <p class="text-sm mb-3">Mobile Productivity App</p>
+                            <h3 class="text-xl font-bold mb-1">Mobile Productivity App</h3>
+                            <p class="text-sm mb-3">Boost your daily efficiency.</p>
                             <a href="projects.html#project-gamma-detail" class="overlay-btn">View Details</a>
                         </div>
                     </div>
                     <div class="p-5">
-                        <h4 class="text-lg font-semibold mb-1">Project Gamma</h4>
+                        <h4 class="text-lg font-semibold mb-1">Mobile Productivity App</h4>
                         <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">A cross-platform mobile app designed to boost daily productivity and organization.</p>
                          <div class="flex flex-wrap gap-2 mb-3">
                             <span class="tech-badge-sm">Flutter</span>
@@ -1172,6 +1250,78 @@
         </div>
     </section>
 
+    <section id="key-features" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">Why Choose Me?</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Unlocking your potential with tailored digital solutions.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <i class="ph-crown-fill text-5xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Expertise & Experience</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Years of hands-on experience in diverse projects, delivering high-quality and robust solutions.
+                    </p>
+                </div>
+                <div class="feature-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <i class="ph-star-fill text-5xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Quality & Reliability</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Commitment to writing clean, maintainable code and ensuring reliable application performance.
+                    </p>
+                </div>
+                <div class="feature-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <i class="ph-chat-circle-dots-fill text-5xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Transparent Communication</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Clear and consistent communication throughout the project lifecycle, keeping you informed every step.
+                    </p>
+                </div>
+                <div class="feature-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <i class="ph-lightbulb-filament-fill text-5xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Innovative Solutions</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Bringing fresh perspectives and creative solutions to solve complex problems effectively.
+                    </p>
+                </div>
+                <div class="feature-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+                    <i class="ph-arrows-clockwise-fill text-5xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Adaptability & Flexibility</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Quick to adapt to new technologies and project requirements, ensuring flexible development.
+                    </p>
+                </div>
+                <div class="feature-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+                    <i class="ph-handshake-fill text-5xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Long-Term Partnership</h3>
+                    <p class="text-slate-700 dark:text-slate-300">
+                        Building lasting relationships with clients, offering ongoing support and future enhancements.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">My Achievements</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">Numbers that speak louder than words.</p>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
+                <div class="counter-box wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <div class="counter-number" data-target="7">0</div>
+                    <p class="counter-label">Years of Experience</p>
+                </div>
+                <div class="counter-box wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <div class="counter-number" data-target="50">0</div>
+                    <p class="counter-label">Projects Completed</p>
+                </div>
+                <div class="counter-box wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <div class="counter-number" data-target="30">0</div>
+                    <p class="counter-label">Happy Clients</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="testimonials" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
         <div class="container mx-auto px-6">
             <h2 class="section-title text-center">What People Say</h2>
@@ -1179,10 +1329,10 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="testimonial-card bg-slate-50 dark:bg-slate-800/50 p-8 rounded-xl shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
                     <div class="flex items-center mb-4">
-                        <img src="https://placehold.co/80x80/6366f1/ffffff?text=JD" alt="Client Name" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Client Name" class="w-16 h-16 rounded-full object-cover mr-4">
                         <div>
-                            <p class="font-semibold text-lg">Jane Doe</p>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">CEO, Tech Solutions</p>
+                            <p class="font-semibold text-lg">Aline Uwase</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">CEO, Tech Solutions Rwanda</p>
                         </div>
                     </div>
                     <p class="text-slate-700 dark:text-slate-300 italic">
@@ -1191,10 +1341,10 @@
                 </div>
                 <div class="testimonial-card bg-slate-50 dark:bg-slate-800/50 p-8 rounded-xl shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
                     <div class="flex items-center mb-4">
-                        <img src="https://placehold.co/80x80/f472b6/ffffff?text=AS" alt="Client Name" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Client Name" class="w-16 h-16 rounded-full object-cover mr-4">
                         <div>
-                            <p class="font-semibold text-lg">Alex Smith</p>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Project Manager, Innovate Corp</p>
+                            <p class="font-semibold text-lg">Emmanuel Ndayishimiye</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Project Manager, Innovate Rwanda</p>
                         </div>
                     </div>
                     <p class="text-slate-700 dark:text-slate-300 italic">
@@ -1203,10 +1353,10 @@
                 </div>
                 <div class="testimonial-card bg-slate-50 dark:bg-slate-800/50 p-8 rounded-xl shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
                     <div class="flex items-center mb-4">
-                        <img src="https://placehold.co/80x80/34d399/ffffff?text=EM" alt="Client Name" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cfd293ae?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Client Name" class="w-16 h-16 rounded-full object-cover mr-4">
                         <div>
-                            <p class="font-semibold text-lg">Emily White</p>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Founder, Creative Studio</p>
+                            <p class="font-semibold text-lg">Sandrine Mukamisha</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Founder, Creative Studio Africa</p>
                         </div>
                     </div>
                     <p class="text-slate-700 dark:text-slate-300 italic">
@@ -1274,7 +1424,7 @@
             <p class="section-subtitle text-center mb-12 lg:mb-16">Insights, tutorials, and thoughts on technology.</p>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
-                    <img src="https://placehold.co/600x200/818cf8/ffffff?text=Blog+Post+1&font=Montserrat" alt="Blog Post 1 Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+1'">
+                    <img src="https://images.unsplash.com/photo-1596542152438-e6b7b5f1a5b0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="The Future of AI in Web Development" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=AI+WebDev'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">The Future of AI in Web Development</h3>
                         <p class="blog-card-meta">By niyonkuru reponse | May 20, 2025 | <i class="ph-tag-fill"></i> AI, WebDev</p>
@@ -1287,7 +1437,7 @@
                     </div>
                 </div>
                 <div class="blog-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
-                    <img src="https://placehold.co/600x200/f472b6/ffffff?text=Blog+Post+2&font=Montserrat" alt="Blog Post 2 Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+2'">
+                    <img src="https://images.unsplash.com/photo-1633356122544-cd7d0a2055ac?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Mastering State Management in React" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=React+State'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">Mastering State Management in React</h3>
                         <p class="blog-card-meta">By niyonkuru reponse | April 15, 2025 | <i class="ph-tag-fill"></i> React, Frontend</p>
@@ -1300,7 +1450,7 @@
                     </div>
                 </div>
                 <div class="blog-card wow animate__animated animate__fadeInUp md:col-span-2 lg:col-span-1" data-wow-delay="0.3s">
-                    <img src="https://placehold.co/600x200/34d399/ffffff?text=Blog+Post+3&font=Montserrat" alt="Blog Post 3 Thumbnail" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Blog+3'">
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Cloud Native Architectures Explained" onerror="this.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Cloud+Native'">
                     <div class="blog-card-content">
                         <h3 class="blog-card-title">Cloud Native Architectures Explained</h3>
                         <p class="blog-card-meta">By niyonkuru reponse | March 10, 2025 | <i class="ph-tag-fill"></i> Cloud, Architecture</p>
@@ -1319,6 +1469,19 @@
                 </a>
             </div>
         </div>
+    </section>
+
+    <section id="newsletter" class="container mx-auto px-6 py-16 bg-indigo-600 dark:bg-purple-700 text-white rounded-xl shadow-lg text-center wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-4">Stay Updated!</h2>
+        <p class="text-lg mb-8 max-w-2xl mx-auto">
+            Subscribe to my newsletter for the latest insights, project updates, and tech trends straight to your inbox.
+        </p>
+        <form class="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-lg mx-auto" onsubmit="handleNewsletterSubscribe(event)">
+            <input type="email" placeholder="Your Email Address" class="newsletter-input flex-grow" required>
+            <button type="submit" class="newsletter-btn group">
+                Subscribe <i class="fas fa-paper-plane ml-2 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+        </form>
     </section>
 
     <section id="faq" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
@@ -1388,7 +1551,7 @@
                 <a href="https://twitter.com/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X">
                     <i class="fab fa-x-twitter"></i>
                 </a>
-                <a href="https://www.instagram.com/reponse_kdz/" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
+                <a href="https://dev.to/reponse_kdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
                 <a href="mailto:reponsekdz06@gmail.com" class="footer-social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
             <div class="mb-6 space-x-4 sm:space-x-6">
@@ -1754,6 +1917,8 @@
                 { title: "Blog Posts", url: "blog.html", tags: ["Articles", "Thoughts", "Tech", "AI", "WebDev", "React", "Cloud"] },
                 { title: "Experience Timeline", url: "experience.html", tags: ["Work", "Career", "History"] },
                 { title: "My Approach", url: "index.html#my-approach", tags: ["User-Centric Design", "Agile Development", "Robust Code", "Scalability", "Collaboration", "Innovation"] },
+                { title: "Why Choose Me?", url: "index.html#key-features", tags: ["Expertise", "Quality", "Communication", "Innovation", "Adaptability", "Partnership"] },
+                { title: "My Achievements", url: "index.html#achievements", tags: ["Statistics", "Experience", "Projects", "Clients"] },
                 { title: "Frequently Asked Questions", url: "index.html#faq", tags: ["FAQ", "Questions", "Answers"] },
                 // Add more data as needed
             ];
@@ -1944,6 +2109,21 @@
             }
             window.handleFormSubmission = handleFormSubmission; // Make it globally accessible
 
+            // Newsletter subscription handler
+            function handleNewsletterSubscribe(event) {
+                event.preventDefault();
+                const emailInput = event.target.querySelector('input[type="email"]');
+                const email = emailInput.value;
+
+                if (email) {
+                    showMessageBox('Subscription Confirmed!', `Thank you for subscribing, ${email}! You'll receive the latest updates.`);
+                    emailInput.value = ''; // Clear the input
+                } else {
+                    showMessageBox('Error', 'Please enter a valid email address.');
+                }
+            }
+            window.handleNewsletterSubscribe = handleNewsletterSubscribe; // Make it globally accessible
+
             // Dynamic payment fields for Contribution Modal
             const contributionMethodSelect = document.getElementById('contributionMethod');
             const paymentDetailsDiv = document.getElementById('paymentDetails');
@@ -2062,6 +2242,46 @@
                         </div>
                     `;
                 }
+            });
+
+            // Counter Animation on Scroll
+            const counters = document.querySelectorAll('.counter-number');
+            const speed = 200; // The lower the speed, the faster the count
+
+            const animateCounter = (counter) => {
+                const target = +counter.dataset.target;
+                let current = 0;
+                const increment = target / speed;
+
+                const updateCount = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current);
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                updateCount();
+            };
+
+            const observerOptions = {
+                root: null, // viewport
+                rootMargin: '0px',
+                threshold: 0.5 // Trigger when 50% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target); // Stop observing once animated
+                    }
+                });
+            }, observerOptions);
+
+            counters.forEach(counter => {
+                observer.observe(counter);
             });
         });
     </script>

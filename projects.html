@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects - niyonkuru reponse</title>
+    <title>My Projects - Niyonkuru Reponse</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -431,7 +431,7 @@
         .dark .project-filter-btn.active-filter {
             background-color: #a78bfa; /* Purple 400 */
             color: #1e293b;
-            box-shadow: 0 2px 8px rgba(167, 139, 250, 0.4);
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3); /* Added ring for active */
             border-color: #a78bfa;
         }
 
@@ -753,6 +753,191 @@
         .dark .payment-details a {
             color: #a78bfa;
         }
+
+        /* New AI Model Section Styles */
+        .ai-model-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        .dark .ai-model-card {
+            background-color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .ai-model-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .dark .ai-model-card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+        .ai-model-card .icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: #6366f1; /* Indigo 500 */
+            transition: transform 0.3s ease;
+        }
+        .dark .ai-model-card .icon {
+            color: #a78bfa; /* Purple 400 */
+        }
+        .ai-model-card:hover .icon {
+            transform: rotateY(180deg) scale(1.1);
+        }
+        .ai-model-card h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+        }
+        .dark .ai-model-card h4 {
+            color: #f8fafc;
+        }
+        .ai-model-card p {
+            font-size: 1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+        .dark .ai-model-card p {
+            color: #cbd5e1;
+        }
+        .ai-model-card .btn-primary {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Custom Logo "NR" */
+        .logo-nr {
+            font-family: 'Inter', sans-serif; /* Using a modern font */
+            font-weight: 900; /* Extra bold */
+            font-size: 2.25rem; /* text-3xl */
+            line-height: 1;
+            display: inline-block;
+            background: linear-gradient(45deg, #6366f1, #a78bfa); /* Indigo to Purple gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .logo-nr:hover {
+            transform: scale(1.05) rotate(-3deg);
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.2);
+        }
+        .dark .logo-nr {
+            background: linear-gradient(45deg, #a78bfa, #8b5cf6); /* Lighter purple gradient for dark mode */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Section Animation */
+        #projects-hero {
+            position: relative;
+            overflow: hidden;
+        }
+        #projects-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.1) 10%, transparent 50%),
+                        radial-gradient(circle at bottom right, rgba(255,255,255,0.1) 10%, transparent 50%);
+            animation: hero-gradient-pulse 10s infinite alternate;
+            z-index: 0;
+        }
+
+        @keyframes hero-gradient-pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Project Card Hover Effect */
+        .project-card .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 1rem;
+            text-align: center;
+            padding: 1rem;
+        }
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        .project-card .project-overlay h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .project-card:hover .project-overlay h3 {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .project-card .project-overlay .overlay-buttons {
+            display: flex;
+            gap: 0.75rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transition-delay: 0.1s;
+        }
+        .project-card:hover .project-overlay .overlay-buttons {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .project-card .project-overlay .btn-overlay {
+            background-color: white;
+            color: #6366f1;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .project-card .project-overlay .btn-overlay:hover {
+            background-color: #e0e7ff;
+            transform: scale(1.05);
+        }
+
+        /* AI Model Section background animation */
+        #ai-models-section {
+            position: relative;
+            overflow: hidden;
+        }
+        #ai-models-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(99,102,241,0.05), rgba(167,139,250,0.05));
+            animation: rotate-bg 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes rotate-bg {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
     <script>
         // Initialize dark mode preference immediately to prevent FOUC
@@ -768,7 +953,7 @@
 
     <nav id="navbar" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
         <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity">niyonkuru reponse</a>
+            <a href="index.html" class="logo-nr">NR</a>
 
             <div class="hidden md:flex items-center relative group">
                 <input type="text" id="desktopSearchInput" placeholder="Search projects, skills..." class="nav-search-input peer">
@@ -857,7 +1042,7 @@
                 <h3 class="text-3xl font-bold text-center mb-10 text-indigo-600 dark:text-indigo-400">Featured Project: Super App X</h3>
                 <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div>
-                        <img src="./assets/next pro.jpg" alt="Featured Project Screenshot" class="rounded-lg shadow-md w-full" onerror="this.src='https://placehold.co/800x600/e2e8f0/4a5568?text=Featured+Project+Image'">
+                        <img src="https://placehold.co/800x600/e2e8f0/4a5568?text=Featured+Project+Image" alt="Featured Project Screenshot" class="rounded-lg shadow-md w-full" onerror="this.src='https://placehold.co/800x600/e2e8f0/4a5568?text=Featured+Project+Image'">
                     </div>
                     <div>
                         <h4 class="text-2xl font-semibold mb-3 text-slate-900 dark:text-slate-50">Super App X - Revolutionizing Smart Living</h4>
@@ -885,28 +1070,76 @@
         </div>
     </section>
 
-    <section id="project-stats" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+    <section id="ai-models-section" class="py-20 lg:py-32 bg-white dark:bg-slate-900 relative">
+        <div class="container mx-auto px-6 z-10">
+            <h2 class="section-title text-center">My AI Models & Capabilities</h2>
+            <p class="section-subtitle text-center mb-12 lg:mb-16">
+                Delving into the intelligent systems and machine learning models I've developed.
+            </p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="ai-model-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <i class="ph-robot text-5xl icon"></i>
+                    <h4>Generative AI for Content</h4>
+                    <p>Models capable of generating human-like text, images, and code from prompts, leveraging large language models (LLMs) and diffusion models.</p>
+                    <button class="btn-primary">Learn More</button>
+                </div>
+                <div class="ai-model-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <i class="ph-eye text-5xl icon"></i>
+                    <h4>Computer Vision Systems</h4>
+                    <p>Solutions for image recognition, object detection, facial analysis, and video analytics, applied in security, healthcare, and retail.</p>
+                    <button class="btn-primary">Learn More</button>
+                </div>
+                <div class="ai-model-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <i class="ph-brain text-5xl icon"></i>
+                    <h4>Natural Language Processing (NLP)</h4>
+                    <p>Advanced NLP pipelines for sentiment analysis, text summarization, machine translation, and chatbot development, enhancing human-computer interaction.</p>
+                    <button class="btn-primary">Learn More</button>
+                </div>
+                <div class="ai-model-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <i class="ph-chart-line text-5xl icon"></i>
+                    <h4>Predictive Analytics & Forecasting</h4>
+                    <p>Building and deploying models for predicting future trends, customer behavior, and market movements, enabling data-driven decision-making.</p>
+                    <button class="btn-primary">Learn More</button>
+                </div>
+                <div class="ai-model-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+                    <i class="ph-waveform text-5xl icon"></i>
+                    <h4>Speech Recognition & Synthesis</h4>
+                    <p>Developing robust speech-to-text and text-to-speech solutions for voice assistants, accessibility tools, and interactive voice response (IVR) systems.</p>
+                    <button class="btn-primary">Learn More</button>
+                </div>
+                <div class="ai-model-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+                    <i class="ph-cube text-5xl icon"></i>
+                    <h4>Reinforcement Learning Agents</h4>
+                    <p>Designing intelligent agents that learn optimal strategies through interaction with environments, applicable in robotics, gaming, and resource management.</p>
+                    <button class="btn-primary">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="project-stats" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800">
         <div class="container mx-auto px-6 text-center">
             <h2 class="section-title">My Impact in Numbers</h2>
             <p class="section-subtitle mb-12 lg:mb-16">Quantifying the success and reach of my development efforts.</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                <div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
                     <i class="ph-code-block text-5xl text-indigo-500 dark:text-indigo-400 mb-4"></i>
                     <p class="text-4xl font-bold text-slate-900 dark:text-slate-50">15+</p>
                     <p class="text-lg text-slate-700 dark:text-slate-300">Projects Completed</p>
                 </div>
-                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                <div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
                     <i class="ph-users-three text-5xl text-green-500 dark:text-green-400 mb-4"></i>
                     <p class="text-4xl font-bold text-slate-900 dark:text-slate-50">10K+</p>
                     <p class="text-lg text-slate-700 dark:text-slate-300">Active Users Reached</p>
                 </div>
-                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                <div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
                     <i class="ph-cloud-arrow-up text-5xl text-blue-500 dark:text-blue-400 mb-4"></i>
                     <p class="text-4xl font-bold text-slate-900 dark:text-slate-50">99.9%</p>
                     <p class="text-lg text-slate-700 dark:text-slate-300">Uptime Achieved</p>
                 </div>
-                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                <div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-lg shadow-lg wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
                     <i class="ph-lightbulb text-5xl text-yellow-500 dark:text-yellow-400 mb-4"></i>
                     <p class="text-4xl font-bold text-slate-900 dark:text-slate-50">5+</p>
                     <p class="text-lg text-slate-700 dark:text-slate-300">Years Experience</p>
@@ -933,7 +1166,7 @@
         <div class="container mx-auto px-6">
             <div class="mb-8 flex justify-center space-x-6">
                 <a href="https://github.com/reposekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/reponsekdz06 target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://linkedin.com/in/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="https://twitter.com/reponsekdz06" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
                 <a href="https://www.instagram.com/reponse_kdz/s" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="Dev.to"><i class="fab fa-dev"></i></a>
                 <a href="mailto:reponsekdz06@gmail.com" class="footer-social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
@@ -946,8 +1179,8 @@
                 <a href="contact.html" class="footer-link">Contact</a>
                 <a href="#privacy-policy" class="footer-link">Privacy Policy</a>
             </div>
-            <p class="text-sm">© <span id="currentYear"></span> niyonkuru reponse. All rights reserved.</p>
-            <p class="text-xs mt-2">Designed with <i class="fas fa-heart text-red-500"></i>Niyonkuru Reponse.</p>
+            <p class="text-sm">© <span id="currentYear"></span> Niyonkuru Reponse. All rights reserved.</p>
+            <p class="text-xs mt-2">Designed with <i class="fas fa-heart text-red-500"></i> Niyonkuru Reponse.</p>
             <p class="text-xs mt-1">Located in Kigali-Kicukiro.</p>
         </div>
     </footer>
@@ -992,7 +1225,7 @@
                     <i class="fas fa-credit-card"></i> Pay with Card
                 </div>
                 <div class="payment-details">
-                    <form onsubmit="event.preventDefault(); alert('Card payment simulated for ' + document.getElementById('projectToBuyTitle').textContent + '. This is a placeholder form.'); hidePaymentChoiceModal();">
+                    <form onsubmit="event.preventDefault(); showTemporaryMessage('Card payment simulated for ' + document.getElementById('projectToBuyTitle').textContent + '. This is a placeholder form.'); hidePaymentChoiceModal();">
                         <input type="text" placeholder="Card Number" class="focus:ring-indigo-500 focus:border-indigo-500" required>
                         <input type="text" placeholder="Card Holder Name" class="focus:ring-indigo-500 focus:border-indigo-500" required>
                         <div class="grid grid-cols-2 gap-4">
@@ -1040,6 +1273,9 @@
 
         </div>
     </div>
+
+    <div id="tempMessageBox" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-xl opacity-0 transition-opacity duration-300 z-[1003] hidden">
+        </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script>
@@ -1115,6 +1351,24 @@
                 });
             });
 
+            // Temporary Message Box Function
+            const tempMessageBox = document.getElementById('tempMessageBox');
+            function showTemporaryMessage(message, duration = 3000) {
+                tempMessageBox.textContent = message;
+                tempMessageBox.classList.remove('hidden');
+                setTimeout(() => {
+                    tempMessageBox.classList.add('opacity-100');
+                }, 10); // Small delay to allow display:block to apply
+                setTimeout(() => {
+                    tempMessageBox.classList.remove('opacity-100');
+                    tempMessageBox.classList.add('opacity-0');
+                    setTimeout(() => {
+                        tempMessageBox.classList.add('hidden');
+                    }, 300); // Hide after transition
+                }, duration);
+            }
+
+
             // --- Project Filtering and Loading ---
             const projectData = [
                 {
@@ -1178,7 +1432,7 @@
                     id: "proj-4",
                     title: "AI-Powered Content Generator",
                     category: "AI/ML",
-                    tags: ["ai", "ml", "python", "tensorflow", "nlp"],
+                    tags: ["ai", "ml", "python", "tensorflow", "nlp", "generative-ai"],
                     image: "https://placehold.co/600x400/a78bfa/1e293b?text=AI+Content+Gen",
                     description: `
                         <p>Developed a prototype for an AI-powered content generation tool capable of drafting articles and marketing copy based on user prompts. Leveraged advanced NLP techniques and pre-trained language models.</p>
@@ -1401,6 +1655,63 @@
                     liveLink: null,
                     githubLink: "#",
                     caseStudyLink: "#"
+                },
+                {
+                    id: "proj-16",
+                    title: "Medical Image Segmentation AI",
+                    category: "AI/ML",
+                    tags: ["ai", "ml", "computer-vision", "healthcare", "python", "pytorch"],
+                    image: "https://placehold.co/600x400/667eea/ffffff?text=Medical+AI",
+                    description: `
+                        <p>Developed an AI model for accurate segmentation of medical images (e.g., MRI, CT scans) to assist doctors in diagnosis and treatment planning. Utilizes deep learning architectures like U-Net.</p>
+                        <p><strong>Key Features:</strong> Automated organ/tumor segmentation, high precision, integration with medical viewing software.</p>
+                        <ul>
+                            <li>Trained and validated U-Net models on large medical image datasets.</li>
+                            <li>Implemented data augmentation techniques to improve model robustness.</li>
+                            <li>Achieved state-of-the-art performance on various segmentation benchmarks.</li>
+                        </ul>
+                    `,
+                    liveLink: null,
+                    githubLink: "#",
+                    caseStudyLink: "#"
+                },
+                {
+                    id: "proj-17",
+                    title: "Fraud Detection System",
+                    category: "AI/ML",
+                    tags: ["ai", "ml", "data", "finance", "python", "scikit-learn"],
+                    image: "https://placehold.co/600x400/ef4444/ffffff?text=Fraud+Detection",
+                    description: `
+                        <p>Built a real-time fraud detection system for financial transactions using machine learning algorithms. Identifies suspicious patterns and flags potentially fraudulent activities.</p>
+                        <p><strong>Key Features:</strong> Anomaly detection, rule-based flagging, real-time alerts, integration with payment processing systems.</p>
+                        <ul>
+                            <li>Employed various supervised and unsupervised learning models (e.g., Isolation Forest, Logistic Regression).</li>
+                            <li>Optimized models for high recall to minimize false negatives.</li>
+                            <li>Integrated the system into existing banking infrastructure for live monitoring.</li>
+                        </ul>
+                    `,
+                    liveLink: null,
+                    githubLink: "#",
+                    caseStudyLink: "#"
+                },
+                {
+                    id: "proj-18",
+                    title: "AI-Powered Code Review Assistant",
+                    category: "AI/ML",
+                    tags: ["ai", "ml", "dev-tools", "nlp", "python"],
+                    image: "https://placehold.co/600x400/93c5fd/1e293b?text=Code+Review+AI",
+                    description: `
+                        <p>Developed an AI assistant to automate parts of the code review process. It identifies potential bugs, suggests improvements, and flags adherence to coding standards.</p>
+                        <p><strong>Key Features:</strong> Static code analysis, style guide enforcement, bug pattern recognition, suggestion generation.</p>
+                        <ul>
+                            <li>Trained custom models on large codebases to learn common error patterns.</li>
+                            <li>Integrated with Git workflows for seamless pull request reviews.</li>
+                            <li>Improved code quality and reduced review time for development teams.</li>
+                        </ul>
+                    `,
+                    liveLink: null,
+                    githubLink: "#",
+                    caseStudyLink: null
                 }
             ];
 
@@ -1415,7 +1726,7 @@
 
             function createProjectCard(project) {
                 const card = document.createElement('div');
-                card.classList.add('project-card', 'wow', 'animate__animated', 'animate__fadeInUp');
+                card.classList.add('project-card', 'wow', 'animate__animated', 'animate__fadeInUp', 'relative'); // Added relative for overlay positioning
                 card.setAttribute('data-tags', project.tags.join(','));
                 card.setAttribute('data-project-id', project.id);
 
@@ -1428,14 +1739,17 @@
                             ${project.description.split('</p>')[0].replace('<p>', '')}...
                         </p>
                         <div class="mb-4 flex flex-wrap gap-2">
-                            ${project.tags.map(tag => `<span class="tech-badge">${tag.charAt(0).toUpperCase() + tag.slice(1)}</span>`).join('')}
+                            ${project.tags.map(tag => `<span class="tech-badge">${tag.charAt(0).toUpperCase() + tag.slice(1).replace('-', ' ')}</span>`).join('')}
                         </div>
-                        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 mt-4">
-                            <button class="btn-primary text-sm view-details-btn" data-project-id="${project.id}">
-                                View Details <i class="fas fa-arrow-right ml-1"></i>
+                    </div>
+                    <div class="project-overlay absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center p-4 rounded-xl opacity-0 transition-opacity duration-300">
+                        <h3 class="text-white text-xl font-bold mb-4 transform translate-y-4 opacity-0 transition-all duration-300">Quick View</h3>
+                        <div class="overlay-buttons flex gap-3 transform translate-y-4 opacity-0 transition-all duration-300 delay-100">
+                            <button class="btn-overlay bg-white text-indigo-600 hover:bg-indigo-100 view-details-btn" data-project-id="${project.id}">
+                                Details <i class="fas fa-info-circle ml-1"></i>
                             </button>
-                            <button class="btn-secondary text-sm buy-project-btn" data-project-title="${project.title}">
-                                Buy This Project <i class="fas fa-shopping-cart ml-1"></i>
+                            <button class="btn-overlay bg-white text-indigo-600 hover:bg-indigo-100 buy-project-btn" data-project-title="${project.title}">
+                                Buy <i class="fas fa-shopping-cart ml-1"></i>
                             </button>
                         </div>
                     </div>
@@ -1527,7 +1841,7 @@
                     project.tags.forEach(tag => {
                         const span = document.createElement('span');
                         span.classList.add('tech-badge');
-                        span.textContent = tag.charAt(0).toUpperCase() + tag.slice(1);
+                        span.textContent = tag.charAt(0).toUpperCase() + tag.slice(1).replace('-', ' ');
                         modalProjectTech.appendChild(span);
                     });
 
@@ -1651,7 +1965,7 @@
                                     project.tags.forEach(tag => {
                                         const span = document.createElement('span');
                                         span.classList.add('tech-badge');
-                                        span.textContent = tag.charAt(0).toUpperCase() + tag.slice(1);
+                                        span.textContent = tag.charAt(0).toUpperCase() + tag.slice(1).replace('-', ' ');
                                         modalProjectTech.appendChild(span);
                                     });
 
