@@ -2166,8 +2166,72 @@ window.addEventListener('resize', () => {
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.min.js"></script>
+    <style>
+        .modern-interactive-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.8rem 1.5rem;
+        border-radius: 9999px; /* Fully rounded */
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        outline: none;
+        border: none;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+        background: linear-gradient(45deg, #6366f1, #a78bfa); /* Indigo to Purple */
+        color: white;
+        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+    }
+
+    .dark .modern-interactive-btn {
+        background: linear-gradient(45deg, #a78bfa, #8b5cf6); /* Lighter purple for dark mode */
+        box-shadow: 0 5px 15px rgba(167, 139, 250, 0.4);
+    }
+
+    .modern-interactive-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.7s ease-out;
+        z-index: 0;
+    }
+
+    .modern-interactive-btn:hover {
+        transform: translateY(-3px) scale(1.05); /* Lift and slightly enlarge */
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.6); /* More prominent shadow */
+        background: linear-gradient(45deg, #4f46e5, #8b5cf6); /* Darker gradient on hover */
+    }
+
+    .dark .modern-interactive-btn:hover {
+        background: linear-gradient(45deg, #8b5cf6, #a78bfa); /* Slightly different hover gradient for dark mode */
+        box-shadow: 0 10px 25px rgba(167, 139, 250, 0.6);
+    }
+
+    .modern-interactive-btn:hover::before {
+        left: 100%; /* Shimmer effect */
+    }
+
+    .modern-interactive-btn i {
+        transition: transform 0.3s ease;
+    }
+
+    .modern-interactive-btn:hover i {
+        transform: translateX(-3px); /* Move icon slightly left on hover */
+    }
+    </style>
 </head>
 <body class="transition-colors duration-300">
+    <a href="index.html" style="position: fixed; top: 20px; left: 20px; z-index: 1000; text-decoration: none;">
+    <button class="modern-interactive-btn">
+        <i class="fas fa-arrow-left mr-2"></i> Back to Home
+    </button>
+</a>
 
     <header class="simplified-header">
         <div class="search-container">
