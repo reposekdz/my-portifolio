@@ -10,7 +10,17 @@
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
     <link rel="icon" href="./assets/icons8-ai-48.png" type="image/png">
     <style>
-        /* Custom styles for animations and transitions - copied from blog.html/experience.html */
+        /* Base transitions for smooth dark mode changes */
+        body, .bg-white, .bg-slate-100, .bg-slate-50, .text-slate-800, .text-slate-200,
+        .nav-link, .mobile-nav-link, .nav-search-input, .search-results-dropdown,
+        .search-results-item, .ai-feature-card, .section-title, .section-subtitle,
+        .footer-link, .footer-social-icon, .component-modal-content,
+        .component-modal-close-btn, .component-modal-content h3, .component-modal-content p,
+        .component-modal-content ul {
+            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        /* Custom styles for animations and transitions */
         .nav-link::after, .mobile-nav-link::after {
             content: '';
             display: block;
@@ -30,7 +40,7 @@
             width: 100%;
         }
 
-        /* Search input styling - copied from experience.html */
+        /* Search input styling */
         .nav-search-input {
             padding-left: 2.5rem; /* Space for icon */
             padding-right: 1rem;
@@ -43,9 +53,9 @@
             width: 180px; /* Default width */
         }
         .dark .nav-search-input {
-            border-color: #475569; /* Slate 700 */
-            background-color: #1e293b; /* Slate 800 */
-            color: #e2e8f0; /* Slate 200 */
+            border-color: #374151; /* Gray 700 */
+            background-color: #1f2937; /* Gray 800 */
+            color: #e5e7eb; /* Gray 200 */
         }
         .nav-search-input:focus {
             width: 250px; /* Expand on focus */
@@ -68,8 +78,8 @@
             border: 1px solid #e2e8f0;
         }
         .dark .search-results-dropdown {
-            background-color: #1e293b;
-            border-color: #475569;
+            background-color: #1f2937; /* Gray 800 */
+            border-color: #374151; /* Gray 700 */
         }
         .search-results-item {
             padding: 0.75rem 1rem;
@@ -80,10 +90,10 @@
             background-color: #f0f4f8;
         }
         .dark .search-results-item:hover {
-            background-color: #334155;
+            background-color: #334155; /* Slate 700 */
         }
 
-        /* Social icons with tooltips - copied from experience.html */
+        /* Social icons with tooltips */
         .social-icon {
             position: relative;
             display: inline-flex;
@@ -119,7 +129,7 @@
             z-index: 20;
         }
         .dark .social-tooltip {
-            background-color: #0f172a; /* Slate 900 */
+            background-color: #111827; /* Gray 900 */
         }
         .social-icon:hover .social-tooltip {
             opacity: 1;
@@ -136,10 +146,10 @@
             border-color: #334155 transparent transparent transparent; /* Slate 700 */
         }
         .dark .social-tooltip::after {
-            border-color: #0f172a transparent transparent transparent; /* Slate 900 */
+            border-color: #111827 transparent transparent transparent; /* Gray 900 */
         }
 
-        /* General button styles - copied from experience.html */
+        /* General button styles */
         .btn-primary {
             display: inline-flex;
             align-items: center;
@@ -213,7 +223,7 @@
             background-color: #f0f4f8; /* Lighten on hover */
         }
 
-        /* Section titles and subtitles - copied from experience.html */
+        /* Section titles and subtitles */
         .section-title {
             font-size: 2.5rem; /* 4xl */
             font-weight: 700; /* Bold */
@@ -224,7 +234,7 @@
             padding-bottom: 0.5rem;
         }
         .dark .section-title {
-            color: #f8fafc; /* Slate 50 */
+            color: #f9fafb; /* Gray 50 */
         }
         .section-title::after {
             content: '';
@@ -250,10 +260,10 @@
             color: #475569; /* Slate 700 */
         }
         .dark .section-subtitle {
-            color: #94a3b8; /* Slate 400 */
+            color: #9ca3af; /* Gray 400 */
         }
 
-        /* Footer links - copied from experience.html */
+        /* Footer links */
         .footer-link {
             color: #475569; /* Slate 700 */
             transition: color 0.3s ease, transform 0.2s ease;
@@ -261,7 +271,7 @@
             padding-bottom: 2px;
         }
         .dark .footer-link {
-            color: #94a3b8; /* Slate 400 */
+            color: #9ca3af; /* Gray 400 */
         }
         .footer-link::after {
             content: '';
@@ -300,8 +310,8 @@
             transition: all 0.3s ease;
         }
         .dark .footer-social-icon {
-            background-color: #475569; /* Slate 700 */
-            color: #f8fafc; /* Slate 50 */
+            background-color: #374151; /* Gray 700 */
+            color: #f9fafb; /* Gray 50 */
         }
         .footer-social-icon:hover {
             background-color: #6366f1; /* Indigo 500 */
@@ -315,12 +325,12 @@
             box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
         }
 
-        /* Back to top button - copied from experience.html */
+        /* Back to top button */
         #backToTopBtn {
             transition: all 0.3s ease-in-out;
         }
 
-        /* Keyframe for wiggle animation - copied from experience.html */
+        /* Keyframe for wiggle animation */
         @keyframes wiggle {
             0%, 100% { transform: rotate(0deg); }
             25% { transform: rotate(5deg); }
@@ -331,7 +341,7 @@
             animation: wiggle 0.5s ease-in-out infinite;
         }
 
-        /* Navbar fade in down animation - copied from experience.html */
+        /* Navbar fade in down animation */
         @keyframes fadeInDownNav {
             from {
                 opacity: 0;
@@ -347,7 +357,7 @@
             animation-delay: 0.5s; /* Delay to appear after content loads */
         }
 
-        /* Custom Logo "NR" - copied from experience.html */
+        /* Custom Logo "NR" */
         .logo-nr {
             font-family: 'Inter', sans-serif; /* Using a modern font */
             font-weight: 900; /* Extra bold */
@@ -370,7 +380,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* AI Feature Card Styles (reused for "Why Choose Our Hub") - copied from experience.html */
+        /* AI Feature Card Styles (reused for "Why Choose Our Hub") */
         .ai-feature-card {
             background-color: #ffffff;
             border-radius: 1rem;
@@ -381,9 +391,9 @@
             border: 1px solid #e2e8f0;
         }
         .dark .ai-feature-card {
-            background-color: #1e293b;
+            background-color: #1f2937; /* Gray 800 */
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            border: 1px solid #475569;
+            border: 1px solid #374151; /* Gray 700 */
         }
         .ai-feature-card:hover {
             transform: translateY(-5px) scale(1.01);
@@ -413,7 +423,7 @@
             color: #1e293b;
         }
         .dark .ai-feature-card h4 {
-            color: #f8fafc;
+            color: #f9fafb; /* Gray 50 */
         }
         .ai-feature-card p {
             font-size: 1rem;
@@ -421,7 +431,7 @@
             margin-bottom: 1.5rem;
         }
         .dark .ai-feature-card p {
-            color: #cbd5e1;
+            color: #d1d5db; /* Gray 300 */
         }
 
         /* Custom button styles for the new layout (enhanced) */
@@ -496,11 +506,11 @@
 
         /* Dark mode adjustments for buttons */
         .dark .project-button {
-            background: linear-gradient(135deg, #4c1d95, #6d28d9); /* Darker purple gradient */
+            background: linear-gradient(135deg, #5b21b6, #7c3aed); /* Darker purple gradient */
             box-shadow: 0 10px 25px rgba(167, 139, 250, 0.2);
         }
         .dark .project-button:hover {
-            background: linear-gradient(135deg, #5b21b6, #7c3aed); /* Lighter dark purple on hover */
+            background: linear-gradient(135deg, #6d28d9, #8b5cf6); /* Lighter dark purple on hover */
             box-shadow: 0 15px 35px rgba(167, 139, 250, 0.35);
         }
         .dark .project-button .icon {
@@ -510,7 +520,7 @@
             color: white;
         }
 
-        /* Modal styles (copied from experience.html, for potential future use or if a component needs a modal) */
+        /* Modal styles */
         .component-modal-overlay {
             position: fixed;
             top: 0;
@@ -544,7 +554,7 @@
             position: relative;
         }
         .dark .component-modal-content {
-            background-color: #1e293b;
+            background-color: #1f2937; /* Gray 800 */
         }
         .component-modal-overlay.open .component-modal-content {
             transform: translateY(0);
@@ -561,80 +571,80 @@
             transition: color 0.2s ease;
         }
         .dark .component-modal-close-btn {
-            color: #94a3b8;
+            color: #9ca3af; /* Gray 400 */
         }
         .component-modal-close-btn:hover {
             color: #1e293b;
         }
         .logo-nr {
-  font-family: 'Inter', sans-serif; /* Modern font */
-  font-size: 2.5rem; /* Adjust size as needed */
-  font-weight: 800; /* Bolder for impact */
-  text-decoration: none;
-  color: #1a73e8; /* A vibrant blue */
-  position: relative;
-  display: inline-block;
-  padding: 0.2em 0.4em;
-  border-radius: 8px; /* Slightly rounded corners */
-  transition: all 0.3s ease-in-out; /* Smooth transitions for interactivity */
-  overflow: hidden; /* For pseudo-element effects */
-  background: linear-gradient(45deg, #1a73e8, #007bff); /* Subtle gradient background */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text; /* Apply gradient to text */
-}
+            font-family: 'Inter', sans-serif; /* Modern font */
+            font-size: 2.5rem; /* Adjust size as needed */
+            font-weight: 800; /* Bolder for impact */
+            text-decoration: none;
+            color: #1a73e8; /* A vibrant blue */
+            position: relative;
+            display: inline-block;
+            padding: 0.2em 0.4em;
+            border-radius: 8px; /* Slightly rounded corners */
+            transition: all 0.3s ease-in-out; /* Smooth transitions for interactivity */
+            overflow: hidden; /* For pseudo-element effects */
+            background: linear-gradient(45deg, #1a73e8, #007bff); /* Subtle gradient background */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text; /* Apply gradient to text */
+        }
 
-/* Hover effect: subtle glow and slight scale */
-.logo-nr:hover {
-  color: #0056b3; /* Slightly darker blue on hover for contrast */
-  transform: scale(1.05); /* Slightly enlarge on hover */
-  box-shadow: 0 5px 15px rgba(26, 115, 232, 0.4); /* Soft blue shadow */
-}
+        /* Hover effect: subtle glow and slight scale */
+        .logo-nr:hover {
+            color: #0056b3; /* Slightly darker blue on hover for contrast */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.4); /* Soft blue shadow */
+        }
 
-/* Active effect: a deeper press */
-.logo-nr:active {
-  transform: scale(0.98); /* Slightly shrink on click */
-  box-shadow: 0 2px 8px rgba(26, 115, 232, 0.6);
-}
+        /* Active effect: a deeper press */
+        .logo-nr:active {
+            transform: scale(0.98); /* Slightly shrink on click */
+            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.6);
+        }
 
-/* Optional: Add a subtle underline animation on hover */
-.logo-nr::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 3px;
-  bottom: 0;
-  left: 0;
-  background-color: #00c6ff; /* A lighter, contrasting blue */
-  transform: scaleX(0); /* Start hidden */
-  transform-origin: bottom right;
-  transition: transform 0.3s ease-out;
-}
+        /* Optional: Add a subtle underline animation on hover */
+        .logo-nr::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background-color: #00c6ff; /* A lighter, contrasting blue */
+            transform: scaleX(0); /* Start hidden */
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
 
-.logo-nr:hover::after {
-  transform: scaleX(1); /* Expand on hover */
-  transform-origin: bottom left;
-}
+        .logo-nr:hover::after {
+            transform: scaleX(1); /* Expand on hover */
+            transform-origin: bottom left;
+        }
 
-/* Keyframes for a subtle pulsating animation */
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(26, 115, 232, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(26, 115, 232, 0);
-  }
-}
+        /* Keyframes for a subtle pulsating animation */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(26, 115, 232, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(26, 115, 232, 0);
+            }
+        }
 
-/* Apply the pulse animation */
-/* .logo-nr {
-  animation: pulse 2s infinite;
-} */
+        /* Apply the pulse animation */
+        /* .logo-nr {
+            animation: pulse 2s infinite;
+        } */
         .dark .component-modal-close-btn:hover {
-            color: #f8fafc;
+            color: #f9fafb; /* Gray 50 */
         }
         .component-modal-content h3 {
             font-size: 2.25rem; /* 3xl */
@@ -643,7 +653,7 @@
             color: #1e293b;
         }
         .dark .component-modal-content h3 {
-            color: #f8fafc;
+            color: #f9fafb; /* Gray 50 */
         }
         .component-modal-content p {
             margin-bottom: 1rem;
@@ -651,7 +661,7 @@
             color: #475569;
         }
         .dark .component-modal-content p {
-            color: #cbd5e1;
+            color: #d1d5db; /* Gray 300 */
         }
         .component-modal-content ul {
             list-style: disc;
@@ -660,12 +670,52 @@
             color: #475569;
         }
         .dark .component-modal-content ul {
-            color: #cbd5e1;
+            color: #d1d5db; /* Gray 300 */
         }
         .component-modal-content li {
             margin-bottom: 0.5rem;
         }
 
+        /* Modern Dark Mode Toggle Visuals */
+        #darkModeToggle {
+            position: relative;
+            width: 56px; /* Increased width */
+            height: 32px; /* Increased height */
+            background-color: #cbd5e1; /* Light gray for light mode track */
+            border-radius: 16px; /* Half of height for pill shape */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 4px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+            transition: background-color 0.4s ease-in-out;
+        }
+
+        #darkModeToggle .toggle-circle {
+            width: 24px; /* Slightly smaller than height for padding */
+            height: 24px;
+            background-color: #6366f1; /* Indigo for the toggle button */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transform: translateX(0);
+            transition: transform 0.4s ease-in-out, background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+        }
+
+        /* Dark mode states for the toggle */
+        .dark #darkModeToggle {
+            background-color: #374151; /* Gray 700 for dark mode track */
+        }
+
+        .dark #darkModeToggle .toggle-circle {
+            transform: translateX(24px); /* Move to the right (56px - 24px - 2*4px padding = 24px) */
+            background-color: #a78bfa; /* Purple for dark mode toggle button */
+            color: #1f2937; /* Gray 800 text for contrast */
+        }
     </style>
     <script>
         // Initialize dark mode preference immediately to prevent FOUC
@@ -677,17 +727,17 @@
         }
     </script>
 </head>
-<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans leading-relaxed transition-colors duration-300 overflow-x-hidden">
+<body class="bg-slate-100 dark:bg-gray-950 text-slate-800 dark:text-gray-100 font-sans leading-relaxed transition-colors duration-300 overflow-x-hidden">
 
-    <nav id="navbar" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
+    <nav id="navbar" class="bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow-lg fixed w-full z-50 top-0 transition-all duration-300 animate-fadeInDownNav">
         <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
             <a href="index.html" class="logo-nr">NR</a>
 
             <div class="hidden md:flex items-center relative group">
                 <input type="text" id="desktopSearchInput" placeholder="Search projects, skills..." class="nav-search-input peer">
-                <i class="fas fa-search text-slate-500 dark:text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-indigo-500 transition-colors"></i>
+                <i class="fas fa-search text-slate-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-indigo-500 transition-colors"></i>
                 <div id="desktopSearchResults" class="search-results-dropdown hidden group-focus-within:block hover:block">
-                    <p class="p-2 text-sm text-slate-500">Type to search...</p>
+                    <p class="p-2 text-sm text-slate-500 dark:text-gray-400">Type to search...</p>
                 </div>
             </div>
 
@@ -703,21 +753,23 @@
             </div>
 
             <div class="flex items-center">
-                <button id="darkModeToggle" aria-label="Toggle Dark Mode" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800 focus:ring-indigo-500 transition-all">
-                    <i class="fas fa-moon text-slate-700 dark:text-yellow-400 text-lg dark:block hidden"></i>
-                    <i class="fas fa-sun text-slate-700 dark:text-yellow-400 text-lg dark:hidden block"></i>
+                <button id="darkModeToggle" aria-label="Toggle Dark Mode" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900 focus:ring-indigo-500">
+                    <div class="toggle-circle">
+                        <i class="fas fa-sun toggle-icon-sun"></i>
+                        <i class="fas fa-moon toggle-icon-moon hidden"></i>
+                    </div>
                 </button>
-                <button id="mobileMenuButton" aria-label="Open Menu" class="md:hidden ml-2 p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800 focus:ring-indigo-500">
-                    <i class="fas fa-bars text-slate-700 dark:text-slate-300 text-xl"></i>
+                <button id="mobileMenuButton" aria-label="Open Menu" class="md:hidden ml-2 p-2 rounded-md hover:bg-slate-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900 focus:ring-indigo-500">
+                    <i class="fas fa-bars text-slate-700 dark:text-gray-300 text-xl"></i>
                 </button>
             </div>
         </div>
 
-        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-slate-800 shadow-xl absolute w-full top-full left-0 animate__animated animate__fadeInDown animate__faster">
-            <div class="p-4 border-b border-slate-200 dark:border-slate-700">
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-900 shadow-xl absolute w-full top-full left-0 animate__animated animate__fadeInDown animate__faster">
+            <div class="p-4 border-b border-slate-200 dark:border-gray-700">
                  <div class="relative">
-                    <input type="text" id="mobileSearchInput" placeholder="Search..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors">
-                    <i class="fas fa-search text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                    <input type="text" id="mobileSearchInput" placeholder="Search..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 dark:border-gray-700 bg-slate-50 dark:bg-gray-800 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors">
+                    <i class="fas fa-search text-slate-400 dark:text-gray-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
                 </div>
                 <div id="mobileSearchResults" class="search-results-mobile mt-2 hidden max-h-48 overflow-y-auto">
                     </div>
@@ -733,7 +785,7 @@
         </div>
     </nav>
 
-    <section id="learning-hero" class="py-28 lg:py-32 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800 text-white relative overflow-hidden flex items-center justify-center">
+    <section id="learning-hero" class="py-28 lg:py-32 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 dark:from-purple-700 dark:via-indigo-700 dark:to-pink-700 text-white relative overflow-hidden flex items-center justify-center">
         <div class="container mx-auto px-6 text-center z-10 wow animate__animated animate__fadeInDown">
             <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-4">Explore Our Learning Hub</h1>
             <p class="text-xl md:text-2xl font-light max-w-2xl mx-auto">
@@ -747,7 +799,7 @@
         </div>
     </section>
 
-    <section id="about-hub" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+    <section id="about-hub" class="py-20 lg:py-32 bg-white dark:bg-gray-900">
         <div class="container mx-auto px-6 text-center">
             <h2 class="section-title wow animate__animated animate__fadeInUp">About the Learning Hub</h2>
             <p class="section-subtitle mb-12 lg:mb-16 max-w-2xl mx-auto wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
@@ -758,7 +810,7 @@
                     <h3 class="text-2xl font-bold text-indigo-700 dark:text-indigo-400 mb-4 flex items-center">
                         <i class="fas fa-code mr-3 text-3xl"></i> Practical Examples
                     </h3>
-                    <p class="text-slate-700 dark:text-slate-300">
+                    <p class="text-slate-700 dark:text-gray-300">
                         Each component and template is built with clean, modern HTML, CSS (Tailwind CSS), and JavaScript, providing ready-to-use snippets and full-page examples. Learn by exploring functional code.
                     </p>
                 </div>
@@ -766,7 +818,7 @@
                     <h3 class="text-2xl font-bold text-indigo-700 dark:text-indigo-400 mb-4 flex items-center">
                         <i class="fas fa-lightbulb mr-3 text-3xl"></i> Inspiration & Innovation
                     </h3>
-                    <p class="text-slate-700 dark:text-slate-300">
+                    <p class="text-slate-700 dark:text-gray-300">
                         Whether you're looking for design inspiration, coding solutions, or just curious about modern web trends, this hub offers a diverse range of interactive elements to spark your creativity.
                     </p>
                 </div>
@@ -774,7 +826,7 @@
         </div>
     </section>
 
-    <section id="why-choose-hub" class="py-20 lg:py-32 bg-slate-50 dark:bg-slate-800/50">
+    <section id="why-choose-hub" class="py-20 lg:py-32 bg-slate-50 dark:bg-gray-800/50">
         <div class="container mx-auto px-6">
             <h2 class="section-title text-center wow animate__animated animate__fadeInUp">Why Choose Our Hub?</h2>
             <p class="section-subtitle text-center mb-12 lg:mb-16 max-w-2xl mx-auto wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
@@ -816,7 +868,7 @@
         </div>
     </section>
 
-    <section id="interactive-components" class="py-20 lg:py-32 bg-white dark:bg-slate-900">
+    <section id="interactive-components" class="py-20 lg:py-32 bg-white dark:bg-gray-900">
         <div class="container mx-auto px-6">
             <h2 class="section-title text-center wow animate__animated animate__fadeInUp">Interactive Components & Templates</h2>
             <p class="section-subtitle text-center mb-16 max-w-xl mx-auto wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
@@ -903,12 +955,21 @@
                     <i class="fas fa-school icon"></i>
                     <span>School Management System Templates</span>
                 </a>
-                
+
+                <a href="agriculture.html" class="project-button wow animate__animated animate__fadeInUp" data-wow-delay="1.7s">
+                    <i class="fas fa-tractor icon"></i>
+                    <span>Agriculture Management System Templates</span>
+                </a>
+
+                <a href="task.html" class="project-button wow animate__animated animate__fadeInUp" data-wow-delay="1.8s">
+                    <i class="fas fa-tasks icon"></i>
+                    <span>Task Management System Templates</span>
+                </a>
             </div>
         </div>
     </section>
 
-    <section id="cta" class="py-20 lg:py-32 bg-gradient-to-r from-purple-600 to-indigo-700 dark:from-purple-800 dark:to-indigo-900 text-white">
+    <section id="cta" class="py-20 lg:py-32 bg-gradient-to-r from-purple-600 to-indigo-700 dark:from-purple-700 dark:to-indigo-800 text-white">
         <div class="container mx-auto px-6 text-center">
             <div class="wow animate__animated animate__fadeInUp">
                 <h2 class="text-3xl lg:text-4xl font-bold mb-6">Have a specific component in mind?</h2>
@@ -922,7 +983,7 @@
         </div>
     </section>
 
-    <footer class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 py-16 text-center">
+    <footer class="bg-slate-200 dark:bg-gray-900 text-slate-700 dark:text-gray-300 py-16 text-center">
         <div class="container mx-auto px-6">
             <div class="mb-8 flex justify-center space-x-6">
                 <a href="https://github.com/reposekdz" target="_blank" rel="noopener noreferrer" class="footer-social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -953,7 +1014,7 @@
         <div class="component-modal-content">
             <button class="component-modal-close-btn" aria-label="Close Component Details">×</button>
             <h3 id="modalComponentTitle"></h3>
-            <p id="modalComponentDescription" class="text-slate-600 dark:text-slate-400"></p>
+            <p id="modalComponentDescription" class="text-slate-600 dark:text-gray-300"></p>
             <div id="modalComponentDetails" class="prose dark:prose-invert max-w-none">
                 </div>
             <div id="modalComponentTech" class="mt-4 flex flex-wrap gap-2"></div>
@@ -970,36 +1031,39 @@
             // Initialize WOW.js for scroll animations
             new WOW().init();
 
-            // Dark Mode Toggle (Copied from experience.html)
+            // Dark Mode Toggle
             const darkModeToggle = document.getElementById('darkModeToggle');
-            const sunIcon = darkModeToggle.querySelector('.fa-sun');
-            const moonIcon = darkModeToggle.querySelector('.fa-moon');
+            const toggleCircle = darkModeToggle.querySelector('.toggle-circle');
+            const sunIcon = toggleCircle.querySelector('.toggle-icon-sun');
+            const moonIcon = toggleCircle.querySelector('.toggle-icon-moon');
 
             function setDarkMode(isDark) {
                 if (isDark) {
                     document.documentElement.classList.add('dark');
                     localStorage.setItem('darkMode', 'true');
-                    moonIcon.style.display = 'block';
-                    sunIcon.style.display = 'none';
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
                 } else {
                     document.documentElement.classList.remove('dark');
                     localStorage.setItem('darkMode', 'false');
-                    moonIcon.style.display = 'none';
-                    sunIcon.style.display = 'block';
+                    sunIcon.classList.remove('hidden');
+                    moonIcon.classList.add('hidden');
                 }
             }
 
+            // Set initial state based on localStorage or system preference
             if (localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 setDarkMode(true);
             } else {
                 setDarkMode(false);
             }
 
+            // Toggle dark mode on click
             darkModeToggle.addEventListener('click', () => {
                 setDarkMode(!document.documentElement.classList.contains('dark'));
             });
 
-            // Mobile Menu Toggle (Copied from experience.html)
+            // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobileMenuButton');
             const mobileMenu = document.getElementById('mobileMenu');
             const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
@@ -1018,7 +1082,7 @@
                 });
             });
 
-            // Back to Top Button (Copied from experience.html)
+            // Back to Top Button
             const backToTopBtn = document.getElementById('backToTopBtn');
 
             window.addEventListener('scroll', () => {
@@ -1038,10 +1102,10 @@
                 });
             });
 
-            // Update current year in footer (Copied from experience.html)
+            // Update current year in footer
             document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-            // Global Search Functionality (Adapted from experience.html)
+            // Global Search Functionality
             const searchData = [
                 // Learning Hub Components
                 { title: "Login & Registration Forms", url: "forms.html", tags: ["forms", "authentication", "login", "register", "signup"] },
@@ -1060,8 +1124,10 @@
                 { title: "Visual Elements & Effects", url: "visual.html", tags: ["visual", "effects", "animation", "design", "ui", "ux"] },
                 { title: "Hospital Management System Templates", url: "hospital.html", tags: ["hospital", "medical", "healthcare", "management", "templates"] },
                 { title: "School Management System Templates", url: "school.html", tags: ["school", "education", "student", "teacher", "management", "templates"] },
+                { title: "Agriculture Management System Templates", url: "agriculture.html", tags: ["agriculture", "farm", "farming", "crop", "livestock", "management", "templates"] },
+                { title: "Task Management System Templates", url: "task.html", tags: ["task", "management", "todo", "project", "productivity", "templates"] },
 
-                // Existing blog posts (from experience.html's searchData)
+                // Existing blog posts
                 { title: "The Future of AI in Web Development", url: "blog.html#single-post-1", tags: ["AI", "WebDev", "Future", "Automation", "Personalization"] },
                 { title: "Mastering State Management in React", url: "blog.html#single-post-2", tags: ["React", "Frontend", "State", "Redux", "Context API", "Zustand"] },
                 { title: "Cloud Native Architectures Explained", url: "blog.html#single-post-3", tags: ["Cloud", "Architecture", "Microservices", "Containers", "Kubernetes", "DevOps"] },
@@ -1100,7 +1166,7 @@
                 resultsContainer.innerHTML = '';
                 if (query.length < 2) {
                     resultsContainer.classList.add('hidden');
-                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500">Type to search...</p>';
+                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500 dark:text-gray-400">Type to search...</p>';
                     return;
                 }
 
@@ -1114,8 +1180,8 @@
                     resultsContainer.classList.remove('hidden');
                     filteredResults.forEach(item => {
                         const div = document.createElement('div');
-                        div.classList.add('search-results-item', 'text-slate-700', 'dark:text-slate-200');
-                        div.innerHTML = `<a href="${item.url}" class="block">${item.title} <span class="text-xs text-slate-500 dark:text-slate-400">(${item.tags.join(', ')})</span></a>`;
+                        div.classList.add('search-results-item', 'text-slate-700', 'dark:text-gray-200');
+                        div.innerHTML = `<a href="${item.url}" class="block">${item.title} <span class="text-xs text-slate-500 dark:text-gray-400">(${item.tags.join(', ')})</span></a>`;
                         div.addEventListener('click', (e) => {
                             // For internal links within the same page (e.g., #section-id), prevent default and scroll
                             if (item.url.startsWith(window.location.pathname + '#')) {
@@ -1129,7 +1195,7 @@
                     });
                 } else {
                     resultsContainer.classList.remove('hidden');
-                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500">No results found.</p>';
+                    resultsContainer.innerHTML = '<p class="p-2 text-sm text-slate-500 dark:text-gray-400">No results found.</p>';
                 }
             }
 

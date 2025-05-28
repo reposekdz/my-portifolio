@@ -1,0 +1,2390 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 Interactive Task Management Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="./assets/icons8-ai-48.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles for consistency and dark mode */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light slate background */
+            color: #1e293b; /* Dark slate text */
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        .dark body {
+            background-color: #0f172a; /* Darker slate background */
+            color: #e2e8f0; /* Light slate text */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem; /* 4xl */
+            font-weight: 800; /* Extra bold */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #1d4ed8, #3b82f6); /* Blue to Light Blue gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            animation: fadeInScale 1s ease-out;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #1d4ed8, #3b82f6);
+            border-radius: 2px;
+        }
+
+        .app-card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            position: relative; /* For potential internal animations */
+        }
+        .dark .app-card {
+            background-color: #1e293b;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #334155;
+        }
+        .app-card:hover {
+            transform: translateY(-10px) scale(1.01); /* More pronounced hover */
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border-color: #3b82f6; /* Highlight border on hover */
+        }
+        .dark .app-card:hover {
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border-color: #60a5fa;
+        }
+
+        .app-card h2 {
+            font-size: 2.25rem; /* 3xl */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #334155;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+        .dark .app-card h2 {
+            color: #f8fafc;
+        }
+        .app-card:hover h2 {
+            color: #1d4ed8; /* Change color on hover */
+        }
+        .dark .app-card:hover h2 {
+            color: #60a5fa;
+        }
+
+        .code-preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) { /* Large screens */
+            .code-preview-container {
+                flex-direction: row;
+            }
+        }
+
+        .code-editor, .live-preview {
+            flex: 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid #cbd5e1; /* Slate 300 */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .dark .code-editor, .dark .live-preview {
+            border-color: #475569; /* Slate 700 */
+        }
+        .code-editor:focus-within, .live-preview:focus-within {
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5); /* Focus ring */
+        }
+
+        .code-editor textarea {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            padding: 1rem;
+            background-color: #2d3748; /* Dark code background */
+            color: #f8fafc; /* Light text */
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: none;
+            outline: none;
+            resize: vertical; /* Allow vertical resizing */
+            border-radius: 1rem;
+        }
+
+        .live-preview iframe {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            background-color: #ffffff;
+            border: none;
+            border-radius: 1rem;
+        }
+        .dark .live-preview iframe {
+            background-color: #0f172a;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .button-group button {
+            padding: 0.8rem 1.8rem; /* Slightly larger padding */
+            background: linear-gradient(45deg, #1d4ed8, #3b82f6); /* Blue to Light Blue gradient */
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(29, 78, 216, 0.3);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .dark .button-group button {
+            background: linear-gradient(45deg, #3b82f6, #60a5fa); /* Lighter blue gradient */
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+        .button-group button:hover {
+            transform: translateY(-5px) scale(1.05); /* More dynamic hover */
+            box-shadow: 0 10px 25px rgba(29, 78, 216, 0.5);
+            background-position: 100% 0; /* Shift gradient on hover */
+        }
+        .dark .button-group button:hover {
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.5);
+        }
+        .button-group button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+        .button-group button:hover::before {
+            left: 100%;
+        }
+
+
+        /* Message Box styles */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .message-box-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-content {
+            background-color: #ffffff;
+            padding: 2.5rem; /* Larger padding */
+            border-radius: 1rem; /* More rounded */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Stronger shadow */
+            max-width: 450px; /* Slightly wider */
+            width: 90%;
+            text-align: center;
+            transform: translateY(-30px) scale(0.95); /* More dynamic entry */
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+        }
+        .dark .message-box-content {
+            background-color: #1e293b;
+        }
+        .message-box-overlay.open .message-box-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .message-box-button {
+            background-color: #1d4ed8; /* Blue 700 */
+            color: white;
+            padding: 0.8rem 2rem; /* Larger button */
+            border-radius: 0.75rem; /* More rounded */
+            font-weight: 600;
+            margin-top: 2rem; /* More spacing */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 10px rgba(29, 78, 216, 0.3);
+        }
+        .dark .message-box-button {
+            background-color: #3b82f6; /* Blue 500 */
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        }
+        .message-box-button:hover {
+            background-color: #2563eb; /* Blue 600 */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(29, 78, 216, 0.4);
+        }
+        .dark .message-box-button:hover {
+            background-color: #2563eb;
+            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Dark mode toggle specific styles for the header */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #1d4ed8; /* Blue 700 */
+        }
+        .dark input:checked + .slider {
+            background-color: #3b82f6; /* Blue 500 */
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #1d4ed8;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Modern Back Button Styles */
+        .modern-back-button {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(90deg, #6366f1, #818cf8); /* Indigo gradient */
+            color: white;
+            border-radius: 9999px; /* Pill shape */
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            animation: bounceIn 1s ease-out;
+        }
+        .dark .modern-back-button {
+            background: linear-gradient(90deg, #4f46e5, #6366f1);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+        }
+        .modern-back-button:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.6);
+        }
+        .dark .modern-back-button:hover {
+            box-shadow: 0 12px 25px rgba(79, 70, 229, 0.6);
+        }
+        .modern-back-button .fas {
+            transition: transform 0.3s ease;
+        }
+        .modern-back-button:hover .fas {
+            transform: translateX(-5px);
+        }
+        .modern-back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: skewX(-30deg);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+        .modern-back-button:hover::before {
+            left: 100%;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        /* Generic element styling for a modern look */
+        input[type="text"], input[type="date"], input[type="number"], select {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            background-color: #f8fafc;
+            transition: all 0.2s ease;
+        }
+        .dark input[type="text"], .dark input[type="date"], .dark input[type="number"], .dark select {
+            background-color: #334155;
+            border-color: #475569;
+            color: #e2e8f0;
+        }
+        input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Specific card styles for inner apps to inherit modern feel */
+        .todo-container, .planner-container, .bug-container, .feature-container, 
+        .calendar-container, .checklist-container, .schedule-container, 
+        .workout-container, .grocery-container, .reading-container, 
+        .itinerary-container, .maintenance-container, .budget-container, 
+        .learning-container, .ticket-container {
+            border-radius: 1rem;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .todo-container, .dark .planner-container, .dark .bug-container, .dark .feature-container, 
+        .dark .calendar-container, .dark .checklist-container, .dark .schedule-container, 
+        .dark .workout-container, .dark .grocery-container, .dark .reading-container, 
+        .dark .itinerary-container, .dark .maintenance-container, .dark .budget-container, 
+        .dark .learning-container, .dark .ticket-container {
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+        .todo-container:hover, .planner-container:hover, .bug-container:hover, .feature-container:hover, 
+        .calendar-container:hover, .checklist-container:hover, .schedule-container:hover, 
+        .workout-container:hover, .grocery-container:hover, .reading-container:hover, 
+        .itinerary-container:hover, .maintenance-container:hover, .budget-container:hover, 
+        .learning-container:hover, .ticket-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="transition-colors duration-300">
+
+    <header class="py-6 bg-gradient-to-r from-blue-700 to-blue-900 dark:from-gray-900 dark:to-blue-950 text-white shadow-xl">
+        <div class="container flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <a href="test.html" class="modern-back-button">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Learning Hub</span>
+                </a>
+                <a href="#" class="text-4xl font-extrabold animate__animated animate__fadeInLeft">
+                    <i class="fas fa-tasks mr-2"></i> TaskFlow
+                </a>
+            </div>
+
+            <div class="relative w-full md:w-1/3 animate__animated animate__fadeInDown animate__delay-0.5s">
+                <input type="text" id="mainSearchInput" placeholder="Search task systems..."
+                       class="w-full pl-10 pr-4 py-2 rounded-full bg-white bg-opacity-20 text-white placeholder-gray-200
+                              focus:outline-none focus:ring-2 focus:ring-white focus:bg-opacity-30 transition duration-300">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-200"></i>
+            </div>
+
+            <label class="toggle-switch md:ml-6">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <p class="text-xl font-light mt-4 text-center animate__animated animate__fadeInUp animate__delay-1.5s">Streamline your productivity with smart task management.</p>
+    </header>
+
+    <main class="container py-16">
+        <h2 class="section-title mb-16 wow animate__animated animate__fadeIn">Task Management App Showcase</h2>
+
+        <div id="appCardsContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-app-title="Simple To-Do List">
+                <h2>1. Simple To-Do List</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A basic list for daily tasks with add and delete functionality.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp1Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple To-Do</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .todo-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .todo-container { background-color: #1f2937; color: #f9fafb; }
+        .todo-item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px dashed #e2e8f0; }
+        .todo-item:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto todo-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-blue-700">My To-Do List</h1>
+        <div class="flex mb-4">
+            <input type="text" id="newTaskInput" placeholder="Add a new task..." class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addTask()" class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition duration-200">Add</button>
+        </div>
+        <ul id="taskList">
+            <li class="todo-item">
+                <span class="dark:text-gray-200">Buy groceries</span>
+                <button onclick="parent.deleteTask(this)" class="text-red-500 hover:text-red-700 text-sm">Delete</button>
+            </li>
+            <li class="todo-item">
+                <span class="dark:text-gray-200">Finish report</span>
+                <button onclick="parent.deleteTask(this)" class="text-red-500 hover:text-red-700 text-sm">Delete</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        window.addTask = function() {
+            const taskInput = document.getElementById('newTaskInput');
+            const taskText = taskInput.value.trim();
+            if (taskText) {
+                const taskList = document.getElementById('taskList');
+                const newItem = document.createElement('li');
+                newItem.className = 'todo-item';
+                newItem.innerHTML = `
+                    <span class="dark:text-gray-200">${taskText}</span>
+                    <button onclick="parent.deleteTask(this)" class="text-red-500 hover:text-red-700 text-sm">Delete</button>
+                `;
+                taskList.appendChild(newItem);
+                taskInput.value = '';
+                parent.showMessageBox('Task added!', 'success');
+            } else {
+                parent.showMessageBox('Please enter a task.', 'info');
+            }
+        };
+
+        window.deleteTask = function(buttonElement) {
+            const item = buttonElement.closest('.todo-item');
+            if (item) {
+                item.remove();
+                parent.showMessageBox('Task deleted!', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp1Preview" title="Simple To-Do List Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp1')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-app-title="Daily Planner">
+                <h2>2. Daily Planner</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Organize your day with scheduled events and priority tasks.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .planner-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .planner-container { background-color: #1f2937; color: #f9fafb; }
+        .task-entry { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px dashed #e2e8f0; }
+        .task-entry:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto planner-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-indigo-700">Today's Plan</h1>
+        <div class="flex flex-col mb-4">
+            <input type="text" id="eventInput" placeholder="Add event (e.g., 9:00 AM Meeting)" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addEvent()" class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition duration-200">Add Event</button>
+        </div>
+        <h2 class="text-xl font-semibold mb-2 dark:text-gray-100">Schedule</h2>
+        <ul id="eventList" class="mb-4">
+            <li class="task-entry">
+                <span class="dark:text-gray-200">8:00 AM - Breakfast</span>
+                <button onclick="parent.deleteEvent(this)" class="text-red-500 hover:text-red-700 text-sm">X</button>
+            </li>
+            <li class="task-entry">
+                <span class="dark:text-gray-200">10:00 AM - Team Sync</span>
+                <button onclick="parent.deleteEvent(this)" class="text-red-500 hover:text-red-700 text-sm">X</button>
+            </li>
+        </ul>
+        <h2 class="text-xl font-semibold mb-2 dark:text-gray-100">Tasks</h2>
+        <ul id="taskList">
+            <li class="task-entry">
+                <span class="dark:text-gray-200">Prepare presentation</span>
+                <button onclick="parent.markComplete(this)" class="text-green-500 hover:text-green-700 text-sm">Done</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        window.addEvent = function() {
+            const eventInput = document.getElementById('eventInput');
+            const eventText = eventInput.value.trim();
+            if (eventText) {
+                const eventList = document.getElementById('eventList');
+                const newItem = document.createElement('li');
+                newItem.className = 'task-entry';
+                newItem.innerHTML = `
+                    <span class="dark:text-gray-200">${eventText}</span>
+                    <button onclick="parent.deleteEvent(this)" class="text-red-500 hover:text-red-700 text-sm">X</button>
+                `;
+                eventList.appendChild(newItem);
+                eventInput.value = '';
+                parent.showMessageBox('Event added!', 'success');
+            } else {
+                parent.showMessageBox('Please enter an event.', 'info');
+            }
+        };
+
+        window.deleteEvent = function(buttonElement) {
+            buttonElement.closest('.task-entry').remove();
+            parent.showMessageBox('Entry removed!', 'info');
+        };
+
+        window.markComplete = function(buttonElement) {
+            const item = buttonElement.closest('.task-entry').querySelector('span');
+            item.classList.add('line-through', 'text-gray-500');
+            buttonElement.remove();
+            parent.showMessageBox('Task completed!', 'success');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp2Preview" title="Daily Planner Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp2')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-app-title="Project Task Board">
+                <h2>3. Project Task Board (Kanban)</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Visualize project workflow with draggable tasks across columns.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp3Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .kanban-board { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; }
+        .kanban-column { flex: 1; min-width: 280px; background-color: #e2e8f0; border-radius: 0.75rem; padding: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .dark .kanban-column { background-color: #334155; color: #f9fafb; }
+        .kanban-column-title { font-weight: bold; margin-bottom: 1rem; text-align: center; color: #1e293b; }
+        .dark .kanban-column-title { color: #f9fafb; }
+        .kanban-card { background-color: white; border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: grab; }
+        .dark .kanban-card { background-color: #475569; color: #f9fafb; }
+        .kanban-card:active { cursor: grabbing; }
+    </style>
+</head>
+<body>
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-purple-700">Project Alpha Tasks</h1>
+        <div class="kanban-board" id="kanbanBoard">
+            <div class="kanban-column" id="todo" ondrop="parent.drop(event)" ondragover="parent.allowDrop(event)">
+                <h3 class="kanban-column-title text-red-600">To Do</h3>
+                <div class="kanban-card" draggable="true" ondragstart="parent.drag(event)" id="task1">Design UI</div>
+                <div class="kanban-card" draggable="true" ondragstart="parent.drag(event)" id="task2">Plan Backend</div>
+                <button onclick="parent.addTaskToColumn('todo')" class="mt-2 w-full bg-red-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-red-600">Add Task</button>
+            </div>
+            <div class="kanban-column" id="in-progress" ondrop="parent.drop(event)" ondragover="parent.allowDrop(event)">
+                <h3 class="kanban-column-title text-yellow-600">In Progress</h3>
+                <div class="kanban-card" draggable="true" ondragstart="parent.drag(event)" id="task3">Develop Login</div>
+                <button onclick="parent.addTaskToColumn('in-progress')" class="mt-2 w-full bg-yellow-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-yellow-600">Add Task</button>
+            </div>
+            <div class="kanban-column" id="done" ondrop="parent.drop(event)" ondragover="parent.allowDrop(event)">
+                <h3 class="kanban-column-title text-green-600">Done</h3>
+                <div class="kanban-card" draggable="true" ondragstart="parent.drag(event)" id="task4">Setup Database</div>
+                <button onclick="parent.addTaskToColumn('done')" class="mt-2 w-full bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Add Task</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let draggedId;
+        window.allowDrop = function(ev) {
+            ev.preventDefault();
+        };
+
+        window.drag = function(ev) {
+            draggedId = ev.target.id;
+        };
+
+        window.drop = function(ev) {
+            ev.preventDefault();
+            if (draggedId) {
+                const data = document.getElementById(draggedId);
+                ev.target.closest('.kanban-column').appendChild(data);
+                parent.showMessageBox(`Task "${data.textContent}" moved to "${ev.target.closest('.kanban-column').id.replace('-', ' ').toUpperCase()}".`, 'success', 'Task Moved');
+            }
+        };
+
+        window.addTaskToColumn = function(columnId) {
+            const taskText = prompt(`Enter new task for ${columnId.replace('-', ' ').toUpperCase()}:`);
+            if (taskText) {
+                const column = document.getElementById(columnId);
+                const newTask = document.createElement('div');
+                const taskId = `task${Date.now()}`;
+                newTask.id = taskId;
+                newTask.className = 'kanban-card';
+                newTask.draggable = true;
+                newTask.setAttribute('ondragstart', 'parent.drag(event)');
+                newTask.textContent = taskText;
+                column.insertBefore(newTask, column.querySelector('button')); // Insert before the button
+                parent.showMessageBox('Task added!', 'success');
+            } else {
+                parent.showMessageBox('Task addition cancelled.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp3Preview" title="Project Task Board Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp3')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-app-title="Team Task Assignment">
+                <h2>4. Team Task Assignment</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Assign tasks to team members and track their progress.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Task Assignment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .team-task-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .team-task-container { background-color: #1f2937; color: #f9fafb; }
+        .team-member-card { background-color: #e2e8f0; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .team-member-card { background-color: #334155; }
+    </style>
+</head>
+<body>
+    <div class="max-w-2xl mx-auto team-task-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-teal-700">Team Task Board</h1>
+        <div class="flex mb-4">
+            <input type="text" id="taskNameInput" placeholder="Task name..." class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <select id="assigneeSelect" class="p-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <option value="Alice">Alice</option>
+                <option value="Bob">Bob</option>
+                <option value="Charlie">Charlie</option>
+            </select>
+            <button onclick="parent.assignTaskToTeam()" class="bg-teal-500 text-white px-4 py-2 rounded-r-lg hover:bg-teal-600 transition duration-200">Assign</button>
+        </div>
+        <div id="teamTasks">
+            <div class="team-member-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Alice's Tasks</h3>
+                <ul id="aliceTasks">
+                    <li class="flex justify-between items-center py-1 dark:text-gray-200">Prepare Q2 Report <button onclick="parent.completeTeamTask(this)" class="text-green-500 hover:text-green-700 text-sm">Done</button></li>
+                </ul>
+            </div>
+            <div class="team-member-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Bob's Tasks</h3>
+                <ul id="bobTasks">
+                    <li class="flex justify-between items-center py-1 dark:text-gray-200">Review code <button onclick="parent.completeTeamTask(this)" class="text-green-500 hover:text-green-700 text-sm">Done</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.assignTaskToTeam = function() {
+            const taskName = document.getElementById('taskNameInput');
+            const assignee = document.getElementById('assigneeSelect').value;
+            if (taskName.value.trim()) {
+                const taskList = document.getElementById(`${assignee.toLowerCase()}Tasks`);
+                if (taskList) {
+                    const newItem = document.createElement('li');
+                    newItem.className = 'flex justify-between items-center py-1 dark:text-gray-200';
+                    newItem.innerHTML = `${taskName.value.trim()} <button onclick="parent.completeTeamTask(this)" class="text-green-500 hover:text-green-700 text-sm">Done</button>`;
+                    taskList.appendChild(newItem);
+                    taskName.value = '';
+                    parent.showMessageBox(`Task "${taskName.value.trim()}" assigned to ${assignee}.`, 'success');
+                } else {
+                    parent.showMessageBox(`Error: No task list found for ${assignee}.`, 'error');
+                }
+            } else {
+                parent.showMessageBox('Please enter a task name.', 'info');
+            }
+        };
+
+        window.completeTeamTask = function(buttonElement) {
+            buttonElement.closest('li').classList.add('line-through', 'text-gray-500');
+            buttonElement.remove();
+            parent.showMessageBox('Task completed!', 'success');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp4Preview" title="Team Task Assignment Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp4')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s" data-app-title="Personal Goal Tracker">
+                <h2>5. Personal Goal Tracker</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Set personal goals and track your progress towards achieving them.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp5Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Goal Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .goal-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .goal-container { background-color: #1f2937; color: #f9fafb; }
+        .goal-card { background-color: #e0f2f7; border-left: 5px solid #0ea5e9; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .goal-card { background-color: #334155; border-color: #38bdf8; }
+        .progress-bar { height: 8px; background-color: #cbd5e1; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background-color: #0ea5e9; transition: width 0.5s ease-in-out; border-radius: inherit; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto goal-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-blue-700">My Personal Goals</h1>
+        <div class="flex mb-4">
+            <input type="text" id="goalInput" placeholder="New goal (e.g., Learn Spanish)" class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addGoal()" class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition duration-200">Add Goal</button>
+        </div>
+        <div id="goalList">
+            <div class="goal-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Run a Marathon</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Target Date: 2025-12-31</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%;"></div>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Progress: 50%</p>
+                <button onclick="parent.updateProgress(this)" class="mt-2 bg-blue-400 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-500">Update Progress</button>
+            </div>
+            <div class="goal-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Read 12 Books</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Target Date: 2025-12-31</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%;"></div>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Progress: 75%</p>
+                <button onclick="parent.updateProgress(this)" class="mt-2 bg-blue-400 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-500">Update Progress</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addGoal = function() {
+            const goalText = document.getElementById('goalInput');
+            if (goalText.value.trim()) {
+                const goalList = document.getElementById('goalList');
+                const newGoal = document.createElement('div');
+                newGoal.className = 'goal-card';
+                newGoal.innerHTML = `
+                    <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">${goalText.value.trim()}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Target Date: TBD</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Progress: 0%</p>
+                    <button onclick="parent.updateProgress(this)" class="mt-2 bg-blue-400 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-500">Update Progress</button>
+                `;
+                goalList.appendChild(newGoal);
+                goalInput.value = '';
+                parent.showMessageBox('Goal added!', 'success');
+            } else {
+                parent.showMessageBox('Please enter a goal.', 'info');
+            }
+        };
+
+        window.updateProgress = function(buttonElement) {
+            const card = buttonElement.closest('.goal-card');
+            const progressBar = card.querySelector('.progress-fill');
+            const progressText = card.querySelector('.text-xs');
+            let currentProgress = parseInt(progressBar.style.width);
+            const newProgress = prompt(`Enter new progress for "${card.querySelector('h3').textContent}" (0-100):`, currentProgress);
+            if (newProgress !== null && !isNaN(newProgress) && newProgress >= 0 && newProgress <= 100) {
+                progressBar.style.width = `${newProgress}%`;
+                progressText.textContent = `Progress: ${newProgress}%`;
+                parent.showMessageBox('Progress updated!', 'success');
+            } else {
+                parent.showMessageBox('Invalid input or cancelled.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp5Preview" title="Personal Goal Tracker Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp5')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s" data-app-title="Habit Tracker">
+                <h2>6. Habit Tracker</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Build good habits by tracking your daily streaks and consistency.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp6Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .habit-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .habit-container { background-color: #1f2937; color: #f9fafb; }
+        .habit-card { background-color: #ecfdf5; border-left: 5px solid #10b981; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .habit-card { background-color: #334155; border-color: #34d399; }
+        .check-btn { background-color: #10b981; color: white; padding: 0.4rem 0.8rem; border-radius: 0.5rem; cursor: pointer; transition: background-color 0.2s ease; }
+        .check-btn:hover { background-color: #059669; }
+        .check-btn.checked { background-color: #6ee7b7; color: #065f46; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto habit-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-green-700">My Daily Habits</h1>
+        <div class="flex mb-4">
+            <input type="text" id="newHabitInput" placeholder="New habit (e.g., Meditate 10 min)" class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addHabit()" class="bg-green-500 text-white px-4 py-2 rounded-r-lg hover:bg-green-600 transition duration-200">Add Habit</button>
+        </div>
+        <div id="habitList">
+            <div class="habit-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Drink 8 Glasses of Water</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Current Streak: <span id="waterStreak">5</span> days</p>
+                <button onclick="parent.toggleHabit(this, 'waterStreak')" class="check-btn">Check In</button>
+            </div>
+            <div class="habit-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Exercise 30 min</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Current Streak: <span id="exerciseStreak">3</span> days</p>
+                <button onclick="parent.toggleHabit(this, 'exerciseStreak')" class="check-btn">Check In</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addHabit = function() {
+            const habitText = document.getElementById('newHabitInput');
+            if (habitText.value.trim()) {
+                const habitList = document.getElementById('habitList');
+                const habitId = `habit${Date.now()}`;
+                const newHabit = document.createElement('div');
+                newHabit.className = 'habit-card';
+                newHabit.innerHTML = `
+                    <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">${habitText.value.trim()}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Current Streak: <span id="${habitId}Streak">0</span> days</p>
+                    <button onclick="parent.toggleHabit(this, '${habitId}Streak')" class="check-btn">Check In</button>
+                `;
+                habitList.appendChild(newHabit);
+                habitText.value = '';
+                parent.showMessageBox('Habit added!', 'success');
+            } else {
+                parent.showMessageBox('Please enter a habit.', 'info');
+            }
+        };
+
+        window.toggleHabit = function(buttonElement, streakId) {
+            const streakSpan = document.getElementById(streakId);
+            let currentStreak = parseInt(streakSpan.textContent);
+
+            if (buttonElement.classList.contains('checked')) {
+                buttonElement.classList.remove('checked');
+                buttonElement.textContent = 'Check In';
+                currentStreak--;
+                parent.showMessageBox('Habit unchecked.', 'info');
+            } else {
+                buttonElement.classList.add('checked');
+                buttonElement.textContent = 'Checked!';
+                currentStreak++;
+                parent.showMessageBox('Habit checked in!', 'success');
+            }
+            streakSpan.textContent = currentStreak;
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp6Preview" title="Habit Tracker Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp6')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s" data-app-title="Meeting Agenda Manager">
+                <h2>7. Meeting Agenda Manager</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Create and manage agendas for your meetings, ensuring productive discussions.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp7Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Agenda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .agenda-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .agenda-container { background-color: #1f2937; color: #f9fafb; }
+        .agenda-item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px dashed #e2e8f0; }
+        .agenda-item:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto agenda-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-purple-700">Project Review Meeting</h1>
+        <p class="text-center text-gray-600 dark:text-gray-400 mb-4">Date: 2025-06-01 | Time: 10:00 AM</p>
+        <div class="flex mb-4">
+            <input type="text" id="agendaItemInput" placeholder="Add agenda item..." class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addAgendaItem()" class="bg-purple-500 text-white px-4 py-2 rounded-r-lg hover:bg-purple-600 transition duration-200">Add</button>
+        </div>
+        <ul id="agendaList">
+            <li class="agenda-item">
+                <span class="dark:text-gray-200">Review Q1 Performance (30 min)</span>
+                <button onclick="parent.removeAgendaItem(this)" class="text-red-500 hover:text-red-700 text-sm">X</button>
+            </li>
+            <li class="agenda-item">
+                <span class="dark:text-gray-200">Discuss new features (45 min)</span>
+                <button onclick="parent.removeAgendaItem(this)" class="text-red-500 hover:text-red-700 text-sm">X</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        window.addAgendaItem = function() {
+            const itemInput = document.getElementById('agendaItemInput');
+            const itemText = itemInput.value.trim();
+            if (itemText) {
+                const agendaList = document.getElementById('agendaList');
+                const newItem = document.createElement('li');
+                newItem.className = 'agenda-item';
+                newItem.innerHTML = `
+                    <span class="dark:text-gray-200">${itemText}</span>
+                    <button onclick="parent.removeAgendaItem(this)" class="text-red-500 hover:text-red-700 text-sm">X</button>
+                `;
+                agendaList.appendChild(newItem);
+                itemInput.value = '';
+                parent.showMessageBox('Agenda item added!', 'success');
+            } else {
+                parent.showMessageBox('Please enter an agenda item.', 'info');
+            }
+        };
+
+        window.removeAgendaItem = function(buttonElement) {
+            buttonElement.closest('.agenda-item').remove();
+            parent.showMessageBox('Agenda item removed.', 'info');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp7Preview" title="Meeting Agenda Manager Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp7')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s" data-app-title="Bug Tracker">
+                <h2>8. Bug Tracker</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Log, prioritize, and track software bugs and issues.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp8Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .bug-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .bug-container { background-color: #1f2937; color: #f9fafb; }
+        .bug-card { background-color: #fee2e2; border-left: 5px solid #ef4444; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .bug-card { background-color: #334155; border-color: #f87171; }
+        .priority-high { color: #dc2626; font-weight: bold; }
+        .priority-medium { color: #f59e0b; font-weight: bold; }
+        .priority-low { color: #10b981; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto bug-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-red-700">Bug Tracker</h1>
+        <div class="flex flex-col mb-4">
+            <input type="text" id="bugDescInput" placeholder="Bug description..." class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <select id="bugPrioritySelect" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+            <button onclick="parent.addBug()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200">Report Bug</button>
+        </div>
+        <div id="bugList">
+            <div class="bug-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Login button not working</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Priority: <span class="priority-high">High</span> | Status: Open</p>
+                <button onclick="parent.resolveBug(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Resolve</button>
+            </div>
+            <div class="bug-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Typo on About page</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Priority: <span class="priority-low">Low</span> | Status: Open</p>
+                <button onclick="parent.resolveBug(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Resolve</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addBug = function() {
+            const desc = document.getElementById('bugDescInput');
+            const priority = document.getElementById('bugPrioritySelect').value;
+            if (desc.value.trim()) {
+                const bugList = document.getElementById('bugList');
+                const newBug = document.createElement('div');
+                newBug.className = 'bug-card';
+                newBug.innerHTML = `
+                    <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">${desc.value.trim()}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Priority: <span class="priority-${priority.toLowerCase()}">${priority}</span> | Status: Open</p>
+                    <button onclick="parent.resolveBug(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Resolve</button>
+                `;
+                bugList.appendChild(newBug);
+                desc.value = '';
+                parent.showMessageBox('Bug reported!', 'success');
+            } else {
+                parent.showMessageBox('Please enter bug description.', 'info');
+            }
+        };
+
+        window.resolveBug = function(buttonElement) {
+            const card = buttonElement.closest('.bug-card');
+            card.querySelector('p').innerHTML = card.querySelector('p').innerHTML.replace('Status: Open', 'Status: Resolved');
+            card.style.backgroundColor = '#d1fae5'; // Light green for resolved
+            card.style.borderColor = '#34d399';
+            buttonElement.remove();
+            parent.showMessageBox('Bug resolved!', 'success');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp8Preview" title="Bug Tracker Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp8')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s" data-app-title="Feature Request Board">
+                <h2>9. Feature Request Board</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Collect, prioritize, and manage feature requests from users or stakeholders.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp9Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Request Board</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .feature-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .feature-container { background-color: #1f2937; color: #f9fafb; }
+        .feature-card { background-color: #e0f2f7; border-left: 5px solid #0ea5e9; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .feature-card { background-color: #334155; border-color: #38bdf8; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto feature-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-blue-700">Feature Requests</h1>
+        <div class="flex flex-col mb-4">
+            <input type="text" id="featureInput" placeholder="New feature idea..." class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <select id="prioritySelect" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <option value="High">High Priority</option>
+                <option value="Medium">Medium Priority</option>
+                <option value="Low">Low Priority</option>
+            </select>
+            <button onclick="parent.addFeatureRequest()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200">Submit Request</button>
+        </div>
+        <div id="featureList">
+            <div class="feature-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Dark Mode Toggle</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Priority: High | Status: Pending</p>
+                <button onclick="parent.updateFeatureStatus(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Mark Implemented</button>
+            </div>
+            <div class="feature-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Export to PDF</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Priority: Medium | Status: Pending</p>
+                <button onclick="parent.updateFeatureStatus(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Mark Implemented</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addFeatureRequest = function() {
+            const feature = document.getElementById('featureInput');
+            const priority = document.getElementById('prioritySelect').value;
+            if (feature.value.trim()) {
+                const featureList = document.getElementById('featureList');
+                const newCard = document.createElement('div');
+                newCard.className = 'feature-card';
+                newCard.innerHTML = `
+                    <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">${feature.value.trim()}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Priority: ${priority} | Status: Pending</p>
+                    <button onclick="parent.updateFeatureStatus(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Mark Implemented</button>
+                `;
+                featureList.appendChild(newCard);
+                feature.value = '';
+                parent.showMessageBox('Feature request submitted!', 'success');
+            } else {
+                parent.showMessageBox('Please enter a feature idea.', 'info');
+            }
+        };
+
+        window.updateFeatureStatus = function(buttonElement) {
+            const card = buttonElement.closest('.feature-card');
+            card.querySelector('p').innerHTML = card.querySelector('p').innerHTML.replace('Status: Pending', 'Status: Implemented');
+            card.style.backgroundColor = '#d1fae5'; // Light green for implemented
+            card.style.borderColor = '#34d399';
+            buttonElement.remove();
+            parent.showMessageBox('Feature marked as implemented!', 'success');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp9Preview" title="Feature Request Board Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp9')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s" data-app-title="Content Calendar">
+                <h2>10. Content Calendar</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Plan and schedule your content publications across different platforms.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp10Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Calendar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .calendar-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .calendar-container { background-color: #1f2937; color: #f9fafb; }
+        .day-card { background-color: #e2e8f0; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .day-card { background-color: #334155; }
+    </style>
+</head>
+<body>
+    <div class="max-w-xl mx-auto calendar-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-orange-700">Content Calendar</h1>
+        <div class="flex flex-col mb-4">
+            <input type="text" id="contentTitleInput" placeholder="Content title..." class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <input type="date" id="contentDateInput" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addContent()" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-200">Add Content</button>
+        </div>
+        <div id="calendarContent">
+            <div class="day-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">2025-06-05</h3>
+                <ul id="date-2025-06-05">
+                    <li class="py-1 dark:text-gray-200">Blog Post: "New Features"</li>
+                </ul>
+            </div>
+            <div class="day-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">2025-06-10</h3>
+                <ul id="date-2025-06-10">
+                    <li class="py-1 dark:text-gray-200">Social Media Campaign</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addContent = function() {
+            const title = document.getElementById('contentTitleInput');
+            const date = document.getElementById('contentDateInput');
+            if (title.value.trim() && date.value) {
+                let dayList = document.getElementById(`date-${date.value}`);
+                if (!dayList) {
+                    const calendarContent = document.getElementById('calendarContent');
+                    const newDayCard = document.createElement('div');
+                    newDayCard.className = 'day-card';
+                    newDayCard.innerHTML = `
+                        <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">${date.value}</h3>
+                        <ul id="date-${date.value}"></ul>
+                    `;
+                    calendarContent.appendChild(newDayCard);
+                    dayList = document.getElementById(`date-${date.value}`);
+                }
+                const newItem = document.createElement('li');
+                newItem.className = 'py-1 dark:text-gray-200';
+                newItem.textContent = title.value.trim();
+                dayList.appendChild(newItem);
+                title.value = '';
+                date.value = '';
+                parent.showMessageBox('Content scheduled!', 'success');
+            } else {
+                parent.showMessageBox('Please enter title and date.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp10Preview" title="Content Calendar Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp10')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.1s" data-app-title="Event Planning Checklist">
+                <h2>11. Event Planning Checklist</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage all tasks required for successful event planning.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp11Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Checklist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .checklist-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .checklist-container { background-color: #1f2937; color: #f9fafb; }
+        .checklist-item { display: flex; align-items: center; padding: 0.75rem 0; border-bottom: 1px dashed #e2e8f0; }
+        .checklist-item:last-child { border-bottom: none; }
+        .checkbox { margin-right: 0.75rem; width: 1.25rem; height: 1.25rem; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto checklist-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-pink-700">Annual Gala Checklist</h1>
+        <div class="flex mb-4">
+            <input type="text" id="checklistItemInput" placeholder="Add checklist item..." class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-pink-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addChecklistItem()" class="bg-pink-500 text-white px-4 py-2 rounded-r-lg hover:bg-pink-600 transition duration-200">Add</button>
+        </div>
+        <ul id="eventChecklist">
+            <li class="checklist-item">
+                <input type="checkbox" class="checkbox" onchange="parent.toggleCheck(this)">
+                <span class="dark:text-gray-200">Book Venue</span>
+            </li>
+            <li class="checklist-item">
+                <input type="checkbox" class="checkbox" onchange="parent.toggleCheck(this)">
+                <span class="dark:text-gray-200">Send Invitations</span>
+            </li>
+            <li class="checklist-item">
+                <input type="checkbox" class="checkbox" onchange="parent.toggleCheck(this)" checked>
+                <span class="dark:text-gray-200 line-through text-gray-500">Finalize Catering</span>
+            </li>
+        </ul>
+    </div>
+    <script>
+        window.addChecklistItem = function() {
+            const itemInput = document.getElementById('checklistItemInput');
+            const itemText = itemInput.value.trim();
+            if (itemText) {
+                const checklist = document.getElementById('eventChecklist');
+                const newItem = document.createElement('li');
+                newItem.className = 'checklist-item';
+                newItem.innerHTML = `
+                    <input type="checkbox" class="checkbox" onchange="parent.toggleCheck(this)">
+                    <span class="dark:text-gray-200">${itemText}</span>
+                `;
+                checklist.appendChild(newItem);
+                itemInput.value = '';
+                parent.showMessageBox('Checklist item added!', 'success');
+            } else {
+                parent.showMessageBox('Please enter an item.', 'info');
+            }
+        };
+
+        window.toggleCheck = function(checkbox) {
+            const span = checkbox.nextElementSibling;
+            if (checkbox.checked) {
+                span.classList.add('line-through', 'text-gray-500');
+                parent.showMessageBox('Item completed!', 'success');
+            } else {
+                span.classList.remove('line-through', 'text-gray-500');
+                parent.showMessageBox('Item unchecked.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp11Preview" title="Event Planning Checklist Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp11')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.2s" data-app-title="Study Schedule">
+                <h2>12. Study Schedule</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Plan your study sessions and track your academic progress.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp12Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Schedule</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .schedule-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .schedule-container { background-color: #1f2937; color: #f9fafb; }
+        .schedule-item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px dashed #e2e8f0; }
+        .schedule-item:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto schedule-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-yellow-700">My Study Plan</h1>
+        <div class="flex flex-col mb-4">
+            <input type="text" id="subjectInput" placeholder="Subject (e.g., Math)" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <input type="text" id="topicInput" placeholder="Topic (e.g., Algebra)" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <input type="date" id="studyDateInput" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addStudySession()" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-200">Add Session</button>
+        </div>
+        <ul id="studyScheduleList">
+            <li class="schedule-item">
+                <span class="dark:text-gray-200">Math: Calculus (2025-06-03)</span>
+                <button onclick="parent.markStudyComplete(this)" class="text-green-500 hover:text-green-700 text-sm">Done</button>
+            </li>
+            <li class="schedule-item">
+                <span class="dark:text-gray-200">History: World War II (2025-06-05)</span>
+                <button onclick="parent.markStudyComplete(this)" class="text-green-500 hover:text-green-700 text-sm">Done</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        window.addStudySession = function() {
+            const subject = document.getElementById('subjectInput');
+            const topic = document.getElementById('topicInput');
+            const date = document.getElementById('studyDateInput');
+            if (subject.value.trim() && topic.value.trim() && date.value) {
+                const scheduleList = document.getElementById('studyScheduleList');
+                const newItem = document.createElement('li');
+                newItem.className = 'schedule-item';
+                newItem.innerHTML = `
+                    <span class="dark:text-gray-200">${subject.value.trim()}: ${topic.value.trim()} (${date.value})</span>
+                    <button onclick="parent.markStudyComplete(this)" class="text-green-500 hover:text-green-700 text-sm">Done</button>
+                `;
+                scheduleList.appendChild(newItem);
+                subject.value = '';
+                topic.value = '';
+                date.value = '';
+                parent.showMessageBox('Study session added!', 'success');
+            } else {
+                parent.showMessageBox('Please fill all fields.', 'info');
+            }
+        };
+
+        window.markStudyComplete = function(buttonElement) {
+            buttonElement.closest('li').classList.add('line-through', 'text-gray-500');
+            buttonElement.remove();
+            parent.showMessageBox('Session completed!', 'success');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp12Preview" title="Study Schedule Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp12')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.3s" data-app-title="Workout Planner">
+                <h2>13. Workout Planner</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Plan your fitness routines and track completed workouts.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp13Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .workout-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .workout-container { background-color: #1f2937; color: #f9fafb; }
+        .workout-card { background-color: #e0f7fa; border-left: 5px solid #00bcd4; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .workout-card { background-color: #334155; border-color: #22d3ee; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto workout-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-cyan-700">My Workout Plan</h1>
+        <div class="flex flex-col mb-4">
+            <input type="text" id="workoutNameInput" placeholder="Workout name (e.g., Full Body)" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <input type="date" id="workoutDateInput" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addWorkout()" class="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600 transition duration-200">Add Workout</button>
+        </div>
+        <div id="workoutList">
+            <div class="workout-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Leg Day</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Date: 2025-06-02 | Status: Scheduled</p>
+                <button onclick="parent.completeWorkout(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Mark Done</button>
+            </div>
+            <div class="workout-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Upper Body</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Date: 2025-06-04 | Status: Scheduled</p>
+                <button onclick="parent.completeWorkout(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Mark Done</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addWorkout = function() {
+            const name = document.getElementById('workoutNameInput');
+            const date = document.getElementById('workoutDateInput');
+            if (name.value.trim() && date.value) {
+                const workoutList = document.getElementById('workoutList');
+                const newCard = document.createElement('div');
+                newCard.className = 'workout-card';
+                newCard.innerHTML = `
+                    <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">${name.value.trim()}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Date: ${date.value} | Status: Scheduled</p>
+                    <button onclick="parent.completeWorkout(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Mark Done</button>
+                `;
+                workoutList.appendChild(newCard);
+                name.value = '';
+                date.value = '';
+                parent.showMessageBox('Workout added!', 'success');
+            } else {
+                parent.showMessageBox('Please fill all fields.', 'info');
+            }
+        };
+
+        window.completeWorkout = function(buttonElement) {
+            const card = buttonElement.closest('.workout-card');
+            card.querySelector('p').innerHTML = card.querySelector('p').innerHTML.replace('Status: Scheduled', 'Status: Completed');
+            card.style.backgroundColor = '#d1fae5'; // Light green for completed
+            card.style.borderColor = '#34d399';
+            buttonElement.remove();
+            parent.showMessageBox('Workout completed!', 'success');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp13Preview" title="Workout Planner Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp13')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.4s" data-app-title="Grocery List Manager">
+                <h2>14. Grocery List Manager</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Create and manage your shopping lists with ease.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp14Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .grocery-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .grocery-container { background-color: #1f2937; color: #f9fafb; }
+        .grocery-item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px dashed #e2e8f0; }
+        .grocery-item:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto grocery-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-lime-700">My Grocery List</h1>
+        <div class="flex mb-4">
+            <input type="text" id="groceryItemInput" placeholder="Add item (e.g., Milk)" class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-lime-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addGroceryItem()" class="bg-lime-500 text-white px-4 py-2 rounded-r-lg hover:bg-lime-600 transition duration-200">Add</button>
+        </div>
+        <ul id="groceryList">
+            <li class="grocery-item">
+                <span class="dark:text-gray-200">Eggs</span>
+                <button onclick="parent.removeGroceryItem(this)" class="text-red-500 hover:text-red-700 text-sm">X</button>
+            </li>
+            <li class="grocery-item">
+                <span class="dark:text-gray-200">Bread</span>
+                <button onclick="parent.removeGroceryItem(this)" class="text-red-500 hover:text-red-700 text-sm">X</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        window.addGroceryItem = function() {
+            const itemInput = document.getElementById('groceryItemInput');
+            const itemText = itemInput.value.trim();
+            if (itemText) {
+                const groceryList = document.getElementById('groceryList');
+                const newItem = document.createElement('li');
+                newItem.className = 'grocery-item';
+                newItem.innerHTML = `
+                    <span class="dark:text-gray-200">${itemText}</span>
+                    <button onclick="parent.removeGroceryItem(this)" class="text-red-500 hover:text-red-700 text-sm">X</button>
+                `;
+                groceryList.appendChild(newItem);
+                itemInput.value = '';
+                parent.showMessageBox('Item added to list!', 'success');
+            } else {
+                parent.showMessageBox('Please enter an item.', 'info');
+            }
+        };
+
+        window.removeGroceryItem = function(buttonElement) {
+            buttonElement.closest('.grocery-item').remove();
+            parent.showMessageBox('Item removed.', 'info');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp14Preview" title="Grocery List Manager Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp14')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.5s" data-app-title="Reading List Tracker">
+                <h2>15. Reading List Tracker</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Keep track of books you want to read and your reading progress.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp15Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .reading-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .reading-container { background-color: #1f2937; color: #f9fafb; }
+        .book-card { background-color: #fef3c7; border-left: 5px solid #fbbf24; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .book-card { background-color: #334155; border-color: #fcd34d; }
+        .progress-bar { height: 8px; background-color: #cbd5e1; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background-color: #fbbf24; transition: width 0.5s ease-in-out; border-radius: inherit; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto reading-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-yellow-700">My Reading List</h1>
+        <div class="flex mb-4">
+            <input type="text" id="bookTitleInput" placeholder="Book title..." class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addBook()" class="bg-yellow-500 text-white px-4 py-2 rounded-r-lg hover:bg-yellow-600 transition duration-200">Add Book</button>
+        </div>
+        <div id="bookList">
+            <div class="book-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">The Hitchhiker's Guide to the Galaxy</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Author: Douglas Adams</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 70%;"></div>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Progress: 70%</p>
+                <button onclick="parent.updateReadingProgress(this)" class="mt-2 bg-yellow-400 text-white px-3 py-1 rounded-lg text-sm hover:bg-yellow-500">Update Progress</button>
+            </div>
+            <div class="book-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Dune</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Author: Frank Herbert</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 20%;"></div>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Progress: 20%</p>
+                <button onclick="parent.updateReadingProgress(this)" class="mt-2 bg-yellow-400 text-white px-3 py-1 rounded-lg text-sm hover:bg-yellow-500">Update Progress</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addBook = function() {
+            const title = document.getElementById('bookTitleInput');
+            if (title.value.trim()) {
+                const bookList = document.getElementById('bookList');
+                const newCard = document.createElement('div');
+                newCard.className = 'book-card';
+                newCard.innerHTML = `
+                    <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">${title.value.trim()}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Author: Unknown</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Progress: 0%</p>
+                    <button onclick="parent.updateReadingProgress(this)" class="mt-2 bg-yellow-400 text-white px-3 py-1 rounded-lg text-sm hover:bg-yellow-500">Update Progress</button>
+                `;
+                bookList.appendChild(newCard);
+                title.value = '';
+                parent.showMessageBox('Book added to list!', 'success');
+            } else {
+                parent.showMessageBox('Please enter a book title.', 'info');
+            }
+        };
+
+        window.updateReadingProgress = function(buttonElement) {
+            const card = buttonElement.closest('.book-card');
+            const progressBar = card.querySelector('.progress-fill');
+            const progressText = card.querySelector('.text-xs');
+            let currentProgress = parseInt(progressBar.style.width);
+            const newProgress = prompt(`Enter new progress for "${card.querySelector('h3').textContent}" (0-100):`, currentProgress);
+            if (newProgress !== null && !isNaN(newProgress) && newProgress >= 0 && newProgress <= 100) {
+                progressBar.style.width = `${newProgress}%`;
+                progressText.textContent = `Progress: ${newProgress}%`;
+                parent.showMessageBox('Reading progress updated!', 'success');
+            } else {
+                parent.showMessageBox('Invalid input or cancelled.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp15Preview" title="Reading List Tracker Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp15')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.6s" data-app-title="Travel Itinerary Planner">
+                <h2>16. Travel Itinerary Planner</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Plan your trips with detailed daily itineraries and activities.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp16Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Itinerary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .itinerary-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .itinerary-container { background-color: #1f2937; color: #f9fafb; }
+        .day-plan { background-color: #f0f9ff; border-left: 5px solid #3b82f6; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .day-plan { background-color: #334155; border-color: #60a5fa; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto itinerary-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-blue-700">Europe Trip Itinerary</h1>
+        <div class="flex flex-col mb-4">
+            <input type="date" id="itineraryDateInput" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <input type="text" id="activityInput" placeholder="Activity (e.g., Visit Eiffel Tower)" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addActivity()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200">Add Activity</button>
+        </div>
+        <div id="itineraryList">
+            <div class="day-plan">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">2025-07-10 (Paris)</h3>
+                <ul id="day-2025-07-10">
+                    <li class="py-1 dark:text-gray-200">Morning: Arrive in Paris</li>
+                    <li class="py-1 dark:text-gray-200">Afternoon: Check into hotel</li>
+                </ul>
+            </div>
+            <div class="day-plan">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">2025-07-11 (Paris)</h3>
+                <ul id="day-2025-07-11">
+                    <li class="py-1 dark:text-gray-200">Morning: Louvre Museum</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addActivity = function() {
+            const date = document.getElementById('itineraryDateInput');
+            const activity = document.getElementById('activityInput');
+            if (date.value && activity.value.trim()) {
+                let dayList = document.getElementById(`day-${date.value}`);
+                if (!dayList) {
+                    const itineraryList = document.getElementById('itineraryList');
+                    const newDayPlan = document.createElement('div');
+                    newDayPlan.className = 'day-plan';
+                    newDayPlan.innerHTML = `
+                        <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">${date.value}</h3>
+                        <ul id="day-${date.value}"></ul>
+                    `;
+                    itineraryList.appendChild(newDayPlan);
+                    dayList = document.getElementById(`day-${date.value}`);
+                }
+                const newItem = document.createElement('li');
+                newItem.className = 'py-1 dark:text-gray-200';
+                newItem.textContent = activity.value.trim();
+                dayList.appendChild(newItem);
+                activity.value = '';
+                parent.showMessageBox('Activity added to itinerary!', 'success');
+            } else {
+                parent.showMessageBox('Please fill all fields.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp16Preview" title="Travel Itinerary Planner Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp16')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.7s" data-app-title="Home Maintenance Schedule">
+                <h2>17. Home Maintenance Schedule</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Keep track of regular home maintenance tasks and their due dates.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp17Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Maintenance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .maintenance-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .maintenance-container { background-color: #1f2937; color: #f9fafb; }
+        .task-card { background-color: #fef2f2; border-left: 5px solid #ef4444; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .task-card { background-color: #334155; border-color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto maintenance-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-red-700">Home Maintenance Tasks</h1>
+        <div class="flex flex-col mb-4">
+            <input type="text" id="maintenanceTaskInput" placeholder="Task (e.g., Clean gutters)" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <input type="date" id="dueDateInput" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addMaintenanceTask()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200">Add Task</button>
+        </div>
+        <div id="maintenanceList">
+            <div class="task-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Check Smoke Detectors</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Due Date: 2025-06-30 | Status: Pending</p>
+                <button onclick="parent.completeMaintenanceTask(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Mark Done</button>
+            </div>
+            <div class="task-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Filter HVAC</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Due Date: 2025-07-15 | Status: Pending</p>
+                <button onclick="parent.completeMaintenanceTask(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Mark Done</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addMaintenanceTask = function() {
+            const task = document.getElementById('maintenanceTaskInput');
+            const dueDate = document.getElementById('dueDateInput');
+            if (task.value.trim() && dueDate.value) {
+                const maintenanceList = document.getElementById('maintenanceList');
+                const newCard = document.createElement('div');
+                newCard.className = 'task-card';
+                newCard.innerHTML = `
+                    <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">${task.value.trim()}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Due Date: ${dueDate.value} | Status: Pending</p>
+                    <button onclick="parent.completeMaintenanceTask(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Mark Done</button>
+                `;
+                maintenanceList.appendChild(newCard);
+                task.value = '';
+                dueDate.value = '';
+                parent.showMessageBox('Maintenance task added!', 'success');
+            } else {
+                parent.showMessageBox('Please fill all fields.', 'info');
+            }
+        };
+
+        window.completeMaintenanceTask = function(buttonElement) {
+            const card = buttonElement.closest('.task-card');
+            card.querySelector('p').innerHTML = card.querySelector('p').innerHTML.replace('Status: Pending', 'Status: Completed');
+            card.style.backgroundColor = '#d1fae5'; // Light green for completed
+            card.style.borderColor = '#34d399';
+            buttonElement.remove();
+            parent.showMessageBox('Maintenance task completed!', 'success');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp17Preview" title="Home Maintenance Schedule Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp17')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.8s" data-app-title="Budgeting Tasks">
+                <h2>18. Budgeting Tasks</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage financial tasks like bill payments, savings goals, and expense tracking.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp18Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budgeting Tasks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .budget-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .budget-container { background-color: #1f2937; color: #f9fafb; }
+        .bill-card { background-color: #e0f2f7; border-left: 5px solid #0ea5e9; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .bill-card { background-color: #334155; border-color: #38bdf8; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto budget-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-blue-700">My Budgeting Tasks</h1>
+        <div class="flex flex-col mb-4">
+            <input type="text" id="billNameInput" placeholder="Bill name (e.g., Rent)" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <input type="date" id="billDueDateInput" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <input type="number" id="billAmountInput" placeholder="Amount ($)" class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addBill()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200">Add Bill</button>
+        </div>
+        <div id="billList">
+            <div class="bill-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Electricity Bill</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Due: 2025-06-10 | Amount: $120</p>
+                <button onclick="parent.markBillPaid(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Mark Paid</button>
+            </div>
+            <div class="bill-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Internet Bill</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Due: 2025-06-15 | Amount: $75</p>
+                <button onclick="parent.markBillPaid(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Mark Paid</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addBill = function() {
+            const name = document.getElementById('billNameInput');
+            const dueDate = document.getElementById('billDueDateInput');
+            const amount = document.getElementById('billAmountInput');
+            if (name.value.trim() && dueDate.value && amount.value.trim()) {
+                const billList = document.getElementById('billList');
+                const newCard = document.createElement('div');
+                newCard.className = 'bill-card';
+                newCard.innerHTML = `
+                    <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">${name.value.trim()}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Due: ${dueDate.value} | Amount: $${amount.value.trim()}</p>
+                    <button onclick="parent.markBillPaid(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Mark Paid</button>
+                `;
+                billList.appendChild(newCard);
+                name.value = '';
+                dueDate.value = '';
+                amount.value = '';
+                parent.showMessageBox('Bill added!', 'success');
+            } else {
+                parent.showMessageBox('Please fill all fields.', 'info');
+            }
+        };
+
+        window.markBillPaid = function(buttonElement) {
+            const card = buttonElement.closest('.bill-card');
+            card.querySelector('p').innerHTML = card.querySelector('p').innerHTML.replace('Due:', 'Paid:');
+            card.style.backgroundColor = '#d1fae5'; // Light green for paid
+            card.style.borderColor = '#34d399';
+            buttonElement.remove();
+            parent.showMessageBox('Bill marked as paid!', 'success');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp18Preview" title="Budgeting Tasks Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp18')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.9s" data-app-title="Learning Path Tracker">
+                <h2>19. Learning Path Tracker</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Map out your learning journey and track progress through courses and topics.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp19Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Path</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .learning-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .learning-container { background-color: #1f2937; color: #f9fafb; }
+        .course-card { background-color: #eef2ff; border-left: 5px solid #6366f1; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .course-card { background-color: #334155; border-color: #818cf8; }
+        .progress-bar { height: 8px; background-color: #cbd5e1; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background-color: #6366f1; transition: width 0.5s ease-in-out; border-radius: inherit; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto learning-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-indigo-700">My Learning Path</h1>
+        <div class="flex mb-4">
+            <input type="text" id="courseInput" placeholder="Course/Topic (e.g., Web Development)" class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addCourse()" class="bg-indigo-500 text-white px-4 py-2 rounded-r-lg hover:bg-indigo-600 transition duration-200">Add Course</button>
+        </div>
+        <div id="courseList">
+            <div class="course-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Data Science Fundamentals</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Status: In Progress | Modules: 5/10</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%;"></div>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Progress: 50%</p>
+                <button onclick="parent.updateCourseProgress(this)" class="mt-2 bg-indigo-400 text-white px-3 py-1 rounded-lg text-sm hover:bg-indigo-500">Update Progress</button>
+            </div>
+            <div class="course-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Graphic Design Basics</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Status: Not Started | Modules: 0/6</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%;"></div>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Progress: 0%</p>
+                <button onclick="parent.updateCourseProgress(this)" class="mt-2 bg-indigo-400 text-white px-3 py-1 rounded-lg text-sm hover:bg-indigo-500">Update Progress</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addCourse = function() {
+            const course = document.getElementById('courseInput');
+            if (course.value.trim()) {
+                const courseList = document.getElementById('courseList');
+                const newCard = document.createElement('div');
+                newCard.className = 'course-card';
+                newCard.innerHTML = `
+                    <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">${course.value.trim()}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Status: Not Started | Modules: 0/X</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Progress: 0%</p>
+                    <button onclick="parent.updateCourseProgress(this)" class="mt-2 bg-indigo-400 text-white px-3 py-1 rounded-lg text-sm hover:bg-indigo-500">Update Progress</button>
+                `;
+                courseList.appendChild(newCard);
+                course.value = '';
+                parent.showMessageBox('Course added to learning path!', 'success');
+            } else {
+                parent.showMessageBox('Please enter a course/topic.', 'info');
+            }
+        };
+
+        window.updateCourseProgress = function(buttonElement) {
+            const card = buttonElement.closest('.course-card');
+            const progressBar = card.querySelector('.progress-fill');
+            const progressText = card.querySelector('.text-xs');
+            let currentProgress = parseInt(progressBar.style.width);
+            const newProgress = prompt(`Enter new progress for "${card.querySelector('h3').textContent}" (0-100):`, currentProgress);
+            if (newProgress !== null && !isNaN(newProgress) && newProgress >= 0 && newProgress <= 100) {
+                progressBar.style.width = `${newProgress}%`;
+                progressText.textContent = `Progress: ${newProgress}%`;
+                card.querySelector('p').innerHTML = card.querySelector('p').innerHTML.replace(/Status: (.*?)\|/, `Status: ${newProgress > 0 && newProgress < 100 ? 'In Progress' : (newProgress === 100 ? 'Completed' : 'Not Started')} |`);
+                parent.showMessageBox('Learning progress updated!', 'success');
+            } else {
+                parent.showMessageBox('Invalid input or cancelled.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp19Preview" title="Learning Path Tracker Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp19')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="2.0s" data-app-title="Customer Support Ticket Tracker">
+                <h2>20. Customer Support Ticket Tracker</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage customer support inquiries and track their resolution status.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="taskApp20Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Ticket Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .ticket-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .ticket-container { background-color: #1f2937; color: #f9fafb; }
+        .ticket-card { background-color: #fef2f2; border-left: 5px solid #ef4444; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .ticket-card { background-color: #334155; border-color: #f87171; }
+        .status-open { color: #ef4444; font-weight: bold; }
+        .status-closed { color: #10b981; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto ticket-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-red-700">Support Tickets</h1>
+        <div class="flex flex-col mb-4">
+            <input type="text" id="ticketSubjectInput" placeholder="Ticket subject..." class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <input type="text" id="customerNameInput" placeholder="Customer name..." class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addTicket()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200">Create Ticket</button>
+        </div>
+        <div id="ticketList">
+            <div class="ticket-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Cannot log in</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Customer: John Doe | Status: <span class="status-open">Open</span></p>
+                <button onclick="parent.closeTicket(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Close Ticket</button>
+            </div>
+            <div class="ticket-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Payment failed</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Customer: Jane Smith | Status: <span class="status-open">Open</span></p>
+                <button onclick="parent.closeTicket(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Close Ticket</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addTicket = function() {
+            const subject = document.getElementById('ticketSubjectInput');
+            const customer = document.getElementById('customerNameInput');
+            if (subject.value.trim() && customer.value.trim()) {
+                const ticketList = document.getElementById('ticketList');
+                const newCard = document.createElement('div');
+                newCard.className = 'ticket-card';
+                newCard.innerHTML = `
+                    <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">${subject.value.trim()}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Customer: ${customer.value.trim()} | Status: <span class="status-open">Open</span></p>
+                    <button onclick="parent.closeTicket(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Close Ticket</button>
+                `;
+                ticketList.appendChild(newCard);
+                subject.value = '';
+                customer.value = '';
+                parent.showMessageBox('New ticket created!', 'success');
+            } else {
+                parent.showMessageBox('Please fill all fields.', 'info');
+            }
+        };
+
+        window.closeTicket = function(buttonElement) {
+            const card = buttonElement.closest('.ticket-card');
+            card.querySelector('p').innerHTML = card.querySelector('p').innerHTML.replace('Status: <span class="status-open">Open</span>', 'Status: <span class="status-closed">Closed</span>');
+            card.style.backgroundColor = '#d1fae5'; // Light green for closed
+            card.style.borderColor = '#34d399';
+            buttonElement.remove();
+            parent.showMessageBox('Ticket closed!', 'success');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="taskApp20Preview" title="Customer Support Ticket Tracker Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadTaskSystem('taskApp20')">Run Example</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <div id="messageBoxOverlay" class="message-box-overlay">
+        <div class="message-box-content">
+            <h3 id="messageBoxTitle"></h3>
+            <p id="messageBoxMessage"></p>
+            <button id="messageBoxCloseBtn">OK</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dark mode toggle functionality
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const htmlElement = document.documentElement;
+
+            // Check for saved theme preference or system preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlElement.classList.add('dark');
+                darkModeToggle.checked = true;
+            }
+
+            darkModeToggle.addEventListener('change', () => {
+                if (darkModeToggle.checked) {
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    htmlElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Message Box functionality
+            const messageBox = document.getElementById('messageBoxOverlay');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxMessage = document.getElementById('messageBoxMessage');
+            const messageBoxCloseBtn = document.getElementById('messageBoxCloseBtn');
+
+            window.showMessageBox = function(message, type = 'info', title = 'Notification') {
+                messageBoxTitle.textContent = title;
+                messageBoxMessage.textContent = message;
+                messageBox.classList.add('open');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when message box is open
+            };
+
+            messageBoxCloseBtn.addEventListener('click', () => {
+                messageBox.classList.remove('open');
+                document.body.style.overflow = ''; // Restore scrolling
+            });
+
+            messageBox.addEventListener('click', (e) => {
+                if (e.target === messageBox) {
+                    messageBox.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Function to load task system code into iframe
+            window.loadTaskSystem = function(appId) {
+                const codeTextarea = document.getElementById(`${appId}Code`);
+                const previewIframe = document.getElementById(`${appId}Preview`);
+
+                if (codeTextarea && previewIframe) {
+                    const htmlContent = codeTextarea.value;
+                    const doc = previewIframe.contentWindow.document;
+
+                    doc.open();
+                    doc.write(htmlContent);
+                    doc.close();
+                } else {
+                    showMessageBox('Error: Task system elements not found.', 'error');
+                }
+            };
+
+            // Automatically load all apps on page load
+            for (let i = 1; i <= 20; i++) {
+                loadTaskSystem(`taskApp${i}`);
+            }
+
+            // Search functionality for app cards
+            const mainSearchInput = document.getElementById('mainSearchInput');
+            const appCardsContainer = document.getElementById('appCardsContainer');
+            const appCards = appCardsContainer.querySelectorAll('.app-card');
+
+            mainSearchInput.addEventListener('keyup', () => {
+                const filter = mainSearchInput.value.toLowerCase();
+                appCards.forEach(card => {
+                    const title = card.querySelector('h2').textContent.toLowerCase();
+                    const description = card.querySelector('p.text-gray-600').textContent.toLowerCase();
+                    const appId = card.dataset.appId ? card.dataset.appId.toLowerCase() : '';
+
+                    if (title.includes(filter) || description.includes(filter) || appId.includes(filter)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+
+            // Initialize WOW.js for animations
+            new WOW().init();
+        });
+    </script>
+</body>
+</html>

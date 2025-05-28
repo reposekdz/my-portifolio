@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Ticket Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .ticket-container { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .ticket-container { background-color: #1f2937; color: #f9fafb; }
+        .ticket-card { background-color: #fef2f2; border-left: 5px solid #ef4444; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+        .dark .ticket-card { background-color: #334155; border-color: #f87171; }
+        .status-open { color: #ef4444; font-weight: bold; }
+        .status-closed { color: #10b981; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto ticket-container">
+        <h1 class="text-2xl font-bold mb-4 text-center text-red-700">Support Tickets</h1>
+        <div class="flex flex-col mb-4">
+            <input type="text" id="ticketSubjectInput" placeholder="Ticket subject..." class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <input type="text" id="customerNameInput" placeholder="Customer name..." class="p-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button onclick="parent.addTicket()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200">Create Ticket</button>
+        </div>
+        <div id="ticketList">
+            <div class="ticket-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Cannot log in</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Customer: John Doe | Status: <span class="status-open">Open</span></p>
+                <button onclick="parent.closeTicket(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Close Ticket</button>
+            </div>
+            <div class="ticket-card">
+                <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">Payment failed</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Customer: Jane Smith | Status: <span class="status-open">Open</span></p>
+                <button onclick="parent.closeTicket(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Close Ticket</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addTicket = function() {
+            const subject = document.getElementById('ticketSubjectInput');
+            const customer = document.getElementById('customerNameInput');
+            if (subject.value.trim() && customer.value.trim()) {
+                const ticketList = document.getElementById('ticketList');
+                const newCard = document.createElement('div');
+                newCard.className = 'ticket-card';
+                newCard.innerHTML = `
+                    <h3 class="font-semibold text-lg mb-2 dark:text-gray-100">${subject.value.trim()}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Customer: ${customer.value.trim()} | Status: <span class="status-open">Open</span></p>
+                    <button onclick="parent.closeTicket(this)" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Close Ticket</button>
+                `;
+                ticketList.appendChild(newCard);
+                subject.value = '';
+                customer.value = '';
+                parent.showMessageBox('New ticket created!', 'success');
+            } else {
+                parent.showMessageBox('Please fill all fields.', 'info');
+            }
+        };
+
+        window.closeTicket = function(buttonElement) {
+            const card = buttonElement.closest('.ticket-card');
+            card.querySelector('p').innerHTML = card.querySelector('p').innerHTML.replace('Status: <span class="status-open">Open</span>', 'Status: <span class="status-closed">Closed</span>');
+            card.style.backgroundColor = '#d1fae5'; // Light green for closed
+            card.style.borderColor = '#34d399';
+            buttonElement.remove();
+            parent.showMessageBox('Ticket closed!', 'success');
+        };
+    </script>
+</body>
+</html>
+                        

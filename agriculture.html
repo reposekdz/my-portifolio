@@ -1,0 +1,2653 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22 Interactive Agriculture Management Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="./assets/icons8-ai-48.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles for consistency and dark mode */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light slate background */
+            color: #1e293b; /* Dark slate text */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark body {
+            background-color: #0f172a; /* Darker slate background */
+            color: #e2e8f0; /* Light slate text */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem; /* 4xl */
+            font-weight: 800; /* Extra bold */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #22c55e, #84cc16); /* Green to Lime gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #22c55e, #84cc16);
+            border-radius: 2px;
+        }
+
+        .app-card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .dark .app-card {
+            background-color: #1e293b;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #334155;
+        }
+        .app-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+        }
+        .dark .app-card:hover {
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .app-card h2 {
+            font-size: 2.25rem; /* 3xl */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #334155;
+            text-align: center;
+        }
+        .dark .app-card h2 {
+            color: #f8fafc;
+        }
+
+        .code-preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) { /* Large screens */
+            .code-preview-container {
+                flex-direction: row;
+            }
+        }
+
+        .code-editor, .live-preview {
+            flex: 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid #cbd5e1; /* Slate 300 */
+            transition: border-color 0.3s ease;
+        }
+        .dark .code-editor, .dark .live-preview {
+            border-color: #475569; /* Slate 700 */
+        }
+
+        .code-editor textarea {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            padding: 1rem;
+            background-color: #2d3748; /* Dark code background */
+            color: #f8fafc; /* Light text */
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: none;
+            outline: none;
+            resize: vertical; /* Allow vertical resizing */
+            border-radius: 1rem;
+        }
+
+        .live-preview iframe {
+            width: 100%;
+            height: 450px; /* Fixed height for both */
+            background-color: #ffffff;
+            border: none;
+            border-radius: 1rem;
+        }
+        .dark .live-preview iframe {
+            background-color: #0f172a;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .button-group button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #22c55e, #84cc16); /* Green to Lime gradient */
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .dark .button-group button {
+            background: linear-gradient(45deg, #84cc16, #a3e635); /* Lighter green gradient */
+            box-shadow: 0 5px 15px rgba(132, 204, 22, 0.3);
+        }
+        .button-group button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.4);
+        }
+        .dark .button-group button:hover {
+            box-shadow: 0 8px 20px rgba(132, 204, 22, 0.4);
+        }
+
+        /* Message Box styles */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001; /* Higher than modals */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .message-box-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .dark .message-box-content {
+            background-color: #1e293b;
+        }
+        .message-box-overlay.open .message-box-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .message-box-button {
+            background-color: #22c55e; /* Green 500 */
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .dark .message-box-button {
+            background-color: #84cc16; /* Lime 500 */
+        }
+        .message-box-button:hover {
+            background-color: #16a34a; /* Green 600 */
+        }
+        .dark .message-box-button:hover {
+            background-color: #65a30d; /* Lime 600 */
+        }
+
+        /* Dark mode toggle specific styles for the header */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #22c55e; /* Green 500 */
+        }
+        .dark input:checked + .slider {
+            background-color: #84cc16; /* Lime 500 */
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #22c55e;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Header Specific Styles - Adjusted for minimal header */
+        .header-nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease, transform 0.2s ease;
+            font-weight: 500;
+        }
+        .header-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+        .header-nav-link:hover::after {
+            width: 100%;
+            transform: translateX(-50%) scaleX(1);
+        }
+        .dark .header-nav-link:hover::after {
+            background-color: #a3e635; /* Lighter lime for dark mode hover */
+        }
+
+        /* Footer Specific Styles */
+        .footer-link {
+            color: #cbd5e1; /* Light gray for links */
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+        .footer-link:hover {
+            color: #22c55e; /* Green on hover */
+            transform: translateX(5px);
+        }
+        .dark .footer-link:hover {
+            color: #84cc16; /* Lime on hover in dark mode */
+        }
+
+        /* Back Button Specific Styles */
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-decoration: none; /* Remove underline for anchor tag */
+        }
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+    <script>
+        // Initialize dark mode preference immediately to prevent FOUC
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="transition-colors duration-300">
+
+    <header class="py-6 bg-gradient-to-r from-green-600 to-lime-700 dark:from-gray-900 dark:to-green-900 text-white shadow-xl">
+        <div class="container flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <a href="test.html" class="back-button animate__animated animate__fadeInLeft animate__delay-0.2s">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Learning Hub</span>
+                </a>
+                <a href="#" class="text-4xl font-extrabold animate__animated animate__fadeInLeft">
+                    <i class="fas fa-seedling mr-2"></i> AgroManage
+                </a>
+            </div>
+
+
+            <div class="relative w-full md:w-1/3 animate__animated animate__fadeInDown animate__delay-0.5s">
+                <input type="text" id="mainSearchInput" placeholder="Search agriculture systems..."
+                       class="w-full pl-10 pr-4 py-2 rounded-full bg-white bg-opacity-20 text-white placeholder-gray-200
+                              focus:outline-none focus:ring-2 focus:ring-white focus:bg-opacity-30 transition duration-300">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-200"></i>
+            </div>
+
+            <label class="toggle-switch md:ml-6">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <p class="text-xl font-light mt-4 text-center animate__animated animate__fadeInUp animate__delay-1.5s">Smart solutions for modern farming.</p>
+    </header>
+
+    <main class="container py-16">
+        <h2 class="section-title mb-16 wow animate__animated animate__fadeIn">Agriculture Management App Showcase</h2>
+
+        <div id="appCardsContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.1s" data-app-title="Crop Management Dashboard">
+                <h2>1. Crop Management Dashboard</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Monitor crop health, growth stages, and yield predictions.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp1Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .crop-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .crop-card { background-color: #1f2937; color: #f9fafb; }
+        .progress-bar { height: 10px; border-radius: 5px; background-color: #e2e8f0; }
+        .progress-fill { height: 100%; border-radius: inherit; background-color: #22c55e; transition: width 0.5s ease-in-out; }
+        .dark .progress-fill { background-color: #84cc16; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-green-700">Crop Overview</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="cropList">
+            <div class="crop-card">
+                <h3 class="text-xl font-semibold mb-2">Wheat Field A</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Growth Stage: Tillering</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 30%;"></div>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Health: Good | Expected Yield: 5 tons/acre</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewCropDetails('Wheat Field A')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateCropStatus('Wheat Field A')">Update Status</button>
+                </div>
+            </div>
+            <div class="crop-card">
+                <h3 class="text-xl font-semibold mb-2">Corn Plot B</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Growth Stage: V6</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%;"></div>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Health: Excellent | Expected Yield: 10 tons/acre</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewCropDetails('Corn Plot B')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateCropStatus('Corn Plot B')">Update Status</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-lime-500 text-white px-4 py-2 rounded-lg hover:bg-lime-600 transition duration-200" onclick="parent.addCrop()">Add New Crop</button>
+    </div>
+    <script>
+        window.viewCropDetails = function(cropName) {
+            parent.showMessageBox(`Viewing details for ${cropName}.`, 'info', 'Crop Details');
+        };
+
+        window.updateCropStatus = function(cropName) {
+            const newStage = prompt(`Update growth stage for ${cropName}:`);
+            if (newStage) {
+                parent.showMessageBox(`${cropName} updated to ${newStage}.`, 'success', 'Crop Status Updated');
+            } else {
+                parent.showMessageBox('Update cancelled.', 'info');
+            }
+        };
+
+        window.addCrop = function() {
+            const name = prompt("Enter Crop Name (e.g., Rice Field C):");
+            const stage = prompt("Enter Growth Stage (e.g., Flowering):");
+            const yield = prompt("Enter Expected Yield (e.g., 7 tons/acre):");
+            if (name && stage && yield) {
+                const cropList = document.getElementById('cropList');
+                const newCropHtml = `
+                    <div class="crop-card">
+                        <h3 class="text-xl font-semibold mb-2">${name}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Growth Stage: ${stage}</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 10%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Health: New | Expected Yield: ${yield}</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewCropDetails('${name}')">View Details</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateCropStatus('${name}')">Update Status</button>
+                        </div>
+                    </div>
+                `;
+                cropList.insertAdjacentHTML('beforeend', newCropHtml);
+                parent.showMessageBox('New crop added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Crop addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp1Preview" title="Crop Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp1')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s" data-app-title="Livestock Monitoring System">
+                <h2>2. Livestock Monitoring System</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Track animal health, feeding schedules, and breeding records.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp2Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livestock Monitoring</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .animal-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .animal-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-red-700">Livestock Health & Feed</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="animalList">
+            <div class="animal-card">
+                <h3 class="text-xl font-semibold mb-2">Cow #101 (Dairy)</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Health Status: Healthy | Last Fed: 2 hours ago</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Breeding Status: Pregnant (Due: 2025-08-01)</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewAnimalDetails('Cow #101')">View Details</button>
+                    <button class="bg-orange-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-orange-600" onclick="parent.logFeeding('Cow #101')">Log Feed</button>
+                </div>
+            </div>
+            <div class="animal-card">
+                <h3 class="text-xl font-semibold mb-2">Sheep #205 (Wool)</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Health Status: Minor Illness | Last Fed: 4 hours ago</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Breeding Status: Not Bred</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewAnimalDetails('Sheep #205')">View Details</button>
+                    <button class="bg-orange-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-orange-600" onclick="parent.logFeeding('Sheep #205')">Log Feed</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200" onclick="parent.addAnimal()">Add New Animal</button>
+    </div>
+    <script>
+        window.viewAnimalDetails = function(animalId) {
+            parent.showMessageBox(`Viewing details for ${animalId}.`, 'info', 'Animal Details');
+        };
+
+        window.logFeeding = function(animalId) {
+            parent.showMessageBox(`Feeding logged for ${animalId}.`, 'success', 'Feeding Logged');
+        };
+
+        window.addAnimal = function() {
+            const id = prompt("Enter Animal ID (e.g., Pig #301):");
+            const type = prompt("Enter Animal Type (e.g., Pig, Chicken):");
+            const health = prompt("Enter Health Status (e.g., Healthy, Sick):");
+            if (id && type && health) {
+                const animalList = document.getElementById('animalList');
+                const newAnimalHtml = `
+                    <div class="animal-card">
+                        <h3 class="text-xl font-semibold mb-2">${id} (${type})</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Health Status: ${health} | Last Fed: Just now</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Breeding Status: N/A</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewAnimalDetails('${id}')">View Details</button>
+                            <button class="bg-orange-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-orange-600" onclick="parent.logFeeding('${id}')">Log Feed</button>
+                        </div>
+                    </div>
+                `;
+                animalList.insertAdjacentHTML('beforeend', newAnimalHtml);
+                parent.showMessageBox('New animal added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Animal addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp2Preview" title="Livestock Monitoring Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp2')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s" data-app-title="Farm Equipment Management">
+                <h2>3. Farm Equipment Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Track machinery, maintenance schedules, and usage logs.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp3Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Equipment Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .equipment-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .equipment-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-blue-700">Equipment Fleet</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="equipmentList">
+            <div class="equipment-card">
+                <h3 class="text-xl font-semibold mb-2">Tractor John Deere 6155R</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: Operational | Last Service: 2025-04-10</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Next Service Due: 2025-10-10</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewEquipmentDetails('Tractor John Deere 6155R')">View Details</button>
+                    <button class="bg-purple-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-purple-600" onclick="parent.logMaintenance('Tractor John Deere 6155R')">Log Maint.</button>
+                </div>
+            </div>
+            <div class="equipment-card">
+                <h3 class="text-xl font-semibold mb-2">Combine Harvester Case IH Axial-Flow</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: In Repair | Last Service: 2024-11-20</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Next Service Due: N/A (Repairing)</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewEquipmentDetails('Combine Harvester Case IH Axial-Flow')">View Details</button>
+                    <button class="bg-purple-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-purple-600" onclick="parent.logMaintenance('Combine Harvester Case IH Axial-Flow')">Log Maint.</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.addEquipment()">Add New Equipment</button>
+    </div>
+    <script>
+        window.viewEquipmentDetails = function(equipmentName) {
+            parent.showMessageBox(`Viewing details for ${equipmentName}.`, 'info', 'Equipment Details');
+        };
+
+        window.logMaintenance = function(equipmentName) {
+            const maintDate = prompt(`Log maintenance for ${equipmentName} (YYYY-MM-DD):`);
+            if (maintDate) {
+                parent.showMessageBox(`Maintenance logged for ${equipmentName} on ${maintDate}.`, 'success', 'Maintenance Logged');
+            } else {
+                parent.showMessageBox('Maintenance logging cancelled.', 'info');
+            }
+        };
+
+        window.addEquipment = function() {
+            const name = prompt("Enter Equipment Name (e.g., Sprayer):");
+            const status = prompt("Enter Status (Operational, In Repair):");
+            const lastService = prompt("Enter Last Service Date (YYYY-MM-DD):");
+            if (name && status && lastService) {
+                const equipmentList = document.getElementById('equipmentList');
+                const newEquipmentHtml = `
+                    <div class="equipment-card">
+                        <h3 class="text-xl font-semibold mb-2">${name}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: ${status} | Last Service: ${lastService}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Next Service Due: TBD</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewEquipmentDetails('${name}')">View Details</button>
+                            <button class="bg-purple-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-purple-600" onclick="parent.logMaintenance('${name}')">Log Maint.</button>
+                        </div>
+                    </div>
+                `;
+                equipmentList.insertAdjacentHTML('beforeend', newEquipmentHtml);
+                parent.showMessageBox('New equipment added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Equipment addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp3Preview" title="Farm Equipment Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp3')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" data-app-title="Soil Health & Nutrient Management">
+                <h2>4. Soil Health & Nutrient Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Analyze soil data, recommend fertilizers, and track nutrient levels.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp4Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soil Health Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .soil-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .soil-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-yellow-700">Soil Analysis Dashboard</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="soilList">
+            <div class="soil-card">
+                <h3 class="text-xl font-semibold mb-2">Field 1 - Soil Sample A</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">pH: 6.5 | Nitrogen: Low | Phosphorus: Medium</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Recommendation: Add NPK fertilizer</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewSoilDetails('Field 1 - Soil Sample A')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.applyRecommendation('Field 1 - Soil Sample A')">Apply Rec.</button>
+                </div>
+            </div>
+            <div class="soil-card">
+                <h3 class="text-xl font-semibold mb-2">Field 2 - Soil Sample B</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">pH: 7.2 | Nitrogen: Medium | Phosphorus: High</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Recommendation: No immediate action needed</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewSoilDetails('Field 2 - Soil Sample B')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.applyRecommendation('Field 2 - Soil Sample B')">Apply Rec.</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-200" onclick="parent.addSoilSample()">Add New Soil Sample</button>
+    </div>
+    <script>
+        window.viewSoilDetails = function(sampleId) {
+            parent.showMessageBox(`Viewing details for ${sampleId}.`, 'info', 'Soil Sample Details');
+        };
+
+        window.applyRecommendation = function(sampleId) {
+            parent.showMessageBox(`Recommendation applied for ${sampleId}.`, 'success', 'Recommendation Applied');
+        };
+
+        window.addSoilSample = function() {
+            const id = prompt("Enter Sample ID (e.g., Field 3 - Sample C):");
+            const ph = prompt("Enter pH level (e.g., 6.8):");
+            const nitrogen = prompt("Enter Nitrogen level (Low, Medium, High):");
+            const phosphorus = prompt("Enter Phosphorus level (Low, Medium, High):");
+            if (id && ph && nitrogen && phosphorus) {
+                const soilList = document.getElementById('soilList');
+                const newSampleHtml = `
+                    <div class="soil-card">
+                        <h3 class="text-xl font-semibold mb-2">${id}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">pH: ${ph} | Nitrogen: ${nitrogen} | Phosphorus: ${phosphorus}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Recommendation: Pending Analysis</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewSoilDetails('${id}')">View Details</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.applyRecommendation('${id}')">Apply Rec.</button>
+                        </div>
+                    </div>
+                `;
+                soilList.insertAdjacentHTML('beforeend', newSampleHtml);
+                parent.showMessageBox('New soil sample added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Soil sample addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp4Preview" title="Soil Health & Nutrient Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp4')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s" data-app-title="Irrigation Scheduling System">
+                <h2>5. Irrigation Scheduling System</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Optimize water usage based on weather data and crop needs.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp5Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irrigation Scheduling</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .irrigation-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .irrigation-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-blue-700">Irrigation Schedule</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="irrigationList">
+            <div class="irrigation-card">
+                <h3 class="text-xl font-semibold mb-2">Field 1 - Zone A</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Next Irrigation: Tomorrow 6:00 AM | Duration: 30 mins</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Soil Moisture: 60% | Weather: Sunny</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.adjustSchedule('Field 1 - Zone A')">Adjust Schedule</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.startIrrigation('Field 1 - Zone A')">Start Now</button>
+                </div>
+            </div>
+            <div class="irrigation-card">
+                <h3 class="text-xl font-semibold mb-2">Field 2 - Zone B</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Next Irrigation: In 3 days | Duration: 45 mins</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Soil Moisture: 75% | Weather: Cloudy</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.adjustSchedule('Field 2 - Zone B')">Adjust Schedule</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.startIrrigation('Field 2 - Zone B')">Start Now</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.addIrrigationZone()">Add New Irrigation Zone</button>
+    </div>
+    <script>
+        window.adjustSchedule = function(zone) {
+            const newTime = prompt(`Adjust schedule for ${zone}. Enter new time (e.g., 7:00 AM):`);
+            if (newTime) {
+                parent.showMessageBox(`Schedule for ${zone} adjusted to ${newTime}.`, 'success', 'Schedule Adjusted');
+            } else {
+                parent.showMessageBox('Adjustment cancelled.', 'info');
+            }
+        };
+
+        window.startIrrigation = function(zone) {
+            parent.showMessageBox(`Irrigation started for ${zone}!`, 'success', 'Irrigation Started');
+        };
+
+        window.addIrrigationZone = function() {
+            const zone = prompt("Enter Irrigation Zone Name (e.g., Field 3 - Zone C):");
+            const nextIrrigation = prompt("Enter Next Irrigation (e.g., Tomorrow 8:00 AM):");
+            const duration = prompt("Enter Duration (e.g., 20 mins):");
+            if (zone && nextIrrigation && duration) {
+                const irrigationList = document.getElementById('irrigationList');
+                const newZoneHtml = `
+                    <div class="irrigation-card">
+                        <h3 class="text-xl font-semibold mb-2">${zone}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Next Irrigation: ${nextIrrigation} | Duration: ${duration}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Soil Moisture: N/A | Weather: N/A</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.adjustSchedule('${zone}')">Adjust Schedule</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.startIrrigation('${zone}')">Start Now</button>
+                        </div>
+                    </div>
+                `;
+                irrigationList.insertAdjacentHTML('beforeend', newZoneHtml);
+                parent.showMessageBox('New irrigation zone added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Irrigation zone addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp5Preview" title="Irrigation Scheduling System Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp5')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s" data-app-title="Pest & Disease Management">
+                <h2>6. Pest & Disease Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Identify pests/diseases, log treatments, and track outbreaks.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp6Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pest & Disease Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .issue-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .issue-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-red-700">Pest & Disease Tracker</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="issueList">
+            <div class="issue-card">
+                <h3 class="text-xl font-semibold mb-2">Aphid Infestation - Wheat Field A</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: Active | Last Treatment: 2025-05-20</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Severity: Medium | Recommended: Insecticide Spray</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewIssueDetails('Aphid Infestation')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logTreatment('Aphid Infestation')">Log Treatment</button>
+                </div>
+            </div>
+            <div class="issue-card">
+                <h3 class="text-xl font-semibold mb-2">Powdery Mildew - Grape Vineyard</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: Resolved | Last Treatment: 2025-04-15</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Severity: High | Recommended: Fungicide Application</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewIssueDetails('Powdery Mildew')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logTreatment('Powdery Mildew')">Log Treatment</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200" onclick="parent.reportNewIssue()">Report New Issue</button>
+    </div>
+    <script>
+        window.viewIssueDetails = function(issue) {
+            parent.showMessageBox(`Viewing details for ${issue}.`, 'info', 'Issue Details');
+        };
+
+        window.logTreatment = function(issue) {
+            const treatment = prompt(`Log treatment for ${issue}:`);
+            if (treatment) {
+                parent.showMessageBox(`Treatment "${treatment}" logged for ${issue}.`, 'success', 'Treatment Logged');
+            } else {
+                parent.showMessageBox('Treatment logging cancelled.', 'info');
+            }
+        };
+
+        window.reportNewIssue = function() {
+            const type = prompt("Enter Issue Type (e.g., Pest, Disease):");
+            const crop = prompt("Enter Affected Crop/Area:");
+            const severity = prompt("Enter Severity (Low, Medium, High):");
+            if (type && crop && severity) {
+                const issueList = document.getElementById('issueList');
+                const newIssueHtml = `
+                    <div class="issue-card">
+                        <h3 class="text-xl font-semibold mb-2">${type} - ${crop}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: New | Last Treatment: N/A</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Severity: ${severity} | Recommended: Investigation</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewIssueDetails('${type} - ${crop}')">View Details</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logTreatment('${type} - ${crop}')">Log Treatment</button>
+                        </div>
+                    </div>
+                `;
+                issueList.insertAdjacentHTML('beforeend', newIssueHtml);
+                parent.showMessageBox('New issue reported successfully!', 'success');
+            } else {
+                parent.showMessageBox('Issue reporting cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp6Preview" title="Pest & Disease Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp6')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.7s" data-app-title="Farm Labor Management">
+                <h2>7. Farm Labor Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Assign tasks, track work hours, and manage payroll for farm workers.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp7Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Labor Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .employee-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .employee-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-purple-700">Farm Workforce</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="employeeList">
+            <div class="employee-card">
+                <h3 class="text-xl font-semibold mb-2">Maria Rodriguez (Field Worker)</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Current Task: Harvesting Wheat | Hours Today: 6</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Payroll Status: Paid | Last Paid: 2025-05-24</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.assignTask('Maria Rodriguez')">Assign Task</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logHours('Maria Rodriguez')">Log Hours</button>
+                </div>
+            </div>
+            <div class="employee-card">
+                <h3 class="text-xl font-semibold mb-2">Juan Perez (Equipment Operator)</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Current Task: Tractor Maintenance | Hours Today: 4</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Payroll Status: Pending | Last Paid: 2025-05-17</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.assignTask('Juan Perez')">Assign Task</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logHours('Juan Perez')">Log Hours</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-200" onclick="parent.addEmployee()">Add New Employee</button>
+    </div>
+    <script>
+        window.assignTask = function(employeeName) {
+            const task = prompt(`Assign new task to ${employeeName}:`);
+            if (task) {
+                parent.showMessageBox(`Task "${task}" assigned to ${employeeName}.`, 'success', 'Task Assigned');
+            } else {
+                parent.showMessageBox('Task assignment cancelled.', 'info');
+            }
+        };
+
+        window.logHours = function(employeeName) {
+            const hours = prompt(`Log hours for ${employeeName}:`);
+            if (hours) {
+                parent.showMessageBox(`${hours} hours logged for ${employeeName}.`, 'success', 'Hours Logged');
+            } else {
+                parent.showMessageBox('Hour logging cancelled.', 'info');
+            }
+        };
+
+        window.addEmployee = function() {
+            const name = prompt("Enter Employee Name:");
+            const role = prompt("Enter Role (e.g., Field Worker, Operator):");
+            if (name && role) {
+                const employeeList = document.getElementById('employeeList');
+                const newEmployeeHtml = `
+                    <div class="employee-card">
+                        <h3 class="text-xl font-semibold mb-2">${name} (${role})</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Current Task: None | Hours Today: 0</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Payroll Status: Pending | Last Paid: N/A</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.assignTask('${name}')">Assign Task</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logHours('${name}')">Log Hours</button>
+                        </div>
+                    </div>
+                `;
+                employeeList.insertAdjacentHTML('beforeend', newEmployeeHtml);
+                parent.showMessageBox('New employee added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Employee addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp7Preview" title="Farm Labor Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp7')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.8s" data-app-title="Agricultural Supply Chain Tracker">
+                <h2>8. Agricultural Supply Chain Tracker</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Monitor product origins, transportation, and delivery status.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp8Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .shipment-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .shipment-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-teal-700">Shipment Tracking</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="shipmentList">
+            <div class="shipment-card">
+                <h3 class="text-xl font-semibold mb-2">Shipment #AGR001 - Corn</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Origin: Farm X | Destination: Market Y</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Status: In Transit | Expected Delivery: 2025-06-05</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewShipmentDetails('AGR001')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateShipmentStatus('AGR001')">Update Status</button>
+                </div>
+            </div>
+            <div class="shipment-card">
+                <h3 class="text-xl font-semibold mb-2">Shipment #AGR002 - Dairy Products</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Origin: Dairy Farm Z | Destination: Retailer W</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Status: Delivered | Delivery Date: 2025-05-27</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewShipmentDetails('AGR002')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateShipmentStatus('AGR002')">Update Status</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition duration-200" onclick="parent.addShipment()">Add New Shipment</button>
+    </div>
+    <script>
+        window.viewShipmentDetails = function(shipmentId) {
+            parent.showMessageBox(`Viewing details for shipment ${shipmentId}.`, 'info', 'Shipment Details');
+        };
+
+        window.updateShipmentStatus = function(shipmentId) {
+            const newStatus = prompt(`Update status for shipment ${shipmentId}:`);
+            if (newStatus) {
+                parent.showMessageBox(`Shipment ${shipmentId} status updated to ${newStatus}.`, 'success', 'Status Updated');
+            } else {
+                parent.showMessageBox('Update cancelled.', 'info');
+            }
+        };
+
+        window.addShipment = function() {
+            const id = prompt("Enter Shipment ID (e.g., AGR003):");
+            const product = prompt("Enter Product (e.g., Vegetables):");
+            const origin = prompt("Enter Origin:");
+            const destination = prompt("Enter Destination:");
+            if (id && product && origin && destination) {
+                const shipmentList = document.getElementById('shipmentList');
+                const newShipmentHtml = `
+                    <div class="shipment-card">
+                        <h3 class="text-xl font-semibold mb-2">Shipment #${id} - ${product}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Origin: ${origin} | Destination: ${destination}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Status: New | Expected Delivery: TBD</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewShipmentDetails('${id}')">View Details</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateShipmentStatus('${id}')">Update Status</button>
+                        </div>
+                    </div>
+                `;
+                shipmentList.insertAdjacentHTML('beforeend', newShipmentHtml);
+                parent.showMessageBox('New shipment added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Shipment addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp8Preview" title="Agricultural Supply Chain Tracker Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp8')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="0.9s" data-app-title="Farm Financial Management">
+                <h2>9. Farm Financial Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Track income, expenses, and generate financial reports for farm operations.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp9Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Financial Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .summary-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .dark .summary-card { background-color: #1f2937; color: #f9fafb; }
+        .transaction-item { border-bottom: 1px dashed #e2e8f0; }
+        .transaction-item:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-green-700">Farm Finances</h1>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="summary-card bg-green-100 text-green-800">
+                <p class="text-4xl font-bold" id="totalRevenue">$15,000</p>
+                <p class="text-lg">Total Revenue</p>
+            </div>
+            <div class="summary-card bg-red-100 text-red-800">
+                <p class="text-4xl font-bold" id="totalExpenses">$8,000</p>
+                <p class="text-lg">Total Expenses</p>
+            </div>
+            <div class="summary-card bg-blue-100 text-blue-800">
+                <p class="text-4xl font-bold" id="netProfit">$7,000</p>
+                <p class="text-lg">Net Profit</p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6 dark:bg-gray-800">
+            <h2 class="text-2xl font-bold mb-4 dark:text-gray-50">Recent Transactions</h2>
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700" id="transactionList">
+                <li class="py-3 flex justify-between items-center transaction-item">
+                    <div>
+                        <p class="font-medium dark:text-gray-200">Sale of Wheat</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">2025-05-28</p>
+                    </div>
+                    <span class="text-green-600 font-semibold">+$5,000</span>
+                </li>
+                <li class="py-3 flex justify-between items-center transaction-item">
+                    <div>
+                        <p class="font-medium dark:text-gray-200">Fertilizer Purchase</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">2025-05-25</p>
+                    </div>
+                    <span class="text-red-600 font-semibold">-$1,200</span>
+                </li>
+            </ul>
+            <button class="mt-4 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200" onclick="parent.addTransaction()">Add New Transaction</button>
+        </div>
+    </div>
+    <script>
+        let revenue = 15000;
+        let expenses = 8000;
+
+        function updateFinancialSummary() {
+            document.getElementById('totalRevenue').textContent = `$${revenue.toLocaleString()}`;
+            document.getElementById('totalExpenses').textContent = `$${expenses.toLocaleString()}`;
+            document.getElementById('netProfit').textContent = `$${(revenue - expenses).toLocaleString()}`;
+        }
+
+        window.addTransaction = function() {
+            const description = prompt("Enter transaction description:");
+            const amount = parseFloat(prompt("Enter amount (e.g., -500 for expense, 1000 for income):"));
+            if (description && !isNaN(amount)) {
+                const transactionList = document.getElementById('transactionList');
+                const newLi = document.createElement('li');
+                newLi.className = 'py-3 flex justify-between items-center transaction-item';
+                newLi.innerHTML = `
+                    <div>
+                        <p class="font-medium dark:text-gray-200">Sale of Wheat</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">${new Date().toLocaleDateString()}</p>
+                    </div>
+                    <span class="${amount >= 0 ? 'text-green-600' : 'text-red-600'} font-semibold">${amount >= 0 ? '+' : ''}$${amount.toLocaleString()}</span>
+                `;
+                transactionList.prepend(newLi);
+                if (amount >= 0) {
+                    revenue += amount;
+                } else {
+                    expenses -= amount;
+                }
+                updateFinancialSummary();
+                parent.showMessageBox('Transaction added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Transaction addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', updateFinancialSummary);
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp9Preview" title="Farm Financial Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp9')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.0s" data-app-title="Weather Monitoring & Forecasting">
+                <h2>10. Weather Monitoring & Forecasting</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Get real-time weather data and forecasts for optimal farming decisions.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp10Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Monitoring</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .weather-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .dark .weather-card { background-color: #1f2937; color: #f9fafb; }
+        .weather-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-blue-700">Farm Weather</h1>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="weather-card">
+                <i class="fas fa-sun text-yellow-500 weather-icon"></i>
+                <h3 class="text-xl font-semibold">Today</h3>
+                <p class="text-gray-600 dark:text-gray-300">Sunny, 28°C</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Humidity: 60% | Wind: 10 km/h</p>
+            </div>
+            <div class="weather-card">
+                <i class="fas fa-cloud-showers-heavy text-blue-500 weather-icon"></i>
+                <h3 class="text-xl font-semibold">Tomorrow</h3>
+                <p class="text-gray-600 dark:text-gray-300">Chance of Rain, 22°C</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Precipitation: 70% | Wind: 15 km/h</p>
+            </div>
+            <div class="weather-card">
+                <i class="fas fa-cloud text-gray-500 weather-icon"></i>
+                <h3 class="text-xl font-semibold">Day 3</h3>
+                <p class="text-gray-600 dark:text-gray-300">Partly Cloudy, 25°C</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Humidity: 55% | Wind: 8 km/h</p>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.refreshWeather()">Refresh Weather</button>
+    </div>
+    <script>
+        window.refreshWeather = function() {
+            parent.showMessageBox('Weather data refreshed!', 'success', 'Weather Updated');
+            // In a real app, this would fetch new data
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp10Preview" title="Weather Monitoring & Forecasting Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp10')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.1s" data-app-title="Harvest Planning & Tracking">
+                <h2>11. Harvest Planning & Tracking</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Plan harvest dates, assign resources, and track harvested quantities.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp11Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvest Planning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .harvest-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .harvest-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-orange-700">Harvest Schedule</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="harvestList">
+            <div class="harvest-card">
+                <h3 class="text-xl font-semibold mb-2">Wheat Harvest - Field A</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Planned Date: 2025-07-10 | Status: Scheduled</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Assigned: Tractor Team 1 | Expected: 5 tons</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewHarvestPlan('Wheat Harvest')">View Plan</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logHarvest('Wheat Harvest')">Log Harvest</button>
+                </div>
+            </div>
+            <div class="harvest-card">
+                <h3 class="text-xl font-semibold mb-2">Corn Harvest - Plot B</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Planned Date: 2025-09-01 | Status: Scheduled</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Assigned: Combine Team | Expected: 10 tons</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewHarvestPlan('Corn Harvest')">View Plan</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logHarvest('Corn Harvest')">Log Harvest</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-200" onclick="parent.addHarvestPlan()">Add New Harvest Plan</button>
+    </div>
+    <script>
+        window.viewHarvestPlan = function(plan) {
+            parent.showMessageBox(`Viewing harvest plan for ${plan}.`, 'info', 'Harvest Plan Details');
+        };
+
+        window.logHarvest = function(plan) {
+            const quantity = prompt(`Log harvested quantity for ${plan}:`);
+            if (quantity) {
+                parent.showMessageBox(`${quantity} harvested for ${plan}.`, 'success', 'Harvest Logged');
+            } else {
+                parent.showMessageBox('Harvest logging cancelled.', 'info');
+            }
+        };
+
+        window.addHarvestPlan = function() {
+            const crop = prompt("Enter Crop/Field Name:");
+            const date = prompt("Enter Planned Date (YYYY-MM-DD):");
+            const expected = prompt("Enter Expected Quantity (e.g., 7 tons):");
+            if (crop && date && expected) {
+                const harvestList = document.getElementById('harvestList');
+                const newPlanHtml = `
+                    <div class="harvest-card">
+                        <h3 class="text-xl font-semibold mb-2">${crop} Harvest</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Planned Date: ${date} | Status: New</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Assigned: TBD | Expected: ${expected}</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewHarvestPlan('${crop} Harvest')">View Details</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logHarvest('${crop} Harvest')">Log Harvest</button>
+                        </div>
+                    </div>
+                `;
+                harvestList.insertAdjacentHTML('beforeend', newPlanHtml);
+                parent.showMessageBox('New harvest plan added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Harvest plan addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp11Preview" title="Harvest Planning & Tracking Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp11')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.2s" data-app-title="Farm Inventory Management">
+                <h2>12. Farm Inventory Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage seeds, fertilizers, pesticides, and other farm supplies.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp12Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Inventory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .inventory-item { border-bottom: 1px dashed #e2e8f0; }
+        .inventory-item:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-purple-700">Farm Supply Inventory</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="itemSearch" placeholder="Search items..." class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-200" onclick="parent.addItem()">Add New Item</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-6 dark:bg-gray-800">
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700" id="itemList">
+                <li class="py-3 flex justify-between items-center inventory-item">
+                    <div>
+                        <p class="font-medium dark:text-gray-200">Wheat Seeds (Variety A)</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Quantity: 500 kg | Location: Warehouse 1</p>
+                    </div>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.updateItem('Wheat Seeds')">Update</button>
+                </li>
+                <li class="py-3 flex justify-between items-center inventory-item">
+                    <div>
+                        <p class="font-medium dark:text-gray-200">NPK Fertilizer (20-20-10)</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Quantity: 20 bags | Location: Storage Shed</p>
+                    </div>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.updateItem('NPK Fertilizer')">Update</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        window.addItem = function() {
+            const name = prompt("Enter Item Name:");
+            const quantity = prompt("Enter Quantity:");
+            const location = prompt("Enter Storage Location:");
+            if (name && quantity && location) {
+                const itemList = document.getElementById('itemList');
+                const newItemHtml = `
+                    <li class="py-3 flex justify-between items-center inventory-item">
+                        <div>
+                            <p class="font-medium dark:text-gray-200">${name}</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Quantity: ${quantity} | Location: ${location}</p>
+                        </div>
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.updateItem('${name}')">Update</button>
+                    </li>
+                `;
+                itemList.insertAdjacentHTML('beforeend', newItemHtml);
+                parent.showMessageBox('Item added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Item addition cancelled or incomplete.', 'info');
+            }
+        };
+
+        window.updateItem = function(itemName) {
+            const newQuantity = prompt(`Update quantity for ${itemName}:`);
+            if (newQuantity) {
+                parent.showMessageBox(`Quantity for ${itemName} updated to ${newQuantity}.`, 'success', 'Item Updated');
+            } else {
+                parent.showMessageBox('Update cancelled.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp12Preview" title="Farm Inventory Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp12')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.3s" data-app-title="Agricultural Research & Development">
+                <h2>13. Agricultural Research & Development</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage research projects, experiments, and data analysis for agricultural innovation.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp13Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural R&D</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .project-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .project-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-indigo-700">R&D Projects</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="projectList">
+            <div class="project-card">
+                <h3 class="text-xl font-semibold mb-2">Project A: Drought-Resistant Wheat</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: In Progress | Lead: Dr. Smith</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Phase: Field Trials | Next Review: 2025-08-15</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewProjectDetails('Drought-Resistant Wheat')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateProjectStatus('Drought-Resistant Wheat')">Update Status</button>
+                </div>
+            </div>
+            <div class="project-card">
+                <h3 class="text-xl font-semibold mb-2">Project B: Organic Pest Control</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: Completed | Lead: Dr. Jones</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Phase: Data Analysis | Completion Date: 2025-04-30</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewProjectDetails('Organic Pest Control')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateProjectStatus('Organic Pest Control')">Update Status</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition duration-200" onclick="parent.addProject()">Add New Project</button>
+    </div>
+    <script>
+        window.viewProjectDetails = function(project) {
+            parent.showMessageBox(`Viewing details for R&D project: ${project}.`, 'info', 'Project Details');
+        };
+
+        window.updateProjectStatus = function(project) {
+            const newStatus = prompt(`Update status for ${project}:`);
+            if (newStatus) {
+                parent.showMessageBox(`Status for ${project} updated to ${newStatus}.`, 'success', 'Project Status Updated');
+            } else {
+                parent.showMessageBox('Update cancelled.', 'info');
+            }
+        };
+
+        window.addProject = function() {
+            const name = prompt("Enter Project Name:");
+            const lead = prompt("Enter Project Lead:");
+            if (name && lead) {
+                const projectList = document.getElementById('projectList');
+                const newProjectHtml = `
+                    <div class="project-card">
+                        <h3 class="text-xl font-semibold mb-2">${name}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: New | Lead: ${lead}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Phase: Planning | Next Review: TBD</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewProjectDetails('${name}')">View Details</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateProjectStatus('${name}')">Update Status</button>
+                        </div>
+                    </div>
+                `;
+                projectList.insertAdjacentHTML('beforeend', newProjectHtml);
+                parent.showMessageBox('New R&D project added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Project addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp13Preview" title="Agricultural Research & Development Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp13')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.4s" data-app-title="Farm Waste Management">
+                <h2>14. Farm Waste Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Manage agricultural waste, composting, and recycling efforts.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp14Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Waste Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .waste-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .waste-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-green-700">Waste Management</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="wasteList">
+            <div class="waste-card">
+                <h3 class="text-xl font-semibold mb-2">Manure Composting - Pile 1</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: In Progress | Last Turn: 2025-05-20</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Volume: 10 tons | Next Action: Turn pile</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewWasteDetails('Manure Composting')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logAction('Manure Composting')">Log Action</button>
+                </div>
+            </div>
+            <div class="waste-card">
+                <h3 class="text-xl font-semibold mb-2">Plastic Recycling - Collection Point</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: Full | Last Pickup: 2025-05-10</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Volume: 50 kg | Next Action: Schedule pickup</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewWasteDetails('Plastic Recycling')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logAction('Plastic Recycling')">Log Action</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200" onclick="parent.addWasteStream()">Add New Waste Stream</button>
+    </div>
+    <script>
+        window.viewWasteDetails = function(waste) {
+            parent.showMessageBox(`Viewing details for ${waste}.`, 'info', 'Waste Stream Details');
+        };
+
+        window.logAction = function(waste) {
+            const action = prompt(`Log action for ${waste}:`);
+            if (action) {
+                parent.showMessageBox(`Action "${action}" logged for ${waste}.`, 'success', 'Action Logged');
+            } else {
+                parent.showMessageBox('Action logging cancelled.', 'info');
+            }
+        };
+
+        window.addWasteStream = function() {
+            const name = prompt("Enter Waste Stream Name:");
+            const type = prompt("Enter Waste Type (e.g., Manure, Plastic):");
+            if (name && type) {
+                const wasteList = document.getElementById('wasteList');
+                const newWasteHtml = `
+                    <div class="waste-card">
+                        <h3 class="text-xl font-semibold mb-2">${name} - ${type}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: New | Last Action: N/A</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Volume: N/A | Next Action: Define</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewWasteDetails('${name}')">View Details</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logAction('${name}')">Log Action</button>
+                        </div>
+                    </div>
+                `;
+                wasteList.insertAdjacentHTML('beforeend', newWasteHtml);
+                parent.showMessageBox('New waste stream added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Waste stream addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp14Preview" title="Farm Waste Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp14')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.5s" data-app-title="Agricultural Land Management">
+                <h2>15. Agricultural Land Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Map farm plots, track land usage, and monitor soil erosion.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp15Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .land-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .land-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-lime-700">Farm Land Overview</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="landList">
+            <div class="land-card">
+                <h3 class="text-xl font-semibold mb-2">Plot 1 - North Field</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Area: 10 acres | Current Use: Wheat</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Soil Erosion Risk: Low | Last Assessment: 2025-03-01</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewLandDetails('Plot 1')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateLandUsage('Plot 1')">Update Usage</button>
+                </div>
+            </div>
+            <div class="land-card">
+                <h3 class="text-xl font-semibold mb-2">Plot 2 - South Pasture</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Area: 5 acres | Current Use: Grazing</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Soil Erosion Risk: Medium | Last Assessment: 2024-11-10</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewLandDetails('Plot 2')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateLandUsage('Plot 2')">Update Usage</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-lime-500 text-white px-4 py-2 rounded-lg hover:bg-lime-600 transition duration-200" onclick="parent.addFarmPlot()">Add New Farm Plot</button>
+    </div>
+    <script>
+        window.viewLandDetails = function(plot) {
+            parent.showMessageBox(`Viewing details for ${plot}.`, 'info', 'Land Plot Details');
+        };
+
+        window.updateLandUsage = function(plot) {
+            const newUse = prompt(`Update usage for ${plot}:`);
+            if (newUse) {
+                parent.showMessageBox(`Usage for ${plot} updated to ${newUse}.`, 'success', 'Land Usage Updated');
+            } else {
+                parent.showMessageBox('Update cancelled.', 'info');
+            }
+        };
+
+        window.addFarmPlot = function() {
+            const name = prompt("Enter Plot Name (e.g., Plot 3 - East Field):");
+            const area = prompt("Enter Area (e.g., 8 acres):");
+            const use = prompt("Enter Current Use (e.g., Corn):");
+            if (name && area && use) {
+                const landList = document.getElementById('landList');
+                const newPlotHtml = `
+                    <div class="land-card">
+                        <h3 class="text-xl font-semibold mb-2">${name}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Area: ${area} | Current Use: ${use}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Soil Erosion Risk: N/A | Last Assessment: N/A</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewLandDetails('${name}')">View Details</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateLandUsage('${name}')">Update Usage</button>
+                        </div>
+                    </div>
+                `;
+                landList.insertAdjacentHTML('beforeend', newPlotHtml);
+                parent.showMessageBox('New farm plot added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Farm plot addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp15Preview" title="Agricultural Land Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp15')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.6s" data-app-title="Farm Energy Management">
+                <h2>16. Farm Energy Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Monitor energy consumption, renewable energy sources, and optimize usage.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp16Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Energy Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .energy-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .dark .energy-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-yellow-700">Energy Dashboard</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="energy-card bg-blue-100 text-blue-800">
+                <p class="text-4xl font-bold" id="dailyConsumption">150 kWh</p>
+                <p class="text-lg">Daily Consumption</p>
+            </div>
+            <div class="energy-card bg-green-100 text-green-800">
+                <p class="text-4xl font-bold" id="solarGeneration">80 kWh</p>
+                <p class="text-lg">Solar Generation</p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6 dark:bg-gray-800">
+            <h2 class="text-2xl font-bold mb-4 dark:text-gray-50">Energy Usage Breakdown</h2>
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700" id="usageList">
+                <li class="py-3 flex justify-between items-center">
+                    <p class="font-medium dark:text-gray-200">Irrigation Pumps</p>
+                    <span class="text-gray-600 dark:text-gray-300">70 kWh</span>
+                </li>
+                <li class="py-3 flex justify-between items-center">
+                    <p class="font-medium dark:text-gray-200">Barn Lighting</p>
+                    <span class="text-gray-600 dark:text-gray-300">30 kWh</span>
+                </li>
+            </ul>
+            <button class="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.logEnergyUsage()">Log Energy Usage</button>
+        </div>
+    </div>
+    <script>
+        window.logEnergyUsage = function() {
+            const source = prompt("Enter Energy Source/Appliance:");
+            const consumption = prompt("Enter Consumption (kWh):");
+            if (source && consumption) {
+                const usageList = document.getElementById('usageList');
+                const newUsageHtml = `
+                    <li class="py-3 flex justify-between items-center">
+                        <p class="font-medium dark:text-gray-200">${source}</p>
+                        <span class="text-gray-600 dark:text-gray-300">${consumption} kWh</span>
+                    </li>
+                `;
+                usageList.insertAdjacentHTML('beforeend', newUsageHtml);
+                parent.showMessageBox('Energy usage logged successfully!', 'success');
+            } else {
+                parent.showMessageBox('Energy usage logging cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp16Preview" title="Farm Energy Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp16')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.7s" data-app-title="Agricultural Education & Training">
+                <h2>17. Agricultural Education & Training</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Provide training modules, resources, and track farmer participation.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp17Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Education</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .course-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .course-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-green-700">Farmer Training Hub</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="trainingList">
+            <div class="course-card">
+                <h3 class="text-xl font-semibold mb-2">Sustainable Farming Practices</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Module: Crop Rotation | Participants: 25</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Status: Ongoing | Next Session: 2025-06-10</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewTrainingDetails('Sustainable Farming')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logParticipation('Sustainable Farming')">Log Participation</button>
+                </div>
+            </div>
+            <div class="course-card">
+                <h3 class="text-xl font-semibold mb-2">Modern Irrigation Techniques</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Module: Drip Irrigation | Participants: 18</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Status: Completed | Last Session: 2025-05-01</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewTrainingDetails('Modern Irrigation')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logParticipation('Modern Irrigation')">Log Participation</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200" onclick="parent.addTrainingModule()">Add New Training Module</button>
+    </div>
+    <script>
+        window.viewTrainingDetails = function(training) {
+            parent.showMessageBox(`Viewing details for training: ${training}.`, 'info', 'Training Details');
+        };
+
+        window.logParticipation = function(training) {
+            const farmer = prompt(`Log participation for which farmer in "${training}"?`);
+            if (farmer) {
+                parent.showMessageBox(`${farmer} participated in "${training}".`, 'success', 'Participation Logged');
+            } else {
+                parent.showMessageBox('Participation logging cancelled.', 'info');
+            }
+        };
+
+        window.addTrainingModule = function() {
+            const title = prompt("Enter Module Title:");
+            const topic = prompt("Enter Topic:");
+            if (title && topic) {
+                const trainingList = document.getElementById('trainingList');
+                const newModuleHtml = `
+                    <div class="course-card">
+                        <h3 class="text-xl font-semibold mb-2">${title}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Module: ${topic} | Participants: 0</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Status: New | Next Session: TBD</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewTrainingDetails('${title}')">View Details</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logParticipation('${title}')">Log Participation</button>
+                        </div>
+                    </div>
+                `;
+                trainingList.insertAdjacentHTML('beforeend', newModuleHtml);
+                parent.showMessageBox('New training module added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Training module addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp17Preview" title="Agricultural Education & Training Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp17')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.8s" data-app-title="Farm Sustainability & Compliance">
+                <h2>18. Farm Sustainability & Compliance</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Track environmental impact, certifications, and regulatory compliance.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp18Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Sustainability</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .compliance-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .compliance-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-blue-700">Sustainability & Compliance</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="complianceList">
+            <div class="compliance-card">
+                <h3 class="text-xl font-semibold mb-2">Organic Certification</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: Certified | Renewal Due: 2026-01-01</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Auditor: EcoCert | Last Audit: 2025-01-15</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewComplianceDetails('Organic Certification')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateComplianceStatus('Organic Certification')">Update Status</button>
+                </div>
+            </div>
+            <div class="compliance-card">
+                <h3 class="text-xl font-semibold mb-2">Water Usage Compliance</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: Compliant | Next Review: 2025-07-01</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Regulation: Local Water Board | Last Report: 2025-04-01</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewComplianceDetails('Water Usage Compliance')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateComplianceStatus('Water Usage Compliance')">Update Status</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.addComplianceItem()">Add New Compliance Item</button>
+    </div>
+    <script>
+        window.viewComplianceDetails = function(item) {
+            parent.showMessageBox(`Viewing details for compliance item: ${item}.`, 'info', 'Compliance Details');
+        };
+
+        window.updateComplianceStatus = function(item) {
+            const newStatus = prompt(`Update status for ${item}:`);
+            if (newStatus) {
+                parent.showMessageBox(`Status for ${item} updated to ${newStatus}.`, 'success', 'Compliance Status Updated');
+            } else {
+                parent.showMessageBox('Update cancelled.', 'info');
+            }
+        };
+
+        window.addComplianceItem = function() {
+            const name = prompt("Enter Compliance Item Name:");
+            const status = prompt("Enter Status (Certified, Compliant, Pending):");
+            if (name && status) {
+                const complianceList = document.getElementById('complianceList');
+                const newItemHtml = `
+                    <div class="compliance-card">
+                        <h3 class="text-xl font-semibold mb-2">${name}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Status: ${status} | Renewal Due: TBD</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Auditor: N/A | Last Audit: N/A</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewComplianceDetails('${name}')">View Details</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.updateComplianceStatus('${name}')">Update Status</button>
+                        </div>
+                    </div>
+                `;
+                complianceList.insertAdjacentHTML('beforeend', newItemHtml);
+                parent.showMessageBox('New compliance item added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Compliance item addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp18Preview" title="Farm Sustainability & Compliance Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp18')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="1.9s" data-app-title="Agricultural Market Price Tracker">
+                <h2>19. Agricultural Market Price Tracker</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Monitor real-time market prices for various agricultural commodities.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp19Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Price Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .price-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .dark .price-card { background-color: #1f2937; color: #f9fafb; }
+        .price-trend-up { color: #22c55e; }
+        .price-trend-down { color: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-green-700">Commodity Prices</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="price-card">
+                <h3 class="text-xl font-semibold mb-2">Wheat</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-1">Current Price: <span class="text-2xl font-bold price-trend-up">$7.20</span> / bushel</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Change: +0.05 (0.7%)</p>
+                <button class="mt-3 bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewPriceHistory('Wheat')">View History</button>
+            </div>
+            <div class="price-card">
+                <h3 class="text-xl font-semibold mb-2">Corn</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-1">Current Price: <span class="text-2xl font-bold price-trend-down">$5.80</span> / bushel</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Change: -0.02 (0.3%)</p>
+                <button class="mt-3 bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewPriceHistory('Corn')">View History</button>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200" onclick="parent.addCommodity()">Add New Commodity</button>
+    </div>
+    <script>
+        window.viewPriceHistory = function(commodity) {
+            parent.showMessageBox(`Viewing price history for ${commodity}.`, 'info', 'Price History');
+        };
+
+        window.addCommodity = function() {
+            const name = prompt("Enter Commodity Name:");
+            const price = prompt("Enter Current Price (e.g., 7.50):");
+            const change = prompt("Enter Price Change (e.g., +0.10 or -0.05):");
+            if (name && price && change) {
+                const priceList = document.querySelector('.grid');
+                const newCardHtml = `
+                    <div class="price-card">
+                        <h3 class="text-xl font-semibold mb-2">${name}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-1">Current Price: <span class="text-2xl font-bold ${parseFloat(change) >= 0 ? 'price-trend-up' : 'price-trend-down'}">$${parseFloat(price).toFixed(2)}</span> / bushel</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Change: ${parseFloat(change) >= 0 ? '+' : ''}${parseFloat(change).toFixed(2)}</p>
+                        <button class="mt-3 bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewPriceHistory('${name}')">View History</button>
+                    </div>
+                `;
+                priceList.insertAdjacentHTML('beforeend', newCardHtml);
+                parent.showMessageBox('New commodity added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Commodity addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp19Preview" title="Agricultural Market Price Tracker Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp19')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="2.0s" data-app-title="Farm Biosecurity Management">
+                <h2>20. Farm Biosecurity Management</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Implement and monitor biosecurity protocols to prevent disease outbreaks.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp20Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Biosecurity</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .protocol-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .dark .protocol-card { background-color: #1f2937; color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-red-700">Biosecurity Protocols</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="protocolList">
+            <div class="protocol-card">
+                <h3 class="text-xl font-semibold mb-2">Vehicle Disinfection Protocol</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Last Checked: 2025-05-27 | Status: Compliant</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Next Audit: 2025-08-01 | Responsible: Farm Manager</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewProtocolDetails('Vehicle Disinfection')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logCompliance('Vehicle Disinfection')">Log Compliance</button>
+                </div>
+            </div>
+            <div class="protocol-card">
+                <h3 class="text-xl font-semibold mb-2">Personnel Entry Protocol</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Last Checked: 2025-05-26 | Status: Compliant</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Next Audit: 2025-07-15 | Responsible: Security Team</p>
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewProtocolDetails('Personnel Entry')">View Details</button>
+                    <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logCompliance('Personnel Entry')">Log Compliance</button>
+                </div>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200" onclick="parent.addBiosecurityProtocol()">Add New Protocol</button>
+    </div>
+    <script>
+        window.viewProtocolDetails = function(protocol) {
+            parent.showMessageBox(`Viewing details for biosecurity protocol: ${protocol}.`, 'info', 'Protocol Details');
+        };
+
+        window.logCompliance = function(protocol) {
+            const status = prompt(`Log compliance status for ${protocol} (Compliant, Non-Compliant):`);
+            if (status) {
+                parent.showMessageBox(`Compliance for ${protocol} logged as ${status}.`, 'success', 'Compliance Logged');
+            } else {
+                parent.showMessageBox('Compliance logging cancelled.', 'info');
+            }
+        };
+
+        window.addBiosecurityProtocol = function() {
+            const name = prompt("Enter Protocol Name:");
+            const responsible = prompt("Enter Responsible Team/Person:");
+            if (name && responsible) {
+                const protocolList = document.getElementById('protocolList');
+                const newProtocolHtml = `
+                    <div class="protocol-card">
+                        <h3 class="text-xl font-semibold mb-2">${name}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Last Checked: N/A | Status: New</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Next Audit: TBD | Responsible: ${responsible}</p>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600" onclick="parent.viewProtocolDetails('${name}')">View Details</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600" onclick="parent.logCompliance('${name}')">Log Compliance</button>
+                        </div>
+                    </div>
+                `;
+                protocolList.insertAdjacentHTML('beforeend', newProtocolHtml);
+                parent.showMessageBox('New biosecurity protocol added successfully!', 'success');
+            } else {
+                parent.showMessageBox('Protocol addition cancelled or incomplete.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp20Preview" title="Farm Biosecurity Management Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp20')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="2.1s" data-app-title="Comprehensive Farm Dashboard">
+                <h2>21. Comprehensive Farm Dashboard</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">A unified dashboard for all key farm metrics, including crop health, livestock, and finances.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp21Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .dashboard-card { background-color: white; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 6px 12px rgba(0,0,0,0.1); transition: transform 0.2s ease; }
+        .dark .dashboard-card { background-color: #1f2937; color: #f9fafb; }
+        .dashboard-card:hover { transform: translateY(-3px); }
+        .metric-value { font-size: 2.5rem; font-weight: bold; color: #22c55e; }
+        .dark .metric-value { color: #84cc16; }
+        .chart-placeholder { background-color: #e2e8f0; height: 150px; border-radius: 0.5rem; display: flex; justify-content: center; align-items: center; color: #64748b; font-size: 0.9rem; }
+        .dark .chart-placeholder { background-color: #334155; color: #94a3b8; }
+    </style>
+</head>
+<body>
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8 text-center text-green-800">Farm Overview Dashboard</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="dashboard-card text-center">
+                <i class="fas fa-leaf text-green-500 text-4xl mb-3"></i>
+                <h3 class="text-xl font-semibold mb-2">Crop Health Index</h3>
+                <p class="metric-value">85%</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Overall average</p>
+            </div>
+            <div class="dashboard-card text-center">
+                <i class="fas fa-cow text-yellow-700 text-4xl mb-3"></i>
+                <h3 class="text-xl font-semibold mb-2">Livestock Count</h3>
+                <p class="metric-value">120</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Total animals</p>
+            </div>
+            <div class="dashboard-card text-center">
+                <i class="fas fa-dollar-sign text-blue-500 text-4xl mb-3"></i>
+                <h3 class="text-xl font-semibold mb-2">Net Profit (YTD)</h3>
+                <p class="metric-value">$7,000</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Compared to last year: +10%</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="dashboard-card">
+                <h3 class="text-2xl font-semibold mb-4 text-green-700 dark:text-green-400">Soil Moisture Levels</h3>
+                <div class="chart-placeholder">Graph: Soil Moisture Over Time</div>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mt-4">Average: 65% | Field 1: 58% (Needs attention)</p>
+                <button class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200" onclick="parent.viewSoilMoistureDetails()">View Details</button>
+            </div>
+            <div class="dashboard-card">
+                <h3 class="text-2xl font-semibold mb-4 text-red-700 dark:text-red-400">Pest & Disease Alerts</h3>
+                <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2">
+                    <li><span class="font-medium">High Alert:</span> Aphid outbreak in Wheat Field A</li>
+                    <li><span class="font-medium">Medium Alert:</span> Early blight detected in Potato Plot C</li>
+                    <li>No new alerts in the last 24 hours.</li>
+                </ul>
+                <button class="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200" onclick="parent.viewPestAlerts()">Manage Alerts</button>
+            </div>
+            <div class="dashboard-card lg:col-span-2">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-700 dark:text-blue-400">Upcoming Tasks</h3>
+                <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2">
+                    <li>Harvest Wheat Field B (2025-07-10) - Assigned: Maria R.</li>
+                    <li>Tractor maintenance (2025-06-05) - Assigned: Juan P.</li>
+                    <li>Apply NPK fertilizer to Field 1 (2025-06-02)</li>
+                </ul>
+                <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.viewAllTasks()">View All Tasks</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.viewSoilMoistureDetails = function() {
+            parent.showMessageBox('Displaying detailed soil moisture graphs and recommendations.', 'info', 'Soil Moisture Details');
+        };
+        window.viewPestAlerts = function() {
+            parent.showMessageBox('Navigating to Pest & Disease Management section.', 'info', 'Pest Alerts');
+        };
+        window.viewAllTasks = function() {
+            parent.showMessageBox('Navigating to Farm Labor Management and Harvest Planning.', 'info', 'All Tasks');
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp21Preview" title="Comprehensive Farm Dashboard Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp21')">Run Example</button>
+                </div>
+            </section>
+
+            <section class="app-card wow animate__animated animate__fadeInUp" data-wow-delay="2.2s" data-app-title="Smart Irrigation Control Panel">
+                <h2>22. Smart Irrigation Control Panel</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Control and monitor smart irrigation zones with real-time data and manual override.</p>
+                <div class="code-preview-container">
+                    <div class="code-editor">
+                        <textarea id="agricultureApp22Code">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Irrigation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; padding: 1rem; }
+        .control-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .dark .control-card { background-color: #1f2937; color: #f9fafb; }
+        .toggle-btn {
+            width: 80px; height: 40px; border-radius: 20px; background-color: #ef4444; /* Red */
+            position: relative; cursor: pointer; transition: background-color 0.3s ease;
+            display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;
+        }
+        .toggle-btn.active { background-color: #22c55e; /* Green */ }
+        .dark .toggle-btn.active { background-color: #84cc16; }
+        .toggle-circle-inner {
+            width: 32px; height: 32px; border-radius: 50%; background-color: white;
+            position: absolute; left: 4px; transition: transform 0.3s ease;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .toggle-btn.active .toggle-circle-inner { transform: translateX(40px); } /* 80-32-2*4=40 */
+        .status-indicator { font-size: 0.8rem; margin-top: 0.5rem; }
+        .status-active { color: #22c55e; }
+        .status-inactive { color: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center text-blue-700">Smart Irrigation Control</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="irrigationZones">
+            <div class="control-card">
+                <h3 class="text-xl font-semibold mb-3">Zone 1: Wheat Field</h3>
+                <div class="flex items-center justify-center space-x-4 mb-3">
+                    <i class="fas fa-tint text-blue-500 text-3xl"></i>
+                    <p class="text-2xl font-bold">65%</p>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Soil Moisture</p>
+                <div class="toggle-btn" id="zone1Toggle" onclick="parent.toggleIrrigation('Zone 1')">
+                    <div class="toggle-circle-inner"></div>
+                    <span>OFF</span>
+                </div>
+                <p class="status-indicator status-inactive" id="zone1Status">Status: Inactive</p>
+            </div>
+            <div class="control-card">
+                <h3 class="text-xl font-semibold mb-3">Zone 2: Corn Plot</h3>
+                <div class="flex items-center justify-center space-x-4 mb-3">
+                    <i class="fas fa-tint text-blue-500 text-3xl"></i>
+                    <p class="text-2xl font-bold">78%</p>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Soil Moisture</p>
+                <div class="toggle-btn active" id="zone2Toggle" onclick="parent.toggleIrrigation('Zone 2')">
+                    <div class="toggle-circle-inner" style="transform: translateX(40px);"></div>
+                    <span>ON</span>
+                </div>
+                <p class="status-indicator status-active" id="zone2Status">Status: Active</p>
+            </div>
+        </div>
+        <button class="mt-6 w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200" onclick="parent.addIrrigationZoneControl()">Add New Zone Control</button>
+    </div>
+    <script>
+        window.toggleIrrigation = function(zoneName) {
+            const toggleBtn = document.getElementById(`${zoneName.replace(/\s/g, '')}Toggle`);
+            const statusText = document.getElementById(`${zoneName.replace(/\s/g, '')}Status`);
+            const isActive = toggleBtn.classList.toggle('active');
+
+            if (isActive) {
+                toggleBtn.querySelector('span').textContent = 'ON';
+                statusText.textContent = 'Status: Active';
+                statusText.classList.remove('status-inactive');
+                statusText.classList.add('status-active');
+                parent.showMessageBox(`${zoneName} irrigation turned ON.`, 'success', 'Irrigation Control');
+            } else {
+                toggleBtn.querySelector('span').textContent = 'OFF';
+                statusText.textContent = 'Status: Inactive';
+                statusText.classList.remove('status-active');
+                statusText.classList.add('status-inactive');
+                parent.showMessageBox(`${zoneName} irrigation turned OFF.`, 'info', 'Irrigation Control');
+            }
+        };
+
+        window.addIrrigationZoneControl = function() {
+            const name = prompt("Enter New Zone Name (e.g., Orchard):");
+            if (name) {
+                const irrigationZones = document.getElementById('irrigationZones');
+                const newZoneId = name.replace(/\s/g, ''); // Remove spaces for ID
+                const newZoneHtml = `
+                    <div class="control-card">
+                        <h3 class="text-xl font-semibold mb-3">Zone X: ${name}</h3>
+                        <div class="flex items-center justify-center space-x-4 mb-3">
+                            <i class="fas fa-tint text-blue-500 text-3xl"></i>
+                            <p class="text-2xl font-bold">--%</p>
+                        </div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Soil Moisture</p>
+                        <div class="toggle-btn" id="${newZoneId}Toggle" onclick="parent.toggleIrrigation('Zone X: ${name}')">
+                            <div class="toggle-circle-inner"></div>
+                            <span>OFF</span>
+                        </div>
+                        <p class="status-indicator status-inactive" id="${newZoneId}Status">Status: Inactive</p>
+                    </div>
+                `;
+                irrigationZones.insertAdjacentHTML('beforeend', newZoneHtml);
+                parent.showMessageBox(`New irrigation zone "${name}" added.`, 'success', 'New Zone Added');
+            } else {
+                parent.showMessageBox('New zone addition cancelled.', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+                        </textarea>
+                    </div>
+                    <div class="live-preview">
+                        <iframe id="agricultureApp22Preview" title="Smart Irrigation Control Panel Preview"></iframe>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="loadAgricultureSystem('agricultureApp22')">Run Example</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <div id="messageBoxOverlay" class="message-box-overlay">
+        <div class="message-box-content">
+            <h3 id="messageBoxTitle"></h3>
+            <p id="messageBoxMessage"></p>
+            <button id="messageBoxCloseBtn">OK</button>
+        </div>
+    </div>
+
+    <footer class="bg-gradient-to-r from-green-600 to-lime-700 dark:from-gray-900 dark:to-green-900 text-white py-12 shadow-inner mt-16">
+        <div class="container grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center md:text-left">
+                <h3 class="text-2xl font-bold mb-4">AgroManage</h3>
+                <p class="text-gray-200 text-sm">
+                    Your smart solution for efficient and sustainable agriculture.
+                    Optimize your farm operations with our interactive tools.
+                </p>
+            </div>
+
+            <div class="text-center md:text-left">
+                <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="footer-link">Home</a></li>
+                    <li><a href="#" class="footer-link">Solutions</a></li>
+                    <li><a href="#" class="footer-link">Pricing</a></li>
+                    <li><a href="#" class="footer-link">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="text-center md:text-left">
+                <h3 class="text-xl font-semibold mb-4">Support & Contact</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="footer-link">FAQ</a></li>
+                    <li><a href="#" class="footer-link">Support Center</a></li>
+                    <li><a href="#" class="footer-link">Contact Us</a></li>
+                    <li class="flex items-center justify-center md:justify-start space-x-3 mt-4">
+                        <a href="#" class="text-gray-200 hover:text-white transition duration-300"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-gray-200 hover:text-white transition duration-300"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-200 hover:text-white transition duration-300"><i class="fab fa-linkedin-in text-xl"></i></a>
+                        <a href="#" class="text-gray-200 hover:text-white transition duration-300"><i class="fab fa-instagram text-xl"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container text-center text-gray-300 text-sm mt-8 pt-8 border-t border-gray-700 border-opacity-50">
+            <p>&copy; 2025 AgroManage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dark mode toggle functionality
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const htmlElement = document.documentElement;
+
+            // Check for saved theme preference or system preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlElement.classList.add('dark');
+                darkModeToggle.checked = true;
+            }
+
+            darkModeToggle.addEventListener('change', () => {
+                if (darkModeToggle.checked) {
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    htmlElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Message Box functionality
+            const messageBox = document.getElementById('messageBoxOverlay');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxMessage = document.getElementById('messageBoxMessage');
+            const messageBoxCloseBtn = document.getElementById('messageBoxCloseBtn');
+
+            window.showMessageBox = function(message, type = 'info', title = 'Notification') {
+                messageBoxTitle.textContent = title;
+                messageBoxMessage.textContent = message;
+                messageBox.classList.add('open');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when message box is open
+            };
+
+            messageBoxCloseBtn.addEventListener('click', () => {
+                messageBox.classList.remove('open');
+                document.body.style.overflow = ''; // Restore scrolling
+            });
+
+            messageBox.addEventListener('click', (e) => {
+                if (e.target === messageBox) {
+                    messageBox.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Function to load agriculture system code into iframe
+            window.loadAgricultureSystem = function(appId) {
+                const codeTextarea = document.getElementById(`${appId}Code`);
+                const previewIframe = document.getElementById(`${appId}Preview`);
+
+                if (codeTextarea && previewIframe) {
+                    const htmlContent = codeTextarea.value;
+                    const doc = previewIframe.contentWindow.document;
+
+                    doc.open();
+                    doc.write(htmlContent);
+                    doc.close();
+                } else {
+                    showMessageBox('Error: Agriculture system elements not found.', 'error');
+                }
+            };
+
+            // Automatically load all apps on page load
+            for (let i = 1; i <= 22; i++) { // Updated to load 22 apps
+                loadAgricultureSystem(`agricultureApp${i}`);
+            }
+
+            // Search functionality for app cards
+            const mainSearchInput = document.getElementById('mainSearchInput');
+            const appCardsContainer = document.getElementById('appCardsContainer');
+            const appCards = appCardsContainer.querySelectorAll('.app-card');
+
+            mainSearchInput.addEventListener('keyup', () => {
+                const filter = mainSearchInput.value.toLowerCase();
+                appCards.forEach(card => {
+                    const title = card.querySelector('h2').textContent.toLowerCase();
+                    const description = card.querySelector('p.text-gray-600').textContent.toLowerCase();
+                    const appId = card.dataset.appId ? card.dataset.appId.toLowerCase() : '';
+
+                    if (title.includes(filter) || description.includes(filter) || appId.includes(filter)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+
+            // Initialize WOW.js for animations
+            new WOW().init();
+        });
+    </script>
+</body>
+</html>
