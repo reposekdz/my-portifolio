@@ -667,8 +667,8 @@
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column; /* Changed to column for better stacking of details */
+            align-items: flex-start; /* Align header to start */
         }
         .dark .payment-option {
             background-color: #2d3748;
@@ -696,77 +696,79 @@
             font-weight: 600;
             font-size: 1.125rem;
             color: #1e293b;
+            width: 100%; /* Ensure header takes full width */
+            justify-content: space-between; /* Space between icon/text and arrow */
         }
         .dark .payment-option-header {
             color: #f8fafc;
         }
         .logo-nr {
-  font-family: 'Inter', sans-serif; /* Modern font */
-  font-size: 2.5rem; /* Adjust size as needed */
-  font-weight: 800; /* Bolder for impact */
-  text-decoration: none;
-  color: #1a73e8; /* A vibrant blue */
-  position: relative;
-  display: inline-block;
-  padding: 0.2em 0.4em;
-  border-radius: 8px; /* Slightly rounded corners */
-  transition: all 0.3s ease-in-out; /* Smooth transitions for interactivity */
-  overflow: hidden; /* For pseudo-element effects */
-  background: linear-gradient(45deg, #1a73e8, #007bff); /* Subtle gradient background */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text; /* Apply gradient to text */
-}
+            font-family: 'Inter', sans-serif; /* Modern font */
+            font-size: 2.5rem; /* Adjust size as needed */
+            font-weight: 800; /* Bolder for impact */
+            text-decoration: none;
+            color: #1a73e8; /* A vibrant blue */
+            position: relative;
+            display: inline-block;
+            padding: 0.2em 0.4em;
+            border-radius: 8px; /* Slightly rounded corners */
+            transition: all 0.3s ease-in-out; /* Smooth transitions for interactivity */
+            overflow: hidden; /* For pseudo-element effects */
+            background: linear-gradient(45deg, #1a73e8, #007bff); /* Subtle gradient background */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text; /* Apply gradient to text */
+        }
 
-/* Hover effect: subtle glow and slight scale */
-.logo-nr:hover {
-  color: #0056b3; /* Slightly darker blue on hover for contrast */
-  transform: scale(1.05); /* Slightly enlarge on hover */
-  box-shadow: 0 5px 15px rgba(26, 115, 232, 0.4); /* Soft blue shadow */
-}
+        /* Hover effect: subtle glow and slight scale */
+        .logo-nr:hover {
+            color: #0056b3; /* Slightly darker blue on hover for contrast */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.4); /* Soft blue shadow */
+        }
 
-/* Active effect: a deeper press */
-.logo-nr:active {
-  transform: scale(0.98); /* Slightly shrink on click */
-  box-shadow: 0 2px 8px rgba(26, 115, 232, 0.6);
-}
+        /* Active effect: a deeper press */
+        .logo-nr:active {
+            transform: scale(0.98); /* Slightly shrink on click */
+            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.6);
+        }
 
-/* Optional: Add a subtle underline animation on hover */
-.logo-nr::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 3px;
-  bottom: 0;
-  left: 0;
-  background-color: #00c6ff; /* A lighter, contrasting blue */
-  transform: scaleX(0); /* Start hidden */
-  transform-origin: bottom right;
-  transition: transform 0.3s ease-out;
-}
+        /* Optional: Add a subtle underline animation on hover */
+        .logo-nr::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background-color: #00c6ff; /* A lighter, contrasting blue */
+            transform: scaleX(0); /* Start hidden */
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
 
-.logo-nr:hover::after {
-  transform: scaleX(1); /* Expand on hover */
-  transform-origin: bottom left;
-}
+        .logo-nr:hover::after {
+            transform: scaleX(1); /* Expand on hover */
+            transform-origin: bottom left;
+        }
 
-/* Keyframes for a subtle pulsating animation */
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(26, 115, 232, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(26, 115, 232, 0);
-  }
-}
+        /* Keyframes for a subtle pulsating animation */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(26, 115, 232, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(26, 115, 232, 0);
+            }
+        }
 
-/* Apply the pulse animation */
-/* .logo-nr {
-  animation: pulse 2s infinite;
-} */
+        /* Apply the pulse animation */
+        /* .logo-nr {
+            animation: pulse 2s infinite;
+        } */
         .payment-option-header i {
             margin-right: 0.75rem;
             font-size: 1.5rem;
@@ -779,7 +781,9 @@
             margin-top: 1rem;
             padding-top: 1rem;
             border-top: 1px solid #e2e8f0;
+            width: 100%; /* Ensure details take full width */
             display: none; /* Hidden by default */
+            animation: fadeIn 0.3s ease-out forwards; /* Fade in animation */
         }
         .dark .payment-details {
             border-top-color: #4a5568;
@@ -1005,6 +1009,12 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
+
+        /* Fade in animation for payment details */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
     <script>
         // Initialize dark mode preference immediately to prevent FOUC
@@ -1149,37 +1159,37 @@
                     <i class="ph-robot text-5xl icon"></i>
                     <h4>Generative AI for Content</h4>
                     <p>Models capable of generating human-like text, images, and code from prompts, leveraging large language models (LLMs) and diffusion models.</p>
-                    <button class="btn-primary">Learn More</button>
+                    <button class="btn-primary learn-more-ai-btn" data-ai-model="generative-ai">Learn More</button>
                 </div>
                 <div class="ai-model-card wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
                     <i class="ph-eye text-5xl icon"></i>
                     <h4>Computer Vision Systems</h4>
                     <p>Solutions for image recognition, object detection, facial analysis, and video analytics, applied in security, healthcare, and retail.</p>
-                    <button class="btn-primary">Learn More</button>
+                    <button class="btn-primary learn-more-ai-btn" data-ai-model="computer-vision">Learn More</button>
                 </div>
                 <div class="ai-model-card wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
                     <i class="ph-brain text-5xl icon"></i>
                     <h4>Natural Language Processing (NLP)</h4>
                     <p>Advanced NLP pipelines for sentiment analysis, text summarization, machine translation, and chatbot development, enhancing human-computer interaction.</p>
-                    <button class="btn-primary">Learn More</button>
+                    <button class="btn-primary learn-more-ai-btn" data-ai-model="nlp">Learn More</button>
                 </div>
                 <div class="ai-model-card wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
                     <i class="ph-chart-line text-5xl icon"></i>
                     <h4>Predictive Analytics & Forecasting</h4>
                     <p>Building and deploying models for predicting future trends, customer behavior, and market movements, enabling data-driven decision-making.</p>
-                    <button class="btn-primary">Learn More</button>
+                    <button class="btn-primary learn-more-ai-btn" data-ai-model="predictive-analytics">Learn More</button>
                 </div>
                 <div class="ai-model-card wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
                     <i class="ph-waveform text-5xl icon"></i>
                     <h4>Speech Recognition & Synthesis</h4>
                     <p>Developing robust speech-to-text and text-to-speech solutions for voice assistants, accessibility tools, and interactive voice response (IVR) systems.</p>
-                    <button class="btn-primary">Learn More</button>
+                    <button class="btn-primary learn-more-ai-btn" data-ai-model="speech-tech">Learn More</button>
                 </div>
                 <div class="ai-model-card wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
                     <i class="ph-cube text-5xl icon"></i>
                     <h4>Reinforcement Learning Agents</h4>
                     <p>Designing intelligent agents that learn optimal strategies through interaction with environments, applicable in robotics, gaming, and resource management.</p>
-                    <button class="btn-primary">Learn More</button>
+                    <button class="btn-primary learn-more-ai-btn" data-ai-model="reinforcement-learning">Learn More</button>
                 </div>
             </div>
         </div>
@@ -1289,7 +1299,10 @@
 
             <div class="payment-option" data-payment-method="card">
                 <div class="payment-option-header">
-                    <i class="fas fa-credit-card"></i> Pay with Card
+                    <div>
+                        <i class="fas fa-credit-card"></i> Pay with Card
+                    </div>
+                    <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400 transition-transform duration-300"></i>
                 </div>
                 <div class="payment-details">
                     <form onsubmit="event.preventDefault(); showTemporaryMessage('Card payment simulated for ' + document.getElementById('projectToBuyTitle').textContent + '. This is a placeholder form.'); hidePaymentChoiceModal();">
@@ -1306,7 +1319,10 @@
 
             <div class="payment-option" data-payment-method="paypal">
                 <div class="payment-option-header">
-                    <i class="fab fa-paypal"></i> Pay with PayPal
+                    <div>
+                        <i class="fab fa-paypal"></i> Pay with PayPal
+                    </div>
+                    <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400 transition-transform duration-300"></i>
                 </div>
                 <div class="payment-details">
                     <p>Click the button below to complete your payment securely via PayPal.</p>
@@ -1318,23 +1334,31 @@
 
             <div class="payment-option" data-payment-method="mtn-money">
                 <div class="payment-option-header">
-                    <i class="fas fa-mobile-alt"></i> Pay with MTN Mobile Money
+                    <div>
+                        <i class="fas fa-mobile-alt"></i> Pay with MTN Mobile Money
+                    </div>
+                    <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400 transition-transform duration-300"></i>
                 </div>
                 <div class="payment-details">
                     <p>Send payment to the following MTN Mobile Money number:</p>
                     <p class="font-bold text-lg text-indigo-600 dark:text-indigo-400">0784484638</p>
                     <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Please include the project title in the payment description.</p>
+                    <button class="btn-primary mt-4 copy-phone-number" data-phone="0784484638">Copy Number</button>
                 </div>
             </div>
 
             <div class="payment-option" data-payment-method="airtel-money">
                 <div class="payment-option-header">
-                    <i class="fas fa-mobile-alt"></i> Pay with Airtel Money
+                    <div>
+                        <i class="fas fa-mobile-alt"></i> Pay with Airtel Money
+                    </div>
+                    <i class="fas fa-chevron-down text-slate-500 dark:text-slate-400 transition-transform duration-300"></i>
                 </div>
                 <div class="payment-details">
                     <p>Send payment to the following Airtel Money number:</p>
                     <p class="font-bold text-lg text-indigo-600 dark:text-indigo-400">0722725735</p>
                     <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Please include the project title in the payment description.</p>
+                    <button class="btn-primary mt-4 copy-phone-number" data-phone="0722725735">Copy Number</button>
                 </div>
             </div>
 
@@ -2152,9 +2176,10 @@
                 paymentChoiceModal.classList.add('open');
                 document.body.style.overflow = 'hidden'; // Prevent body scrolling
 
-                // Deactivate all payment options initially
+                // Deactivate all payment options initially and hide their details
                 paymentOptions.forEach(option => {
                     option.classList.remove('active-payment');
+                    option.querySelector('.fa-chevron-down').classList.remove('rotate-180');
                 });
             }
 
@@ -2173,10 +2198,46 @@
 
             paymentOptions.forEach(option => {
                 option.addEventListener('click', () => {
+                    const isActive = option.classList.contains('active-payment');
+
                     // Deactivate all payment options first
-                    paymentOptions.forEach(opt => opt.classList.remove('active-payment'));
-                    // Activate the clicked option
-                    option.classList.add('active-payment');
+                    paymentOptions.forEach(opt => {
+                        opt.classList.remove('active-payment');
+                        opt.querySelector('.fa-chevron-down').classList.remove('rotate-180');
+                    });
+
+                    // If it was not active, activate it
+                    if (!isActive) {
+                        option.classList.add('active-payment');
+                        option.querySelector('.fa-chevron-down').classList.add('rotate-180');
+                    }
+                });
+            });
+
+            // "Learn More" buttons for AI Models
+            document.querySelectorAll('.learn-more-ai-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const aiModel = e.target.dataset.aiModel;
+                    showTemporaryMessage(`You clicked "Learn More" for ${aiModel.replace('-', ' ').toUpperCase()}! (This is a placeholder for detailed AI model info.)`);
+                });
+            });
+
+            // Copy Phone Number functionality
+            document.querySelectorAll('.copy-phone-number').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const phoneNumber = e.target.dataset.phone;
+                    // Use document.execCommand('copy') for better compatibility in iframes
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = phoneNumber;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    try {
+                        document.execCommand('copy');
+                        showTemporaryMessage(`Phone number ${phoneNumber} copied to clipboard!`);
+                    } catch (err) {
+                        showTemporaryMessage('Failed to copy phone number. Please copy manually.');
+                    }
+                    document.body.removeChild(tempInput);
                 });
             });
         });
