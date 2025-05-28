@@ -1015,6 +1015,99 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* AI Model Detail Modal Styles */
+        .ai-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .ai-modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .ai-modal-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .dark .ai-modal-content {
+            background-color: #1e293b;
+        }
+        .ai-modal-overlay.open .ai-modal-content {
+            transform: translateY(0);
+        }
+        .ai-modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #475569;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .dark .ai-modal-close-btn {
+            color: #94a3b8;
+        }
+        .ai-modal-close-btn:hover {
+            color: #1e293b;
+        }
+        .dark .ai-modal-close-btn:hover {
+            color: #f8fafc;
+        }
+        .ai-modal-content h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        .dark .ai-modal-content h3 {
+            color: #f8fafc;
+        }
+        .ai-modal-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #475569;
+        }
+        .dark .ai-modal-content p {
+            color: #cbd5e1;
+        }
+        .ai-modal-content ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #475569;
+        }
+        .dark .ai-modal-content ul {
+            color: #cbd5e1;
+        }
+        .ai-modal-content li {
+            margin-bottom: 0.5rem;
+        }
+        .ai-modal-content .tech-badge {
+            margin-top: 0.5rem;
+            margin-right: 0.5rem;
+        }
     </style>
     <script>
         // Initialize dark mode preference immediately to prevent FOUC
@@ -1367,6 +1460,22 @@
 
     <div id="tempMessageBox" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-xl opacity-0 transition-opacity duration-300 z-[1003] hidden">
         </div>
+
+    <div id="aiModelDetailModal" class="ai-modal-overlay">
+        <div class="ai-modal-content">
+            <button class="ai-modal-close-btn" aria-label="Close AI Model Details">×</button>
+            <h3 id="aiModalTitle"></h3>
+            <div id="aiModalDescription" class="prose dark:prose-invert max-w-none mb-6"></div>
+            <div id="aiModalUseCases" class="mb-6">
+                <h4 class="text-xl font-semibold mb-2 text-slate-900 dark:text-slate-50">Typical Use Cases:</h4>
+                <ul class="list-disc list-inside text-slate-700 dark:text-slate-300"></ul>
+            </div>
+            <div id="aiModalTechUsed" class="mt-4">
+                <h4 class="text-xl font-semibold mb-2 text-slate-900 dark:text-slate-50">Technologies Used:</h4>
+                <div class="flex flex-wrap gap-2"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script>
@@ -2214,14 +2323,6 @@
                 });
             });
 
-            // "Learn More" buttons for AI Models
-            document.querySelectorAll('.learn-more-ai-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const aiModel = e.target.dataset.aiModel;
-                    showTemporaryMessage(`You clicked "Learn More" for ${aiModel.replace('-', ' ').toUpperCase()}! (This is a placeholder for detailed AI model info.)`);
-                });
-            });
-
             // Copy Phone Number functionality
             document.querySelectorAll('.copy-phone-number').forEach(button => {
                 button.addEventListener('click', (e) => {
@@ -2239,6 +2340,170 @@
                     }
                     document.body.removeChild(tempInput);
                 });
+            });
+
+            // --- AI Model Detail Modal Logic ---
+            const aiModelDetailModal = document.getElementById('aiModelDetailModal');
+            const aiModalTitle = document.getElementById('aiModalTitle');
+            const aiModalDescription = document.getElementById('aiModalDescription');
+            const aiModalUseCases = document.getElementById('aiModalUseCases').querySelector('ul');
+            const aiModalTechUsed = document.getElementById('aiModalTechUsed').querySelector('div');
+            const closeAiModalBtn = aiModelDetailModal.querySelector('.ai-modal-close-btn');
+
+            const aiModelDetails = [
+                {
+                    id: "generative-ai",
+                    title: "Generative AI for Content",
+                    icon: "ph-robot",
+                    description: `
+                        <p>This capability focuses on leveraging advanced generative AI models to create various forms of content, including human-like text, compelling marketing copy, and even functional code snippets. It utilizes state-of-the-art Large Language Models (LLMs) and diffusion models to understand context and generate creative, coherent, and relevant output.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li><strong>Text Generation:</strong> Draft articles, blog posts, emails, and creative stories from simple prompts.</li>
+                            <li><strong>Image Synthesis:</strong> Generate unique images and illustrations based on textual descriptions.</li>
+                            <li><strong>Code Generation:</strong> Assist in writing code, completing functions, and debugging by understanding programming logic.</li>
+                            <li><strong>Summarization:</strong> Condense long documents into concise summaries.</li>
+                            <li><strong>Style Transfer:</strong> Adapt content to different tones and writing styles.</li>
+                        </ul>
+                    `,
+                    useCases: ["Content Creation", "Marketing Automation", "Software Development", "Research Assistance"],
+                    technologies: ["TensorFlow", "PyTorch", "Hugging Face Transformers", "OpenAI API (GPT-3/4)", "Stable Diffusion", "Midjourney API (simulated)"]
+                },
+                {
+                    id: "computer-vision",
+                    title: "Computer Vision Systems",
+                    icon: "ph-eye",
+                    description: `
+                        <p>My expertise in Computer Vision involves developing intelligent systems that enable machines to "see" and interpret visual information from images and videos. These solutions are applied across various industries for tasks like object recognition, facial analysis, and video surveillance.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li><strong>Object Detection & Recognition:</strong> Identify and locate specific objects within images or video streams.</li>
+                            <li><strong>Facial Recognition & Analysis:</strong> Detect faces, recognize individuals, and analyze facial expressions.</li>
+                            <li><strong>Image Segmentation:</strong> Divide images into meaningful segments to isolate objects or regions of interest.</li>
+                            <li><strong>Activity Recognition:</strong> Understand and classify human actions in video sequences.</li>
+                            <li><strong>Quality Control:</strong> Automate inspection processes in manufacturing.</li>
+                        </ul>
+                    `,
+                    useCases: ["Security & Surveillance", "Healthcare Diagnostics", "Retail Analytics", "Autonomous Vehicles", "Industrial Automation"],
+                    technologies: ["OpenCV", "TensorFlow", "Keras", "PyTorch", "YOLO", "ResNet", "MobileNet"]
+                },
+                {
+                    id: "nlp",
+                    title: "Natural Language Processing (NLP)",
+                    icon: "ph-brain",
+                    description: `
+                        <p>I build advanced Natural Language Processing (NLP) pipelines that allow computers to understand, interpret, and generate human language. These systems power intelligent applications like chatbots, sentiment analyzers, and machine translation tools.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li><strong>Sentiment Analysis:</strong> Determine the emotional tone behind text data (positive, negative, neutral).</li>
+                            <li><strong>Text Summarization:</strong> Automatically generate concise summaries of longer texts.</li>
+                            <li><strong>Machine Translation:</strong> Translate text from one language to another.</li>
+                            <li><strong>Chatbot Development:</strong> Create conversational AI agents for customer support or information retrieval.</li>
+                            <li><strong>Named Entity Recognition (NER):</strong> Identify and classify named entities (persons, organizations, locations) in text.</li>
+                        </ul>
+                    `,
+                    useCases: ["Customer Service Automation", "Market Research", "Information Extraction", "Content Moderation", "Voice Assistants"],
+                    technologies: ["NLTK", "spaCy", "scikit-learn", "TensorFlow", "PyTorch", "BERT", "GPT models"]
+                },
+                {
+                    id: "predictive-analytics",
+                    title: "Predictive Analytics & Forecasting",
+                    icon: "ph-chart-line",
+                    description: `
+                        <p>My work in predictive analytics involves developing models that forecast future outcomes based on historical data. These systems help businesses make data-driven decisions, optimize strategies, and anticipate trends.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li><strong>Time Series Forecasting:</strong> Predict future values of time-dependent data (e.g., sales, stock prices).</li>
+                            <li><strong>Customer Churn Prediction:</strong> Identify customers at risk of leaving a service.</li>
+                            <li><strong>Demand Forecasting:</strong> Estimate future product or service demand.</li>
+                            <li><strong>Fraud Detection:</strong> Identify suspicious patterns in transactions.</li>
+                            <li><strong>Risk Assessment:</strong> Evaluate potential risks in various scenarios.</li>
+                        </ul>
+                    `,
+                    useCases: ["Business Strategy", "Financial Planning", "Supply Chain Optimization", "Healthcare Predictive Models", "Marketing Campaigns"],
+                    technologies: ["Python (Pandas, NumPy, Scikit-learn)", "R", "Prophet", "ARIMA", "XGBoost", "Tableau", "Power BI"]
+                },
+                {
+                    id: "speech-tech",
+                    title: "Speech Recognition & Synthesis",
+                    icon: "ph-waveform",
+                    description: `
+                        <p>I develop robust speech technologies that enable seamless interaction between humans and computers through voice. This includes converting spoken language into text (speech recognition) and generating human-like speech from text (speech synthesis).</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li><strong>Automatic Speech Recognition (ASR):</strong> Transcribe audio recordings or real-time speech into text.</li>
+                            <li><strong>Text-to-Speech (TTS):</strong> Convert written text into natural-sounding spoken audio.</li>
+                            <li><strong>Speaker Diarization:</strong> Identify and segment speech by speaker in multi-speaker audio.</li>
+                            <li><strong>Voice Biometrics:</strong> Authenticate users based on their unique voice characteristics.</li>
+                            <li><strong>Emotion Recognition from Speech:</strong> Analyze vocal cues to detect emotional states.</li>
+                        </ul>
+                    `,
+                    useCases: ["Voice Assistants", "Call Center Automation", "Accessibility Tools", "Language Learning Apps", "Interactive Voice Response (IVR)"],
+                    technologies: ["DeepSpeech", "Kaldi", "Google Cloud Speech-to-Text", "Amazon Polly", "WaveNet", "Tacotron"]
+                },
+                {
+                    id: "reinforcement-learning",
+                    title: "Reinforcement Learning Agents",
+                    icon: "ph-cube",
+                    description: `
+                        <p>My work in Reinforcement Learning (RL) involves designing and training intelligent agents that learn optimal behaviors through trial and error in dynamic environments. These agents are capable of making sequential decisions to maximize a reward signal.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li><strong>Policy Optimization:</strong> Develop strategies for agents to choose actions.</li>
+                            <li><strong>Value Function Approximation:</strong> Estimate the long-term reward of being in a certain state.</li>
+                            <li><strong>Exploration-Exploitation Strategies:</strong> Balance trying new actions with leveraging known good actions.</li>
+                            <li><strong>Simulated Environments:</strong> Train agents in virtual worlds before real-world deployment.</li>
+                            <li><strong>Multi-Agent Systems:</strong> Design and train multiple interacting agents.</li>
+                        </ul>
+                    `,
+                    useCases: ["Robotics Control", "Autonomous Navigation", "Game AI", "Resource Management", "Financial Trading Bots", "Personalized Recommendations"],
+                    technologies: ["OpenAI Gym", "Stable Baselines", "TensorFlow", "PyTorch", "Q-learning", "Deep Q-Networks (DQN)", "Proximal Policy Optimization (PPO)"]
+                }
+            ];
+
+            function openAiModelModal(event) {
+                const aiModelId = event.target.dataset.aiModel;
+                const model = aiModelDetails.find(m => m.id === aiModelId);
+
+                if (model) {
+                    aiModalTitle.textContent = model.title;
+                    aiModalDescription.innerHTML = model.description;
+
+                    aiModalUseCases.innerHTML = '';
+                    model.useCases.forEach(useCase => {
+                        const li = document.createElement('li');
+                        li.textContent = useCase;
+                        aiModalUseCases.appendChild(li);
+                    });
+
+                    aiModalTechUsed.innerHTML = '';
+                    model.technologies.forEach(tech => {
+                        const span = document.createElement('span');
+                        span.classList.add('tech-badge');
+                        span.textContent = tech;
+                        aiModalTechUsed.appendChild(span);
+                    });
+
+                    aiModelDetailModal.classList.add('open');
+                    document.body.style.overflow = 'hidden'; // Prevent body scrolling
+                }
+            }
+
+            closeAiModalBtn.addEventListener('click', () => {
+                aiModelDetailModal.classList.remove('open');
+                document.body.style.overflow = ''; // Restore body scrolling
+            });
+
+            aiModelDetailModal.addEventListener('click', (e) => {
+                if (e.target === aiModelDetailModal) { // Close if clicked on overlay
+                    aiModelDetailModal.classList.remove('open');
+                    document.body.style.overflow = ''; // Restore body scrolling
+                }
+            });
+
+            // "Learn More" buttons for AI Models
+            document.querySelectorAll('.learn-more-ai-btn').forEach(button => {
+                button.addEventListener('click', openAiModelModal);
             });
         });
     </script>
